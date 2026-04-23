@@ -4,22 +4,16 @@ import {
 import {
   fileURLToPath,
 } from 'node:url';
+import {
+  ignoreFilesWithGitAttribute,
+} from '@o3r/eslint-config/helpers';
 
 const __filename = fileURLToPath(import.meta.url);
 // __dirname is not defined in ES module scope
 const __dirname = dirname(__filename);
 
 export default [
-  {
-    name: '@ama-styling/figma-sdk/ignores',
-    ignores: [
-      'src/api/',
-      'src/models/base/',
-      'src/helpers/index.ts',
-      'src/spec/api-mock.ts',
-      'src/spec/operation-adapter.ts'
-    ]
-  },
+  ignoreFilesWithGitAttribute(fileURLToPath(new URL('.gitattributes', import.meta.url)), 'linguist-generated'),
   {
     name: '@ama-styling/figma-sdk/projects',
     languageOptions: {

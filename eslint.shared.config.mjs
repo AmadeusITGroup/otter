@@ -7,6 +7,9 @@ import {
 } from 'node:url';
 import nxPlugin from '@nx/eslint-plugin';
 import o3rConfig from '@o3r/eslint-config';
+import {
+  ignoreFilesWithGitAttribute,
+} from '@o3r/eslint-config/helpers';
 import o3rTemplate from '@o3r/eslint-config/template';
 import o3rPlugin from '@o3r/eslint-plugin';
 import {
@@ -51,6 +54,7 @@ export default defineConfig([
     ],
     '@o3r/framework/ignores'
   ),
+  ignoreFilesWithGitAttribute(fileURLToPath(new URL('.gitattributes', import.meta.url)), 'linguist-generated'),
   {
     name: '@o3r/framework/report-unused-disable-directives',
     linterOptions: {
