@@ -46,7 +46,7 @@
     "@o3r/schematics": "workspace:~",
     "@swc/helpers": "~0.5.17",
     "tslib": "^2.6.2",
-    "uuid": "~13.0.0"
+    "uuid": "~14.0.0"
   },
   "peerDependencies": {
     "@angular-devkit/schematics": "^21.0.0",
