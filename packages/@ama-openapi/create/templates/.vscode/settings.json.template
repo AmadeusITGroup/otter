@@ -1,4 +1,8 @@
 {
+  "chat.plugins.enabled": true,
+  "chat.plugins.marketplaces": [
+    "AmadeusITGroup/otter"
+  ],
   "editor.defaultFormatter": "Redocly.openapi-vs-code",
   "files.readonlyFromPermissions": true,
   "files.readonlyInclude": {
