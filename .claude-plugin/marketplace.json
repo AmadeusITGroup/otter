@@ -13,6 +13,15 @@
         "angular",
         "playwright"
       ]
+    },
+    {
+      "name": "ama-openapi",
+      "source": "./tools/llm/plugins/ama-openapi",
+      "tags": [
+        "ama-openapi",
+        "openapi",
+        "redocly"
+      ]
     }
   ]
 }
