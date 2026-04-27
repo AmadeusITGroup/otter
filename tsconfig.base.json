@@ -67,6 +67,9 @@
       "@ama-openapi/create": [
         "packages/@ama-openapi/create/src/public_api"
       ],
+      "@ama-openapi/mcp": [
+        "packages/@ama-openapi/mcp/src/public_api"
+      ],
       "@ama-openapi/redocly-plugin": [
         "packages/@ama-openapi/redocly-plugin/src"
       ],

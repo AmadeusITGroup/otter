@@ -1,0 +1,41 @@
+{
+  "name": "ama-openapi-mcp",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-openapi/mcp/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["compile"]
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compile"
+      }
+    },
+    "test": {
+      "plugin": "@nx/vitest",
+      "executor": "@nx/vitest:test",
+      "inputs": [
+        {
+          "env": "RUNNER_OS"
+        },
+        "builders",
+        "schematics",
+        "source",
+        "tests"
+      ],
+      "outputs": [
+        "{projectRoot}/dist-test/junit.xml",
+        "{projectRoot}/coverage/cobertura-coverage.xml"
+      ],
+      "dependsOn": []
+    },
+    "lint": {},
+    "prepare-publish": {},
+    "publish": {}
+  },
+  "tags": []
+}

@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "ama-openapi": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "-p", "@ama-openapi/mcp@<%- version %>", "ama-openapi-mcp"]
+    }
+  }
+}

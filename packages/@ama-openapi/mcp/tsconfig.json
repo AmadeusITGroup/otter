@@ -1,0 +1,15 @@
+/* For IDE and EsLint usage */
+{
+  "extends": "../../../tsconfig.base",
+  "references": [
+    {
+      "path": "./tsconfig.build.composite.json"
+    },
+    {
+      "path": "./tsconfig.test.json"
+    },
+    {
+      "path": "../../../tsconfig.test.json"
+    }
+  ]
+}

@@ -1062,6 +1062,56 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ama-openapi/mcp@workspace:packages/@ama-openapi/mcp":
+  version: 0.0.0-use.local
+  resolution: "@ama-openapi/mcp@workspace:packages/@ama-openapi/mcp"
+  dependencies:
+    "@ama-mcp/core": "workspace:~"
+    "@ama-openapi/core": "workspace:~"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@modelcontextprotocol/sdk": "npm:~1.28.0"
+    "@nx/eslint": "npm:~22.6.0"
+    "@nx/eslint-plugin": "npm:~22.6.0"
+    "@nx/js": "npm:~22.6.0"
+    "@nx/vitest": "npm:~22.6.0"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-config": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:^"
+    "@stylistic/eslint-plugin": "npm:~5.10.0"
+    "@types/node": "npm:~24.12.0"
+    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@vitest/coverage-istanbul": "npm:^4.0.18"
+    cpy-cli: "npm:^6.0.0"
+    eslint: "npm:~9.39.0"
+    eslint-import-resolver-node: "npm:~0.3.9"
+    eslint-import-resolver-typescript: "npm:~4.4.0"
+    eslint-plugin-import: "npm:~2.32.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jsdoc: "npm:~61.7.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~62.0.0"
+    eslint-plugin-unused-imports: "npm:~4.4.0"
+    globals: "npm:^16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    tslib: "npm:^2.6.2"
+    type-fest: "npm:^5.3.1"
+    typescript: "npm:~5.9.2"
+    typescript-eslint: "npm:~8.58.0"
+    vitest: "npm:~4.1.0"
+    zod: "npm:~4.3.0"
+  peerDependencies:
+    type-fest: ^5.3.1
+  peerDependenciesMeta:
+    type-fest:
+      optional: true
+  bin:
+    ama-openapi-mcp: ./dist/src/cli.js
+  languageName: unknown
+  linkType: soft
+
 "@ama-openapi/redocly-plugin@workspace:packages/@ama-openapi/redocly-plugin":
   version: 0.0.0-use.local
   resolution: "@ama-openapi/redocly-plugin@workspace:packages/@ama-openapi/redocly-plugin"
