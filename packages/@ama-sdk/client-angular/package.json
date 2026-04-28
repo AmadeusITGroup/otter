@@ -39,7 +39,7 @@
     "@swc/helpers": "~0.5.17",
     "tslib": "^2.6.2",
     "type-fest": "^5.3.1",
-    "uuid": "~13.0.0"
+    "uuid": "~14.0.0"
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:~",

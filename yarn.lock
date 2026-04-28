@@ -1166,7 +1166,7 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.58.0"
-    uuid: "npm:~13.0.0"
+    uuid: "npm:~14.0.0"
   peerDependencies:
     "@ama-sdk/core": "workspace:~"
     "@angular-devkit/schematics": ^21.0.0
@@ -1245,7 +1245,7 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.58.0"
-    uuid: "npm:~13.0.0"
+    uuid: "npm:~14.0.0"
   peerDependencies:
     "@ama-sdk/core": "workspace:~"
     "@angular-devkit/schematics": ^21.0.0
@@ -1324,7 +1324,7 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.58.0"
-    uuid: "npm:~13.0.0"
+    uuid: "npm:~14.0.0"
   peerDependencies:
     "@ama-sdk/core": "workspace:~"
     "@angular-devkit/schematics": ^21.0.0
@@ -1406,7 +1406,7 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.58.0"
-    uuid: "npm:~13.0.0"
+    uuid: "npm:~14.0.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
     "@angular/cli": ^21.0.0
@@ -9844,7 +9844,7 @@ __metadata:
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.58.0"
     unionfs: "npm:~4.6.0"
-    uuid: "npm:~13.0.0"
+    uuid: "npm:~14.0.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
     "@angular-devkit/core": ^21.0.0
@@ -10597,7 +10597,7 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.58.0"
-    uuid: "npm:~13.0.0"
+    uuid: "npm:~14.0.0"
     verdaccio: "npm:~6.3.0"
     vite: "npm:~7.3.1"
     vitest: "npm:~4.1.0"
@@ -12344,7 +12344,7 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.58.0"
-    uuid: "npm:~13.0.0"
+    uuid: "npm:~14.0.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
     "@o3r/core": "workspace:~"
@@ -12484,7 +12484,7 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.58.0"
-    uuid: "npm:~13.0.0"
+    uuid: "npm:~14.0.0"
     winston: "npm:^3.8.2"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
@@ -39015,12 +39015,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:~13.0.0":
-  version: 13.0.0
-  resolution: "uuid@npm:13.0.0"
+"uuid@npm:~14.0.0":
+  version: 14.0.0
+  resolution: "uuid@npm:14.0.0"
   bin:
     uuid: dist-node/bin/uuid
-  checksum: 10/2742b24d1e00257e60612572e4d28679423469998cafbaf1fe9f1482e3edf9c40754b31bfdb3d08d71b29239f227a304588f75210b3b48f2609f0673f1feccef
+  checksum: 10/8ee9b98f9650e25555515f7a28d3c3ae9364e72f7bb19b9e08b681bc135338beba5509b2830f6ae1cfaba4d45401da0d16d4d109b977097bc3d6ba0c5583341b
   languageName: node
   linkType: hard
 

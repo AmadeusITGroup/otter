@@ -67,7 +67,7 @@
     "globby": "^11.1.0",
     "semver": "^7.5.2",
     "tslib": "^2.6.2",
-    "uuid": "~13.0.0",
+    "uuid": "~14.0.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {
