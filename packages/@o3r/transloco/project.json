@@ -17,8 +17,6 @@
       }
     },
     "prepare": {},
-    "prepare-build-builders": {},
-    "build-builders": {},
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
@@ -30,13 +28,12 @@
         "^build"
       ]
     },
+    "prepare-build-builders": {},
+    "build-builders": {},
     "expose-schemas": {},
     "lint": {},
-    "test": {
-      "options": {
-        "passWithNoTests": true
-      }
-    },
+    "test": {},
+    "test-int": {},
     "prepare-publish": {},
     "publish": {},
     "documentation": {}
