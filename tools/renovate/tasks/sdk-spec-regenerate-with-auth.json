@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Trigger SDK regeneration for a specific package name, with optional private registry authentication. When registry args are provided, configures npm user-level config (~/.npmrc) on the Renovate runner so install and spec:upgrade can authenticate against a private registry. arg0: package manager (yarn, npm). arg1: full package name. arg2: (optional) scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'). arg3: (optional) name of the environment variable holding the base64-encoded token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables. When arg2/arg3 are empty, no authentication is configured. Only supported for npm and Yarn 1; for Yarn 2+, configure hostRules (see https://docs.renovatebot.com/getting-started/private-packages/#yarn-2).",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "{{arg1}}"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "{{#unless (equals '{{arg2}}' '')}}npm config set --location=user registry https:{{arg2}}{{/unless}}",
+          "{{#unless (equals '{{arg2}}' '')}}npm config set --location=user ignore-scripts true{{/unless}}",
+          "{{#unless (equals '{{arg2}}' '')}}npm config set --location=user {{arg2}}:_auth \"${{arg3}}\"{{/unless}}",
+          "{{arg0}} install",
+          "{{arg0}} run spec:upgrade"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "!**/.{npmrc,yarnrc*}"
+        ]
+      }
+    }
+  ]
+}

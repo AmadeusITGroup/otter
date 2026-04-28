@@ -1,0 +1,8 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Trigger SDK regeneration for a specific package name with yarn, with private registry authentication. arg0: full package name. arg1: scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'). arg2: name of the environment variable holding the base64-encoded token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables.",
+  "extends": [
+    "github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec({{arg0}})",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate-with-auth(yarn, {{arg0}}, {{arg1}}, {{arg2}})"
+  ]
+}

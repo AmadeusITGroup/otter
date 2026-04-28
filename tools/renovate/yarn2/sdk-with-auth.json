@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Group all otter dependencies and trigger SDK regeneration with Yarn Berry (Yarn >= 2), with private registry authentication. arg0: scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'). arg1: name of the environment variable holding the base64-encoded 'user:password' token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables.",
+  "extends": [
+    "github>AmadeusITGroup/otter//tools/renovate/group/otter",
+    "github>AmadeusITGroup/otter//tools/renovate/yarn2/tasks/base-with-auth({{arg0}}, {{arg1}})",
+    "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/release-branches",
+    "github>AmadeusITGroup/otter//tools/renovate/yarn2/tasks/sdk-regenerate-with-auth({{arg0}}, {{arg1}})",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/yarn-pnp"
+  ]
+}

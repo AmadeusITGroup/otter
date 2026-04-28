@@ -1,22 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Trigger SDK regeneration on @ama-sdk update. Need to pass the package manager as a parameter (yarn, npm).",
-  "packageRules": [
-    {
-      "matchPackageNames": [
-        "/^@ama-sdk/"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "{{arg0}} install",
-          "{{arg0}} exec schematics @ama-sdk/schematics:migrate {{#if (equals '{{arg0}}' 'npm')}}-- {{/if}}--from={{{currentVersion}}} --to={{{newVersion}}}",
-          "{{arg0}} run spec:upgrade"
-        ],
-        "fileFilters": [
-          "!**/.{npmrc,yarnrc*}"
-        ],
-        "executionMode": "branch"
-      }
-    }
+  "description": "Trigger SDK regeneration on @ama-sdk update. Thin wrapper around sdk-regenerate-with-auth preset with empty authentication args. Need to pass the package manager as a parameter (yarn, npm).",
+  "extends": [
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate-with-auth#feat/renovate-install-private-reg({{arg0}},,)"
   ]
 }

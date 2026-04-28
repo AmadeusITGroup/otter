@@ -1,21 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Trigger SDK regeneration for a specific package name. Need to pass the package manager as the first parameter (yarn, npm) and the full package name as the second parameter.",
-  "packageRules": [
-    {
-      "matchPackageNames": [
-        "{{arg1}}"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "{{arg0}} install",
-          "{{arg0}} run spec:upgrade"
-        ],
-        "executionMode": "branch",
-        "fileFilters": [
-          "!**/.{npmrc,yarnrc*}"
-        ]
-      }
-    }
+  "description": "Trigger SDK regeneration for a specific package name. Thin wrapper around sdk-spec-regenerate-with-auth preset with empty authentication args. Need to pass the package manager as the first parameter (yarn, npm) and the full package name as the second parameter.",
+  "extends": [
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate-with-auth#feat/renovate-install-private-reg({{arg0}},{{arg1}},,)"
   ]
 }
