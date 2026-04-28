@@ -10578,7 +10578,6 @@ __metadata:
     pixelmatch: "npm:^7.0.0"
     playwright-lighthouse: "npm:~4.0.0"
     pngjs: "npm:^7.0.0"
-    postcss: "npm:~8.5.1"
     postcss-scss: "npm:~4.0.9"
     prism-themes: "npm:^1.9.0"
     prismjs: "npm:^1.30.0"
