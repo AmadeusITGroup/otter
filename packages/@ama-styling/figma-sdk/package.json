@@ -69,7 +69,7 @@
     "@commitlint/config-conventional": "^20.2.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@figma/rest-api-spec": "~0.36.0",
+    "@figma/rest-api-spec": "~0.37.0",
     "@nx/eslint-plugin": "~22.6.0",
     "@o3r/build-helpers": "workspace:~",
     "@o3r/eslint-config": "workspace:~",

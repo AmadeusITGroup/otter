@@ -79,7 +79,7 @@
     "jest-util": "~30.3.0",
     "jsdom": "~27.4.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "lighthouse": "~13.0.0",
+    "lighthouse": "~13.1.0",
     "minimist": "^1.2.6",
     "nx": "~22.6.0",
     "playwright-lighthouse": "~4.0.0",
