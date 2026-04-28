@@ -155,4 +155,4 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ./tools/github-actions/setup
-      - uses: AmadeusITGroup/prompt-registry/github-actions/validate-collections@b79f0cd515107ecf9709385bfcfadad65689abd9 # v0.0.32
+      - uses: AmadeusITGroup/prompt-registry/github-actions/validate-collections@5b162e67743981e6efdbd7661d0f2f8b9652df53 # v0.0.33
