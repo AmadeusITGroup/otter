@@ -5,6 +5,10 @@ import com.samskivert.mustache.Template;
 
 import org.apache.commons.lang3.StringUtils;
 
+import org.openapitools.codegen.utils.CamelizeOption;
+
+import static org.openapitools.codegen.utils.StringUtils.*;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.io.StringWriter;
@@ -27,6 +31,33 @@ import javax.script.ScriptEngineManager;
 public class LambdaHelper {
 
   private static final String VALID_PROPERTY_REGEXP = "^(?!\\d)[\\w$]+$";
+
+    /**
+   * Mustache lambda helper for camelizing strings.
+   * <p>
+   * Converts strings to camelCase or PascalCase depending on the configuration.
+   */
+  public static class CamelizeLambda extends CustomLambda {
+    private final CamelizeOption camelizeOption;
+
+    /**
+     * Creates a new CamelizeLambda.
+     *
+     * @param lowerCaseFirst if true, first character is lowercase (camelCase); if false, first character is uppercase (PascalCase)
+     */
+    public CamelizeLambda(boolean lowerCaseFirst) {
+      if (lowerCaseFirst) {
+        this.camelizeOption = CamelizeOption.LOWERCASE_FIRST_CHAR;
+      } else {
+        this.camelizeOption = CamelizeOption.UPPERCASE_FIRST_CHAR;
+      }
+    }
+
+    @Override
+    public String formatFragment(String fragment) {
+      return camelize(fragment, camelizeOption);
+    }
+  }
 
   public static abstract class CustomLambda implements Mustache.Lambda {
       @Override
