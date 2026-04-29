@@ -1,6 +1,7 @@
 {
-  "name": "Otter",
-  "description": "AI plugin providing MCP server recommendations for working with Otter framework projects and Angular applications",
+  "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
+  "name": "otter-marketplace",
+  "description": "Marketplace providing AI tools for working with Otter framework projects and Angular applications",
   "owner": {
     "name": "Otter team"
   },
