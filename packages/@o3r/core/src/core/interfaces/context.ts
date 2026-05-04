@@ -1,5 +1,6 @@
 import type {
   EventEmitter,
+  InputSignal,
 } from '@angular/core';
 import type {
   FormControl,
@@ -30,7 +31,7 @@ export type EventEmitterify<T extends BaseContextOutput> = { [P in keyof T]: Eve
 /**
  * Context of the component
  */
-export type Context<T extends ContextInput = {}, U extends BaseContextOutput = {}> = { [P in keyof T]: T[P] } & { [P in keyof U]: EventEmitterify<U>[P] };
+export type Context<T extends ContextInput = {}, U extends BaseContextOutput = {}> = { [P in keyof T]: (T[P] | InputSignal<T[P]>) } & EventEmitterify<U>;
 
 /**
  * Type helper to generate the template context outputs
@@ -48,7 +49,7 @@ export interface TemplateContext<
   /** Component configuration */
   config?: Partial<N>;
   /** Component inputs context */
-  inputs: S & { [key: string]: any };
+  inputs: { [T in keyof S]: S[T] | InputSignal<S[T]> } & { [key: string]: any };
   /** Component outputs context */
   outputs: Functionify<F & { [key: string]: any }>;
   /** Component translation */

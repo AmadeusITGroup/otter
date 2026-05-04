@@ -10,17 +10,22 @@
       <li [ngbNavItem]="2">
         <a ngbNavLink>Rules Engine</a>
         <ng-template ngbNavContent>
+
           <ul ngbNav #nav2="ngbNav" class="nav-tabs">
             <li [ngbNavItem]="2.1">
               <a ngbNavLink>Facts</a>
-              <ng-template ngbNavContent>
-                <o3r-facts-snapshot [facts]="facts$ | async" />
-              </ng-template>
+              @if (facts$ | async; as facts) {
+                <ng-template ngbNavContent>
+                  <o3r-facts-snapshot [facts]="facts" />
+                </ng-template>
+              }
             </li>
             <li [ngbNavItem]="2.2">
               <a ngbNavLink>Ruleset execution</a>
               <ng-template ngbNavContent>
-                <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions$ | async" />
+                @if (rulesetExecutions$ | async; as rulesetExecutions) {
+                  <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions" />
+                }
               </ng-template>
             </li>
           </ul>

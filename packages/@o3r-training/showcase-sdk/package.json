@@ -50,12 +50,12 @@
     "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q",
     "build:esm2020": "tsc -b tsconfigs/esm2020",
     "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
-    "generate": "schematics ../../@ama-sdk/schematics:typescript-core --generator-key training-showcase-sdk",
+    "generate": "schematics ../../@ama-sdk/schematics/dist:typescript-core --generator-key training-showcase-sdk",
     "spec:regen": "yarn run generate --no-dry-run && amasdk-clear-index",
     "files:pack": "yarn amasdk-files-pack",
     "test": "jest --passWithNoTests",
     "publish:package": "npm publish ./dist",
-    "generate:mock": "schematics ../../@ama-sdk/schematics:mock",
+    "generate:mock": "schematics ../../@ama-sdk/schematics/dist:mock",
     "doc:generate": "node scripts/override-readme.js && typedoc && node scripts/restore-readme.js",
     "tools:changelog": "commit-and-tag-version",
     "prepare:context": "cpy SDK_CONTEXT.md dist/"
@@ -84,8 +84,8 @@
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~22.6.0",
-    "@nx/jest": "~22.6.0",
+    "@nx/eslint-plugin": "~22.7.0",
+    "@nx/jest": "~22.7.0",
     "@o3r-training/training-tools": "workspace:~",
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
@@ -97,7 +97,7 @@
     "@swc/core": "~1.15.17",
     "@types/jest": "~30.0.0",
     "@types/node": "~24.12.0",
-    "@typescript-eslint/parser": "~8.57.0",
+    "@typescript-eslint/parser": "~8.58.0",
     "angular-eslint": "~21.3.0",
     "chokidar": "~5.0.0",
     "commit-and-tag-version": "^12.6.1",
@@ -124,7 +124,7 @@
     "tsc-watch": "^7.0.0",
     "typedoc": "~0.28.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.57.0"
+    "typescript-eslint": "~8.58.0"
   },
   "peerDependencies": {
     "@ama-sdk/client-fetch": "workspace:~",

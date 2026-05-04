@@ -49,8 +49,8 @@
     "@babel/preset-typescript": "~7.28.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~22.6.0",
-    "@nx/jest": "~22.6.0",
+    "@nx/eslint-plugin": "~22.7.0",
+    "@nx/jest": "~22.7.0",
     "@o3r/build-helpers": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/telemetry": "workspace:~",
@@ -59,7 +59,7 @@
     "@types/fs-extra": "^11.0.0",
     "@types/jest": "~30.0.0",
     "@types/node": "~24.12.0",
-    "@typescript-eslint/parser": "~8.57.0",
+    "@typescript-eslint/parser": "~8.58.0",
     "angular-eslint": "~21.3.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
@@ -77,10 +77,10 @@
     "jest-junit": "~16.0.0",
     "jest-util": "~30.3.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~22.6.0",
+    "nx": "~22.7.0",
     "ts-jest": "~29.4.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.57.0"
+    "typescript-eslint": "~8.58.0"
   },
   "engines": {
     "node": "^22.17.0 || ^24.0.0"
