@@ -696,52 +696,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-mcp/sdk@workspace:packages/@ama-mcp/sdk":
-  version: 0.0.0-use.local
-  resolution: "@ama-mcp/sdk@workspace:packages/@ama-mcp/sdk"
-  dependencies:
-    "@ama-mcp/core": "workspace:~"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.28.0"
-    "@nx/eslint": "npm:~22.7.0"
-    "@nx/eslint-plugin": "npm:~22.7.0"
-    "@nx/jest": "npm:~22.7.0"
-    "@nx/js": "npm:~22.7.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/telemetry": "workspace:~"
-    "@o3r/test-helpers": "workspace:^"
-    "@stylistic/eslint-plugin": "npm:~5.10.0"
-    "@types/jest": "npm:~30.0.0"
-    "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
-    commander: "npm:^14.0.0"
-    cpy-cli: "npm:^6.0.0"
-    eslint: "npm:~9.39.0"
-    eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~4.4.0"
-    eslint-plugin-import: "npm:~2.32.0"
-    eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
-    eslint-plugin-jsdoc: "npm:~61.7.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:~62.0.0"
-    eslint-plugin-unused-imports: "npm:~4.4.0"
-    globals: "npm:^16.0.0"
-    jest: "npm:~30.3.0"
-    jest-junit: "npm:~16.0.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    ts-jest: "npm:~29.4.0"
-    tslib: "npm:^2.6.2"
-    typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
-    zod: "npm:~4.3.0"
-  bin:
-    ama-mcp-sdk: ./dist/src/cli.js
-  languageName: unknown
-  linkType: soft
-
 "@ama-mfe/messages@workspace:packages/@ama-mfe/messages, @ama-mfe/messages@workspace:~":
   version: 0.0.0-use.local
   resolution: "@ama-mfe/messages@workspace:packages/@ama-mfe/messages"
@@ -1490,6 +1444,52 @@ __metadata:
       optional: true
   bin:
     create: ./index.js
+  languageName: unknown
+  linkType: soft
+
+"@ama-sdk/mcp@workspace:mcps/@ama-sdk/mcp":
+  version: 0.0.0-use.local
+  resolution: "@ama-sdk/mcp@workspace:mcps/@ama-sdk/mcp"
+  dependencies:
+    "@ama-mcp/core": "workspace:~"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@modelcontextprotocol/sdk": "npm:~1.28.0"
+    "@nx/eslint": "npm:~22.7.0"
+    "@nx/eslint-plugin": "npm:~22.7.0"
+    "@nx/jest": "npm:~22.7.0"
+    "@nx/js": "npm:~22.7.0"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-config": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:^"
+    "@stylistic/eslint-plugin": "npm:~5.10.0"
+    "@types/jest": "npm:~30.0.0"
+    "@types/node": "npm:~24.12.0"
+    "@typescript-eslint/parser": "npm:~8.58.0"
+    commander: "npm:^14.0.0"
+    cpy-cli: "npm:^6.0.0"
+    eslint: "npm:~9.39.0"
+    eslint-import-resolver-node: "npm:~0.3.9"
+    eslint-import-resolver-typescript: "npm:~4.4.0"
+    eslint-plugin-import: "npm:~2.32.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jsdoc: "npm:~61.7.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~62.0.0"
+    eslint-plugin-unused-imports: "npm:~4.4.0"
+    globals: "npm:^16.0.0"
+    jest: "npm:~30.3.0"
+    jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    ts-jest: "npm:~29.4.0"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:~5.9.2"
+    typescript-eslint: "npm:~8.58.0"
+    zod: "npm:~4.3.0"
+  bin:
+    ama-sdk-mcp: ./dist/src/cli.js
   languageName: unknown
   linkType: soft
 
@@ -11138,9 +11138,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/mcp@workspace:tools/@o3r/mcp":
+"@o3r/mcp@workspace:mcps/@o3r/mcp":
   version: 0.0.0-use.local
-  resolution: "@o3r/mcp@workspace:tools/@o3r/mcp"
+  resolution: "@o3r/mcp@workspace:mcps/@o3r/mcp"
   dependencies:
     "@ama-mcp/angular": "workspace:^"
     "@ama-mcp/core": "workspace:^"

@@ -30,8 +30,8 @@
     "test-int": "yarn nx run-many --target=test-int",
     "postinstall": "husky && yarn build:lint && yarn harmonize:version && yarn update-yarn-sdks && yarn install --mode=skip-build",
     "update-yarn-sdks": "node -e \"'pnp' !== '$(yarn config get nodeLinker)' || process.exit(1)\" || yarn sdks",
-    "clear": "rimraf -g './{packages,tools,apps}/{@*/,}*/{dist,build,dist-*}/'",
-    "set:version": "yarn o3r-set-version --placeholder 0.0.0-placeholder --include '{apps,packages,tools}/**/dist/{package,manifest}.json'",
+    "clear": "rimraf -g './{packages,tools,apps,mcps}/{@*/,}*/{dist,build,dist-*}/'",
+    "set:version": "yarn o3r-set-version --placeholder 0.0.0-placeholder --include '{apps,mcps,packages,tools}/**/dist/{package,manifest}.json'",
     "harmonize:version": "eslint --quiet --fix $(git ls-files \":(glob)**/package.json\" .yarnrc.yml)",
     "doc:packages": "yarn nx run-many --target=documentation",
     "doc:root": "yarn prepare-doc-root-menu-template && yarn update-doc-summary ./docs && yarn compodoc",
@@ -341,7 +341,8 @@
     "packages/@*/*",
     "tools/github-actions/*",
     "tools/@*/*",
-    "apps/*"
+    "apps/*",
+    "mcps/@*/*"
   ],
   "packageManager": "yarn@4.14.1"
 }

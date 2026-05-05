@@ -1,5 +1,5 @@
 {
-  "name": "@ama-mcp/sdk",
+  "name": "@ama-sdk/mcp",
   "version": "0.0.0-placeholder",
   "publishConfig": {
     "access": "public"
@@ -13,7 +13,7 @@
   ],
   "sideEffects": false,
   "bin": {
-    "ama-mcp-sdk": "./dist/src/cli.js"
+    "ama-sdk-mcp": "./dist/src/cli.js"
   },
   "exports": {
     "./package.json": {
@@ -23,7 +23,7 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "build": "yarn nx build ama-mcp-sdk",
+    "build": "yarn nx build ama-sdk-mcp",
     "compile": "tsc -b ./tsconfig.build.json && yarn cpy package.json dist && patch-package-json-main",
     "copy:resources": "yarn cpy resources dist"
   },
