@@ -3,7 +3,7 @@
     "nx": {
       "type": "stdio",
       "command": "npx",
-      "args": ["nx-mcp@~0.24.0"]
+      "args": ["nx-mcp@~0.25.0"]
     },
     "angular": {
       "command": "npx",
