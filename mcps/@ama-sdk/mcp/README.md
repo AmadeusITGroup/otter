@@ -1,4 +1,4 @@
-# @ama-mcp/sdk
+# @ama-sdk/mcp
 
 MCP module to expose `SDK_CONTEXT.md` from installed packages to AI assistants.
 
@@ -22,7 +22,7 @@ Configure SDK packages directly in your `.vscode/mcp.json`:
   "servers": {
     "sdk-context": {
       "command": "npx",
-      "args": ["ama-mcp-sdk", "--packages", "@my-scope/my-sdk-package", "@other-scope/other-sdk"]
+      "args": ["ama-sdk-mcp", "--packages", "@my-scope/my-sdk-package", "@other-scope/other-sdk"]
     }
   }
 }
@@ -34,16 +34,16 @@ Configure SDK packages directly in your `.vscode/mcp.json`:
 
 ```bash
 # Specify packages with --packages flag
-ama-mcp-sdk --packages @my-scope/my-sdk @other-scope/other-sdk
+ama-sdk-mcp --packages @my-scope/my-sdk @other-scope/other-sdk
 
 # Show help
-ama-mcp-sdk --help
+ama-sdk-mcp --help
 ```
 
 ### Programmatic (in custom MCP server)
 
 ```typescript
-import { registerSdkContextToolAndResources } from '@ama-mcp/sdk';
+import { registerSdkContextToolAndResources } from '@ama-sdk/mcp';
 
 // With explicit packages
 await registerSdkContextToolAndResources(server, {

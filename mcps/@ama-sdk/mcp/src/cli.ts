@@ -20,7 +20,7 @@ import {
 } from './server/mcp-server';
 
 const run = async (): Promise<void> => {
-  const logger = new MCPLogger('@ama-mcp/sdk');
+  const logger = new MCPLogger('@ama-sdk/mcp');
 
   /**
    * Validate and filter package names, logging warnings for invalid ones
@@ -43,19 +43,19 @@ const run = async (): Promise<void> => {
    */
   const program = new Command();
   program
-    .name('ama-mcp-sdk')
+    .name('ama-sdk-mcp')
     .description('SDK Context MCP Server\n\nExposes SDK_CONTEXT.md from installed packages to AI assistants.')
     .option('-p, --packages <packages...>', 'List of SDK package names to expose (required if not configured in package.json)')
     .addHelpText('after', `
 Examples:
-  ama-mcp-sdk --packages @my-scope/my-sdk @other-scope/other-sdk
+  ama-sdk-mcp --packages @my-scope/my-sdk @other-scope/other-sdk
 
 VS Code mcp.json example:
   {
     "servers": {
       "sdk-context": {
         "command": "npx",
-        "args": ["ama-mcp-sdk", "--packages", "@my-scope/my-sdk", "@other-scope/other-sdk"]
+        "args": ["ama-sdk-mcp", "--packages", "@my-scope/my-sdk", "@other-scope/other-sdk"]
       }
     }
   }`);

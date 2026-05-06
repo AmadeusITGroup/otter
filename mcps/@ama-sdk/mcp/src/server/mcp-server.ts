@@ -174,7 +174,7 @@ export const registerSdkContextToolAndResources = (
   options: SdkContextOptions = {}
 ): void => {
   const projectPath = options.projectPath ?? '.';
-  const logger = options.logger || new MCPLogger('@ama-mcp/sdk');
+  const logger = options.logger || new MCPLogger('@ama-sdk/mcp');
   const sdkPackages = options.sdkPackages ?? loadSdkPackagesFromPackageJson(projectPath, logger);
   const contexts = loadSdkContexts(sdkPackages, SDK_CONTEXT_FILENAME, logger);
 
@@ -249,7 +249,7 @@ const registerInstructionsResource = (
  * @returns Configured AmaMcpServer instance with SDK context tools and resources registered
  */
 export const createSdkContextServer = (options: SdkContextOptions = {}): AmaMcpServer => {
-  const name = '@ama-mcp/sdk';
+  const name = '@ama-sdk/mcp';
   const logger = options.logger ?? new MCPLogger(name, options.logLevel);
   const server = new AmaMcpServer(
     logger,

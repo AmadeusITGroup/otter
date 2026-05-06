@@ -70,7 +70,7 @@ export async function createMcpServer(logger: MCPLogger): Promise<AmaMcpServer> 
           scopes: OTTER_SCOPES,
           githubToken,
           cacheFilePath: resolve(cacheDirPath, 'repos-using-otter.json'),
-          cacheEntryExpireAfterDays: Number.isNaN(process.env.O3R_MCP_CACHE_MAX_AGE) ? undefined : +(process.env.O3R_MCP_CACHE_MAX_AGE!)
+          cacheEntryExpireAfterDays: (!process.env.O3R_MCP_CACHE_MAX_AGE || Number.isNaN(process.env.O3R_MCP_CACHE_MAX_AGE)) ? undefined : +(process.env.O3R_MCP_CACHE_MAX_AGE)
         }),
         registerSupportedReleasesTool(server, {
           githubToken,

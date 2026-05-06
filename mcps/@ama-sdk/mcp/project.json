@@ -1,8 +1,8 @@
 {
-  "name": "ama-mcp-sdk",
+  "name": "ama-sdk-mcp",
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "packages/@ama-mcp/sdk/src",
+  "sourceRoot": "mcps/@ama-sdk/mcp/src",
   "prefix": "o3r",
   "targets": {
     "build": {

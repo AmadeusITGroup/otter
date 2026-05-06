@@ -12,7 +12,7 @@ const __dirname = dirname(__filename);
 
 export default [
   {
-    name: '@ama-mcp/sdk/projects',
+    name: '@ama-sdk/mcp/projects',
     languageOptions: {
       sourceType: 'module',
       parserOptions: {
