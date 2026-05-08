@@ -707,7 +707,7 @@
       "outputs": [
         "{projectRoot}/target/*.jar"
       ],
-      "cache": true
+      "cache": false
     },
     "i18n": {
       "cache": true

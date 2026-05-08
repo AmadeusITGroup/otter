@@ -95,26 +95,10 @@ public class TypescriptfetchGenerator extends AbstractTypeScriptClientCodegen {
   }
 
   /**
-   * Otter-specific override: Escapes a reserved word as defined in the `reservedWords` array. Handle escaping
-   * those terms here.  This logic is only called if a variable matches the reseved words
-   *
-   * @return the escaped term
+   * @inheritDoc
    */
   @Override
-  public String escapeReservedWord(String name) {
-    return "_" + name;  // add an underscore to the name
-  }
-
-  /**
-   * Otter-specific override: Preprocesses the OpenAPI specification to extract operation adapter paths.
-   * This generates the OPERATION_ADAPTER data structure used for runtime operation matching.
-   *
-   * @param openAPI the OpenAPI specification to preprocess
-   */
-  @Override
-  public void preprocessOpenAPI(OpenAPI openAPI) {
-    super.preprocessOpenAPI(openAPI);
-
+  protected void preprocessOperationAdapter(OpenAPI openAPI) {
     if (openAPI.getPaths() == null) {
       return;
     }
