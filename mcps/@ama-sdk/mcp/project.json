@@ -6,8 +6,17 @@
   "prefix": "o3r",
   "targets": {
     "build": {
-      "executor": "nx:noop",
-      "dependsOn": ["compile", "expose-templates", "expose-resources"]
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "compile",
+        "expose-resources"
+      ]
     },
     "compile": {
       "executor": "nx:run-script",

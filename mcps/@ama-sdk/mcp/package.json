@@ -24,8 +24,9 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build ama-sdk-mcp",
-    "compile": "tsc -b ./tsconfig.build.json && yarn cpy package.json dist && patch-package-json-main",
-    "copy:resources": "yarn cpy resources dist"
+    "compile": "tsc -b ./tsconfig.build.json",
+    "copy:resources": "yarn cpy resources dist",
+    "postbuild": "yarn cpy package.json dist && patch-package-json-main"
   },
   "dependencies": {
     "@ama-mcp/core": "workspace:~",

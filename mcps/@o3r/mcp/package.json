@@ -19,7 +19,8 @@
     "ng": "yarn nx",
     "build": "yarn nx build mcp",
     "copy:resources": "yarn cpy '../../../assets/gen-ai/**/*.md' dist/resources",
-    "compile": "tsc -b ./tsconfig.build.json && yarn copy:resources && yarn cpy package.json dist && patch-package-json-main"
+    "compile": "tsc -b ./tsconfig.build.json",
+    "postbuild": "yarn cpy package.json dist && patch-package-json-main"
   },
   "dependencies": {
     "@ama-mcp/angular": "workspace:^",
