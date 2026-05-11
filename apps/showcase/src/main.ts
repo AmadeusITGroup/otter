@@ -21,13 +21,13 @@ import {
   ConfigurationDevtoolsMessageService,
 } from '@o3r/configuration';
 import {
-  LocalizationDevtoolsConsoleService,
-  LocalizationDevtoolsMessageService,
-} from '@o3r/localization';
-import {
   RulesEngineDevtoolsConsoleService,
   RulesEngineDevtoolsMessageService,
 } from '@o3r/rules-engine';
+import {
+  LocalizationDevtoolsConsoleService,
+  LocalizationDevtoolsMessageService,
+} from '@o3r/transloco';
 import {
   AppModule,
 } from './app/app-module';

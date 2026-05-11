@@ -10572,6 +10572,9 @@ __metadata:
     "@design-factory/design-factory": "npm:~21.1.0"
     "@design-factory/styles": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@jsverse/transloco": "npm:~8.2.1"
+    "@jsverse/transloco-messageformat": "npm:~8.2.1"
+    "@jsverse/utils": "npm:1.0.0-beta.5"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
     "@ng-select/ng-select": "npm:~21.8.0"
     "@ngrx/effects": "npm:~21.1.0"
@@ -11750,13 +11753,15 @@ __metadata:
     "@design-factory/styles": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~9.3.0"
+    "@jsverse/transloco": "npm:~8.2.1"
+    "@jsverse/transloco-messageformat": "npm:~8.2.1"
+    "@jsverse/utils": "npm:1.0.0-beta.5"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
     "@ng-select/ng-select": "npm:~21.8.0"
     "@ngrx/effects": "npm:~21.1.0"
     "@ngrx/entity": "npm:~21.1.0"
     "@ngrx/store": "npm:~21.1.0"
     "@ngrx/store-devtools": "npm:~21.1.0"
-    "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint-plugin": "npm:~22.6.0"
     "@nx/jest": "npm:~22.6.0"
     "@o3r-training/showcase-sdk": "workspace:~"
@@ -11780,6 +11785,7 @@ __metadata:
     "@o3r/store-sync": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@o3r/testing": "workspace:~"
+    "@o3r/transloco": "workspace:~"
     "@o3r/workspace": "workspace:~"
     "@playwright/test": "npm:~1.59.0"
     "@popperjs/core": "npm:^2.11.5"
@@ -12577,7 +12583,6 @@ __metadata:
     chokidar: ^4.0.0 || ^5.0.0
     globby: ^11.1.0
     rxjs: ^7.8.1
-    semver: ^7.5.2
     type-fest: ^5.3.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -12606,8 +12611,6 @@ __metadata:
     chokidar:
       optional: true
     globby:
-      optional: true
-    semver:
       optional: true
     type-fest:
       optional: true

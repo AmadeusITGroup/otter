@@ -9,8 +9,8 @@ import {
   NgbScrollSpyService,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  mockTranslationModules,
-} from '@o3r/testing/localization';
+  provideLocalizationMock,
+} from '@o3r/testing/transloco';
 import {
   provideMarkdown,
 } from 'ngx-markdown';
@@ -29,10 +29,11 @@ describe('Forms', () => {
       stop: jest.fn()
     };
     await TestBed.configureTestingModule({
-      imports: [RouterModule.forRoot([]), Forms, ...mockTranslationModules()],
+      imports: [RouterModule.forRoot([]), Forms],
       providers: [
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
-        provideMarkdown()
+        provideMarkdown(),
+        provideLocalizationMock()
       ]
     }).compileComponents();
 

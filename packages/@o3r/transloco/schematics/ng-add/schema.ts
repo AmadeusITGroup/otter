@@ -9,4 +9,7 @@ import type {
 export interface NgAddSchematicsSchema extends NgAddOptions, SchematicOptionObject {
   /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
+
+  /** Enable message format support (ICU messages) - adds provideTranslocoMessageformat() */
+  enableMessageFormat?: boolean;
 }

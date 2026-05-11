@@ -6,8 +6,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  mockTranslationModules,
-} from '@o3r/testing/localization';
+  provideLocalizationMock,
+} from '@o3r/testing/transloco';
 import {
   provideMarkdown,
 } from 'ngx-markdown';
@@ -21,8 +21,8 @@ describe('FormsParent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsParent, ...mockTranslationModules(), ReactiveFormsModule],
-      providers: [provideMarkdown()]
+      imports: [FormsParent, ReactiveFormsModule],
+      providers: [provideMarkdown(), provideLocalizationMock()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormsParent);
