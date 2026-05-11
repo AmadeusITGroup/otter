@@ -1,6 +1,6 @@
 import type {
   WHITELISTED_HOSTS_KEY as Key,
-} from './interface';
+} from '../shared/index';
 
 const WHITELISTED_HOSTS_KEY: typeof Key = 'WHITELISTED_HOSTS';
 

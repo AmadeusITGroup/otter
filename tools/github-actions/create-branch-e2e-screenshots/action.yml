@@ -12,15 +12,16 @@ inputs:
     default: 'fix: update e2e screenshots'
   branchName:
     type: string
-    description: 'Suffix for the branch that will be created'
+    description: 'Name of the branch that will be created'
     required: false
-    default: refs/heads/${{ github.head_ref }}-update-e2e-screenshots
+    default: refs/heads/e2e-screenshots/${{ github.head_ref }}
 
 runs:
   using: 'composite'
   steps:
     - name: Create branch
       id: auto-commit-action
+      # Upgrading to v7 break the action
       uses: stefanzweifel/git-auto-commit-action@778341af668090896ca464160c2def5d1d1a3eb0 # v6.0.1
       with:
         commit_message: ${{ inputs.commitMessage }}
@@ -33,7 +34,7 @@ runs:
         BRANCH_URL: https://github.com/${{ github.repository }}/tree/${{ inputs.branchName }}
         COMMIT_HASH: ${{ steps.auto-commit-action.outputs.commit_hash }}
         COMMIT_URL: https://github.com/${{ github.repository }}/commit/${{ steps.auto-commit-action.outputs.commit_hash }}
-      uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+      uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
       with:
         script: |
           const comment = [

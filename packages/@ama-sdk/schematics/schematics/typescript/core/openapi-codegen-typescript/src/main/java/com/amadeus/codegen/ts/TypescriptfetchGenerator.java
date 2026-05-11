@@ -65,7 +65,6 @@ public class TypescriptfetchGenerator extends AbstractTypeScriptClientCodegen {
     addApiFile("api/fixture.jest.mustache", ".jest.fixture.ts", true, getFilePathPattern(apiPackage(), "Api.jest.fixture.ts", true));
     addApiFile("api/index.mustache", ".ts", false, getFilePathPattern(apiPackage(), "(\\/|\\\\)index.ts", false, false), apiDocTemplateFiles); // to generate a index.ts without api file name constraint
     addSupportingFile("api/apis.mustache", apiPackage, "index.ts");
-    addSupportingFile("api/interfaces.mustache", apiPackage, "interfaces.ts");
     addSupportingFile("api/fixtures.mustache", apiPackage, "fixtures.ts");
     addSupportingFile("api/fixtures.jasmine.mustache", apiPackage, "fixtures.jasmine.ts");
     addSupportingFile("api/fixtures.jest.mustache", apiPackage, "fixtures.jest.ts");
@@ -74,7 +73,7 @@ public class TypescriptfetchGenerator extends AbstractTypeScriptClientCodegen {
 
     String constantsPackage = "src/constants";
     addSupportingFile("constants/servers.mustache", constantsPackage, "servers.ts");
-    
+
     /**
      * Template Location.  This is the location which templates will be read from.  The generator
      * will use the resource stream to attempt to read the templates.

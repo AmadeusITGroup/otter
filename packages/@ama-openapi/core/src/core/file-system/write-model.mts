@@ -20,7 +20,7 @@ import type {
  * @param retrievedModel
  * @param context
  */
-export const writeModelFile = async (retrievedModel: RetrievedDependencyModel, context: Context) => {
+export const writeModelFile = async (retrievedModel: Pick<RetrievedDependencyModel, 'outputFilePath' | 'content'>, context: Context) => {
   const { outputFilePath, content } = retrievedModel;
   const { logger } = context;
   const directory = dirname(outputFilePath);

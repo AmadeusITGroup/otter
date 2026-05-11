@@ -68,7 +68,7 @@ export class TranslationsLoader implements TranslateLoader {
 
     if (this.localizationConfiguration.useDynamicContent) {
       if (!this.dynamicContentService) {
-        throw new Error('Dynamic Content is not available. Please verify you have imported the module DynamicContentModule in your application');
+        throw new Error('Dynamic Content is not available. Please verify you have provided the DynamicContent in your application');
       }
       localizationPath$ = this.dynamicContentService.getContentPathStream(this.localizationConfiguration.endPointUrl);
     }

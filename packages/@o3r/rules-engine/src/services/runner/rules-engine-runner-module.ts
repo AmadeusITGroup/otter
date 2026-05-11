@@ -6,7 +6,7 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import {
-  LoggerModule,
+  provideLogger,
 } from '@o3r/logger';
 import {
   RulesetsStoreModule,
@@ -23,8 +23,7 @@ import {
 @NgModule({
   imports: [
     StoreModule,
-    RulesetsStoreModule,
-    LoggerModule
+    RulesetsStoreModule
   ]
 })
 export class RulesEngineRunnerModule {
@@ -33,6 +32,7 @@ export class RulesEngineRunnerModule {
     return {
       ngModule: RulesEngineRunnerModule,
       providers: [
+        provideLogger(),
         { provide: RULES_ENGINE_OPTIONS, useValue: opts },
         RulesEngineRunnerService
       ]

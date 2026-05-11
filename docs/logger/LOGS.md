@@ -85,12 +85,12 @@ export const appConfig: ApplicationConfig = {
 ### Multi Client
 
 The Logger service supports multi logger clients.
-This can be provided via the `provideLogger` function as following:
+This can be provided via the `provideLogger` function as follows:
 
 ```typescript
 import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
 import {SmartLookClient} from '@o3r/logger/smartlook-logger-client';
-import {LoggerModule} from '@o3r/logger';
+import {provideLogger} from '@o3r/logger';
 
 // ...
 
@@ -110,7 +110,7 @@ Or via multi providers:
 ```typescript
 import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
 import {SmartLookClient} from '@o3r/logger/smartlook-logger-client';
-import {LOGGER_CLIENT_TOKEN, LoggerModule} from '@o3r/logger';
+import {LOGGER_CLIENT_TOKEN, LoggerService} from '@o3r/logger';
 
 export const config: ApplicationConfig = {
   providers: [

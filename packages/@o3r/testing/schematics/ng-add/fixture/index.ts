@@ -15,7 +15,7 @@ import * as ts from 'typescript';
 
 /**
  * Add fixture configuration
- * @param options @see RuleFactory.options
+ * @param options {@link RuleFactory.options}
  * @param options.projectName
  * @param options.testingFramework
  */

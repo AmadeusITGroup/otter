@@ -14,14 +14,14 @@ import {
 } from './translations-loader';
 
 function mockSuccessApiResponse(body = {}) {
-  return new Response(JSON.stringify(body), {
+  return Response.json(body, {
     status: 200,
     headers: { 'Content-type': 'application/json' }
   });
 }
 
 function mockFailApiResponse(body = {}) {
-  return new Response(JSON.stringify(body), {
+  return Response.json(body, {
     status: 404,
     headers: { 'Content-type': 'application/json' }
   });

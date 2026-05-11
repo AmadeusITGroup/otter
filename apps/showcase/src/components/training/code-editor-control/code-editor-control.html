@@ -6,7 +6,7 @@
       @let isLoading = percentProgress() < 100 ;
       @if (isLoading) {
         <div class="w-100 h-100 d-flex align-items-center justify-content-center p-2">
-          <df-progressbar [value]="percentProgress()" [text]="progressLabel()"></df-progressbar>
+          <df-progressbar [value]="percentProgress()" [text]="progressLabel()" />
         </div>
       }
       <iframe class="w-100 h-100" #iframe allow="cross-origin-isolated" [srcdoc]="'Loading...'"
@@ -24,8 +24,7 @@
       <code-editor-terminal id="tab-content2" class="d-block h-100"
                             (disposed)="webContainerService.runner.disposeCommandOutputTerminal()"
                             (terminalActivity)="terminalActivity.next()"
-                            (terminalUpdated)="webContainerService.runner.registerCommandOutputTerminal($event)">
-      </code-editor-terminal>
+                            (terminalUpdated)="webContainerService.runner.registerCommandOutputTerminal($event)" />
     </ng-template>
   </li>
 
@@ -36,8 +35,7 @@
     <ng-template ngbNavContent>
       <code-editor-terminal id="tab-content3" class="d-block h-100"
                             (disposed)="webContainerService.runner.disposeShell()"
-                            (terminalUpdated)="webContainerService.runner.registerShell($event)">
-      </code-editor-terminal>
+                            (terminalUpdated)="webContainerService.runner.registerShell($event)" />
     </ng-template>
   </li>
 </ul>

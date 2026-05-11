@@ -1,5 +1,5 @@
-@use '@design-factory/design-factory/design-factory.css';
-@import './style/theme.scss';
+@use '@design-factory/styles/bundle.css';
+@forward './style/theme.scss';
 
 :root {
   --o3r-header-zindex: 1021;
@@ -31,11 +31,8 @@ h1, h2 {
 }
 
 .markdown-clipboard-toolbar button {
-  --df-btn-icononly-size: 1.85em;
-}
-
-.markdown-clipboard-toolbar button {
-  --df-btn-icononly-size: 1.85em;
+  width: 1.85em;
+  height: 1.85em;
 }
 
 // Start overrides of design factory

@@ -1,9 +1,0 @@
-{
-  "extends": "../../../tsconfig.doc",
-  "exclude": [
-    "**/*.spec.ts"
-  ],
-  "include": [
-    "src/**/*.ts"
-  ]
-}

@@ -10,3 +10,6 @@ node_modules/
 
 # Bundle specifications directory
 /bundle
+
+# Local validation schemas
+/schemas

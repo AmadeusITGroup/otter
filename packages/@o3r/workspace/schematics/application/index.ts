@@ -75,7 +75,8 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
         tsconfigBasePath,
         enforceTildeRange,
         name: packageJsonName,
-        rootDependencies
+        rootDependencies,
+        testingFramework: rootDependencies.vitest ? 'vitest' : (rootDependencies.jest ? 'jest' : 'jasmine')
       }),
       move(targetPath),
       renameTemplateFiles()

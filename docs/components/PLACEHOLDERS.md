@@ -315,7 +315,7 @@ You need to reference one or several CSS files from your application in the `cms
   "assetsFolder": "dist/assets",
   "libraries": [
     {
-      "npmName": "@o3r/styling"
+      "npmName": "@my-project/styling"
     }
   ],
   "defaultLanguage": "en-GB",

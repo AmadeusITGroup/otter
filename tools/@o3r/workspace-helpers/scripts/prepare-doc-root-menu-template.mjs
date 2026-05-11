@@ -2,7 +2,6 @@
  * The purpose of this script is to prepare the root menu template with the list of packages inside
  * @param compodocGlobFiles Glob to identify all compodoc configuration for packages
  * @param menuTemplateFile File path for the handlebars template menu
- * @param generatedDocOutputRegExp RegExp to remove to have the relative path of the output documentation compare to the root one
  * @param packagesVariableValueIdentifier Identifier to be replaced by the packages value
  */
 
@@ -35,7 +34,7 @@ void (async () => {
   const content = fs.readFileSync(menuTemplateFile).toString();
   const configs = await findCompodocrcConfig(argv.compodocGlobFiles || 'packages/@o3r/*/.compodocrc.json');
   const packages = configs.map((c) => ({
-    path: c.output.replace(new RegExp(argv.generatedDocOutputRegExp || '^(\\.\\.?/)*generated-doc/'), ''),
+    path: c.output.replace(new RegExp('^(\\.\\.?/)*generated-doc/'), ''),
     name: c.name
   }));
   const newContent = content.replace(argv.packagesVariableValueIdentifier || '%PACKAGES%', JSON.stringify(packages, null, 2));

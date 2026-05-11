@@ -14,8 +14,8 @@ The Otter framework provides the `ApiManager` service to manage your API collect
 As you can see in the `app.config.ts` file, a plugin `RequestAlertPlugin` has been created which displays an alert box when the API receives a request.
 There is also a `MockInterceptRequest` plugin, similar to the one created in the step **Customize your fetch client with plugins**, to mock the request plugin.
 
-#### Integrate the ApiManagerModule with default configuration
-First, create the variable `apiConfig` with the properties of `ApiFetchClient`. This default configuration should contain the `MockInterceptRequest` 
+#### Integrate a custom ApiManager with default configuration
+First, create the variable `apiConfig` with the properties of `ApiFetchClient`. This default configuration should contain the `MockInterceptRequest`
 plugin (similar to the exercise in the previous step). Here is a template to get you started:
 ```typescript
 // Default configuration for all the APIs defined in the ApiManager
@@ -31,19 +31,19 @@ Next, create the `apiManager` variable like this:
 const apiManager = new ApiManager(apiConfig);
 ```
 
-You can now integrate the `ApiManagerModule` in the providers of your `ApplicationConfig`. You can use the following line to guide you:
+You can now integrate the created `ApiManager` in the providers of your `ApplicationConfig`. You can use the following line to guide you:
 ```typescript
-importProvidersFrom(ApiManagerModule.forRoot(apiManager))
+provideApiManager(apiManager)
 ```
 
 > [!NOTE]
-> This integration should replace the previous providers of `PetApi` and `StoreApi` using the factories `petApiFactory` and `storeApiFactory` 
+> This integration should replace the previous providers of `PetApi` and `StoreApi` using the factories `petApiFactory` and `storeApiFactory`
 > in the `ApplicationConfig`.
 
-Then, checkout the `app.ts` file and update the variables `petApi` and `storeApi` by injecting the `ApiFactoryService` to use your 
+Then, checkout the `app.ts` file and update the variables `petApi` and `storeApi` by injecting the `ApiFactoryService` to use your
 unique instance of the `StoreApi` and `PetApi`.
 
-Now, when clicking the **Get Available Pets** button, your table should be updated with the mock value of available pets and when clicking the 
+Now, when clicking the **Get Available Pets** button, your table should be updated with the mock value of available pets and when clicking the
 **Get Inventory** button, you should see the mock value of inventory.
 
 #### Override of the default configuration
