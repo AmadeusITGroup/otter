@@ -465,7 +465,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -492,7 +492,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     zod: "npm:~4.3.0"
   peerDependencies:
     "@ama-mcp/core": "workspace:^"
@@ -527,7 +527,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -554,7 +554,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     zod: "npm:~4.3.0"
   peerDependencies:
     "@modelcontextprotocol/sdk": ^1.19.0
@@ -592,7 +592,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -619,7 +619,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     zod: "npm:~4.3.0"
   peerDependencies:
     "@ama-mcp/core": "workspace:^"
@@ -656,7 +656,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     compressing: "npm:^2.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -685,7 +685,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     zod: "npm:~4.3.0"
   peerDependencies:
     "@ama-mcp/core": "workspace:^"
@@ -714,7 +714,7 @@ __metadata:
     "@swc/core": "npm:~1.15.17"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
     eslint-import-resolver-node: "npm:~0.3.9"
@@ -738,7 +738,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@amadeus-it-group/microfrontends": 0.0.10
   peerDependenciesMeta:
@@ -803,7 +803,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@ama-mfe/messages": "workspace:~"
     "@amadeus-it-group/microfrontends": 0.0.10
@@ -865,7 +865,7 @@ __metadata:
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
     "@types/yargs": "npm:~17.0.33"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@vitest/coverage-istanbul": "npm:^4.0.18"
     angular-eslint: "npm:~21.4.0"
     chokidar: "npm:~5.0.0"
@@ -884,7 +884,7 @@ __metadata:
     nx: "npm:~22.7.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     vitest: "npm:~4.1.0"
     yargs: "npm:~18.0.0"
   peerDependencies:
@@ -917,7 +917,7 @@ __metadata:
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@vitest/coverage-istanbul": "npm:^4.0.18"
     ajv: "npm:~8.18.0"
     angular-eslint: "npm:~21.4.0"
@@ -941,7 +941,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     vitest: "npm:~4.1.0"
   peerDependencies:
     type-fest: ^5.3.1
@@ -976,7 +976,7 @@ __metadata:
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
     "@types/yargs": "npm:~17.0.33"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     ejs: "npm:~3.1.9"
@@ -1004,7 +1004,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     yargs: "npm:~18.0.0"
   peerDependencies:
     type-fest: ^5.3.1
@@ -1038,7 +1038,7 @@ __metadata:
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
     "@types/yargs": "npm:~17.0.33"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@vitest/coverage-istanbul": "npm:^4.0.18"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
@@ -1057,7 +1057,7 @@ __metadata:
     nx: "npm:~22.7.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     vitest: "npm:~4.1.0"
     yargs: "npm:~18.0.0"
   peerDependencies:
@@ -1093,7 +1093,7 @@ __metadata:
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -1119,7 +1119,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     uuid: "npm:~14.0.0"
   peerDependencies:
     "@ama-sdk/core": "workspace:~"
@@ -1173,7 +1173,7 @@ __metadata:
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -1198,7 +1198,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     uuid: "npm:~14.0.0"
   peerDependencies:
     "@ama-sdk/core": "workspace:~"
@@ -1251,7 +1251,7 @@ __metadata:
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -1277,7 +1277,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     uuid: "npm:~14.0.0"
   peerDependencies:
     "@ama-sdk/core": "workspace:~"
@@ -1332,7 +1332,7 @@ __metadata:
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -1359,7 +1359,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     uuid: "npm:~14.0.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
@@ -1409,7 +1409,7 @@ __metadata:
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -1436,7 +1436,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@o3r/telemetry": "workspace:~"
   peerDependenciesMeta:
@@ -1466,7 +1466,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     commander: "npm:^14.0.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -1486,7 +1486,7 @@ __metadata:
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     zod: "npm:~4.3.0"
   bin:
     ama-sdk-mcp: ./dist/src/cli.js
@@ -1528,7 +1528,7 @@ __metadata:
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     chokidar: "npm:~5.0.0"
     commit-and-tag-version: "npm:^12.6.1"
@@ -1564,7 +1564,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@ama-sdk/core": "workspace:~"
     "@angular-devkit/core": ^21.0.0
@@ -1619,7 +1619,7 @@ __metadata:
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
     "@types/swagger-schema-official": "npm:^2.0.22"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     commander: "npm:^14.0.0"
     concurrently: "npm:^9.1.0"
@@ -1648,7 +1648,7 @@ __metadata:
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   bin:
     swagger-build: ./dist/src/cli/build.js
     swagger-dictionary-check: ./dist/src/cli/dictionary-check.js
@@ -1689,7 +1689,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -1717,7 +1717,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/schematics": ~21.2.0
     "@angular/common": ~21.2.4
@@ -1770,7 +1770,7 @@ __metadata:
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
     "@types/yargs": "npm:~17.0.33"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -1794,7 +1794,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     yargs: "npm:~18.0.0"
   peerDependencies:
     "@ama-sdk/client-fetch": "workspace:~"
@@ -1847,7 +1847,7 @@ __metadata:
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     commit-and-tag-version: "npm:^12.6.1"
     cpy-cli: "npm:^6.0.0"
@@ -1874,7 +1874,7 @@ __metadata:
     tsc-watch: "npm:^7.0.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     yaml-eslint-parser: "npm:^1.2.2"
   peerDependencies:
     "@ama-sdk/client-fetch": "workspace:~"
@@ -1914,7 +1914,7 @@ __metadata:
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@vitest/coverage-istanbul": "npm:^4.0.18"
     angular-eslint: "npm:~21.4.0"
     chokidar: "npm:~5.0.0"
@@ -1941,7 +1941,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     vitest: "npm:~4.1.0"
   peerDependencies:
     "@o3r/core": "workspace:~"
@@ -1988,7 +1988,7 @@ __metadata:
     "@types/css-tree": "npm:~2.3.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@vitest/coverage-istanbul": "npm:^4.0.18"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
@@ -2018,7 +2018,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     vitest: "npm:~4.1.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
@@ -9101,7 +9101,7 @@ __metadata:
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     chokidar: "npm:~5.0.0"
     commit-and-tag-version: "npm:^12.6.1"
@@ -9129,7 +9129,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     typedoc: "npm:~0.28.0"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@ama-sdk/client-fetch": "workspace:~"
     "@ama-sdk/core": "workspace:~"
@@ -9172,7 +9172,7 @@ __metadata:
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     commit-and-tag-version: "npm:^12.6.1"
     cpy-cli: "npm:^6.0.0"
@@ -9199,7 +9199,7 @@ __metadata:
     tsc-watch: "npm:^7.0.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     yaml-eslint-parser: "npm:^1.2.2"
   peerDependencies:
     "@ama-sdk/client-fetch": "workspace:~"
@@ -9248,7 +9248,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@webcontainer/api": "npm:~1.6.0"
     angular-eslint: "npm:~21.4.0"
     commander: "npm:^14.0.0"
@@ -9272,7 +9272,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
     "@o3r/schematics": "workspace:~"
@@ -9335,7 +9335,7 @@ __metadata:
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -9363,7 +9363,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     webpack: "npm:~5.105.0"
   peerDependencies:
     "@ama-sdk/core": "workspace:~"
@@ -9433,7 +9433,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -9461,7 +9461,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@ama-sdk/client-fetch": "workspace:~"
     "@ama-sdk/core": "workspace:~"
@@ -9522,7 +9522,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -9550,7 +9550,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
     "@angular/common": ^21.0.0
@@ -9599,7 +9599,7 @@ __metadata:
     "@types/fs-extra": "npm:^11.0.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     commander: "npm:^14.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -9623,7 +9623,7 @@ __metadata:
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     winston: "npm:^3.8.2"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
@@ -9660,7 +9660,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     azure-devops-node-api: "npm:^15.0.0"
     commander: "npm:^14.0.0"
@@ -9684,7 +9684,7 @@ __metadata:
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     winston: "npm:^3.8.2"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
@@ -9709,7 +9709,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     eslint: "npm:~9.39.0"
     eslint-import-resolver-node: "npm:~0.3.9"
@@ -9727,7 +9727,7 @@ __metadata:
     minimist: "npm:^1.2.6"
     nx: "npm:~22.7.0"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     typescript: ^5.9.0
   bin:
@@ -9801,7 +9801,7 @@ __metadata:
     "@types/color": "npm:^4.0.0"
     "@types/jest": "npm:~30.0.0"
     "@types/tinycolor2": "npm:^1.4.6"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     ag-grid-angular: "npm:~35.3.0"
     ag-grid-community: "npm:~35.3.0"
     angular-eslint: "npm:~21.4.0"
@@ -9842,7 +9842,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     vite: "npm:~7.3.1"
   languageName: unknown
   linkType: soft
@@ -9893,7 +9893,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@typescript/vfs": "npm:^1.6.1"
     "@yarnpkg/cli": "npm:^4.5.0"
     "@yarnpkg/core": "npm:^4.1.3"
@@ -9931,7 +9931,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     unionfs: "npm:~4.6.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
@@ -10052,7 +10052,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cheerio: "npm:~1.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -10081,7 +10081,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
     "@angular/core": ^21.0.0
@@ -10157,7 +10157,7 @@ __metadata:
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     chokidar: "npm:~5.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -10187,7 +10187,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     unionfs: "npm:~4.6.0"
     uuid: "npm:~14.0.0"
   peerDependencies:
@@ -10257,7 +10257,7 @@ __metadata:
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.12.0"
     "@types/shell-quote": "npm:^1.7.5"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -10285,7 +10285,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@o3r/telemetry": "workspace:~"
   peerDependenciesMeta:
@@ -10332,7 +10332,7 @@ __metadata:
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cheerio: "npm:~1.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -10360,7 +10360,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
     "@angular-devkit/schematics": ^21.0.0
@@ -10414,7 +10414,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -10439,7 +10439,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/core": ^21.0.0
     "@angular-devkit/schematics": ^21.0.0
@@ -10528,9 +10528,9 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
-    "@typescript-eslint/rule-tester": "npm:~8.58.0"
-    "@typescript-eslint/utils": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
+    "@typescript-eslint/rule-tester": "npm:~8.59.0"
+    "@typescript-eslint/utils": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -10554,7 +10554,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     yaml-eslint-parser: "npm:^1.2.2"
   peerDependencies:
     "@angular-eslint/template-parser": ^21.0.0
@@ -10613,7 +10613,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@yarnpkg/cli": "npm:^4.5.0"
     "@yarnpkg/core": "npm:^4.1.3"
     "@yarnpkg/fslib": "npm:^3.1.0"
@@ -10651,7 +10651,7 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typedoc: "npm:~0.28.0"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     typescript-json-schema: "npm:^0.67.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
@@ -10733,7 +10733,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -10760,7 +10760,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@ama-sdk/core": "workspace:~"
     "@angular-devkit/schematics": ^21.0.0
@@ -10863,8 +10863,8 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
-    "@typescript-eslint/rule-tester": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
+    "@typescript-eslint/rule-tester": "npm:~8.59.0"
     "@vitest/coverage-istanbul": "npm:^4.0.18"
     "@vscode/codicons": "npm:^0.0.45"
     "@webcontainer/api": "npm:~1.6.0"
@@ -10941,7 +10941,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     uuid: "npm:~14.0.0"
     verdaccio: "npm:~6.3.0"
     vite: "npm:~7.3.1"
@@ -10995,7 +10995,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     ejs: "npm:~3.1.9"
@@ -11025,7 +11025,7 @@ __metadata:
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   languageName: unknown
   linkType: soft
 
@@ -11070,7 +11070,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@yarnpkg/cli": "npm:^4.5.0"
     "@yarnpkg/core": "npm:^4.1.3"
     "@yarnpkg/fslib": "npm:^3.1.0"
@@ -11108,7 +11108,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     unionfs: "npm:~4.6.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
@@ -11212,7 +11212,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -11243,7 +11243,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
     "@angular/core": ^21.0.0
@@ -11312,7 +11312,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -11339,7 +11339,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     zod: "npm:~4.3.0"
   bin:
     o3r-mcp-start: ./dist/src/cli/index.js
@@ -11387,7 +11387,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/node-fetch": "npm:^2.6.2"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     commander: "npm:^14.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -11418,7 +11418,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     winston: "npm:^3.8.2"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
@@ -11473,7 +11473,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -11498,7 +11498,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
     "@o3r/schematics": "workspace:~"
@@ -11527,7 +11527,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     esbuild: "npm:~0.27.0"
@@ -11555,7 +11555,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     url-loader: "npm:^4.1.1"
     webpack: "npm:~5.105.0"
     webpack-cli: "npm:~6.0.0"
@@ -11585,9 +11585,9 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/js-yaml": "npm:^4.0.5"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/eslint-plugin": "npm:~8.58.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
-    "@typescript-eslint/utils": "npm:~8.58.0"
+    "@typescript-eslint/eslint-plugin": "npm:~8.59.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
+    "@typescript-eslint/utils": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -11612,7 +11612,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
     "@o3r/schematics": "workspace:~"
@@ -11671,7 +11671,7 @@ __metadata:
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -11698,7 +11698,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
     "@angular/common": ^21.0.0
@@ -11778,7 +11778,7 @@ __metadata:
     "@types/json-schema": "npm:^7.0.15"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -11811,7 +11811,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     typescript-json-schema: "npm:^0.67.0"
     unionfs: "npm:~4.6.0"
   peerDependencies:
@@ -11902,7 +11902,7 @@ __metadata:
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     chalk: "npm:^4.1.2"
     cpy-cli: "npm:^6.0.0"
@@ -11933,7 +11933,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
     "@angular-devkit/core": ^21.0.0
@@ -12042,7 +12042,7 @@ __metadata:
     "@types/bootstrap": "npm:^5.2.10"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@vscode/codicons": "npm:^0.0.45"
     "@webcontainer/api": "npm:~1.6.0"
     "@xterm/addon-fit": "npm:^0.11.0"
@@ -12093,7 +12093,7 @@ __metadata:
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     webpack: "npm:~5.105.0"
   languageName: unknown
   linkType: soft
@@ -12131,7 +12131,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -12159,7 +12159,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@ama-sdk/core": "workspace:~"
     "@angular-devkit/core": ^21.0.0
@@ -12228,7 +12228,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@yarnpkg/cli": "npm:^4.5.0"
     "@yarnpkg/core": "npm:^4.1.3"
     "@yarnpkg/fslib": "npm:^3.1.0"
@@ -12269,7 +12269,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     unionfs: "npm:~4.6.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
@@ -12367,7 +12367,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -12391,7 +12391,7 @@ __metadata:
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
     "@angular-devkit/core": ^21.0.0
@@ -12430,7 +12430,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     chalk: "npm:^4.1.2"
     cpy-cli: "npm:^6.0.0"
@@ -12458,7 +12458,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     unionfs: "npm:~4.6.0"
   peerDependencies:
     "@jest/environment": ^29.0.0 || ^30.2.0
@@ -12527,7 +12527,7 @@ __metadata:
     "@types/node": "npm:~24.12.0"
     "@types/pixelmatch": "npm:^5.2.3"
     "@types/pngjs": "npm:^6.0.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     concurrently: "npm:^9.1.0"
     cpy-cli: "npm:^6.0.0"
@@ -12561,7 +12561,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@amadeus-it-group/kassette": ^1.7.0
     "@angular-devkit/core": ^21.0.0
@@ -12659,7 +12659,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -12688,7 +12688,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     uuid: "npm:~14.0.0"
   peerDependencies:
     "@angular-devkit/schematics": ^21.0.0
@@ -12722,9 +12722,9 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/eslint-plugin": "npm:~8.58.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
-    "@typescript-eslint/utils": "npm:~8.58.0"
+    "@typescript-eslint/eslint-plugin": "npm:~8.59.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
+    "@typescript-eslint/utils": "npm:~8.59.0"
     eslint: "npm:~9.39.0"
     eslint-import-resolver-node: "npm:~0.3.9"
     eslint-import-resolver-typescript: "npm:~4.4.0"
@@ -12797,7 +12797,7 @@ __metadata:
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     angular-eslint: "npm:~21.4.0"
     commander: "npm:^14.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -12828,7 +12828,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
     uuid: "npm:~14.0.0"
     winston: "npm:^3.8.2"
   peerDependencies:
@@ -17044,122 +17044,123 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:8.58.2, @typescript-eslint/eslint-plugin@npm:~8.58.0":
-  version: 8.58.2
-  resolution: "@typescript-eslint/eslint-plugin@npm:8.58.2"
+"@typescript-eslint/eslint-plugin@npm:8.59.2, @typescript-eslint/eslint-plugin@npm:~8.59.0":
+  version: 8.59.2
+  resolution: "@typescript-eslint/eslint-plugin@npm:8.59.2"
   dependencies:
     "@eslint-community/regexpp": "npm:^4.12.2"
-    "@typescript-eslint/scope-manager": "npm:8.58.2"
-    "@typescript-eslint/type-utils": "npm:8.58.2"
-    "@typescript-eslint/utils": "npm:8.58.2"
-    "@typescript-eslint/visitor-keys": "npm:8.58.2"
+    "@typescript-eslint/scope-manager": "npm:8.59.2"
+    "@typescript-eslint/type-utils": "npm:8.59.2"
+    "@typescript-eslint/utils": "npm:8.59.2"
+    "@typescript-eslint/visitor-keys": "npm:8.59.2"
     ignore: "npm:^7.0.5"
     natural-compare: "npm:^1.4.0"
     ts-api-utils: "npm:^2.5.0"
   peerDependencies:
-    "@typescript-eslint/parser": ^8.58.2
+    "@typescript-eslint/parser": ^8.59.2
     eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
     typescript: ">=4.8.4 <6.1.0"
-  checksum: 10/e17da9302a66c405d6f7ca33409b177535933b96b9548825c0c66368813b21aeff9550348234ea1b882427fbdc246e5032fbe655cea6bc71aa688417f988c934
+  checksum: 10/c0101b37dac651fbd33e225e84b96cd96e9916257db23ca0e16a611c3fb3f5faaa708f261e3a0440bd5994b6a19a1790f3e39f03ccc25c942137ee64113acf48
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:8.58.2, @typescript-eslint/parser@npm:~8.58.0":
-  version: 8.58.2
-  resolution: "@typescript-eslint/parser@npm:8.58.2"
+"@typescript-eslint/parser@npm:8.59.2, @typescript-eslint/parser@npm:~8.59.0":
+  version: 8.59.2
+  resolution: "@typescript-eslint/parser@npm:8.59.2"
   dependencies:
-    "@typescript-eslint/scope-manager": "npm:8.58.2"
-    "@typescript-eslint/types": "npm:8.58.2"
-    "@typescript-eslint/typescript-estree": "npm:8.58.2"
-    "@typescript-eslint/visitor-keys": "npm:8.58.2"
+    "@typescript-eslint/scope-manager": "npm:8.59.2"
+    "@typescript-eslint/types": "npm:8.59.2"
+    "@typescript-eslint/typescript-estree": "npm:8.59.2"
+    "@typescript-eslint/visitor-keys": "npm:8.59.2"
     debug: "npm:^4.4.3"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
     typescript: ">=4.8.4 <6.1.0"
-  checksum: 10/276da6985cd531615d99a1875d87e2d619adbc6377577849c4f3abc4402a7101dea35b7666019c0e83f3346cace002448668e4a4ebe35734d504d48689a7e836
+  checksum: 10/601eab709a6c7f7273f41b034435cb0a7102ee9e888b154ed9454003fe7b40d8a38286181b1a8ef2b7e4bfa4be6e7a48ee302e715b11d0550550f4ce1a114984
   languageName: node
   linkType: hard
 
-"@typescript-eslint/project-service@npm:8.58.2":
-  version: 8.58.2
-  resolution: "@typescript-eslint/project-service@npm:8.58.2"
+"@typescript-eslint/project-service@npm:8.59.2":
+  version: 8.59.2
+  resolution: "@typescript-eslint/project-service@npm:8.59.2"
   dependencies:
-    "@typescript-eslint/tsconfig-utils": "npm:^8.58.2"
-    "@typescript-eslint/types": "npm:^8.58.2"
+    "@typescript-eslint/tsconfig-utils": "npm:^8.59.2"
+    "@typescript-eslint/types": "npm:^8.59.2"
     debug: "npm:^4.4.3"
   peerDependencies:
     typescript: ">=4.8.4 <6.1.0"
-  checksum: 10/fcaf2b17aa0476164a53626b2754ab01ca595e913828699276972dcafe6369dd31cb7ce73cd32b8f4dd9209a7bf480c51b87266d0c434adb27a462e24e7940af
+  checksum: 10/768d311bdf366519549a3806b16eb3be030328b7cda9882e60ea2a6c112111a531ef94289ec88225b70ca61d2071f1bddf2c5faa841a837d44992c918d198d7b
   languageName: node
   linkType: hard
 
-"@typescript-eslint/rule-tester@npm:~8.58.0":
-  version: 8.58.2
-  resolution: "@typescript-eslint/rule-tester@npm:8.58.2"
+"@typescript-eslint/rule-tester@npm:~8.59.0":
+  version: 8.59.2
+  resolution: "@typescript-eslint/rule-tester@npm:8.59.2"
   dependencies:
-    "@typescript-eslint/parser": "npm:8.58.2"
-    "@typescript-eslint/typescript-estree": "npm:8.58.2"
-    "@typescript-eslint/utils": "npm:8.58.2"
+    "@typescript-eslint/parser": "npm:8.59.2"
+    "@typescript-eslint/typescript-estree": "npm:8.59.2"
+    "@typescript-eslint/utils": "npm:8.59.2"
     ajv: "npm:^6.12.6"
     json-stable-stringify-without-jsonify: "npm:^1.0.1"
     lodash.merge: "npm:4.6.2"
     semver: "npm:^7.7.3"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
-  checksum: 10/fcdedaddf84d2434d5659e1a34bcb1175e2073643ea23c1251a4d2d85b9fadf18c00b87c7b922036ceb6d1bf4bfcde166791de44452522016f230d646d8b801c
+    typescript: ">=4.8.4 <6.1.0"
+  checksum: 10/dd369e483af06af429fb9eecab468fe43e000c008ee2263ede5889f17d202d4f6fe3f9f183373eaf9a6d40396225c8050bf1bcebc4320553dfc575c527996a53
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:8.58.2":
-  version: 8.58.2
-  resolution: "@typescript-eslint/scope-manager@npm:8.58.2"
+"@typescript-eslint/scope-manager@npm:8.59.2":
+  version: 8.59.2
+  resolution: "@typescript-eslint/scope-manager@npm:8.59.2"
   dependencies:
-    "@typescript-eslint/types": "npm:8.58.2"
-    "@typescript-eslint/visitor-keys": "npm:8.58.2"
-  checksum: 10/d38da7a1d6e9d8ec87eb0d5115e3978ebe33fa5cb0f5b9b1c202ab314ebf352d33c66b0070ab3244ff79beec8fff19ec9e4063c36288ec0bc66fd24508d2b264
+    "@typescript-eslint/types": "npm:8.59.2"
+    "@typescript-eslint/visitor-keys": "npm:8.59.2"
+  checksum: 10/9a63eb5d4ae26235ce2d3348eb45ff0e1a8cc7b198f622c48e921c7bfe0f1f7fa29a8cd3856547a4d42c08b7ed334315c682a714cb3b8b62841b5d59a1d08fd4
   languageName: node
   linkType: hard
 
-"@typescript-eslint/tsconfig-utils@npm:8.58.2, @typescript-eslint/tsconfig-utils@npm:^8.58.2":
-  version: 8.58.2
-  resolution: "@typescript-eslint/tsconfig-utils@npm:8.58.2"
+"@typescript-eslint/tsconfig-utils@npm:8.59.2, @typescript-eslint/tsconfig-utils@npm:^8.59.2":
+  version: 8.59.2
+  resolution: "@typescript-eslint/tsconfig-utils@npm:8.59.2"
   peerDependencies:
     typescript: ">=4.8.4 <6.1.0"
-  checksum: 10/68d40f96150dba33ccb9aa5a1531cc0fb4c413ed6665a3d2b1651437ea162d1a3c9dc0c3dc8208e48f9eddcf51f35fa9880b18f9a03397bbafcbec8dae9391c9
+  checksum: 10/42479906a01469322d22e8d45c6200998382f19c1c2dcb59d6adb2e796238a0476f1aa8fd1a1b2c3b36c0c7aa77ebb72ffc958bd11b6efadd36cd175646d13de
   languageName: node
   linkType: hard
 
-"@typescript-eslint/type-utils@npm:8.58.2, @typescript-eslint/type-utils@npm:^8.0.0":
-  version: 8.58.2
-  resolution: "@typescript-eslint/type-utils@npm:8.58.2"
+"@typescript-eslint/type-utils@npm:8.59.2, @typescript-eslint/type-utils@npm:^8.0.0":
+  version: 8.59.2
+  resolution: "@typescript-eslint/type-utils@npm:8.59.2"
   dependencies:
-    "@typescript-eslint/types": "npm:8.58.2"
-    "@typescript-eslint/typescript-estree": "npm:8.58.2"
-    "@typescript-eslint/utils": "npm:8.58.2"
+    "@typescript-eslint/types": "npm:8.59.2"
+    "@typescript-eslint/typescript-estree": "npm:8.59.2"
+    "@typescript-eslint/utils": "npm:8.59.2"
     debug: "npm:^4.4.3"
     ts-api-utils: "npm:^2.5.0"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
     typescript: ">=4.8.4 <6.1.0"
-  checksum: 10/82eefae7f5d15cd6545deeb702ba36214903e833e58b6f460880fb3f606e1adc5eee90f55c7f0e9cb50575d17dd7c96a92e8d3e796893dd373908d8604623774
+  checksum: 10/931f4fc262722f7cb61bcaf8f3a1cc6aec93690692cb06d37847880f1216fd9183146030b4b313407ae0bb8cda83dbd9e59d0d77dac2cff015f45fb23a0f5911
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.58.2, @typescript-eslint/types@npm:^8.0.0, @typescript-eslint/types@npm:^8.15.0, @typescript-eslint/types@npm:^8.46.4, @typescript-eslint/types@npm:^8.56.0, @typescript-eslint/types@npm:^8.58.2":
-  version: 8.58.2
-  resolution: "@typescript-eslint/types@npm:8.58.2"
-  checksum: 10/9ffbe0542c91442c9841e157b85bc7bdc7e9a3f5ad5e6ef32f8d98556bc947f9b4151e54dec414c2c6d68eb436483259e74decd8fe56330689298980949ba5cc
+"@typescript-eslint/types@npm:8.59.2, @typescript-eslint/types@npm:^8.0.0, @typescript-eslint/types@npm:^8.15.0, @typescript-eslint/types@npm:^8.46.4, @typescript-eslint/types@npm:^8.56.0, @typescript-eslint/types@npm:^8.59.2":
+  version: 8.59.2
+  resolution: "@typescript-eslint/types@npm:8.59.2"
+  checksum: 10/dc828a5c50debac37047a30ec5bfdc21e2b410c7c8c517c1ab01164fa9a0197f4f6b829f502dd992d21044442277029bfacf0c0b70d7ac9446977cbc8d375e13
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:8.58.2, @typescript-eslint/typescript-estree@npm:^8.48.1":
-  version: 8.58.2
-  resolution: "@typescript-eslint/typescript-estree@npm:8.58.2"
+"@typescript-eslint/typescript-estree@npm:8.59.2, @typescript-eslint/typescript-estree@npm:^8.48.1":
+  version: 8.59.2
+  resolution: "@typescript-eslint/typescript-estree@npm:8.59.2"
   dependencies:
-    "@typescript-eslint/project-service": "npm:8.58.2"
-    "@typescript-eslint/tsconfig-utils": "npm:8.58.2"
-    "@typescript-eslint/types": "npm:8.58.2"
-    "@typescript-eslint/visitor-keys": "npm:8.58.2"
+    "@typescript-eslint/project-service": "npm:8.59.2"
+    "@typescript-eslint/tsconfig-utils": "npm:8.59.2"
+    "@typescript-eslint/types": "npm:8.59.2"
+    "@typescript-eslint/visitor-keys": "npm:8.59.2"
     debug: "npm:^4.4.3"
     minimatch: "npm:^10.2.2"
     semver: "npm:^7.7.3"
@@ -17167,32 +17168,32 @@ __metadata:
     ts-api-utils: "npm:^2.5.0"
   peerDependencies:
     typescript: ">=4.8.4 <6.1.0"
-  checksum: 10/e34bfcd426045d75f91b951ed35f3f880b209434d3574c44d3aac210a16e84e4489e43d4c7b8b552b7cd44862bd58c2f411ede7b40efa5f14ede835bb3e6d3c9
+  checksum: 10/54a2689e5c08f35364214a542e328745401951e94526c9f95d68b14c57521e9aade1e946074a02ed2c9cc95e94fc1866c3f725f820263759a1ee2072e3ed146f
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.58.2, @typescript-eslint/utils@npm:^8.0.0, @typescript-eslint/utils@npm:^8.48.1, @typescript-eslint/utils@npm:~8.58.0":
-  version: 8.58.2
-  resolution: "@typescript-eslint/utils@npm:8.58.2"
+"@typescript-eslint/utils@npm:8.59.2, @typescript-eslint/utils@npm:^8.0.0, @typescript-eslint/utils@npm:^8.48.1, @typescript-eslint/utils@npm:~8.59.0":
+  version: 8.59.2
+  resolution: "@typescript-eslint/utils@npm:8.59.2"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.9.1"
-    "@typescript-eslint/scope-manager": "npm:8.58.2"
-    "@typescript-eslint/types": "npm:8.58.2"
-    "@typescript-eslint/typescript-estree": "npm:8.58.2"
+    "@typescript-eslint/scope-manager": "npm:8.59.2"
+    "@typescript-eslint/types": "npm:8.59.2"
+    "@typescript-eslint/typescript-estree": "npm:8.59.2"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
     typescript: ">=4.8.4 <6.1.0"
-  checksum: 10/b46e6cddf2de96618b98c2635836512c7dc63217b874698b2ed079a41762b1c3c8edae4b15690e0b0c7b896e81d39617835a19bfbe03fe4176ddded49cf813d3
+  checksum: 10/4e157a18b28d656b13ae07583765cc871d992abad0ae0aeb2cde819dd632d62b89da9f9e468dfefead18b9440aa2b9040ca36841525dff4ea97479583114afe0
   languageName: node
   linkType: hard
 
-"@typescript-eslint/visitor-keys@npm:8.58.2":
-  version: 8.58.2
-  resolution: "@typescript-eslint/visitor-keys@npm:8.58.2"
+"@typescript-eslint/visitor-keys@npm:8.59.2":
+  version: 8.59.2
+  resolution: "@typescript-eslint/visitor-keys@npm:8.59.2"
   dependencies:
-    "@typescript-eslint/types": "npm:8.58.2"
+    "@typescript-eslint/types": "npm:8.59.2"
     eslint-visitor-keys: "npm:^5.0.0"
-  checksum: 10/051dd3d3507d4b36b5ead6acd3a00813b0775405cb074ad8fb4eb951b6c7a007a6f45c57b90ffab7755b8b7636e6f9a23b787221880db174584eca0739a0a9ab
+  checksum: 10/ec8d797272c12b53b9eb2b508c326823b2cb17f6bcf57606238b812bb73854675919a5e772a42499ec1ac7787a16d018fffd94e6b168cc0b58a9872b16d6f1da
   languageName: node
   linkType: hard
 
@@ -19635,7 +19636,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@vercel/ncc": "npm:~0.38.0"
     angular-eslint: "npm:~21.4.0"
     audit-types: "npm:^0.6.0"
@@ -19655,7 +19656,7 @@ __metadata:
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     audit-types: ^0.6.0
   peerDependenciesMeta:
@@ -25974,7 +25975,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@vercel/ncc": "npm:~0.38.0"
     angular-eslint: "npm:~21.4.0"
     eslint: "npm:~9.39.0"
@@ -25990,7 +25991,7 @@ __metadata:
     semver: "npm:^7.5.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   languageName: unknown
   linkType: soft
 
@@ -31362,7 +31363,7 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@vercel/ncc": "npm:~0.38.0"
     angular-eslint: "npm:~21.4.0"
     eslint: "npm:~9.39.0"
@@ -31382,7 +31383,7 @@ __metadata:
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   languageName: unknown
   linkType: soft
 
@@ -32535,8 +32536,8 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@types/vscode": "npm:~1.110.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
-    "@typescript-eslint/utils": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
+    "@typescript-eslint/utils": "npm:~8.59.0"
     "@vscode/chat-extension-utils": "npm:0.0.0-alpha.5"
     "@vscode/vsce": "npm:^3.2.1"
     angular-eslint: "npm:~21.4.0"
@@ -32563,7 +32564,7 @@ __metadata:
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   peerDependencies:
     "@types/vscode": ^1.100.0
   peerDependenciesMeta:
@@ -35054,7 +35055,7 @@ __metadata:
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.12.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@vercel/ncc": "npm:~0.38.0"
     angular-eslint: "npm:~21.4.0"
     eslint: "npm:~9.39.0"
@@ -35071,7 +35072,7 @@ __metadata:
     semver: "npm:^7.5.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   languageName: unknown
   linkType: soft
 
@@ -38880,18 +38881,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-eslint@npm:~8.58.0":
-  version: 8.58.2
-  resolution: "typescript-eslint@npm:8.58.2"
+"typescript-eslint@npm:~8.59.0":
+  version: 8.59.2
+  resolution: "typescript-eslint@npm:8.59.2"
   dependencies:
-    "@typescript-eslint/eslint-plugin": "npm:8.58.2"
-    "@typescript-eslint/parser": "npm:8.58.2"
-    "@typescript-eslint/typescript-estree": "npm:8.58.2"
-    "@typescript-eslint/utils": "npm:8.58.2"
+    "@typescript-eslint/eslint-plugin": "npm:8.59.2"
+    "@typescript-eslint/parser": "npm:8.59.2"
+    "@typescript-eslint/typescript-estree": "npm:8.59.2"
+    "@typescript-eslint/utils": "npm:8.59.2"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
     typescript: ">=4.8.4 <6.1.0"
-  checksum: 10/fd8b67208f6af32b78df004402e6de1324a64ec1429b707edf295a0257a1ca6ddab452c18494958461d0d86a74a81336ae7229fe430bd1092c0d2ceb00a9f61d
+  checksum: 10/f729dffc5e2beef2685d7fdc5ecac973c02cad30d24929a5cc4df5d94b58d8841f34e06c87cf9df14caae7a0c264e4371d9c5b59b7210ce769519417c8494698
   languageName: node
   linkType: hard
 
@@ -40761,7 +40762,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
-    "@typescript-eslint/parser": "npm:~8.58.0"
+    "@typescript-eslint/parser": "npm:~8.59.0"
     "@vercel/ncc": "npm:~0.38.0"
     angular-eslint: "npm:~21.4.0"
     eslint: "npm:~9.39.0"
@@ -40780,7 +40781,7 @@ __metadata:
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.58.0"
+    typescript-eslint: "npm:~8.59.0"
   languageName: unknown
   linkType: soft
 
