@@ -23,6 +23,9 @@ import {
   BrowserAnimationsModule,
 } from '@angular/platform-browser/animations';
 import {
+  provideTranslocoMessageformat,
+} from '@jsverse/transloco-messageformat';
+import {
   NgbOffcanvasModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -35,10 +38,6 @@ import {
 import {
   StoreDevtoolsModule,
 } from '@ngrx/store-devtools';
-import {
-  TranslateCompiler,
-  TranslateModule,
-} from '@ngx-translate/core';
 import {
   ApplicationDevtoolsModule,
   OTTER_APPLICATION_DEVTOOLS_OPTIONS,
@@ -58,15 +57,6 @@ import {
   provideDynamicContent,
 } from '@o3r/dynamic-content';
 import {
-  LocalizationConfiguration,
-  LocalizationDevtoolsModule,
-  LocalizationModule,
-  MESSAGE_FORMAT_CONFIG,
-  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
-  translateLoaderProvider,
-  TranslateMessageFormatLazyCompiler,
-} from '@o3r/localization';
-import {
   ConsoleLogger,
   Logger,
   LOGGER_CLIENT_TOKEN,
@@ -76,6 +66,16 @@ import {
   OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
   RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
+import {
+  LocalizationConfiguration,
+  LocalizationOverrideStoreModule,
+  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
+  provideLocalization,
+  provideLocalizationDevtools,
+} from '@o3r/transloco';
+import {
+  LocalizationRulesEngineActionModule,
+} from '@o3r/transloco/rules-engine';
 import {
   PetApi,
 } from '@o3r-training/showcase-sdk';
@@ -156,14 +156,8 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}, { runtimeChecks }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    TranslateModule.forRoot({
-      loader: translateLoaderProvider,
-      compiler: {
-        provide: TranslateCompiler,
-        useClass: TranslateMessageFormatLazyCompiler
-      }
-    }),
-    LocalizationModule.forRoot(localizationConfigurationFactory),
+    LocalizationOverrideStoreModule,
+    LocalizationRulesEngineActionModule,
     RulesEngineRunnerModule.forRoot({ debug: true }),
     AppRoutingModule,
     SidenavPres,
@@ -172,7 +166,6 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     ApplicationDevtoolsModule,
     ComponentsDevtoolsModule,
     StylingDevtoolsModule,
-    LocalizationDevtoolsModule,
     ConfigurationDevtoolsModule,
     MonacoEditorModule.forRoot()
   ],
@@ -180,7 +173,6 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     provideZonelessChangeDetection(),
     provideCustomComponents(new Map(), withComponent('exampleDatePickerFlavorHebrew', DatePickerHebrewInputPres)),
     provideDynamicContent(),
-    { provide: MESSAGE_FORMAT_CONFIG, useValue: {} },
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
     { provide: PetApi, useFactory: petApiFactory, deps: [LoggerService] },
     { provide: OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
@@ -206,7 +198,10 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
       /* Templates are only internal, no need to sanitize */
       sanitize: { provide: SANITIZE, useValue: SecurityContext.NONE }
     }),
-    { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } }
+    { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } },
+    provideLocalization(localizationConfigurationFactory),
+    provideLocalizationDevtools(),
+    provideTranslocoMessageformat()
   ],
   bootstrap: [App]
 })

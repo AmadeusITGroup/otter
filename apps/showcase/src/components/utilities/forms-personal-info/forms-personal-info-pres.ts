@@ -42,9 +42,9 @@ import {
 } from '@o3r/forms';
 import {
   Localization,
-  LocalizationModule,
+  O3rLocalizationTranslatePipe,
   Translatable,
-} from '@o3r/localization';
+} from '@o3r/transloco';
 import {
   Subscription,
 } from 'rxjs';
@@ -70,7 +70,7 @@ import {
     DatePickerInputPres,
     FormsModule,
     JsonPipe,
-    LocalizationModule,
+    O3rLocalizationTranslatePipe,
     ReactiveFormsModule
   ],
   templateUrl: './forms-personal-info-pres.html',

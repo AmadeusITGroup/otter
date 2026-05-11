@@ -5,7 +5,6 @@ import {
   Provider,
 } from '@angular/core';
 import {
-  provideTransloco,
   TRANSLOCO_LOADER,
 } from '@jsverse/transloco';
 import {
@@ -29,7 +28,9 @@ const defaultLocalizationConfiguration = {
  * Mock translations interface to provide to the mock localization provider
  */
 export interface MockTranslations {
+  /** Language code mapped to its translation key-value pairs */
   [lang: string]: {
+    /** Translation key mapped to its translated value */
     [key: string]: any;
   };
 }
@@ -83,15 +84,7 @@ export function provideLocalizationMock(
   ];
 
   return [
-    ...provideTransloco({
-      config: {
-        availableLangs: localizationConfiguration.supportedLocales || ['en'],
-        defaultLang: localizationConfiguration.language || localizationConfiguration.fallbackLanguage || 'en',
-        reRenderOnLangChange: true,
-        prodMode: true
-      }
-    }),
-    ...providers,
-    provideLocalization(localizationConfiguration)
+    provideLocalization(localizationConfiguration),
+    ...providers
   ];
 }

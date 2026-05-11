@@ -6,15 +6,22 @@ import {
 import {
   type EnvironmentProviders,
   InjectionToken,
+  isDevMode,
   LOCALE_ID,
   makeEnvironmentProviders,
   Optional,
   type Provider,
 } from '@angular/core';
 import {
+  provideTransloco,
+} from '@jsverse/transloco';
+import {
   DEFAULT_LOCALIZATION_CONFIGURATION,
   LocalizationConfiguration,
 } from '../core';
+import {
+  translateLoaderProvider,
+} from './localization-provider';
 import {
   LocalizationService,
 } from './localization-service';
@@ -70,7 +77,23 @@ export const CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN = new InjectionToken<Partia
  * ```
  */
 export function provideLocalization(configuration?: Partial<LocalizationConfiguration> | (() => Partial<LocalizationConfiguration>)): EnvironmentProviders {
+  const config = typeof configuration === 'function' ? configuration() : (configuration || {});
+  const mergedConfig = { ...DEFAULT_LOCALIZATION_CONFIGURATION, ...config };
+
   const providers: (Provider | EnvironmentProviders)[] = [
+    provideTransloco({
+      config: {
+        availableLangs: mergedConfig.supportedLocales || [],
+        defaultLang: mergedConfig.language || mergedConfig.fallbackLanguage,
+        reRenderOnLangChange: true,
+        prodMode: !isDevMode(),
+        fallbackLang: mergedConfig.fallbackLanguage,
+        missingHandler: {
+          useFallbackTranslation: true
+        }
+      }
+    }),
+    translateLoaderProvider,
     LocalizationService,
     TextDirectionService,
     { provide: LOCALIZATION_CONFIGURATION_TOKEN, useFactory: createLocalizationConfiguration, deps: [[new Optional(), CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN]] },

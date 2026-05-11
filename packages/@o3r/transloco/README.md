@@ -37,3 +37,28 @@ ng add @o3r/transloco
 
 > [!WARNING]
 > This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+
+## Generators
+
+Otter framework provides a set of code generators based on [Angular schematics](https://angular.io/guide/schematics).
+
+| Schematics                          | Description                                             | How to use                                 |
+|-------------------------------------|---------------------------------------------------------|--------------------------------------------|
+| add                                 | Include Otter transloco module in a library/application | `ng add @o3r/transloco`                    |
+| localization-to-component           | Add localization architecture to an Otter component     | `ng g localization-to-component`           |
+| localization-key-to-component       | Add a localization key to an Otter component            | `ng g localization-key-to-component`       |
+| migration-localization-to-transloco | Migrate from @o3r/localization to @o3r/transloco        | `ng g migration-localization-to-transloco` |
+
+## Migrating from @o3r/localization
+
+If you're upgrading from `@o3r/localization` (ngx-translate), use the migration schematic:
+
+```bash
+ng g @o3r/transloco:migration-localization-to-transloco
+```
+
+For detailed migration instructions, including manual steps required after running the schematic, see the [Migration Guide](../../../docs/transloco/localization-to-transloco.md).
+
+## More details
+
+Find more information in the [documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/transloco/TRANSLOCO.md).
