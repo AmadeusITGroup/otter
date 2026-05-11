@@ -1,7 +1,7 @@
 /**
  * Test environment exported by O3rEnvironment, must be first line of the file
  * @jest-environment @o3r/test-helpers/jest-environment
- * @jest-environment-o3r-app-folder test-app-localization-metadata-check
+ * @jest-environment-o3r-app-folder test-app-transloco-metadata-check
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 

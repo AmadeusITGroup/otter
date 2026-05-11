@@ -2,9 +2,6 @@ import {
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
-import {
-  LocalizationModule,
-} from '../tools/index';
 import type {
   LocalizationDevtoolsServiceOptions,
 } from './localization-devkit-interface';
@@ -26,9 +23,7 @@ import {
  * Module that provides localization devtools functionality
  */
 @NgModule({
-  imports: [
-    LocalizationModule
-  ],
+  imports: [],
   providers: [
     { provide: OTTER_LOCALIZATION_DEVTOOLS_OPTIONS, useValue: OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS },
     LocalizationDevtoolsMessageService,
