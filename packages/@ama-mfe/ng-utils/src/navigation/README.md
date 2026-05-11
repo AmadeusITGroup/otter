@@ -54,3 +54,10 @@ the module route history.
 `memorizeRoute` will record the navigation history in the iframe.
 `restoreRoute` will forward the host query parameters to the iframe and look for the navigation history associated to the
 `memoryChannelId`.
+
+## Message versions
+Message shapes and versions are documented in the
+[@ama-mfe/messages README](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/messages/README.md#navigation-messages).
+The producer always emits the latest version; consumers benefit from the semver fallback described in the
+[package README](../../README.md#message-version-compatibility), so an older consumer still receives the navigation and
+just ignores any unknown fields.
