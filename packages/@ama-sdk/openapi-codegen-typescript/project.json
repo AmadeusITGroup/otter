@@ -1,0 +1,32 @@
+{
+  "name": "ama-sdk-openapi-codegen-typescript",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-sdk/openapi-codegen-typescript/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "build-jar:optional"
+      ]
+    },
+    "build-jar": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:jar"
+      },
+      "configurations": {
+        "optional": {
+          "script": "build:jar:optional"
+        }
+      }
+    },
+    "publish": {
+      "inputs": [
+        "{projectRoot}/target/typescriptFetch-openapi-generator.jar"
+      ]
+    }
+  },
+  "tags": []
+}

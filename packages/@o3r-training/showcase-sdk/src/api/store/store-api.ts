@@ -3,7 +3,9 @@ import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, Pa
 import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to StoreApi's deleteOrder function */
 export interface StoreApiDeleteOrderRequestData {
-  /** ID of the order that needs to be deleted */
+  /**
+   * ID of the order that needs to be deleted 
+   */
   'orderId': number;
 }
 /** Parameters object to StoreApi's getInventory function */
@@ -11,12 +13,16 @@ export interface StoreApiGetInventoryRequestData {
 }
 /** Parameters object to StoreApi's getOrderById function */
 export interface StoreApiGetOrderByIdRequestData {
-  /** ID of order that needs to be fetched */
+  /**
+   * ID of order that needs to be fetched 
+   */
   'orderId': number;
 }
 /** Parameters object to StoreApi's placeOrder function */
 export interface StoreApiPlaceOrderRequestData {
-  /**  */
+  /**
+   *  
+   */
   'orderBody'?: Order;
 }
 export class StoreApi implements Api {

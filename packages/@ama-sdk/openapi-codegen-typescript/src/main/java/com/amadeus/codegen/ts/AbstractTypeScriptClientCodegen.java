@@ -68,6 +68,14 @@ public abstract class AbstractTypeScriptClientCodegen extends org.openapitools.c
   private final String requestBodyTransform;
 
   /**
+   * Preprocesses the OpenAPI specification to extract operation adapter paths.
+   * This generates the OPERATION_ADAPTER data structure used for runtime operation matching.
+   *
+   * @param openAPI the OpenAPI specification to preprocess
+   */
+  protected abstract void preprocessOperationAdapter(OpenAPI openAPI);
+
+  /**
    * Constructor for Otter-specific TypeScript client code generator.
    *
    * Initializes the generator with Otter-specific customizations on top of the upstream AbstractTypeScriptClientCodegen:
@@ -557,6 +565,18 @@ public abstract class AbstractTypeScriptClientCodegen extends org.openapitools.c
         parameter.style = "simple";
       }
     }
+  }
+
+    /**
+   * Otter-specific override: Add any additional preprocessing logic for the OpenAPI specification:
+   * - Extract operation adapter paths for runtime matching and add to additionalProperties for template access.
+   *
+   * @param openAPI the OpenAPI specification to preprocess
+   */
+  @Override
+  public void preprocessOpenAPI(OpenAPI openAPI) {
+    super.preprocessOpenAPI(openAPI);
+    this.preprocessOperationAdapter(openAPI);
   }
 
   /**

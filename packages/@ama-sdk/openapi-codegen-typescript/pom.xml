@@ -88,11 +88,6 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>io.swagger.core.v3</groupId>
-      <artifactId>swagger-core</artifactId>
-      <version>2.2.49</version>
-    </dependency>
-    <dependency>
       <groupId>org.openapitools</groupId>
       <artifactId>openapi-generator</artifactId>
       <version>${openapi-generator.version}</version>

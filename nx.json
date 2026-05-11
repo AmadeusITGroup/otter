@@ -699,8 +699,15 @@
       ],
       "cache": true
     },
-    "build-swagger": {
-      "cache": true
+    "build-jar": {
+      "inputs": [
+        "source",
+        "{projectRoot}/pom.xml"
+      ],
+      "outputs": [
+        "{projectRoot}/target/*.jar"
+      ],
+      "cache": false
     },
     "i18n": {
       "cache": true
