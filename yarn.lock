@@ -1496,6 +1496,8 @@ __metadata:
 "@ama-sdk/openapi-codegen-typescript@workspace:packages/@ama-sdk/openapi-codegen-typescript, @ama-sdk/openapi-codegen-typescript@workspace:~":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/openapi-codegen-typescript@workspace:packages/@ama-sdk/openapi-codegen-typescript"
+  dependencies:
+    cpy-cli: "npm:^6.0.0"
   languageName: unknown
   linkType: soft
 

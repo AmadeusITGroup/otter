@@ -5,8 +5,8 @@
     "access": "public"
   },
   "scripts": {
-    "build:jar": "mvn clean package -f ./pom.xml",
-    "build:jar:optional": "yarn run build:jar || true"
+    "build:jar": "mvn clean package -f ./pom.xml && yarn run postbuild || true",
+    "postbuild": "yarn cpy ./target/typescriptFetch-openapi-generator.jar ./dist && yarn cpy ./package.json ./dist"
   },
   "main": "./target/typescriptFetch-openapi-generator.jar",
   "exports": {
@@ -15,5 +15,8 @@
   },
   "files": [
     "./target/typescriptFetch-openapi-generator.jar"
-  ]
+  ],
+  "devDependencies": {
+    "cpy-cli": "^6.0.0"
+  }
 }
