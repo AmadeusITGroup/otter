@@ -700,6 +700,10 @@
       "cache": true
     },
     "build-jar": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:jar"
+      },
       "inputs": [
         "source",
         "{projectRoot}/pom.xml"
