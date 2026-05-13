@@ -7,6 +7,12 @@
       "schema": "./schematics/ng-add/schema.json",
       "aliases": ["install", "i"]
     },
+    "migration-localization-to-transloco": {
+      "description": "Migrate from @o3r/localization (ngx-translate) to @o3r/transloco",
+      "factory": "./schematics/migration-localization-to-transloco/index#migrationLocalizationToTransloco",
+      "schema": "./schematics/migration-localization-to-transloco/schema.json",
+      "aliases": ["migrate-localization", "migrate"]
+    },
     "localization-to-component": {
       "description": "[o3r] Add Otter Localization architecture to an existing component",
       "factory": "./schematics/localization-to-component/index#ngAddLocalization",

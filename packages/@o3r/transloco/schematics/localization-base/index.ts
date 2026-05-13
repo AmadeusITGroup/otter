@@ -44,9 +44,10 @@ import * as ts from 'typescript';
  * Add Otter localization support
  * @param options {@link RuleFactory.options}
  * @param options.projectName
+ * @param options.enableMessageFormat
  * @param rootPath {@link RuleFactory.rootPath}
  */
-export function updateLocalization(options: { projectName?: string | null | undefined }, rootPath: string): Rule {
+export function updateLocalization(options: { projectName?: string | null | undefined; enableMessageFormat?: boolean }, rootPath: string): Rule {
   const mainAssetsFolder = 'src/assets';
   const devResourcesFolder = 'dev-resources';
 
@@ -283,10 +284,12 @@ export function updateLocalization(options: { projectName?: string | null | unde
   };
 }`);
 
-    additionalRules.push(
-      addRootProvider(options.projectName!, ({ code, external }) =>
-        code`${external('provideTranslocoMessageformat', '@jsverse/transloco-messageformat')}()`)
-    );
+    if (options.enableMessageFormat) {
+      additionalRules.push(
+        addRootProvider(options.projectName!, ({ code, external }) =>
+          code`${external('provideTranslocoMessageformat', '@jsverse/transloco-messageformat')}()`)
+      );
+    }
     addProviderToModuleFile('TRANSLOCO_LOADER', '@jsverse/transloco', 'useFactory: () => translateLoaderProvider');
 
     if (!isImported(sourceFile, 'environment', '../environments/environment')) {

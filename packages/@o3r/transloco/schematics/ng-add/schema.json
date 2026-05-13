@@ -25,6 +25,11 @@
     "exactO3rVersion": {
       "type": "boolean",
       "description": "Use a pinned version for otter packages"
+    },
+    "enableMessageFormat": {
+      "type": "boolean",
+      "description": "Enable message format support (ICU messages) - adds provideTranslocoMessageformat()",
+      "default": true
     }
   },
   "additionalProperties": true,

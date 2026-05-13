@@ -39431,7 +39431,7 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 1338:
+/***/ 7411:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -39447,21 +39447,22 @@ function formatGitTagsOutput(gitOutput) {
         .map((val) => val.replace('remotes/origin/', ''))
         .filter((val) => !!val);
 }
-//# sourceMappingURL=index.js.map
+
 
 /***/ }),
 
-/***/ 6724:
+/***/ 4817:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.NewVersion = void 0;
+const tslib_1 = __nccwpck_require__(8684);
 const node_child_process_1 = __nccwpck_require__(1421);
 const node_util_1 = __nccwpck_require__(7975);
-const semver = __nccwpck_require__(5912);
-const index_1 = __nccwpck_require__(1338);
+const semver = tslib_1.__importStar(__nccwpck_require__(5912));
+const index_1 = __nccwpck_require__(7411);
 const promisifiedExec = (0, node_util_1.promisify)(node_child_process_1.exec);
 /**
  * Class responsible for computing the next version according to options and the GIT tags of the repository
@@ -39581,20 +39582,20 @@ class NewVersion {
     }
 }
 exports.NewVersion = NewVersion;
-//# sourceMappingURL=index.js.map
+
 
 /***/ }),
 
-/***/ 5712:
+/***/ 579:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __nccwpck_require__(8684);
-tslib_1.__exportStar(__nccwpck_require__(1338), exports);
-tslib_1.__exportStar(__nccwpck_require__(6724), exports);
-//# sourceMappingURL=public_api.js.map
+tslib_1.__exportStar(__nccwpck_require__(7411), exports);
+tslib_1.__exportStar(__nccwpck_require__(4817), exports);
+
 
 /***/ }),
 
@@ -39926,7 +39927,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __nccwpck_require__(8684);
 const core = tslib_1.__importStar(__nccwpck_require__(8206));
 const github = tslib_1.__importStar(__nccwpck_require__(2992));
-const new_version_1 = __nccwpck_require__(5712);
+const new_version_1 = __nccwpck_require__(579);
 async function run() {
     try {
         // Processing inputs

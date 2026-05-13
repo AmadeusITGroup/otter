@@ -1,6 +1,6 @@
 import {
-  ModuleWithProviders,
-  NgModule,
+  type EnvironmentProviders,
+  makeEnvironmentProviders,
 } from '@angular/core';
 import type {
   LocalizationDevtoolsServiceOptions,
@@ -20,31 +20,26 @@ import {
 } from './localization-devtools-token';
 
 /**
- * Module that provides localization devtools functionality
+ * Provide localization devtools functionality for the application.
+ * This is the recommended way to set up localization devtools in standalone applications.
+ * @param options Optional partial localization devtools configuration to override defaults. Can be a configuration object or a factory function.
+ * @example Load localization with automatic activation at bootstrap
+ * ```typescript
+ * bootstrapApplication(App, {
+ *   providers: [
+ *     provideLocalizationDevtools({ isActivatedOnBootstrap: true })
+ *   ]
+ * });
+ * ```
  */
-@NgModule({
-  imports: [],
-  providers: [
-    { provide: OTTER_LOCALIZATION_DEVTOOLS_OPTIONS, useValue: OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS },
+export function provideLocalizationDevtools(options?: Partial<LocalizationDevtoolsServiceOptions>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    {
+      provide: OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
+      useValue: { ...OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS, ...options }
+    },
     LocalizationDevtoolsMessageService,
     LocalizationDevtoolsConsoleService,
     OtterLocalizationDevtools
-  ]
-})
-export class LocalizationDevtoolsModule {
-  /**
-   * Initialize Otter Devtools
-   * @param options
-   */
-  public static instrument(options: Partial<LocalizationDevtoolsServiceOptions>): ModuleWithProviders<LocalizationDevtoolsModule> {
-    return {
-      ngModule: LocalizationDevtoolsModule,
-      providers: [
-        { provide: OTTER_LOCALIZATION_DEVTOOLS_OPTIONS, useValue: { ...OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS, ...options }, multi: false },
-        LocalizationDevtoolsMessageService,
-        LocalizationDevtoolsConsoleService,
-        OtterLocalizationDevtools
-      ]
-    };
-  }
+  ]);
 }

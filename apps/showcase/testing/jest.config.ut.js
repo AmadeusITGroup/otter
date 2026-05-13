@@ -15,6 +15,6 @@ module.exports = {
     '<rootDir>/training-assets/'
   ],
   transformIgnorePatterns: [
-    'node_modules/(?!.*\\.mjs$|parse5|jsdom|marked|ngx-markdown)'
+    'node_modules/(?!.*\\.mjs$|@jsverse|parse5|jsdom|marked|ngx-markdown)'
   ]
 };
