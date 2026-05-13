@@ -22,10 +22,10 @@ import {
 } from '@o3r/core';
 import {
   Localization,
-  LocalizationModule,
   LocalizationService,
+  O3rLocalizationTranslatePipe,
   Translatable,
-} from '@o3r/localization';
+} from '@o3r/transloco';
 import {
   DatePickerInputPres,
 } from '../../utilities';
@@ -43,9 +43,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   styleUrls: ['./localization-pres.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    LocalizationModule, ReactiveFormsModule, DatePickerInputPres
-  ]
+  imports: [ReactiveFormsModule, DatePickerInputPres, O3rLocalizationTranslatePipe]
 })
 export class LocalizationPres implements Translatable<LocalizationPresTranslation> {
   private readonly localizationService = inject(LocalizationService);
