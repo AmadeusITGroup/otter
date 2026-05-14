@@ -53,7 +53,6 @@
     "generate": "schematics ../../@ama-sdk/schematics/dist:typescript-core --generator-key training-showcase-sdk",
     "spec:regen": "yarn run generate --no-dry-run && amasdk-clear-index",
     "files:pack": "yarn amasdk-files-pack",
-    "test": "jest --passWithNoTests",
     "publish:package": "npm publish ./dist",
     "generate:mock": "schematics ../../@ama-sdk/schematics/dist:mock",
     "doc:generate": "node scripts/override-readme.js && typedoc && node scripts/restore-readme.js",
@@ -75,6 +74,7 @@
   "devDependencies": {
     "@ama-sdk/client-fetch": "workspace:~",
     "@ama-sdk/core": "workspace:~",
+    "@ama-sdk/openapi-codegen-typescript": "workspace:~",
     "@ama-sdk/schematics": "workspace:~",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",

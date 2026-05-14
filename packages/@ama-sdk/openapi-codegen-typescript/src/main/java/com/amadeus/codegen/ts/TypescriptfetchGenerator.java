@@ -1,5 +1,8 @@
 package com.amadeus.codegen.ts;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.PathItem;
+import io.swagger.v3.oas.models.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,6 +73,7 @@ public class TypescriptfetchGenerator extends AbstractTypeScriptClientCodegen {
     addSupportingFile("api/fixtures.jest.mustache", apiPackage, "fixtures.jest.ts");
     addSupportingFile("api/enums.mustache", apiPackage, "enums.ts");
     addSupportingFile("spec/api-mock.mustache", "src/spec", "api-mock.ts");
+    addSupportingFile("spec/operation-adapter.mustache", "src/spec", "operation-adapter.ts");
 
     String constantsPackage = "src/constants";
     addSupportingFile("constants/servers.mustache", constantsPackage, "servers.ts");
@@ -91,14 +95,73 @@ public class TypescriptfetchGenerator extends AbstractTypeScriptClientCodegen {
   }
 
   /**
-   * Escapes a reserved word as defined in the `reservedWords` array. Handle escaping
-   * those terms here.  This logic is only called if a variable matches the reseved words
-   *
-   * @return the escaped term
+   * @inheritDoc
    */
   @Override
-  public String escapeReservedWord(String name) {
-    return "_" + name;  // add an underscore to the name
+  protected void preprocessOperationAdapter(OpenAPI openAPI) {
+    if (openAPI.getPaths() == null) {
+      return;
+    }
+
+    List<Map<String, Object>> operationAdapterPaths = new ArrayList<>();
+
+    // Extract basePath for OpenAPI 2.0 compatibility (stored in servers or extensions)
+    String basePath = "";
+    if (openAPI.getServers() != null && !openAPI.getServers().isEmpty()) {
+      String serverUrl = openAPI.getServers().get(0).getUrl();
+      try {
+        java.net.URI uri = new java.net.URI(serverUrl);
+        basePath = uri.getPath();
+        if (basePath == null) {
+          basePath = "";
+        }
+        basePath = basePath.replaceAll("/$", "");
+      } catch (Exception e) {
+        LOGGER.warn("Failed to parse server URL: " + serverUrl);
+      }
+    }
+
+    for (Map.Entry<String, PathItem> pathEntry : openAPI.getPaths().entrySet()) {
+      String path = pathEntry.getKey();
+      PathItem pathItem = pathEntry.getValue();
+
+      if (pathItem == null) {
+        continue;
+      }
+
+      // Convert path parameters to regex pattern
+      String urlPattern = path.replaceAll("\\{[^}]+\\}", "((?:[^/]+?))") + "(?:/(?=$))?$";
+      String regexpPattern = "^" + (basePath + urlPattern).replaceAll("^/{2,}", "/");
+
+      List<Map<String, String>> operations = new ArrayList<>();
+
+      // Extract operations for all HTTP methods
+      Map<PathItem.HttpMethod, Operation> operationsMap = pathItem.readOperationsMap();
+      if (operationsMap != null) {
+        for (Map.Entry<PathItem.HttpMethod, Operation> opEntry : operationsMap.entrySet()) {
+          PathItem.HttpMethod method = opEntry.getKey();
+          Operation operation = opEntry.getValue();
+
+          if (operation != null && operation.getOperationId() != null) {
+            Map<String, String> operationData = new HashMap<>();
+            operationData.put("method", method.name().toLowerCase());
+            operationData.put("operationId", operation.getOperationId());
+            operations.add(operationData);
+          }
+        }
+      }
+
+      if (!operations.isEmpty()) {
+        Map<String, Object> pathData = new HashMap<>();
+        pathData.put("path", path);
+        pathData.put("urlPattern", urlPattern);
+        pathData.put("regexpPattern", regexpPattern);
+        pathData.put("operations", operations);
+        operationAdapterPaths.add(pathData);
+      }
+    }
+
+    additionalProperties.put("operationAdapterPaths", operationAdapterPaths);
   }
 
 }

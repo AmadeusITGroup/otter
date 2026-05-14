@@ -1,7 +1,16 @@
-import {PathObject} from '@ama-sdk/core';
+import type {
+  PathObject,
+} from '@ama-sdk/core';
 
 /* eslint-disable max-len */
-export const OPERATION_ADAPTER: PathObject[] = [{
-      path: "/dummy",urlPattern: "/dummy(?:/(?=$))?$",regexp: new RegExp('^/dummy(?:/(?=$))?$'),operations: [{"method":"get","operationId":"dummyGet"}]
-    }];
+export const OPERATION_ADAPTER: PathObject[] = [
+  {
+    path: '/dummy',
+    urlPattern: '/dummy(?:/(?=$))?$',
+    regexp: new RegExp('^/dummy(?:/(?=$))?$'),
+    operations: [
+      {method: 'get', operationId: 'dummyGet'},
+    ]
+  },
+];
 /* eslint-enable max-len */
