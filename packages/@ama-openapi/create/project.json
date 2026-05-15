@@ -30,7 +30,6 @@
       ]
     },
     "lint": {},
-    "set-version": {},
     "prepare-publish": {},
     "publish": {}
   },
