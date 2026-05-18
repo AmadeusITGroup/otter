@@ -48,7 +48,7 @@ export type CliWrapper = <T extends (...args: any) => any>(
 ) => (...args: Parameters<T>) => Promise<ReturnType<T>>;
 
 export const createCliWithMetrics: CliWrapper = (cliFn, cliName, options) => async (...cliFnArgs) => {
-  const logger: Logger = options?.logger || console;
+  const logger: Logger = options?.logger || { ...console, debug: () => {} }; // By default, do not log debug messages
   const sendData = options?.sendData || defaultSendData;
   const startTime = Math.floor(performance.now());
   let error: any;

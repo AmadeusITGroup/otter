@@ -5,6 +5,14 @@ import {
   resolve,
 } from 'node:path';
 import {
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vi,
+} from 'vitest';
+import {
   createPrivateFormatter,
 } from './private-formatter.mjs';
 
@@ -15,8 +23,8 @@ let mocks!: {
   privateToken: any;
 };
 
-jest.mock('style-dictionary/utils', () => ({
-  getReferences: jest.fn().mockImplementation((value, tokens) => {
+vi.mock('style-dictionary/utils', () => ({
+  getReferences: vi.fn().mockImplementation((value, tokens) => {
     const flat = (obj: any, mem: Set<any>) => {
       if (obj.isSource) {
         mem.add(obj);
@@ -31,7 +39,7 @@ jest.mock('style-dictionary/utils', () => ({
 }));
 
 describe('createPrivateFormatter', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => vi.clearAllMocks());
 
   beforeAll(() => {
     mocks = {
@@ -43,7 +51,7 @@ describe('createPrivateFormatter', () => {
   test('should format CSS variable', () => {
     const options: any = {
       dictionary: mocks.singleToken,
-      formatter: jest.fn().mockImplementation((res) => res)
+      formatter: vi.fn().mockImplementation((res) => res)
     };
     const css = createPrivateFormatter(options)(mocks.singleToken.tokens.color.primary['50'], '--color-primary-50: #ebf3ff;');
     expect(css).toBe('--color-primary-50: #ebf3ff;');
@@ -52,7 +60,7 @@ describe('createPrivateFormatter', () => {
   test('should format reference private CSS variable', () => {
     const options: any = {
       dictionary: mocks.privateToken,
-      formatter: jest.fn().mockImplementation((res) => typeof res === 'object' ? res.value || res.$value : res),
+      formatter: vi.fn().mockImplementation((res) => typeof res === 'object' ? res.value || res.$value : res),
       outputReferences: true,
       usesDtcg: true
     };

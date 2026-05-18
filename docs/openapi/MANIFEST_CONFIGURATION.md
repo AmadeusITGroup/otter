@@ -50,6 +50,36 @@ Equivalent to:
 
 <details>
 
+<summary>Globs in model paths</summary>
+
+```json5
+{
+  "models": {
+    "@my/specification-package": {
+      "patterns": "models/*.yaml#/components/schemas/*"
+    }
+  }
+}
+```
+
+Equivalent to:
+
+```json5
+{
+  "models": {
+    "@my/specification-package": {
+      "patterns": [
+        "models/*.yaml#/components/schemas/*"
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+
 <summary>Default package bundled specification</summary>
 
 ```json5

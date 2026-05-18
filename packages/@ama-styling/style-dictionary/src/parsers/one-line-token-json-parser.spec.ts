@@ -5,6 +5,13 @@ import {
   resolve,
 } from 'node:path';
 import {
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vi,
+} from 'vitest';
+import {
   OTTER_NAME_PREFIX,
 } from '../constants.mjs';
 import {
@@ -14,14 +21,14 @@ import {
 const filePath = resolve(__dirname, '..', '..', 'testing', 'mocks', 'design-token-theme.json');
 let contents: string;
 
-jest.mock('../helpers/config-deflatten-helpers.mjs', () => ({
-  deflatten: jest.fn().mockImplementation((obj) => obj)
+vi.mock('../helpers/config-deflatten-helpers.mjs', () => ({
+  deflatten: vi.fn().mockImplementation((obj) => obj)
 }));
 
 describe('oneLineTokenJsonParser', () => {
   beforeEach(() => {
     contents = readFileSync(filePath, { encoding: 'utf8' });
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
   test('should have otter prefix', () => {
     expect(oneLineTokenJsonParser.name).toMatch(new RegExp(`^${OTTER_NAME_PREFIX}`));

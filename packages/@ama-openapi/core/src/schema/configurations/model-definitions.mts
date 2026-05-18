@@ -9,6 +9,15 @@ import type {
 } from '../list-artifacts.mjs';
 
 /**
+ * Escape special characters in a string for use in a regular expression
+ * Note: This function can be removed on node >= 24 as `RegExp.escape` will be available natively
+ * @param str String to escape
+ */
+const regExpEscape = (str: string): string => {
+  return str.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+};
+
+/**
  * Generate model definitions for the given artifacts
  * @param artifacts
  */
@@ -20,6 +29,18 @@ export const getModelDefinitions = (artifacts: SpecificationArtifact[]) => {
         .filter((modelObj) => !!modelObj)
         .map(({ model }) => {
           const modelRef = generateModelNameRef(packageManifestName, model);
+          const pathSchemas = [
+            {
+              const: model,
+              description: 'Path to the specific model to include as is. The path is relative to the artifact root (e.g., "models/ExampleModel.v1.yaml")'
+            },
+            {
+              type: 'string',
+              // TODO: give users hint on the available inner paths (cf #3938)
+              pattern: `^${regExpEscape(model)}#/.*$`
+            }
+          ];
+
           return [
             `model-${modelRef}`,
             {
@@ -31,18 +52,18 @@ export const getModelDefinitions = (artifacts: SpecificationArtifact[]) => {
                     description: 'Include the default model exposed by the artifact'
                   }]
                   : [],
-                {
-                  const: model
-                },
+                ...pathSchemas,
                 {
                   type: 'object',
                   description: 'Detailed model inclusion with optional transformations to apply',
                   properties: {
                     path: {
-                      const: model,
-                      description: "Path to the specific model to include as is. The path is relative to the artifact root (e.g., 'models/ExampleModel.v1.yaml')"
+                      description: 'Path to the model to include. \n'
+                        + 'The path is relative to the artifact root (e.g., "models/ExampleModel.v1.yaml" or "models/ExampleModel.v1.yaml#/components/schemas/Example")',
+                      oneOf: pathSchemas
                     },
                     transform: {
+                      description: 'The transformations to apply to the model',
                       $ref: `#/definitions/transform-${modelRef}`
                     }
                   },
