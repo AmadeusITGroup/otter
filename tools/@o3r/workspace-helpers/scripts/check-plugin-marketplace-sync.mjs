@@ -14,7 +14,7 @@ const root = resolve(import.meta.dirname, '..', '..', '..', '..');
 
 const filePairs = [
   ['.claude-plugin/marketplace.json', '.github/plugin/marketplace.json'],
-  ['tools/llm/plugins/otter/plugin.json', 'tools/llm/plugins/otter/.claude-plugin/plugin.json']
+  ['tools/llm/plugins/otter/.plugin/plugin.json', 'tools/llm/plugins/otter/.claude-plugin/plugin.json']
 ];
 
 const errors = filePairs
