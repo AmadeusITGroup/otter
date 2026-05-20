@@ -130,7 +130,8 @@
     }
   ],
   "resolutions": {
-    "@angular-devkit/schematics": "~21.2.0",
+    "@angular-devkit/schematics": "21.2.8",
+    "@schematics/angular": "21.2.8",
     "@sinonjs/fake-timers": "~15.1.0",
     "@types/node": "~24.12.0",
     "ajv@8.17.1": "~8.18.0",
