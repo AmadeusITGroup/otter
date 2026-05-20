@@ -21,6 +21,17 @@ import type {
   FormatterOptions,
 } from './css-formatters/interface-formatter.mjs';
 
+const unwrapReferenceToken = (ref: TransformedToken | { value: TransformedToken }): TransformedToken => {
+  // Unwrap when getReferences returns a parent structural node instead of the leaf token.
+  // This occurs when token path resolution yields a parent object with child tokens,
+  // e.g., { label: token, value: token } instead of the token itself.
+  // Safe to unwrap only when outer has no name (not a token) but inner.value has name (is a token).
+  if (ref && typeof ref === 'object' && 'value' in ref && !('name' in ref) && ref.value?.name) {
+    return ref.value;
+  }
+  return ref as TransformedToken;
+};
+
 export const metadataFormat: Format = {
   name: `${OTTER_NAME_PREFIX}/json/metadata`,
   format: ({ dictionary, options }) => {
@@ -67,11 +78,14 @@ export const metadataFormat: Format = {
       const originalValue = usesDtcg ? token.original.$value : token.original.value;
       const refs = getReferences(originalValue, tokens);
       return refs
-        .map((ref) => ({
-          defaultValue: getValueFromCssVariable(propertyFormatter(ref)),
-          name: ref.name,
-          references: getMetadataReferences(ref)
-        }));
+        .map((ref) => {
+          const resolvedRef = unwrapReferenceToken(ref);
+          return {
+            defaultValue: getValueFromCssVariable(propertyFormatter(resolvedRef)),
+            name: resolvedRef.name,
+            references: getMetadataReferences(resolvedRef)
+          };
+        });
     };
 
     const metadata = allTokens

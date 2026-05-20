@@ -8,25 +8,16 @@
     "build": {
       "executor": "nx:noop",
       "dependsOn": [
-        "build-jar:optional"
+        "build-jar"
       ]
     },
     "build-jar": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:jar"
-      },
-      "configurations": {
-        "optional": {
-          "script": "build:jar:optional"
-        }
-      }
-    },
-    "publish": {
-      "inputs": [
-        "{projectRoot}/target/typescriptFetch-openapi-generator.jar"
+      "outputs": [
+        "{projectRoot}/dist"
       ]
-    }
+    },
+    "publish": {},
+    "prepare-publish": {}
   },
   "tags": []
 }

@@ -77,8 +77,6 @@ jobs:
             ${{ runner.os }}-jest-${{ env.hash }}
             ${{ runner.os }}-jest
             ${{ runner.os }}
-      - name: Build swagger generator
-        run: yarn build:jar
       - name: Test
         env:
           NX_BASE: ${{ format('remotes/origin/{0}', github.base_ref || github.ref_name) }}
