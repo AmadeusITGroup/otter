@@ -84,7 +84,7 @@
     "jest-util": "~30.3.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~22.7.0",
-    "postcss": "~8.5.1",
+    "postcss": "~8.5.10",
     "postcss-scss": "~4.0.9",
     "rimraf": "^6.0.1",
     "rxjs": "^7.8.1",
