@@ -49,7 +49,7 @@
     "jest.config.js": "jest.config.*",
     "nx.json": ".nxignore",
     "package.json": "ng-package.json, project.json, yarn.lock, .yarnrc.yml, .npmrc, .npmrc.*, .pnp.*",
-    "readme.md": "security.md, code_of_conduct.md, contributing.md",
+    "readme.md": "security.md, code_of_conduct.md, contributing.md, agents.md",
     "tsconfig.base.json": "tsconfig.*.json",
     "tsconfig.json": "tsconfig.*.json"
   },
