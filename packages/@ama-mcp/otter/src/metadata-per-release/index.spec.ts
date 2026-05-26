@@ -1,37 +1,3 @@
-/* eslint-disable import/first -- Need to mock before import */
-jest.mock('node:fs/promises', () => ({
-  ...jest.requireActual('node:fs'),
-  mkdir: jest.fn(),
-  readFile: jest.fn().mockImplementation((path) => {
-    return path.endsWith('cache.json')
-      ? JSON.stringify({})
-      : JSON.stringify([{ content: 'fake' }]);
-  }),
-  rm: jest.fn()
-}));
-jest.mock('node:stream/promises', () => ({
-  ...jest.requireActual('node:stream/promises'),
-  pipeline: jest.fn()
-}));
-jest.mock('node:fs', () => ({
-  ...jest.requireActual('node:fs'),
-  createWriteStream: jest.fn(),
-  existsSync: jest.fn().mockReturnValue(true)
-}));
-jest.mock('globby', () => ({
-  sync: jest.fn().mockReturnValue(['component.config.metadata.json'])
-}));
-jest.mock('compressing', () => {
-  const actualModule = jest.requireActual('compressing');
-  return {
-    ...actualModule,
-    tgz: {
-      ...actualModule.tgz,
-      uncompress: jest.fn().mockImplementation(() => {})
-    }
-  };
-});
-
 import {
   tmpdir,
 } from 'node:os';
@@ -43,20 +9,68 @@ import {
 } from '@ama-mcp/core';
 import {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
+import {
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import {
   registerMetadataPerRelease,
 } from './index';
 
-const fetchPackageArtifact = jest.fn().mockImplementation(() => {
+vi.mock('node:fs/promises', async (importOriginal) => {
+  const orig = await importOriginal<typeof import('node:fs/promises')>();
+  return {
+    ...orig,
+    mkdir: vi.fn(),
+    readFile: vi.fn().mockImplementation((path) => {
+      return path.endsWith('cache.json')
+        ? JSON.stringify({})
+        : JSON.stringify([{ content: 'fake' }]);
+    }),
+    rm: vi.fn()
+  };
+});
+vi.mock('node:stream/promises', async (importOriginal) => {
+  const orig = await importOriginal<typeof import('node:stream/promises')>();
+  return {
+    ...orig,
+    pipeline: vi.fn()
+  };
+});
+vi.mock('node:fs', async (importOriginal) => {
+  const orig = await importOriginal<typeof import('node:fs')>();
+  return {
+    ...orig,
+    createWriteStream: vi.fn(),
+    existsSync: vi.fn().mockReturnValue(true)
+  };
+});
+vi.mock('globby', () => ({
+  sync: vi.fn().mockReturnValue(['component.config.metadata.json'])
+}));
+vi.mock('compressing', async (importOriginal) => {
+  const actualModule = await importOriginal<typeof import('compressing')>();
+  return {
+    ...actualModule,
+    tgz: {
+      ...actualModule.tgz,
+      uncompress: vi.fn().mockImplementation(() => {})
+    }
+  };
+});
+
+const fetchPackageArtifact = vi.fn().mockImplementation(() => {
   const body = new ReadableStream();
   const response = new Response(body, { status: 200, statusText: 'OK' });
 
   const result = Promise.resolve(response);
   return result;
 });
-const retrievePackages = jest.fn().mockReturnValue(['app1', 'app2']);
-const retrieveTags = jest.fn().mockReturnValue(['v1.0', 'v2.0']);
+const retrievePackages = vi.fn().mockReturnValue(['app1', 'app2']);
+const retrieveTags = vi.fn().mockReturnValue(['v1.0', 'v2.0']);
 
 const setUpClientAndServer = async (options: { disableCache?: boolean } = {}) => {
   const { disableCache = false } = options;
