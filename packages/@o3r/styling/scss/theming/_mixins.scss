@@ -4,6 +4,7 @@
 @use '../utils/functions' as utils-functions;
 
 /// @access private
+/// @deprecated The function is deprecated, rely on CSS Variable strategy instead. Will be removed in v15
 @mixin _apply-theme($o3r-theme, $root-name, $details: (tags: ('theme')), $metadata-black-list-pattern: ()) {
   @if (meta.type-of($o3r-theme) != map) {
     @include define-var($root-name, $o3r-theme, $details, $metadata-black-list-pattern);
@@ -25,8 +26,10 @@
 
 /// Apply an Otter theme to your application
 /// @access public
+/// @deprecated The function is deprecated, rely on CSS Variable strategy instead. Will be removed in v15
 /// @param {@see @link https://github.com/AmadeusITGroup/otter/blob/main/docs/styling/THEME.md#technical-structure-advance} $o3r-theme Otter theme
 @mixin apply-theme($o3r-theme: (), $metadata-black-list-pattern: ('_mat-theming-internal')) {
+  @warn 'apply-theme is deprecated, prefer to apply css variable directly. Will be removed in v15';
   :root {
     @include _apply-theme($o3r-theme, '', $metadata-black-list-pattern: $metadata-black-list-pattern);
   }
@@ -34,8 +37,9 @@
 
 /// Override an Otter theme at runtime
 /// @param $variable-map Map of variable/override value to override
-/// @deprecated Prefer to override css variable directly
+/// @deprecated Prefer to override css variable directly. Will be removed in v15
 @mixin override-theme($variable-map) {
+  @warn 'override-theme is deprecated, prefer to override css variable directly. Will be removed in v15';
   :root {
     @each $name, $value in $variable-map {
       $key: utils-functions.get-var-key($name);
@@ -46,6 +50,7 @@
 
 /// Generated CSS Var definition statement and report tags for metadata extraction
 /// @access public
+/// @deprecated The function is deprecated, rely on CSS Variable strategy instead. Will be removed in v15
 /// @alias --
 /// @param {string} $name Name of the variable
 /// @param $value Fallback value
@@ -82,6 +87,7 @@
 
 /// Generated CSS Var definition statement and report tags for metadata extraction
 /// @access public
+/// @deprecated The function is deprecated, rely on CSS Variable strategy instead. Will be removed in v15
 /// @alias define-var
 /// @param {string} $name Name of the variable
 /// @param $value Fallback value

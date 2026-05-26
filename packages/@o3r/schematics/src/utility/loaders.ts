@@ -81,7 +81,7 @@ export function writeAngularJson(tree: Tree, workspace: WorkspaceSchema, angular
  * Load the target's package.json file
  * @param tree File tree
  * @param workspaceProject Angular workspace project
- * @throws Package JSON invalid or non exist
+ * @throws {SchematicsException} JSON invalid or non exist
  */
 export function readPackageJson(tree: Tree, workspaceProject: WorkspaceProject) {
   const packageJsonPath = `${workspaceProject.root}/package.json`;

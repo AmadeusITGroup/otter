@@ -41,9 +41,6 @@ import {
   getAddLocalizationRules,
 } from '../rule-factories/component/localization';
 import {
-  getAddThemingRules,
-} from '../rule-factories/component/theming';
-import {
   NgGeneratePageSchematicsSchema,
 } from './schema';
 
@@ -80,7 +77,6 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
     const dasherizedPageName = strings.dasherize(options.name);
     const projectName = options.projectName;
     const componentPath = path.posix.join(pagePath, `${dasherizedPageName}${options.type ? '.' + options.type : ''}.ts`);
-    const stylePath = path.posix.join(pagePath, `${dasherizedPageName}${options.type ? '.' + options.type : ''}.scss`);
     const moduleFileName = `${dasherizedPageName}-module.ts`;
     const moduleFilePath = path.posix.join(pagePath, moduleFileName);
 
@@ -165,10 +161,6 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
       ]), MergeStrategy.Overwrite),
       getAddConfigurationRules(
         componentPath,
-        options
-      ),
-      getAddThemingRules(
-        stylePath,
         options
       ),
       getAddLocalizationRules(

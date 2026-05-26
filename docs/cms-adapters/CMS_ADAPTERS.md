@@ -119,47 +119,7 @@ For an up-to-date documentation, run `ng help @o3r/localization:extractor`
 
 ### Style extractor
 
-Generates a metadata file that contains all the CSS Variable that are used in the application.
-
-#### How to install
-
-```shell
-yarn ng add @o3r/styling
-```
-
-or
-
-```shell
-npx ng add @o3r/styling
-```
-
-#### How to use
-
-First thing to do is to define your given filename for the style in the _package.json_ of the library/app where you run the extractor.
-When running in a library it will use this configuration as the default name for the metadata file.
-When running the extractor in an application, it will search for this filename defined in each node_module (package.json file) of each library, in order to concat the metadata from the file with other libraries metadata and app metadata.
-
-```
-// in package.json file
-...
-  "cmsMetadata": {
-    ...
-    "styleFilePath": "./style.metadata.json",
-  }
-...
-```
-
-The Style Extractor is accessible via a NgCLI builder: `@o3r/styling:extractor`;
-
-For an up-to-date documentation, run `ng help @o3r/styling:extractor`
-
-* _--filePatterns_ option can be specified in order to provide a list of glob patterns to get the scss files to extract the metadata from.
-* If the _style extractor_ is run on an application, _--libraries_ option can be specified to concat keys found in application files with the ones from specified _libraries_. The extractor will search a _'style.metadata.json'_ file in the node_modules package of each specified library.
-* The option _--outputFile_ is used to specify the output metadata file name is different of _'style.metadata.json'_.
-* A _--watch_ option can be specified to turn the metadata generator to watch mode.
-* The output metadata file can be minimized using the _--inline_ option to indicate that the generated JSON file have to be minified.
-
-__Note:__ The duplicate CSS Variable will be specified as warning and overridden by the latest key received.
+The Style metadata provided to the CMS is exposed as [Style Dictionary](https://styledictionary.com/) format via via the package [@ama-styling/style-dictionary](https://www.npmjs.com/package/@ama-styling/style-dictionary).
 
 ### Rules engine extractor
 

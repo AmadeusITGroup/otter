@@ -178,7 +178,7 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
               context.logger.debug(`The dependency ${packageToInstall} (${depType}@${range}) will be added in ${packageJsonPath}`);
             }
             packageJsonContent[depType] = Object.keys(packageJsonContent[depType])
-              .sort()
+              .toSorted()
               .reduce((acc, key) => {
                 acc[key] = packageJsonContent[depType]![key];
                 return acc;

@@ -19,7 +19,7 @@ import {
   type State,
   type StateOverride,
   STATES_KEY,
-} from '../extension/interface';
+} from '../shared/extension-interface';
 import {
   ChromeExtensionConnectionService,
   filterAndMapMessage,

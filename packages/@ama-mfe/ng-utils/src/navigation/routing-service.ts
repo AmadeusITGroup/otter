@@ -85,7 +85,8 @@ export class RoutingService implements MessageProducer<NavigationMessage>, Messa
    */
   public readonly supportedVersions = {
     '1.0': async (message: RoutedMessage<any>) => {
-      await this.router.navigateByUrl(message.payload.url);
+      // Navigation has been triggered from the communication protocol request.
+      await this.router.navigateByUrl(message.payload.url, { state: { triggeredByMessage: true } });
     }
   };
 
@@ -115,16 +116,20 @@ export class RoutingService implements MessageProducer<NavigationMessage>, Messa
    * Handles embedded routing by listening to router events and sending navigation messages to the connected endpoints.
    * It can be a parent window or another iframe
    * @note - This method has to be called in an injection context
-   * @param options - Optional parameters to control the routing behavior {@see RoutingServiceOptions}.
+   * @param options - Optional parameters to control the routing behavior {@link RoutingServiceOptions}.
    */
   public handleEmbeddedRouting(options?: RoutingServiceOptions): void {
     const subRouteOnly = options?.subRouteOnly ?? false;
     this.router.events.pipe(
       takeUntilDestroyed(),
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-      filter((_event) => !this.router.getCurrentNavigation()?.extras?.skipLocationChange),
+      filter((_event) => {
+        const extras = this.router.getCurrentNavigation()?.extras || {};
+        // Navigation triggered by the application host, no need to request it to navigate to the same route
+        return !extras.skipLocationChange && !extras.state?.triggeredByMessage;
+      }),
       map(({ urlAfterRedirects }) => {
-        const channelId = this.router.getCurrentNavigation()?.extras?.state?.channelId;
+        const { channelId } = this.router.getCurrentNavigation()?.extras?.state || {};
         const currentRouteRegExp = subRouteOnly && this.activatedRoute.routeConfig?.path && new RegExp('^' + this.activatedRoute.routeConfig.path.replace(/(?=\W)/g, '\\'), 'i');
         return ({ url: currentRouteRegExp ? urlAfterRedirects.replace(currentRouteRegExp, '') : urlAfterRedirects, channelId });
       })

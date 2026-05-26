@@ -13,6 +13,7 @@ import type {
  * Prepares the url to be called
  * @param url Base url to be used
  * @param queryParameters Key value pair with the parameters. If the value is undefined, the key is dropped
+ * @deprecated use {@link prepareUrlWithQueryParams} with query parameter serialization, will be removed in v15.
  */
 export function prepareUrl(url: string, queryParameters: { [key: string]: string | undefined } = {}) {
   const queryPart = Object.keys(queryParameters)
@@ -34,24 +35,6 @@ export function prepareUrlWithQueryParams(url: string, serializedQueryParams: { 
   const paramsPrefix = url.includes('?') ? '&' : '?';
   const queryPart = Object.values(serializedQueryParams).join('&');
   return url + (queryPart ? paramsPrefix + queryPart : '');
-}
-
-/**
- * Returns a map containing the query parameters
- * @param data
- * @param names
- * @deprecated use {@link stringifyQueryParams} which accepts only supported types, will be removed in v14.
- */
-export function extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; } {
-  return names
-    .filter((name) => typeof data[name] !== 'undefined' && data[name] !== null)
-    .reduce((acc, name) => {
-      const prop = data[name];
-      acc[name] = (typeof prop.toJSON === 'function')
-        ? prop.toJSON()
-        : ((typeof prop === 'object' && !Array.isArray(prop)) ? JSON.stringify(prop) : prop.toString());
-      return acc;
-    }, {} as { [p in keyof T]: string });
 }
 
 /**

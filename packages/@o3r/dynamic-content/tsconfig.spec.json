@@ -12,6 +12,9 @@
   "references": [
     {
       "path": "./tsconfig.build.composite.json"
+    },
+    {
+      "path": "./tsconfig.builders.json"
     }
   ]
 }

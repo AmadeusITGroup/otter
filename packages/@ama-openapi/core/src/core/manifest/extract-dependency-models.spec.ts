@@ -3,6 +3,7 @@ import {
 } from 'node:fs';
 import {
   extractDependencyModelsObject,
+  sanitizePackagePath,
 } from './extract-dependency-models.mjs';
 import type {
   Transform,
@@ -40,6 +41,7 @@ describe('extract-dependency-models', () => {
     const mockDependencyName = 'test-dependency';
     const mockModel = {
       name: 'TestModel',
+      filePath: './models/test-model.json',
       path: './models/test-model.json',
       transform: 'test-transform'
     };
@@ -143,5 +145,19 @@ describe('extract-dependency-models', () => {
 
       expect(result).toBeDefined();
     });
+  });
+});
+
+describe('sanitizePackagePath', () => {
+  it('should replace / with -', () => {
+    expect(sanitizePackagePath('a/b')).toBe('a-b');
+  });
+
+  it('should replace ^/@ with empty string', () => {
+    expect(sanitizePackagePath('@a/b')).toBe('a-b');
+  });
+
+  it('should not throw an error if the input is empty', () => {
+    expect(sanitizePackagePath('')).toBe('');
   });
 });

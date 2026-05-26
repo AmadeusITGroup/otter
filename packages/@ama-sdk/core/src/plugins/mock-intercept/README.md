@@ -86,7 +86,7 @@ const myRandomAdapter = new SequentialMockAdapter(
   }
 );
 
-const baseConfig: BaseApiConstructor = {
+const baseConfig: ApiClient = {
     basePath: 'http://my-api.com',
     requestPlugins: [
       new MockInterceptRequest({
@@ -117,7 +117,7 @@ const myAdapter = new RandomMockAdapter(
   }
 );
 
-const baseConfig: BaseApiConstructor = {
+const baseConfig: ApiClient = {
     basePath: 'http://my-api.com',
     requestPlugins: [
       new MockInterceptRequest()

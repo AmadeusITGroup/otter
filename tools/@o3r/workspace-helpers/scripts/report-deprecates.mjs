@@ -187,11 +187,11 @@ The following items are **deprecated** and **will be removed** in the version **
     }, {});
 
   Object.entries(changeMap)
-    .sort(([pck1], [pck2]) => pck1.localeCompare(pck2))
+    .toSorted(([pck1], [pck2]) => pck1.localeCompare(pck2))
     .forEach(([pck, reports]) => {
       template += `\n### From [${pck}](https://npmjs.com/package/${pck})\n\n`;
       reports
-        .sort(({ node }, report) => node.localeCompare(report.node))
+        .toSorted(({ node }, report) => node.localeCompare(report.node))
         .forEach(({ node, deprecationInfo }) => {
           const message = deprecationInfo.replace(new RegExp(`[, ]*(?:it |this module )?will be removed in (:?otter ?)?v${removalTargetVersion}[,.\\s]*`, 'i'), '').trim();
           template += `- \`${node}\` is deprecated.` + (message ? `</br>Note: *${formatNoteMessage(message)}*` : '') + '\n';

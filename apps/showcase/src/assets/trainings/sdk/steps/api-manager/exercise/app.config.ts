@@ -1,8 +1,8 @@
 import { ApiFetchClient } from '@ama-sdk/client-fetch';
 import { ApiClient, PluginRunner, RequestOptions, RequestPlugin } from '@ama-sdk/core';
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { ApiManager, ApiManagerModule } from '@o3r/apis-manager';
+import { ApiManager, provideApiManager } from '@o3r/apis-manager';
 import { PetApi, StoreApi } from 'sdk';
 import { routes } from './app.routes';
 
@@ -59,13 +59,14 @@ function storeApiFactory() {
 
 // TODO Initialize apiConfig with ApiFetchClient
 
+// TODO Create the apiManager variable with apiConfig as its parameter
 // TODO Add the configuration override for a specific API
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    // TODO Replace the api factory providers with the ApiManagerModule
+    // TODO Replace the api factory providers with the ApiManager provider
     {provide: PetApi, useFactory: petApiFactory},
     {provide: StoreApi, useFactory: storeApiFactory}
   ]

@@ -363,11 +363,11 @@ export class CodeEditorView implements OnDestroy {
           return false;
         }
       });
-      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+      monaco.typescript.typescriptDefaults.setCompilerOptions({
         allowNonTsExtensions: true,
-        target: monaco.languages.typescript.ScriptTarget.Latest,
-        module: monaco.languages.typescript.ModuleKind.ESNext,
-        moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+        target: monaco.typescript.ScriptTarget.Latest,
+        module: monaco.typescript.ModuleKind.ESNext,
+        moduleResolution: monaco.typescript.ModuleResolutionKind.NodeJs,
         paths: {
           sdk: [
             'file:///libs/sdk/src/index'
@@ -441,8 +441,8 @@ export class CodeEditorView implements OnDestroy {
       monaco.editor.createModel(content, language, monaco.Uri.from({ scheme: 'file', path: filePath }));
     });
     // Refresh tsconfig paths mapping
-    monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
-      monaco.languages.typescript.typescriptDefaults.getCompilerOptions()
+    monaco.typescript.typescriptDefaults.setCompilerOptions(
+      monaco.typescript.typescriptDefaults.getCompilerOptions()
     );
   }
 
@@ -468,7 +468,7 @@ export class CodeEditorView implements OnDestroy {
         }
       ];
       const monaco = await this.monacoPromise;
-      monaco.languages.typescript.typescriptDefaults.setExtraLibs(declarationTypes);
+      monaco.typescript.typescriptDefaults.setExtraLibs(declarationTypes);
     }
   }
 

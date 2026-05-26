@@ -66,7 +66,7 @@ function ngGenerateMockFn(options: NgGenerateMockSchematicsSchema): Rule {
       if (!(new RegExp(`./${dasherizeModelName}/index`).test(currentComponentIndex))) {
         currentComponentIndex = `export * from './${dasherizeModelName}/index';\n` + currentComponentIndex;
       }
-      currentComponentIndex = `${currentComponentIndex.split('\n').filter((e) => !!e).sort().join('\n')}\n`;
+      currentComponentIndex = `${currentComponentIndex.split('\n').filter((e) => !!e).toSorted().join('\n')}\n`;
       tree.overwrite(barrelPath, currentComponentIndex);
     }
     return tree;

@@ -37,9 +37,9 @@ const ignoreMetadataFiles = (tree: Tree, _context: SchematicContext) => updateIg
 
 /**
  * Update CMS adapter tools
- * @param options @see RuleFactory.options
+ * @param options {@link RuleFactory.options}
  * @param options.projectName
- * @param rootPath @see RuleFactory.rootPath
+ * @param rootPath {@link RuleFactory.rootPath}
  */
 export function updateCmsAdapter(options: { projectName?: string | undefined }, rootPath: string): Rule {
   if (!options.projectName) {

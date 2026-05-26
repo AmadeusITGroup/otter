@@ -8,9 +8,6 @@ import {
 import {
   DynamicContentService,
 } from '../dynamic-content/index';
-import {
-  StyleLazyLoaderModule,
-} from './style-lazy-loader-module';
 
 /**
  * Interface to describe a style to lazy load from a url.
@@ -30,7 +27,7 @@ export interface StyleURL {
  * Service to lazy load a CSS file
  */
 @Injectable({
-  providedIn: StyleLazyLoaderModule
+  providedIn: 'root'
 })
 export class StyleLazyLoader {
   private readonly dcService = inject(DynamicContentService);

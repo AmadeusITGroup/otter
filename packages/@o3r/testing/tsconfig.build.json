@@ -9,6 +9,7 @@
       "node"
     ],
     "rootDir": "./src",
+    "skipLibCheck": true, // Angular 21+ uses package exports incompatible with moduleResolution: node10
     "inlineSources": true,
     "moduleResolution": "node10",
     "module": "CommonJS",

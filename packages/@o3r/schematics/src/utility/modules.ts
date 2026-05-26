@@ -117,7 +117,7 @@ export function getMainFilePath(tree: Tree, context: SchematicContext, projectNa
  * Returns true if the project is an application and contains a TS file that imports the angular RouterModule in
  * one of its modules.
  * @param tree
- * @param options @see RuleFactory.options
+ * @param options {@link RuleFactory.options}
  * @param options.projectName
  */
 export function isApplicationThatUsesRouterModule(tree: Tree, options: { projectName?: string | undefined }) {

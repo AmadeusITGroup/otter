@@ -1,6 +1,6 @@
 import type {
   StylingVariable,
-} from '@o3r/styling';
+} from '@ama-styling/devkit';
 
 /** RegExp to find a variable and get the variable name in the first group */
 export const varRegExp = /^var\(--([^ ),]*).*\)$/;
