@@ -10,7 +10,7 @@
     "otter",
     "otter-module"
   ],
-  "module": "dist/src/public_api.js",
+  "module": "src/public_api.ts",
   "typings": "dist/src/public_api.d.ts",
   "sideEffects": false,
   "exports": {
@@ -19,7 +19,8 @@
     },
     ".": {
       "typings": "./dist/src/public_api.d.ts",
-      "default": "./dist/src/public_api.js"
+      "require": "./dist/src/public_api.js",
+      "default": "./src/public_api.ts"
     }
   },
   "scripts": {
@@ -29,7 +30,8 @@
     "compile": "tsc -b ./tsconfig.build.json && yarn cpy package.json dist && patch-package-json-main"
   },
   "peerDependencies": {
-    "@modelcontextprotocol/sdk": "^1.19.0",
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@modelcontextprotocol/server": "^2.0.0",
     "@o3r/telemetry": "workspace:~"
   },
   "peerDependenciesMeta": {
@@ -50,7 +52,8 @@
     "@angular/platform-browser": "~22.0.4",
     "@angular/platform-browser-dynamic": "~22.0.4",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@modelcontextprotocol/sdk": "~1.29.0",
+    "@modelcontextprotocol/client": "~2.0.0",
+    "@modelcontextprotocol/server": "~2.0.0",
     "@nx/eslint": "~23.1.0",
     "@nx/eslint-plugin": "~23.1.0",
     "@nx/jest": "~23.1.0",

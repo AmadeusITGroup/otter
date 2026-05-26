@@ -1,12 +1,12 @@
 import {
   Client,
-} from '@modelcontextprotocol/sdk/client/index.js';
+} from '@modelcontextprotocol/client';
 import {
   InMemoryTransport,
-} from '@modelcontextprotocol/sdk/inMemory.js';
+} from '@modelcontextprotocol/server';
 import type {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
 
 /**
  * Set up an MCP client and server for testing purposes.
@@ -22,7 +22,7 @@ export const setUpClientAndServerForTesting = async (mcpServer: McpServer) => {
   });
   await Promise.all([
     client.connect(clientTransport),
-    mcpServer.server.connect(serverTransport)
+    mcpServer.connect(serverTransport)
   ]);
   return { mcpServer, client };
 };

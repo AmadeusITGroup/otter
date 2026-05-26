@@ -1,36 +1,42 @@
-const paginate = jest.fn().mockImplementation(() => {
-  return [
-    { name: 'main' },
-    { name: 'release/1.0' },
-    { name: 'release/1.1' },
-    { name: 'release/2.0' },
-    { name: 'release/2.1.0-rc' },
-    { name: 'release/3.0.0-next' }
-  ];
-});
-
-jest.mock('@octokit/rest', () => {
-  return {
-    Octokit: jest.fn().mockImplementation(() => ({
-      paginate,
-      repos: {
-        listBranches: jest.fn()
-      }
-    }))
-  };
-});
-
-/* eslint-disable import/first -- important to be after the mock */
-
 import {
   setUpClientAndServerForTesting,
 } from '@ama-mcp/core';
 import {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import {
   registerSupportedReleasesTool,
 } from './index';
+
+const { paginate } = vi.hoisted(() => ({
+  paginate: vi.fn().mockImplementation(() => {
+    return [
+      { name: 'main' },
+      { name: 'release/1.0' },
+      { name: 'release/1.1' },
+      { name: 'release/2.0' },
+      { name: 'release/2.1.0-rc' },
+      { name: 'release/3.0.0-next' }
+    ];
+  })
+}));
+
+vi.mock('@octokit/rest', () => ({
+  Octokit: class {
+    public paginate = paginate;
+
+    public repos = {
+      listBranches: vi.fn()
+    };
+  }
+}));
 
 const setUpClientAndServer = async () => {
   const mcpServer = new McpServer({
@@ -74,6 +80,6 @@ describe('Supported releases', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 });
