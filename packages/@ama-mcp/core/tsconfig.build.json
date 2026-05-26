@@ -3,8 +3,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": ".",
-    "module": "commonjs",
-    "moduleResolution": "node10",
+    "module": "ES2022",
     "types": ["node"],
     "lib": ["ES2024"],
     "tsBuildInfoFile": "build/.tsbuildinfo",

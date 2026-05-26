@@ -12,7 +12,7 @@ import {
 } from '@ama-mcp/otter';
 import type {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
 
 const uri = `${RESOURCE_URI_PREFIX}://best-practices`;
 

@@ -1,6 +1,7 @@
 {
   "name": "@ama-mcp/core",
   "version": "0.0.0-placeholder",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -18,7 +19,8 @@
       "default": "./package.json"
     },
     ".": {
-      "typings": "./dist/src/public_api.d.ts",
+      "module": "./dist/src/public_api.js",
+      "types": "./dist/src/public_api.d.ts",
       "default": "./dist/src/public_api.js"
     }
   },
@@ -29,7 +31,8 @@
     "compile": "tsc -b ./tsconfig.build.json && yarn cpy package.json dist && patch-package-json-main"
   },
   "peerDependencies": {
-    "@modelcontextprotocol/sdk": "^1.19.0",
+    "@modelcontextprotocol/client": "^2.0.0-alpha.2",
+    "@modelcontextprotocol/server": "^2.0.0-alpha.2",
     "@o3r/telemetry": "workspace:~"
   },
   "peerDependenciesMeta": {
@@ -50,7 +53,8 @@
     "@angular/platform-browser": "~21.2.4",
     "@angular/platform-browser-dynamic": "~21.2.4",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@modelcontextprotocol/sdk": "~1.28.0",
+    "@modelcontextprotocol/client": "~2.0.0-alpha.2",
+    "@modelcontextprotocol/server": "~2.0.0-alpha.2",
     "@nx/eslint": "~22.7.0",
     "@nx/eslint-plugin": "~22.7.0",
     "@nx/jest": "~22.7.0",
