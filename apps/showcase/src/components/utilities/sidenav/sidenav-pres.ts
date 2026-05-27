@@ -45,5 +45,5 @@ export class SidenavPres {
 
   /** Active url */
   @Input()
-  public activeUrl?: string;
+  public activeUrl?: string | null = null;
 }

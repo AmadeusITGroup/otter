@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "otter": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "-p",
+        "@o3r/mcp@^14.0.0",
+        "o3r-mcp-start"
+      ]
+    },
+    "angular": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@angular/cli@^21.0.0",
+        "mcp"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@~0.0.70"
+      ]
+    }
+  }
+}

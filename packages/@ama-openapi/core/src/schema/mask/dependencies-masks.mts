@@ -43,7 +43,7 @@ export const getDependencyModelMasks = async (artifacts: SpecificationArtifact[]
             mask: {
               $schema: 'http://json-schema.org/draft-07/schema#',
               title: `OpenApi specification mask ${modelRef}`,
-              $id: `@ama-openapi/core/schemas/${fileName}`,
+              $id: fileName,
               ...await generateMaskSchemaModelAt(modelPath, ctx),
               definitions: {
                 ...FIELD_SCHEMA_DEFINITION

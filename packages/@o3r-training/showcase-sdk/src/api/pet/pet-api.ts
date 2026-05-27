@@ -7,53 +7,80 @@ export type PetApiFindPetsByStatusStatusEnum = 'available' | 'pending' | 'sold';
 
 /** Parameters object to PetApi's addPet function */
 export interface PetApiAddPetRequestData {
-  /** Create a new pet in the store */
+  /**
+   * Create a new pet in the store 
+   */
   'contentPet': Pet;
 }
 /** Parameters object to PetApi's deletePet function */
 export interface PetApiDeletePetRequestData {
-  /** Pet id to delete */
+  /**
+   * Pet id to delete 
+   */
   'petId': number;
-  /**  */
+  /**
+   *  
+   */
   'api_key'?: string;
 }
 /** Parameters object to PetApi's findPetsByStatus function */
 export interface PetApiFindPetsByStatusRequestData {
-  /** Status values that need to be considered for filter */
+  /**
+   * Status values that need to be considered for filter 
+   * @default 'available'
+   */
   'status'?: PetApiFindPetsByStatusStatusEnum;
 }
 /** Parameters object to PetApi's findPetsByTags function */
 export interface PetApiFindPetsByTagsRequestData {
-  /** Tags to filter by */
+  /**
+   * Tags to filter by 
+   */
   'tags'?: string[];
 }
 /** Parameters object to PetApi's getPetById function */
 export interface PetApiGetPetByIdRequestData {
-  /** ID of pet to return */
+  /**
+   * ID of pet to return 
+   */
   'petId': number;
 }
 /** Parameters object to PetApi's updatePet function */
 export interface PetApiUpdatePetRequestData {
-  /** Update an existent pet in the store */
+  /**
+   * Update an existent pet in the store 
+   */
   'contentPet': Pet;
 }
 /** Parameters object to PetApi's updatePetWithForm function */
 export interface PetApiUpdatePetWithFormRequestData {
-  /** ID of pet that needs to be updated */
+  /**
+   * ID of pet that needs to be updated 
+   */
   'petId': number;
-  /** Name of pet that needs to be updated */
+  /**
+   * Name of pet that needs to be updated 
+   */
   'name'?: string;
-  /** Status of pet that needs to be updated */
+  /**
+   * Status of pet that needs to be updated 
+   */
   'status'?: string;
 }
 /** Parameters object to PetApi's uploadFile function */
 export interface PetApiUploadFileRequestData {
-  /** ID of pet to update */
+  /**
+   * ID of pet to update 
+   */
   'petId': number;
-  /** Additional Metadata */
+  /**
+   * Additional Metadata 
+   */
   'additionalMetadata'?: string;
-  /**  */
-  'contentbody'?: File;
+  /**
+   *  
+   */
+  'contentbody'?: any;
 }
 export class PetApi implements Api {
 

@@ -48,12 +48,22 @@ export class DynamicContentService {
     return assetPath ? assetPath.replace(/^\//, '') : '';
   }
 
+  private isAbsoluteUrl(assetPath: string): boolean {
+    return URL.canParse(assetPath);
+  }
+
   private getContentPath(assetPath?: string) {
+    if (assetPath && this.isAbsoluteUrl(assetPath)) {
+      return assetPath;
+    }
     const normalizedAssetPath = this.normalizePath(assetPath);
     return this.basePath === '' ? assetPath || '' : `${this.basePath}/${normalizedAssetPath}`;
   }
 
   private getMediaPath(assetPath?: string) {
+    if (assetPath && this.isAbsoluteUrl(assetPath)) {
+      return assetPath;
+    }
     if (this.cmsOnlyAssetsPath && assetPath) {
       return assetPath.startsWith('/') ? assetPath : `${this.cmsOnlyAssetsPath.replace(/\/$/, '')}/${assetPath}`;
     }
