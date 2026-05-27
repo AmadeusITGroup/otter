@@ -1,6 +1,19 @@
 import {
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
+import {
+  PATTERNS_MODEL_DEFINITION_KEY,
+} from '../constants.mjs';
+import {
   getManifestModelsProperties,
 } from './manifest-model-properties.mjs';
+
+vi.mock('globby', () => ({
+  globbySync: vi.fn().mockReturnValue([])
+}));
 
 const createArtifact = (overrides: Partial<any> = {}) => ({
   packageManifest: {
@@ -27,14 +40,28 @@ describe('getManifestModelsProperties', () => {
     expect(result['@test/api'].oneOf).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          $ref: expect.stringContaining('#/definitions/model-test-api-')
+          oneOf: expect.arrayContaining([
+            expect.objectContaining({
+              $ref: expect.stringContaining('#/definitions/model-test-api-')
+            }),
+            expect.objectContaining({
+              $ref: expect.stringContaining(`#/definitions/${PATTERNS_MODEL_DEFINITION_KEY}`)
+            })
+          ])
         }),
         expect.objectContaining({
           type: 'array',
           items: expect.objectContaining({
             oneOf: expect.arrayContaining([
               expect.objectContaining({
-                $ref: expect.stringContaining('#/definitions/model-test-api-')
+                oneOf: expect.arrayContaining([
+                  expect.objectContaining({
+                    $ref: expect.stringContaining('#/definitions/model-test-api-')
+                  }),
+                  expect.objectContaining({
+                    $ref: expect.stringContaining(`#/definitions/${PATTERNS_MODEL_DEFINITION_KEY}`)
+                  })
+                ])
               })
             ])
           })

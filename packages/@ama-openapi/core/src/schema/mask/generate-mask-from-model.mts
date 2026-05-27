@@ -166,7 +166,7 @@ export const generateMaskSchemaFromModel = async (model: any, ctx: MaskContext):
         $ref: FIELD_SCHEMA_REF
       },
       {
-        type: model.type
+        type: model.type || 'object'
       }
     ]
   };

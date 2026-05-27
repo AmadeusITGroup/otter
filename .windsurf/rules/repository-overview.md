@@ -19,7 +19,7 @@ Highly modular Angular-based framework and tooling to accelerate building Angula
 
 - Angular, TypeScript, RxJS, Redux-style patterns
 - Nx monorepo tooling
-- Jest for unit/integration tests, Playwright for e2e
+- Jest for unit/integration tests, Vitest for the type module packages' unit tests, Playwright for e2e
 - ESLint (flat config), Stylelint, Husky, lint-staged
 
 ## Layout

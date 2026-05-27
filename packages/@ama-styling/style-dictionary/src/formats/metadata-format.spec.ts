@@ -8,6 +8,14 @@ import {
   getReferences,
 } from 'style-dictionary/utils';
 import {
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vi,
+} from 'vitest';
+import {
   OTTER_NAME_PREFIX,
 } from '../constants.mjs';
 import {
@@ -23,11 +31,11 @@ let mocks!: {
   referenceToken: any;
 };
 
-jest.mock('style-dictionary/utils', () => ({
-  createPropertyFormatter: jest.fn().mockImplementation(() => ({ name, $value, original }: any) =>
+vi.mock('style-dictionary/utils', () => ({
+  createPropertyFormatter: vi.fn().mockImplementation(() => ({ name, $value, original }: any) =>
     original?.$value?.startsWith('{') ? `--${name}: var(--${original.$value.replace(/\{(.*)\}/, '$1').replaceAll('.', '-')})` : `--${name}: ${$value};`),
-  fileHeader: jest.fn().mockReturnValue(''),
-  getReferences: jest.fn().mockImplementation((value, tokens) => {
+  fileHeader: vi.fn().mockReturnValue(''),
+  getReferences: vi.fn().mockImplementation((value, tokens) => {
     const flat = (obj: any, mem: Set<any>) => {
       if (obj.isSource) {
         mem.add(obj);
@@ -39,13 +47,13 @@ jest.mock('style-dictionary/utils', () => ({
     };
     return [...flat(tokens, new Set())].filter(({ path }: any) => value?.includes(path.join('.')));
   }),
-  sortByReference: jest.fn()
+  sortByReference: vi.fn()
 }));
 
-const getMockReferences = jest.mocked(getReferences);
+const getMockReferences = vi.mocked(getReferences);
 
 describe('metadataFormat', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => vi.clearAllMocks());
 
   beforeAll(() => {
     mocks = {

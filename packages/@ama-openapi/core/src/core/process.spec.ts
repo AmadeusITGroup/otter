@@ -1,4 +1,12 @@
 import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  type Mock,
+  vi,
+} from 'vitest';
+import {
   writeModelFile,
 } from './file-system/write-model.mjs';
 import type {
@@ -32,44 +40,44 @@ import {
 
 const mockSpecification = { title: 'OriginalTitle', testField: 'testValue' };
 
-jest.mock('./file-system/write-model.mjs', () => ({
-  writeModelFile: jest.fn()
+vi.mock('./file-system/write-model.mjs', () => ({
+  writeModelFile: vi.fn()
 }));
-jest.mock('./references/walk-innerpath.mjs', () => ({
-  walkInnerPath: jest.fn()
+vi.mock('./references/walk-innerpath.mjs', () => ({
+  walkInnerPath: vi.fn()
 }));
-jest.mock('./serialization.mjs', () => ({
-  deserialize: jest.fn().mockImplementation(() => mockSpecification),
-  serialize: jest.fn().mockImplementation((spec) => JSON.stringify(spec, null, 2))
+vi.mock('./serialization.mjs', () => ({
+  deserialize: vi.fn().mockImplementation(() => mockSpecification),
+  serialize: vi.fn().mockImplementation((spec) => JSON.stringify(spec, null, 2))
 }));
-jest.mock('./transforms/add-annotation.mjs', () => ({
-  addAnnotation: jest.fn().mockImplementation((spec) => spec)
+vi.mock('./transforms/add-annotation.mjs', () => ({
+  addAnnotation: vi.fn().mockImplementation((spec) => spec)
 }));
-jest.mock('./transforms/apply-mask.mjs', () => ({
-  applyMask: jest.fn().mockImplementation((spec) => spec)
+vi.mock('./transforms/apply-mask.mjs', () => ({
+  applyMask: vi.fn().mockImplementation((spec) => spec)
 }));
-jest.mock('./transforms/rename.mjs', () => ({
-  renameTitle: jest.fn().mockImplementation((spec) => spec)
+vi.mock('./transforms/rename.mjs', () => ({
+  renameTitle: vi.fn().mockImplementation((spec) => spec)
 }));
-jest.mock('./transforms/to-reference.mjs', () => ({
-  toReference: jest.fn().mockImplementation((spec) => spec)
+vi.mock('./transforms/to-reference.mjs', () => ({
+  toReference: vi.fn().mockImplementation((spec) => spec)
 }));
-jest.mock('./transforms/update-references.mjs', () => ({
-  updateReferences: jest.fn().mockImplementation((spec) => spec)
+vi.mock('./transforms/update-references.mjs', () => ({
+  updateReferences: vi.fn().mockImplementation((spec) => spec)
 }));
 
 describe('processModel', () => {
   const mockLogger = {
-    debug: jest.fn(),
-    error: jest.fn(),
-    warn: jest.fn(),
-    info: jest.fn(),
-    log: jest.fn()
+    debug: vi.fn(),
+    error: vi.fn(),
+    warn: vi.fn(),
+    info: vi.fn(),
+    log: vi.fn()
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    (walkInnerPath as jest.Mock).mockReturnValue(mockSpecification);
+    vi.clearAllMocks();
+    (walkInnerPath as Mock).mockReturnValue(mockSpecification);
   });
 
   it('should process the model by applying all transformations and annotations', async () => {
@@ -108,7 +116,7 @@ describe('processModel', () => {
   });
 
   it('should throw an error and log when walkInnerPath returns undefined', async () => {
-    (walkInnerPath as jest.Mock).mockReturnValue(undefined);
+    (walkInnerPath as Mock).mockReturnValue(undefined);
 
     const mockRetrievedModel: RetrievedDependencyModel = {
       artifactName: 'test-artifact',
@@ -147,7 +155,7 @@ describe('processModel', () => {
   });
 
   it('should handle walkInnerPath returning undefined without innerPath specified', async () => {
-    (walkInnerPath as jest.Mock).mockReturnValue(undefined);
+    (walkInnerPath as Mock).mockReturnValue(undefined);
 
     const mockRetrievedModel: RetrievedDependencyModel = {
       artifactName: 'test-artifact',

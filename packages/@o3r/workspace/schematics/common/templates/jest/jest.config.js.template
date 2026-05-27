@@ -1,0 +1,41 @@
+const { createCjsPreset } = require('jest-preset-angular/presets');
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('<%= tsconfigBasePath %>');
+
+globalThis.ngJest = {
+  skipNgcc: true
+};
+
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
+module.exports = {
+  ...createCjsPreset({
+    tsconfig: 'tsconfig.spec.json',
+    stringifyContentPathRegex: '\\.html$',
+  }),
+  displayName: require('./package.json').name,
+  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
+  rootDir: __dirname,
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
+  testPathIgnorePatterns: [
+    '<rootDir>/dist'
+  ],
+  reporters: [
+    'default',
+    'github-actions'
+  ],
+  transform: {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    '^.+\\.tsx?$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.html$'
+      }
+    ]
+  },
+  snapshotSerializers: [
+    'jest-preset-angular/build/serializers/no-ng-attributes',
+    'jest-preset-angular/build/serializers/ng-snapshot',
+    'jest-preset-angular/build/serializers/html-comment'
+  ]
+};

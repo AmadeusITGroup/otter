@@ -1,4 +1,15 @@
 import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  type MockedFunction,
+  vi,
+} from 'vitest';
+import {
+  BASE_TRANSFORM_DEFINITION_KEY,
+} from '../constants.mjs';
+import {
   generateModelNameRef,
   getMaskFileName,
 } from '../generate-model-name.mjs';
@@ -6,19 +17,19 @@ import {
   getTransformDefinitions,
 } from './transform-definitions.mjs';
 
-jest.mock('../generate-model-name.mjs', () => ({
-  generateModelNameRef: jest.fn(),
-  getMaskFileName: jest.fn()
+vi.mock('../generate-model-name.mjs', () => ({
+  generateModelNameRef: vi.fn(),
+  getMaskFileName: vi.fn()
 }));
 
 describe('getTransformDefinitions', () => {
   const generateModelNameRefMock =
-    generateModelNameRef as jest.MockedFunction<typeof generateModelNameRef>;
+    generateModelNameRef as MockedFunction<typeof generateModelNameRef>;
   const getMaskFileNameMock =
-    getMaskFileName as jest.MockedFunction<typeof getMaskFileName>;
+    getMaskFileName as MockedFunction<typeof getMaskFileName>;
 
   beforeEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   it('should generate transform definitions for each valid model using helpers', () => {
@@ -50,16 +61,16 @@ describe('getTransformDefinitions', () => {
     expect(definition).toBeDefined();
     expect(definition.allOf).toHaveLength(2);
     expect(definition.allOf[0]).toEqual({
-      $ref: '#/definitions/baseTransform'
+      $ref: `#/definitions/${BASE_TRANSFORM_DEFINITION_KEY}`
     });
-    expect(definition.allOf[1]).toEqual({
+    expect(definition.allOf[1]).toEqual(expect.objectContaining({
       type: 'object',
       properties: {
-        mask: {
+        mask: expect.objectContaining({
           $ref: './mask-pkg-model-ref.json'
-        }
+        })
       }
-    });
+    }));
   });
 
   it('should fallback to base directory name when package manifest name is missing', () => {
