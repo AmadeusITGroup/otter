@@ -15,6 +15,12 @@ import {
   clean,
 } from 'semver';
 import * as winston from 'winston';
+import {
+  createPlaceholderRegex,
+  privateFieldRegex,
+  wildcardVersionRegex,
+  workspaceProtocolRegex,
+} from './set-version-regexes';
 
 const defaultIncludedFiles = ['**/package.json', '**/lerna.json', '!**/templates', '!**/node_modules'];
 
@@ -64,14 +70,13 @@ const cliFn = () => {
       content: fs.readFileSync(filePath).toString()
     }))
     .forEach((pathWithContent: { path: string; content: string }) => {
+      const placeholderRegex = createPlaceholderRegex(options.placeholder as string);
       let newContent = pathWithContent.content
-        .replace(new RegExp('"([~^]?)' + (options.placeholder as string)
-          .replace(/[$()+.?[\\\]^{|}]/g, '\\$&')
-          .replace(/\\*\./g, '\\.') + '"', 'g'), `"$1${replaceVersion}"`)
-        .replace(/"workspace:([~^*]?)[^"]*"(,?)$/gm, `"$1${replaceVersion}"$2`)
-        .replace(/"\*(.+)"(,?)$/gm, `"=$1"$2`);
+        .replace(placeholderRegex, `"$1${replaceVersion}"`)
+        .replace(workspaceProtocolRegex, `"$1${replaceVersion}"$2`)
+        .replace(wildcardVersionRegex, `"=$1"$2`);
       if (options.setPublic) {
-        newContent = newContent.replace(/^\s*"private"\s*:\s*true\s*,?$/gm, '');
+        newContent = newContent.replace(privateFieldRegex, '');
       }
       if (newContent === pathWithContent.content) {
         logger.debug(`No change in ${pathWithContent.path}`);
