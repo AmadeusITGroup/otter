@@ -13,7 +13,7 @@ describe('ConfigOverride Store reducer', () => {
   const secondConfigOverride: any = { name: 'configOverride2', overrides: [] };
 
   it('should have the correct initial state', () => {
-    state = configOverrideReducer(configOverrideInitialState, { type: 'fake' } as any);
+    state = configOverrideReducer(configOverrideInitialState, { type: 'fake' });
 
     expect(state).toEqual(configOverrideInitialState);
   });
