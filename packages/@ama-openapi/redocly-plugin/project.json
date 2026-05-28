@@ -41,7 +41,6 @@
       ],
       "dependsOn": []
     },
-    "set-version": {},
     "prepare-publish": {},
     "publish": {},
     "documentation": {}
