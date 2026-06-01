@@ -399,7 +399,7 @@
     "watch": "yarn nx run vscode-extension:compile:watch"
   },
   "dependencies": {
-    "@ama-mcp/otter": "workspace:^",
+    "@ama-mcp/otter": "workspace:~",
     "@ama-styling/style-dictionary": "workspace:~",
     "@o3r/telemetry": "workspace:~",
     "@vscode/chat-extension-utils": "0.0.0-alpha.5",
@@ -414,6 +414,7 @@
     }
   },
   "devDependencies": {
+    "@ama-mcp/otter": "workspace:~",
     "@angular-devkit/build-angular": "~21.2.0",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",

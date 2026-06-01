@@ -3,7 +3,7 @@ import {
 } from 'node:fs/promises';
 import type {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
 import {
   z,
 } from 'zod';
@@ -101,7 +101,7 @@ export function registerMigrateVersionTool(server: McpServer) {
     {
       title: 'Migrate Otter version',
       description: DESCRIPTION,
-      inputSchema: {
+      inputSchema: z.object({
         packageJsonPath: z
           .string()
           .describe('Absolute path to the package.json file in the user\'s project. Defaults to \'./package.json\' if not provided.')
@@ -110,7 +110,7 @@ export function registerMigrateVersionTool(server: McpServer) {
           .string()
           .describe('The target Otter version to migrate to (e.g., "11.0", "12.0", "13.0"). If not provided, the tool will list available versions.')
           .optional()
-      }
+      })
     },
     async ({ packageJsonPath = './package.json', targetVersion }) => {
       const currentVersion = await getCurrentOtterVersion(packageJsonPath);

@@ -1,21 +1,13 @@
-const existsSyncMock = jest.fn();
-const readFileSyncMock = jest.fn();
-const loadSdkContextsMock = jest.fn();
-
-jest.mock('node:fs', () => ({
-  existsSync: existsSyncMock,
-  readFileSync: readFileSyncMock
-}));
-
-jest.mock('../helpers/context', () => ({
-  ...jest.requireActual('../helpers/context'),
-  loadSdkContexts: loadSdkContextsMock
-}));
-
-/* eslint-disable import/first -- needed to mock modules before importing the tested module */
 import type {
   AmaMcpServer,
 } from '@ama-mcp/core';
+import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import type {
   SdkContextInfo,
 } from '../helpers/context';
@@ -24,14 +16,33 @@ import {
   type SdkContextResponse,
 } from './mcp-server';
 
+const { existsSyncMock, readFileSyncMock, loadSdkContextsMock } = vi.hoisted(() => ({
+  existsSyncMock: vi.fn(),
+  readFileSyncMock: vi.fn(),
+  loadSdkContextsMock: vi.fn()
+}));
+
+vi.mock('node:fs', () => ({
+  existsSync: existsSyncMock,
+  readFileSync: readFileSyncMock
+}));
+
+vi.mock('../helpers/context', async (importOriginal) => {
+  const orig = await importOriginal<typeof import('../helpers/context')>();
+  return {
+    ...orig,
+    loadSdkContexts: loadSdkContextsMock
+  };
+});
+
 const mockServer = {
-  registerResource: jest.fn(),
-  registerTool: jest.fn()
+  registerResource: vi.fn(),
+  registerTool: vi.fn()
 } as unknown as AmaMcpServer;
 
 describe('mcp-server', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     existsSyncMock.mockReturnValue(false);
     readFileSyncMock.mockReturnValue('');
     loadSdkContextsMock.mockReturnValue([]);

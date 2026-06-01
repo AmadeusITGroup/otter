@@ -1,0 +1,11 @@
+{
+  "extends": "../../../tsconfig.test",
+  "include": [
+    "src/**/*.spec.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    }
+  ]
+}

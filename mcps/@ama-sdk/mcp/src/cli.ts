@@ -5,7 +5,7 @@ import {
 } from '@ama-mcp/core';
 import {
   StdioServerTransport,
-} from '@modelcontextprotocol/sdk/server/stdio.js';
+} from '@modelcontextprotocol/server';
 import {
   createCliWithMetrics,
 } from '@o3r/telemetry';

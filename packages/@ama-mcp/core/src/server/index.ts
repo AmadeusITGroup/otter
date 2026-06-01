@@ -1,7 +1,5 @@
-import type {
-  ServerOptions,
-} from '@modelcontextprotocol/sdk/server/index.js';
 import {
+  type Implementation,
   McpServer,
   type ReadResourceCallback,
   type ReadResourceTemplateCallback,
@@ -9,15 +7,10 @@ import {
   type RegisteredResourceTemplate,
   type ResourceMetadata,
   type ResourceTemplate,
+  type ServerOptions,
+  type StandardSchemaWithJSON,
   type ToolCallback,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
-import type {
-  AnySchema,
-  ZodRawShapeCompat,
-} from '@modelcontextprotocol/sdk/server/zod-compat';
-import type {
-  Implementation,
-} from '@modelcontextprotocol/sdk/types';
+} from '@modelcontextprotocol/server';
 import type {
   createGenAICallbackWithMetrics,
   sendGenAIEventMetricsIfAuthorized,
@@ -65,7 +58,7 @@ export class AmaMcpServer extends McpServer {
   /**
    * @inheritdoc
    */
-  public override registerTool<OutputArgs extends ZodRawShapeCompat | AnySchema, InputArgs extends undefined | ZodRawShapeCompat | AnySchema = undefined>(
+  public override registerTool<OutputArgs extends StandardSchemaWithJSON<unknown, unknown>, InputArgs extends StandardSchemaWithJSON | undefined = undefined>(
     ...args: Parameters<typeof McpServer.prototype.registerTool<OutputArgs, InputArgs>>
   ) {
     const [name, config, toolCallback] = args;

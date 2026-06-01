@@ -5,7 +5,7 @@ import {
 } from '@ama-mcp/core';
 import {
   StdioServerTransport,
-} from '@modelcontextprotocol/sdk/server/stdio.js';
+} from '@modelcontextprotocol/server';
 import {
   createMcpServer,
 } from '../mcp-server';
