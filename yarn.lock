@@ -21609,8 +21609,8 @@ __metadata:
   linkType: hard
 
 "compressing@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "compressing@npm:2.1.0"
+  version: 2.1.1
+  resolution: "compressing@npm:2.1.1"
   dependencies:
     "@eggjs/yauzl": "npm:^2.11.0"
     flushwritable: "npm:^1.0.0"
@@ -21619,7 +21619,7 @@ __metadata:
     streamifier: "npm:^0.1.1"
     tar-stream: "npm:^1.5.2"
     yazl: "npm:^2.4.2"
-  checksum: 10/f544484f8c77a7b53e1543043172fbc3237e7f8b14d948c77d60406600f778da67410999f581b9311263ac7b2a5071836c0545bae26bc11785cdcdccba781a4c
+  checksum: 10/82198d40fc24f38635b6e86e7b2220ef8ad92f1d65f9d05c24c9068cf56ea52c637ece61c5e274f2bfb3b30838d0b136b3e4a1f9d9a4a88aa4244c66fa91a7c9
   languageName: node
   linkType: hard
 
@@ -24077,19 +24077,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-toolkit@npm:^1.39.7":
-  version: 1.45.1
-  resolution: "es-toolkit@npm:1.45.1"
-  dependenciesMeta:
-    "@trivago/prettier-plugin-sort-imports@4.3.0":
-      unplugged: true
-    prettier-plugin-sort-re-exports@0.0.1:
-      unplugged: true
-  checksum: 10/e092803bd0ba473db04798311e39bfc1e27e7bb958309f2e49c1be59931c7d88d5d84fc12483b32e0e73c2dec42739b73b4dfe6322a37c2a158b552456b24134
-  languageName: node
-  linkType: hard
-
-"es-toolkit@npm:^1.45.1":
+"es-toolkit@npm:^1.39.7, es-toolkit@npm:^1.45.1":
   version: 1.46.1
   resolution: "es-toolkit@npm:1.46.1"
   dependenciesMeta:
@@ -34117,18 +34105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.2.14, postcss@npm:^8.4.33, postcss@npm:^8.4.38, postcss@npm:^8.4.40, postcss@npm:^8.4.47, postcss@npm:^8.4.49, postcss@npm:^8.5.6, postcss@npm:^8.5.8":
-  version: 8.5.8
-  resolution: "postcss@npm:8.5.8"
-  dependencies:
-    nanoid: "npm:^3.3.11"
-    picocolors: "npm:^1.1.1"
-    source-map-js: "npm:^1.2.1"
-  checksum: 10/cbacbfd7f767e2c820d4bf09a3a744834dd7d14f69ff08d1f57b1a7defce9ae5efcf31981890d9697a972a64e9965de677932ef28e4c8ba23a87aad45b82c459
-  languageName: node
-  linkType: hard
-
-"postcss@npm:~8.5.10":
+"postcss@npm:^8.2.14, postcss@npm:^8.4.33, postcss@npm:^8.4.38, postcss@npm:^8.4.40, postcss@npm:^8.4.47, postcss@npm:^8.4.49, postcss@npm:^8.5.6, postcss@npm:^8.5.8, postcss@npm:~8.5.10":
   version: 8.5.14
   resolution: "postcss@npm:8.5.14"
   dependencies:
