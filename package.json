@@ -130,8 +130,8 @@
     }
   ],
   "resolutions": {
-    "@angular-devkit/schematics": "21.2.8",
-    "@schematics/angular": "21.2.8",
+    "@angular-devkit/schematics": "21.2.13",
+    "@schematics/angular": "21.2.13",
     "@sinonjs/fake-timers": "~15.1.0",
     "@types/node": "~24.12.0",
     "ajv@8.17.1": "~8.18.0",
@@ -158,7 +158,7 @@
     "@agnos-ui/core-bootstrap": "~0.10.0",
     "@amadeus-it-group/tansu": "~2.0.0",
     "@ampproject/remapping": "^2.3.0",
-    "@angular-devkit/architect": "0.2102.8",
+    "@angular-devkit/architect": "0.2102.13",
     "@angular-devkit/build-angular": "~21.2.0",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
