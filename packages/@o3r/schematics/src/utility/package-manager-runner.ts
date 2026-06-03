@@ -81,7 +81,7 @@ export function getPackageManager(options?: PackageManagerOptions) {
 export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string): string {
   const pckManager = getPackageManager({ workspaceConfig });
   if (!packageName) {
-    return `${pckManager} run` as SupportedPackageManagerRunners;
+    return `${pckManager} run` satisfies SupportedPackageManagerRunners;
   }
   return `${pckManager} ${PACKAGE_MANAGER_WORKSPACE_MAPPING[pckManager]} ${packageName} run`;
 }
@@ -94,7 +94,7 @@ export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | stri
 export function getPackageManagerExecutor(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string): string {
   const pckManager = getPackageManager({ workspaceConfig });
   if (!packageName) {
-    return `${pckManager} exec` as SupportedPackageManagerExecutors;
+    return `${pckManager} exec` satisfies SupportedPackageManagerExecutors;
   }
   return `${pckManager} ${PACKAGE_MANAGER_WORKSPACE_MAPPING[pckManager]} ${packageName} exec`;
 }

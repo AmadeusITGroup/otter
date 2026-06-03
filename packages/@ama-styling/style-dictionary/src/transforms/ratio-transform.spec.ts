@@ -32,7 +32,7 @@ describe('ratioTransform', () => {
       attributes: {
         o3rRatio: 5
       }
-    } as any, {} as any, { usesDtcg: true });
+    } as any, {}, { usesDtcg: true });
 
     expect(result).toBe('10px');
   });
@@ -44,7 +44,7 @@ describe('ratioTransform', () => {
       attributes: {
         o3rRatio: 5
       }
-    } as any, {} as any, { usesDtcg: false });
+    } as any, {}, { usesDtcg: false });
 
     expect(result).toBe('10px');
   });
@@ -62,7 +62,7 @@ describe('ratioTransform', () => {
       attributes: {
         o3rRatio: 5
       }
-    } as any, {} as any, { usesDtcg: true });
+    } as any, {}, { usesDtcg: true });
 
     expect(result).toEqual({ field: { value: '6.5 em', valueNoSpace: '6.5em', valueNumber: 25, valueDot: '2.5vw' } });
   });
@@ -73,7 +73,7 @@ describe('ratioTransform', () => {
       attributes: {
         o3rRatio: 5
       }
-    } as any, {} as any, { usesDtcg: true });
+    } as any, {}, { usesDtcg: true });
 
     expect(result).toBe('it\'s 1 value');
   });
@@ -84,7 +84,7 @@ describe('ratioTransform', () => {
       attributes: {
         o3rRatio: -1
       }
-    } as any, {} as any, { usesDtcg: true });
+    } as any, {}, { usesDtcg: true });
 
     expect(result).toBe('-2px');
   });
@@ -95,7 +95,7 @@ describe('ratioTransform', () => {
       attributes: {
         o3rRatio: 0.5
       }
-    } as any, {} as any, { usesDtcg: true });
+    } as any, {}, { usesDtcg: true });
 
     expect(result).toBe('1px');
   });
@@ -106,7 +106,7 @@ describe('ratioTransform', () => {
       attributes: {
         o3rRatio: 1 / 3
       }
-    } as any, {} as any, { usesDtcg: true });
+    } as any, {}, { usesDtcg: true });
 
     expect(result).toBe('0.667px');
   });

@@ -128,7 +128,7 @@ describe('getDependencyModelMasks', () => {
       }
     ];
 
-    generateModelNameRefMock.mockImplementation((pkgName) => `RefFrom-${pkgName}` as any);
+    generateModelNameRefMock.mockImplementation((pkgName) => `RefFrom-${pkgName}`);
     getMaskFileNameMock.mockReturnValue('derived.mask.json');
     generateMaskSchemaModelAtMock.mockResolvedValue({});
 

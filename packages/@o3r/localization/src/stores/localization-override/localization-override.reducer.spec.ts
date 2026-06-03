@@ -13,7 +13,7 @@ describe('LocalizationOverride Store reducer', () => {
   const secondLocalizationOverride = { key: 'localizationOverrideKey2', value: 'localizationOverrideValue2' };
 
   it('should by default return the initial state', () => {
-    state = localizationOverrideReducer(localizationOverrideInitialState, { type: 'fake' } as any);
+    state = localizationOverrideReducer(localizationOverrideInitialState, { type: 'fake' });
 
     expect(state).toEqual(localizationOverrideInitialState);
   });

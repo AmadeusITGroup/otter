@@ -181,7 +181,7 @@ export class OtterRulesEngineDevtools {
   public getRulesetInformation(rulesetId: string): Promise<Ruleset | undefined> {
     return firstValueFrom(this.store.pipe(
       select(selectRulesetsEntities),
-      map((entities) => entities[rulesetId] as Ruleset | undefined)
+      map((entities) => entities[rulesetId])
     ));
   }
 }
