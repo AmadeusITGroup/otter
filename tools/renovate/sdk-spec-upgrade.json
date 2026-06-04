@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Trigger SDK regeneration for a specific package name with yarn",
+  "description": "Usage: 'github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(@my-company/spec-package)' - Trigger SDK regeneration for a specific package name with yarn",
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec({{arg0}})",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate(yarn, {{arg0}})"
