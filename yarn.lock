@@ -9972,12 +9972,12 @@ __metadata:
     "@o3r/core": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/extractors": "workspace:~"
+    "@o3r/localization": "workspace:~"
     "@o3r/logger": "workspace:~"
     "@o3r/rules-engine": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@o3r/testing": "workspace:~"
-    "@o3r/transloco": "workspace:~"
     "@schematics/angular": "npm:~21.2.0"
     "@standard-schema/spec": "npm:~1.1.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
@@ -10047,7 +10047,6 @@ __metadata:
     "@o3r/logger": "workspace:~"
     "@o3r/rules-engine": "workspace:~"
     "@o3r/schematics": "workspace:~"
-    "@o3r/transloco": "workspace:~"
     "@schematics/angular": ^21.0.0
     "@yarnpkg/cli": ^4.0.0
     "@yarnpkg/core": ^4.1.1
@@ -10074,11 +10073,11 @@ __metadata:
       optional: true
     "@o3r/extractors":
       optional: true
+    "@o3r/localization":
+      optional: true
     "@o3r/rules-engine":
       optional: true
     "@o3r/schematics":
-      optional: true
-    "@o3r/transloco":
       optional: true
     "@schematics/angular":
       optional: true
