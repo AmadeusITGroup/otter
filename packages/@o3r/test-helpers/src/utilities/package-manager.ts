@@ -322,6 +322,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-sdk.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.o3r.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'unsafeHttpWhitelist', '127.0.0.1'], execOptions);
+      execFileSync('yarn', ['config', 'set', 'npmMinimalAgeGate', '0'], execOptions);
       break;
     }
   }
