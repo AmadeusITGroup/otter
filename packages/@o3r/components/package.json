@@ -55,6 +55,7 @@
     "@o3r/logger": "workspace:~",
     "@o3r/rules-engine": "workspace:~",
     "@o3r/schematics": "workspace:~",
+    "@o3r/transloco": "workspace:~",
     "@schematics/angular": "^21.0.0",
     "@yarnpkg/cli": "^4.0.0",
     "@yarnpkg/core": "^4.1.1",
@@ -95,6 +96,9 @@
       "optional": true
     },
     "@o3r/schematics": {
+      "optional": true
+    },
+    "@o3r/transloco": {
       "optional": true
     },
     "@schematics/angular": {
@@ -173,6 +177,7 @@
     "@o3r/rules-engine": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
     "@o3r/testing": "workspace:~",
+    "@o3r/transloco": "workspace:~",
     "@schematics/angular": "~21.2.0",
     "@standard-schema/spec": "~1.1.0",
     "@stylistic/eslint-plugin": "~5.10.0",
