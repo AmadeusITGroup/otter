@@ -7179,6 +7179,52 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jsverse/transloco-messageformat@npm:~8.2.1":
+  version: 8.2.1
+  resolution: "@jsverse/transloco-messageformat@npm:8.2.1"
+  dependencies:
+    "@messageformat/core": "npm:^3.0.0"
+    tslib: "npm:^2.2.0"
+  peerDependencies:
+    "@angular/core": ">=16.0.0"
+    "@jsverse/transloco": ">=8.0.0"
+    "@jsverse/utils": 1.0.0-beta.5
+    rxjs: ">=6.0.0"
+  checksum: 10/96902837d2963c8a3193aecb669683b2f6cf5fa2a6d622fa65459bd1dd5c1817160d429987225392f0ba44205ba979bf96122775a6af5c1adf07651cf9bb354b
+  languageName: node
+  linkType: hard
+
+"@jsverse/transloco-utils@npm:^8.2.1":
+  version: 8.3.0
+  resolution: "@jsverse/transloco-utils@npm:8.3.0"
+  dependencies:
+    cosmiconfig: "npm:^8.1.3"
+    tslib: "npm:^2.3.0"
+  checksum: 10/1fff6f535a9486a3d0c3e7de5f27da4220be961b3e9a2add68237c868c8361772aa63a1806204d324531134d4ba9c5eb4555d22ddfcc2f42e03419c5fac335bc
+  languageName: node
+  linkType: hard
+
+"@jsverse/transloco@npm:~8.2.1":
+  version: 8.2.1
+  resolution: "@jsverse/transloco@npm:8.2.1"
+  dependencies:
+    "@jsverse/transloco-utils": "npm:^8.2.1"
+    "@jsverse/utils": "npm:1.0.0-beta.5"
+    tslib: "npm:^2.2.0"
+  peerDependencies:
+    "@angular/core": ">=16.0.0"
+    rxjs: ">=6.0.0"
+  checksum: 10/ef60d49263d1d67b7b76114a4a44590ea1721d9c2971cd7b2458a6ed676b4d4a3a11ba0ad3b6bf914e966ad232a1597dfb9cc144fe556dd269524bfd8721b588
+  languageName: node
+  linkType: hard
+
+"@jsverse/utils@npm:1.0.0-beta.5":
+  version: 1.0.0-beta.5
+  resolution: "@jsverse/utils@npm:1.0.0-beta.5"
+  checksum: 10/f54293c5a71ba1dc3f0d30c76acf1936f9fe14f8c620cd03184f585386896dbbd9109de44309f4b7db704c158d66f7255e6de4f58f60275ccca835a30f83a8fd
+  languageName: node
+  linkType: hard
+
 "@keyv/bigmap@npm:^1.3.1":
   version: 1.3.1
   resolution: "@keyv/bigmap@npm:1.3.1"
@@ -7394,6 +7440,52 @@ __metadata:
   dependencies:
     "@chevrotain/types": "npm:~11.1.1"
   checksum: 10/9f3645fd055c0800c16a3e7eab1ce7f05736c352ab48996e9c64fb21b27c25a5987636040816b1bb16384a4434744cecbdf746c152ef80e0bc712972cb58deed
+  languageName: node
+  linkType: hard
+
+"@messageformat/core@npm:^3.0.0":
+  version: 3.4.0
+  resolution: "@messageformat/core@npm:3.4.0"
+  dependencies:
+    "@messageformat/date-skeleton": "npm:^1.0.0"
+    "@messageformat/number-skeleton": "npm:^1.0.0"
+    "@messageformat/parser": "npm:^5.1.0"
+    "@messageformat/runtime": "npm:^3.0.1"
+    make-plural: "npm:^7.0.0"
+    safe-identifier: "npm:^0.4.1"
+  checksum: 10/a75745bb36715a6460623610646de56e52e0642b4b87dcfe074c3d47561042ea7e1bea13fac137808bc1e2807f456691b0ad315d4dbc93d05d943b306738c384
+  languageName: node
+  linkType: hard
+
+"@messageformat/date-skeleton@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "@messageformat/date-skeleton@npm:1.1.0"
+  checksum: 10/b90a8bf4bdff26e1762865456ef8cd16cb0208385509fa1db1ed4a113607a2449fc3775d51f2ba764349489d616f66b33f15bc7a867a95fe8667c1280924197e
+  languageName: node
+  linkType: hard
+
+"@messageformat/number-skeleton@npm:^1.0.0":
+  version: 1.2.0
+  resolution: "@messageformat/number-skeleton@npm:1.2.0"
+  checksum: 10/6591ceee52cc008c4bdaf3026e5272ce0f88c6658ec3dae1fa253a608931e06b85826a89aae69143d9d29f66c7444c63c643c4fb3181fdbb862fd46b7e0472a8
+  languageName: node
+  linkType: hard
+
+"@messageformat/parser@npm:^5.1.0":
+  version: 5.1.1
+  resolution: "@messageformat/parser@npm:5.1.1"
+  dependencies:
+    moo: "npm:^0.5.1"
+  checksum: 10/32b1e503532f62df976dd62fbe27fcec9d8ff44770d9fa9722cbbc86545fdacb11038594f739d0c29e984535df8535a1da69375109f684bd4efd3c60156b3b49
+  languageName: node
+  linkType: hard
+
+"@messageformat/runtime@npm:^3.0.1":
+  version: 3.0.2
+  resolution: "@messageformat/runtime@npm:3.0.2"
+  dependencies:
+    make-plural: "npm:^7.0.0"
+  checksum: 10/9baf876a98d017ed79fa7ca6da6f43f44e48570b2723d6745df5a1eb31e86bea116b63e23ec1663be493f6188a36b1c81ecfbdac662ab531b2e2d6ee46a6a220
   languageName: node
   linkType: hard
 
@@ -10825,6 +10917,9 @@ __metadata:
     "@design-factory/design-factory": "npm:~21.1.0"
     "@design-factory/styles": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@jsverse/transloco": "npm:~8.2.1"
+    "@jsverse/transloco-messageformat": "npm:~8.2.1"
+    "@jsverse/utils": "npm:1.0.0-beta.5"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
     "@ng-select/ng-select": "npm:~21.8.0"
     "@ngrx/effects": "npm:~21.1.0"
@@ -12003,13 +12098,15 @@ __metadata:
     "@design-factory/styles": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~9.3.0"
+    "@jsverse/transloco": "npm:~8.2.1"
+    "@jsverse/transloco-messageformat": "npm:~8.2.1"
+    "@jsverse/utils": "npm:1.0.0-beta.5"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
     "@ng-select/ng-select": "npm:~21.8.0"
     "@ngrx/effects": "npm:~21.1.0"
     "@ngrx/entity": "npm:~21.1.0"
     "@ngrx/store": "npm:~21.1.0"
     "@ngrx/store-devtools": "npm:~21.1.0"
-    "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint-plugin": "npm:~22.7.0"
     "@nx/jest": "npm:~22.7.0"
     "@o3r-training/showcase-sdk": "workspace:~"
@@ -12033,6 +12130,7 @@ __metadata:
     "@o3r/store-sync": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@o3r/testing": "workspace:~"
+    "@o3r/transloco": "workspace:~"
     "@o3r/workspace": "workspace:~"
     "@playwright/test": "npm:~1.60.0"
     "@popperjs/core": "npm:^2.11.5"
@@ -12507,6 +12605,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.29.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@jsverse/transloco": "npm:~8.2.1"
     "@material/slider": "npm:^14.0.0"
     "@ngrx/store": "npm:~21.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
@@ -12518,6 +12617,7 @@ __metadata:
     "@o3r/localization": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
+    "@o3r/transloco": "workspace:~"
     "@playwright/test": "npm:~1.60.0"
     "@schematics/angular": "npm:~21.2.0"
     "@standard-schema/spec": "npm:~1.1.0"
@@ -12572,6 +12672,7 @@ __metadata:
     "@angular/core": ^21.0.0
     "@angular/forms": ^21.0.0
     "@angular/platform-browser": ^21.0.0
+    "@jsverse/transloco": ^8.0.0
     "@material/slider": ^14.0.0
     "@ngrx/store": ^21.0.0
     "@ngx-translate/core": ^15.0.0 || ~16.0.4
@@ -12579,6 +12680,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:~"
     "@o3r/localization": "workspace:~"
     "@o3r/schematics": "workspace:~"
+    "@o3r/transloco": "workspace:~"
     "@playwright/test": ^1.49.0
     "@schematics/angular": ^21.0.0
     eslint: ~9.39.0
@@ -12599,6 +12701,8 @@ __metadata:
       optional: true
     "@angular/forms":
       optional: true
+    "@jsverse/transloco":
+      optional: true
     "@material/slider":
       optional: true
     "@ngrx/store":
@@ -12612,6 +12716,8 @@ __metadata:
     "@o3r/localization":
       optional: true
     "@o3r/schematics":
+      optional: true
+    "@o3r/transloco":
       optional: true
     "@playwright/test":
       optional: true
@@ -12706,6 +12812,150 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    type-fest:
+      optional: true
+    typescript:
+      optional: true
+  languageName: unknown
+  linkType: soft
+
+"@o3r/transloco@workspace:packages/@o3r/transloco, @o3r/transloco@workspace:~":
+  version: 0.0.0-use.local
+  resolution: "@o3r/transloco@workspace:packages/@o3r/transloco"
+  dependencies:
+    "@angular-devkit/architect": "npm:0.2102.13"
+    "@angular-devkit/build-angular": "npm:~21.2.0"
+    "@angular-devkit/core": "npm:~21.2.0"
+    "@angular-devkit/schematics": "npm:~21.2.0"
+    "@angular/animations": "npm:~21.2.4"
+    "@angular/cdk": "npm:~21.2.0"
+    "@angular/cli": "npm:~21.2.0"
+    "@angular/common": "npm:~21.2.4"
+    "@angular/compiler": "npm:~21.2.4"
+    "@angular/compiler-cli": "npm:~21.2.4"
+    "@angular/core": "npm:~21.2.4"
+    "@angular/platform-browser": "npm:~21.2.4"
+    "@angular/platform-browser-dynamic": "npm:~21.2.4"
+    "@babel/core": "npm:~7.29.0"
+    "@babel/preset-typescript": "npm:~7.29.0"
+    "@compodoc/compodoc": "npm:^1.1.32"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@jsverse/transloco": "npm:~8.2.1"
+    "@jsverse/transloco-messageformat": "npm:~8.2.1"
+    "@jsverse/utils": "npm:1.0.0-beta.5"
+    "@ngrx/store": "npm:~21.1.0"
+    "@nx/eslint": "npm:~22.7.0"
+    "@nx/eslint-plugin": "npm:~22.7.0"
+    "@nx/jest": "npm:~22.7.0"
+    "@nx/js": "npm:~22.7.0"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/dynamic-content": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/extractors": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
+    "@schematics/angular": "npm:~21.2.0"
+    "@stylistic/eslint-plugin": "npm:~5.10.0"
+    "@types/jest": "npm:~30.0.0"
+    "@types/node": "npm:~24.12.0"
+    "@typescript-eslint/parser": "npm:~8.60.0"
+    "@yarnpkg/cli": "npm:^4.5.0"
+    "@yarnpkg/core": "npm:^4.1.3"
+    "@yarnpkg/fslib": "npm:^3.1.0"
+    "@yarnpkg/plugin-npm": "npm:^3.0.1"
+    "@yarnpkg/plugin-pack": "npm:^4.0.0"
+    angular-eslint: "npm:~21.4.0"
+    chokidar: "npm:~5.0.0"
+    cpy-cli: "npm:^6.0.0"
+    eslint: "npm:~9.39.0"
+    eslint-import-resolver-node: "npm:~0.4.0"
+    eslint-import-resolver-typescript: "npm:~4.4.0"
+    eslint-plugin-import: "npm:~2.32.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jsdoc: "npm:~61.7.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~62.0.0"
+    eslint-plugin-unused-imports: "npm:~4.4.0"
+    globals: "npm:^16.0.0"
+    globby: "npm:^11.1.0"
+    isomorphic-fetch: "npm:~3.0.0"
+    jest: "npm:~30.4.0"
+    jest-environment-jsdom: "npm:~30.4.0"
+    jest-junit: "npm:~16.0.0"
+    jest-preset-angular: "npm:~16.1.0"
+    jest-util: "npm:~30.4.0"
+    jsdom: "npm:~27.4.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    memfs: "npm:~4.57.0"
+    nx: "npm:~22.7.0"
+    rxjs: "npm:^7.8.1"
+    semver: "npm:^7.5.2"
+    ts-jest: "npm:~29.4.0"
+    tslib: "npm:^2.6.2"
+    type-fest: "npm:^5.3.1"
+    typescript: "npm:~5.9.2"
+    typescript-eslint: "npm:~8.60.0"
+    unionfs: "npm:~4.6.0"
+  peerDependencies:
+    "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
+    "@angular-devkit/core": ^21.0.0
+    "@angular-devkit/schematics": ^21.0.0
+    "@angular/cdk": ^21.0.0
+    "@angular/cli": ^21.0.0
+    "@angular/common": ^21.0.0
+    "@angular/core": ^21.0.0
+    "@angular/platform-browser-dynamic": ^21.0.0
+    "@jsverse/transloco": ^8.0.0
+    "@jsverse/transloco-messageformat": ^8.0.0
+    "@jsverse/utils": 1.0.0-beta.5
+    "@ngrx/store": ^21.0.0
+    "@o3r/core": "workspace:~"
+    "@o3r/dynamic-content": "workspace:~"
+    "@o3r/extractors": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@schematics/angular": ^21.0.0
+    "@yarnpkg/cli": ^4.3.1
+    "@yarnpkg/core": ^4.1.1
+    "@yarnpkg/fslib": ^3.1.0
+    "@yarnpkg/plugin-npm": ^3.0.1
+    "@yarnpkg/plugin-pack": ^4.0.0
+    chokidar: ^4.0.0 || ^5.0.0
+    globby: ^11.1.0
+    rxjs: ^7.8.1
+    type-fest: ^5.3.1
+    typescript: ^5.9.0
+  peerDependenciesMeta:
+    "@angular-devkit/architect":
+      optional: true
+    "@angular-devkit/core":
+      optional: true
+    "@angular-devkit/schematics":
+      optional: true
+    "@angular/cli":
+      optional: true
+    "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
+      optional: true
+    "@yarnpkg/cli":
+      optional: true
+    "@yarnpkg/core":
+      optional: true
+    "@yarnpkg/fslib":
+      optional: true
+    "@yarnpkg/plugin-npm":
+      optional: true
+    "@yarnpkg/plugin-pack":
+      optional: true
+    chokidar:
+      optional: true
+    globby:
       optional: true
     type-fest:
       optional: true
@@ -22108,7 +22358,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:^8.2.0":
+"cosmiconfig@npm:^8.1.3, cosmiconfig@npm:^8.2.0":
   version: 8.3.6
   resolution: "cosmiconfig@npm:8.3.6"
   dependencies:
@@ -30496,6 +30746,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"make-plural@npm:^7.0.0":
+  version: 7.5.0
+  resolution: "make-plural@npm:7.5.0"
+  checksum: 10/096241357d7f6b274967998ca03006723ab40a9b49282ed37a0f863aeb1ac9fb12704a07fafbd2dfa3b75ee2e39edbb6c665a3884865ed1c805e8b4d419714d1
+  languageName: node
+  linkType: hard
+
 "makeerror@npm:1.0.12":
   version: 1.0.12
   resolution: "makeerror@npm:1.0.12"
@@ -31159,6 +31416,13 @@ __metadata:
     dompurify: "npm:3.2.7"
     marked: "npm:14.0.0"
   checksum: 10/73836b612a923342001b8cbb459aad0de486c94672fb7cf9d28bdafed9f3b7523d5aba510d9f8e7d24476a5aacf0d3a5c0cdc520ed4764f6f89f8cf5ba8d9329
+  languageName: node
+  linkType: hard
+
+"moo@npm:^0.5.1":
+  version: 0.5.3
+  resolution: "moo@npm:0.5.3"
+  checksum: 10/ce4a2e5ccab15bbe1b1ade5b8f821eea7d03cecda2898c2b343bd2c84f357c04ada2bdbc9bef9201cd1e4ddd7f2be7d365c2e058bb4862734790e0fa77740d81
   languageName: node
   linkType: hard
 
@@ -35828,6 +36092,13 @@ __metadata:
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
   checksum: 10/32872cd0ff68a3ddade7a7617b8f4c2ae8764d8b7d884c651b74457967a9e0e886267d3ecc781220629c44a865167b61c375d2da6c720c840ecd73f45d5d9451
+  languageName: node
+  linkType: hard
+
+"safe-identifier@npm:^0.4.1":
+  version: 0.4.2
+  resolution: "safe-identifier@npm:0.4.2"
+  checksum: 10/c2697c0d2fe128aa5f5faa7bd3ccf02d06ba937cdff9b2f65afb247e222a1505fc414a3b6a04d2a6a71bb5a84b8bc345edc408fabc8afc498f04e367ddc02366
   languageName: node
   linkType: hard
 

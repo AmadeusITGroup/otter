@@ -1,0 +1,6 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ng-packagr/ng-packagr/master/src/ng-entrypoint.schema.json",
+  "lib": {
+    "entryFile": "public_api.ts"
+  }
+}
