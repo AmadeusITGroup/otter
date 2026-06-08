@@ -31,8 +31,12 @@ const editTsConfigJson = (tree: Tree) => {
       if (tsConfig.compilerOptions.noPropertyAccessFromIndexSignature) {
         delete tsConfig.compilerOptions.noPropertyAccessFromIndexSignature;
       }
-      tsConfig.compilerOptions.moduleResolution = tsConfig.compilerOptions.module === 'CommonJS' ? 'node' : 'bundler';
+      tsConfig.compilerOptions.moduleResolution = 'bundler';
       tsConfig.compilerOptions.declaration = true;
+      tsConfig.compilerOptions.types ??= [];
+      if (!tsConfig.compilerOptions.types.includes('node')) {
+        tsConfig.compilerOptions.types.push('node');
+      }
     }
     tree.overwrite(tsConfigPath, JSON.stringify(tsConfig, null, 2));
   }

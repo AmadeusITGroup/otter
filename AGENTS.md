@@ -20,7 +20,7 @@ yarn test           # Unit tests (mandatory before PR)
 ```
 
 **Package Manager:** Yarn 4.14.1 (Berry) with PnP - **NEVER use npm or pnpm**
-**Node Version:** 22.17.0+ or 24.0.0+
+**Node Version:** 22.22.3+ or 24.15.0+ or 26.0.0+
 
 ---
 
@@ -81,11 +81,11 @@ Detailed documentation is split into context-specific files in `.agents/` to red
 
 ## Framework Versions
 
-- Angular: ~21.2.4
-- TypeScript: ~5.9.2
+- Angular: ~22.0.4
+- TypeScript: ~6.0.3
 - RxJS: ^7.8.1
-- NgRx: ~21.1.0
-- Nx: ~22.7.0
+- NgRx: ~22.0.0-rc.0
+- Nx: ~23.1.0
 
 ---
 
