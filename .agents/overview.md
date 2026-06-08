@@ -50,7 +50,6 @@
 - **@o3r/components**: Component metadata and configuration
 - **@o3r/configuration**: Dynamic configuration system
 - **@o3r/localization**: i18n and translation management
-- **@o3r/styling**: Theming and CSS variables
 - **@o3r/rules-engine**: Business rules engine
 - **@o3r/store-sync**: NgRx store synchronization
 - **@o3r/apis-manager**: API call management

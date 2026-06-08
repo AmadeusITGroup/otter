@@ -33,7 +33,6 @@ export function updateTsConfig(targetPath: string, projectName: string, scope: s
     }
 
     configWithPath.content.compilerOptions ||= {};
-    configWithPath.content.compilerOptions.baseUrl ||= '.';
     configWithPath.content.compilerOptions.paths ||= {};
     configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}`] = [
       ...(basename(configWithPath.tsconfig) === 'tsconfig.build.json' ? [`${relativeTargetPath}/dist`] : []),

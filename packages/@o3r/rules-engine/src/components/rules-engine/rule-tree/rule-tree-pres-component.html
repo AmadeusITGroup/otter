@@ -1,9 +1,9 @@
-@if (name) {
-  <span>{{name | titlecase}}:</span>
+@if (name()) {
+  <span>{{name() | titlecase}}:</span>
 }
 <div class="rule-wrapper tree">
-  @if (blockType === 'IF_ELSE') {
-    @if (!name) {
+  @if (blockType() === 'IF_ELSE') {
+    @if (!name()) {
       <div class="tree-root" [attr.aria-hidden]="true">
         <div></div>
         <div></div>
@@ -11,7 +11,7 @@
     }
     <div class="rule-conditions">
       <div class="rule-conditions-title">If
-        <o3r-rule-condition-pres [condition]="condition" />
+        <o3r-rule-condition-pres [condition]="condition()" />
       </div>
       <div class="tree-root" [attr.aria-hidden]="true">
         <div></div>
@@ -37,9 +37,9 @@
         </div>
         @if (successActionsExpanded) {
           <o3r-rule-actions-pres class="rule-tree-actions"
-            [actions]="successElements" />
+            [actions]="successElements()" />
         }
-        <ng-container [ngTemplateOutlet]="subTree" [ngTemplateOutletContext]="{blocks: successElements}" />
+        <ng-container [ngTemplateOutlet]="subTree" [ngTemplateOutletContext]="{blocks: successElements()}" />
       </div>
       <div class="rule-actions tree-branch">
         <div class="tree-leaf" [attr.aria-hidden]="true">
@@ -59,9 +59,9 @@
         </div>
         @if (failureActionsExpanded) {
           <o3r-rule-actions-pres class="rule-tree-actions"
-            [actions]="failureElements" />
+            [actions]="failureElements()" />
         }
-        <ng-container [ngTemplateOutlet]="subTree" [ngTemplateOutletContext]="{blocks: failureElements}" />
+        <ng-container [ngTemplateOutlet]="subTree" [ngTemplateOutletContext]="{blocks: failureElements()}" />
       </div>
     </div>
   } @else {
@@ -87,9 +87,9 @@
         </div>
         @if (successActionsExpanded) {
           <o3r-rule-actions-pres class="rule-tree-actions"
-            [actions]="successElements" />
+            [actions]="successElements()" />
         }
-        <ng-container [ngTemplateOutlet]="subTree" [ngTemplateOutletContext]="{blocks: successElements}" />
+        <ng-container [ngTemplateOutlet]="subTree" [ngTemplateOutletContext]="{blocks: successElements()}" />
       </div>
     </div>
   }

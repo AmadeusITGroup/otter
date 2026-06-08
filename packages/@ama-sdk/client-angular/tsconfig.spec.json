@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.jest",
   "compilerOptions": {
+    "rootDir": ".",
     "esModuleInterop": true,
     "strictNullChecks": false,
     "strictPropertyInitialization":false,

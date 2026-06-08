@@ -125,7 +125,6 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
       const configFile = tree.readJson(tsconfigPath) as TsConfigJson;
       configFile.compilerOptions ||= {};
       configFile.compilerOptions.paths ||= {};
-      configFile.compilerOptions.baseUrl ||= '.';
       configFile.compilerOptions.paths = Object.fromEntries(
         Object.entries(configFile.compilerOptions.paths).filter(([pathName, _]) => pathName !== options.name));
       configFile.compilerOptions.paths[options.packageJsonName] = [

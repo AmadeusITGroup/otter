@@ -30,7 +30,7 @@
     "winston": "^3.8.2"
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "^21.0.0",
+    "@angular-devkit/schematics": "~22.0.4",
     "@o3r/telemetry": "workspace:~"
   },
   "peerDependenciesMeta": {
@@ -42,15 +42,15 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/core": "~21.2.0",
-    "@angular-devkit/schematics": "~21.2.0",
-    "@angular/cli": "~21.2.0",
+    "@angular-devkit/core": "~22.0.4",
+    "@angular-devkit/schematics": "~22.0.4",
+    "@angular/cli": "~22.0.4",
     "@babel/core": "~7.29.0",
     "@babel/preset-typescript": "~7.29.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~22.7.0",
-    "@nx/jest": "~22.7.0",
+    "@nx/eslint-plugin": "~23.1.0",
+    "@nx/jest": "~23.1.0",
     "@o3r/build-helpers": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/telemetry": "workspace:~",
@@ -60,7 +60,7 @@
     "@types/jest": "~30.0.0",
     "@types/node": "~24.13.0",
     "@typescript-eslint/parser": "~8.62.0",
-    "angular-eslint": "~21.4.0",
+    "angular-eslint": "~22.0.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
     "eslint-import-resolver-node": "~0.4.0",
@@ -77,9 +77,9 @@
     "jest-junit": "~16.0.0",
     "jest-util": "~30.4.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~22.7.0",
+    "nx": "~23.1.0",
     "ts-jest": "~29.4.0",
-    "typescript": "~5.9.2",
+    "typescript": "~6.0.3",
     "typescript-eslint": "~8.62.0"
   },
   "engines": {
