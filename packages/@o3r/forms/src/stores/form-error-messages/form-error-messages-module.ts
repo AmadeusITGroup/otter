@@ -1,11 +1,14 @@
 import {
+  EnvironmentProviders,
   InjectionToken,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
+  provideState,
   StoreModule,
 } from '@ngrx/store';
 import {
@@ -24,6 +27,7 @@ export function getDefaultFormErrorMessagesReducer() {
   return formErrorMessagesReducer;
 }
 
+/** @deprecated Will be removed in v16. Use {@link provideFormErrorMessagesStore} instead. */
 @NgModule({
   imports: [
     StoreModule.forFeature(FORM_ERROR_MESSAGES_STORE_NAME, FORM_ERROR_MESSAGES_REDUCER_TOKEN)
@@ -41,4 +45,15 @@ export class FormErrorMessagesStoreModule {
       ]
     };
   }
+}
+
+/**
+ * Provide the FormErrorMessages store for the application.
+ * @param reducerFactory Optional custom reducer factory. Falls back to the default reducer.
+ */
+export function provideFormErrorMessagesStore(reducerFactory?: () => ActionReducer<FormErrorMessagesState, Action>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideState(FORM_ERROR_MESSAGES_STORE_NAME, reducerFactory ? reducerFactory() : formErrorMessagesReducer),
+    { provide: FORM_ERROR_MESSAGES_REDUCER_TOKEN, useFactory: reducerFactory || (() => formErrorMessagesReducer) }
+  ]);
 }

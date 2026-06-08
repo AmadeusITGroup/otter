@@ -30,7 +30,7 @@
     "memfs": "^4.14.0",
     "ts-jest": "~29.4.0",
     "type-fest": "^5.3.1",
-    "typescript": "~5.9.2",
+    "typescript": "~6.0.3",
     "unionfs": "^4.5.1"
   },
   "dependencies": {
@@ -45,7 +45,7 @@
     "postbuild": "patch-package-json-main"
   },
   "devDependencies": {
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~22.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@jest/environment": "~30.4.0",
     "@jest/transform": "~30.4.0",
@@ -58,7 +58,7 @@
     "@types/node": "~24.12.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.60.0",
-    "angular-eslint": "~21.4.0",
+    "angular-eslint": "~22.0.0",
     "chalk": "^4.1.2",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
@@ -82,7 +82,7 @@
     "semver": "^7.5.2",
     "ts-jest": "~29.4.0",
     "type-fest": "^5.3.1",
-    "typescript": "~5.9.2",
+    "typescript": "~6.0.3",
     "typescript-eslint": "~8.60.0",
     "unionfs": "~4.6.0"
   },

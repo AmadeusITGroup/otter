@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   forwardRef,
-  Input,
+  input,
   signal,
   ViewEncapsulation,
 } from '@angular/core';
@@ -38,8 +38,7 @@ import {
 })
 export class OtterPickerPres implements ControlValueAccessor {
   /** ID of the html element used for selection */
-  @Input()
-  public id!: string;
+  public id = input.required<string>();
 
   /** Currently selected otter */
   public selectedOtter = signal('');

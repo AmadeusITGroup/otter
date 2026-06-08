@@ -1,4 +1,6 @@
 import {
+  EnvironmentProviders,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
@@ -25,6 +27,7 @@ import {
   OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
 } from './configuration-devtools-token';
 
+/** @deprecated Will be removed in v16. Use {@link provideConfigurationDevtools} instead. */
 @NgModule({
   imports: [
     StoreModule,
@@ -53,4 +56,20 @@ export class ConfigurationDevtoolsModule {
       ]
     };
   }
+}
+
+/**
+ * Provide configuration devtools functionality for the application.
+ * @param options Optional partial configuration devtools configuration to override defaults.
+ */
+export function provideConfigurationDevtools(options?: Partial<ConfigurationDevtoolsServiceOptions>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    {
+      provide: OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
+      useValue: { ...OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, ...options }
+    },
+    ConfigurationDevtoolsMessageService,
+    ConfigurationDevtoolsConsoleService,
+    OtterConfigurationDevtools
+  ]);
 }

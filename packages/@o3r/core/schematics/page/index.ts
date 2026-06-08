@@ -192,8 +192,8 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
       import: `./${indexFilePath.replace(/[/\\]/g, '/')}`,
       module: `${pageName}${options.standalone ? (options.type ? strings.classify(options.type) : '') : 'Module'}`
     } as const satisfies Route;
-    if (options.appRoutingModulePath) {
-      return insertRoute(tree, context, options.appRoutingModulePath, route, options.standalone);
+    if (options.appRoutesDefinitionPath) {
+      return insertRoute(tree, context, options.appRoutesDefinitionPath, route, options.standalone);
     }
     const appModuleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (appModuleFilePath) {
@@ -217,12 +217,12 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
         );
         const importRouteVariablePath = (importStatement?.moduleSpecifier as ts.StringLiteral | undefined)?.text;
         // If importRouteVariablePath is undefined it is because the variable is defined in this file
-        const appRoutingModulePath = importRouteVariablePath ? path.join(path.dirname(appModuleFilePath), `${importRouteVariablePath}.ts`) : appModuleFilePath;
+        const appRoutesDefinitionPath = importRouteVariablePath ? path.join(path.dirname(appModuleFilePath), `${importRouteVariablePath}.ts`) : appModuleFilePath;
 
-        return insertRoute(tree, context, appRoutingModulePath, route, options.standalone);
+        return insertRoute(tree, context, appRoutesDefinitionPath, route, options.standalone);
       }
     }
-    throw new O3rCliError('No routes definition found. Please use the option `appRoutingModulePath` to specify the path of the routes definition.');
+    throw new O3rCliError('No routes definition found. Please use the option `appRoutesDefinitionPath` to specify the path of the routes definition.');
   };
 
   return chain([

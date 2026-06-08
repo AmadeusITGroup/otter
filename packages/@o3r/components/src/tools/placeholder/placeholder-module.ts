@@ -17,6 +17,7 @@ import {
   PlaceholderComponent,
 } from './placeholder';
 
+/** @deprecated Will be removed in v16. Import PlaceholderComponent directly instead. */
 @NgModule({
   imports: [
     CommonModule,

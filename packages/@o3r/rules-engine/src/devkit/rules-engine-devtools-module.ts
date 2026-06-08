@@ -1,4 +1,6 @@
 import {
+  EnvironmentProviders,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
@@ -22,6 +24,7 @@ import {
   OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
 } from './rules-engine-devtools-token';
 
+/** @deprecated Will be removed in v16. Use {@link provideRulesEngineDevtools} instead. */
 @NgModule({
   imports: [
     StoreModule,
@@ -48,4 +51,19 @@ export class RulesEngineDevtoolsModule {
       ]
     };
   }
+}
+
+/**
+ * Provide rules engine devtools functionality for the application.
+ * @param options Optional partial rules engine devtools configuration to override defaults.
+ */
+export function provideRulesEngineDevtools(options?: Partial<RulesEngineDevtoolsServiceOptions>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    {
+      provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
+      useValue: { ...OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, ...options }
+    },
+    RulesEngineDevtoolsMessageService,
+    RulesEngineDevtoolsConsoleService
+  ]);
 }

@@ -2,6 +2,7 @@ import {
   Component,
   DebugElement,
   provideZonelessChangeDetection,
+  signal,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -28,12 +29,12 @@ import {
 const dummyEventContext = { eventInfo: { eventName: '', pageId: '', timeStamp: '' } };
 
 @Component({
-  template: `<button trackFocus [trackEventContext]="eventModel">Click</button>`,
+  template: `<button trackFocus [trackEventContext]="eventModel()">Click</button>`,
   imports: [TrackFocusDirective],
   providers: [EventTrackService]
 })
 class TestComponent {
-  public eventModel = dummyEventContext;
+  public eventModel = signal(dummyEventContext);
 }
 
 describe('Track focus directive:', () => {
@@ -96,7 +97,7 @@ describe('Track focus directive:', () => {
     const event1 = new Event('focus');
     buttonElement.nativeElement.dispatchEvent(event1);
 
-    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: event1, context: component.eventModel });
+    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: event1, context: component.eventModel() });
 
     const newModel = {
       ...dummyEventContext,
@@ -105,9 +106,7 @@ describe('Track focus directive:', () => {
         eventName: 'newEvent'
       }
     };
-    component.eventModel = newModel;
-    // In zoneless mode, we need to explicitly trigger change detection for the component
-    fixture.componentRef.changeDetectorRef.markForCheck();
+    component.eventModel.set(newModel);
     fixture.detectChanges();
     const event2 = new Event('focus');
     buttonElement.nativeElement.dispatchEvent(event2);

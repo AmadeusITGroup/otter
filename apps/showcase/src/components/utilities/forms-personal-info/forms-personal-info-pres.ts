@@ -7,13 +7,13 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   forwardRef,
   inject,
   Input,
+  input,
   type OnDestroy,
   type OnInit,
-  Output,
+  output,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -99,19 +99,19 @@ export class FormsPersonalInfoPres implements OnInit, OnDestroy, ControlValueAcc
   public translations: FormsPersonalInfoPresTranslation = translations;
 
   /** ID of the parent component used to compute the ids of the form controls */
-  @Input() public id!: string;
+  public id = input.required<string>();
 
   /** Input configuration to override the default configuration of the component */
-  @Input() public config!: FormsPersonalInfoPresConfig;
+  public config = input.required<FormsPersonalInfoPresConfig>();
 
   /** Custom validators applied on the form */
-  @Input() public customValidators?: CustomFormValidation<PersonalInfo>;
+  public customValidators = input<CustomFormValidation<PersonalInfo>>();
 
   /** Register a function to be called when the submit is done outside of the presenter (from page) */
-  @Output() public registerInteraction: EventEmitter<() => void> = new EventEmitter<() => void>();
+  public registerInteraction = output<() => void>();
 
   /** Emit when the submit has been fired on the form */
-  @Output() public submitPersonalInfoForm: EventEmitter<void> = new EventEmitter<void>();
+  public submitPersonalInfoForm = output<void>();
 
   protected changeDetector = inject(ChangeDetectorRef);
 
@@ -169,24 +169,26 @@ export class FormsPersonalInfoPres implements OnInit, OnDestroy, ControlValueAcc
    * Get custom validators and primitive validators and apply them on the form
    */
   public applyValidation() {
+    const customValidators = this.customValidators();
+    const config = this.config();
     const globalValidators = [];
-    if (this.customValidators && this.customValidators.global) {
-      globalValidators.push(this.customValidators.global);
+    if (customValidators && customValidators.global) {
+      globalValidators.push(customValidators.global);
     }
     this.form.setValidators(globalValidators);
 
     // eslint-disable-next-line @typescript-eslint/unbound-method -- Validators are bound methods
     const nameValidators = [Validators.required];
     const dateOfBirthValidators = [];
-    if (this.config?.nameMaxLength) {
-      nameValidators.push(Validators.maxLength(this.config.nameMaxLength));
+    if (config?.nameMaxLength) {
+      nameValidators.push(Validators.maxLength(config.nameMaxLength));
     }
-    if (this.customValidators && this.customValidators.fields) {
-      if (this.customValidators.fields.name) {
-        nameValidators.push(this.customValidators.fields.name);
+    if (customValidators && customValidators.fields) {
+      if (customValidators.fields.name) {
+        nameValidators.push(customValidators.fields.name);
       }
-      if (this.customValidators.fields.dateOfBirth) {
-        dateOfBirthValidators.push(this.customValidators.fields.dateOfBirth);
+      if (customValidators.fields.dateOfBirth) {
+        dateOfBirthValidators.push(customValidators.fields.dateOfBirth);
       }
     }
     this.form.controls.name.setValidators(nameValidators);
@@ -208,7 +210,7 @@ export class FormsPersonalInfoPres implements OnInit, OnDestroy, ControlValueAcc
       return {
         ...errorsMap,
         [controlFlatErrors.controlName || 'global']: {
-          htmlElementId: `${this.id}${controlFlatErrors.controlName || ''}`,
+          htmlElementId: `${this.id()}${controlFlatErrors.controlName || ''}`,
           errorMessages: (controlFlatErrors.customErrors || []).concat(
             controlFlatErrors.errors.map((error) => {
               const translationKey = `${this.componentSelector}.${controlFlatErrors.controlName || ''}.${error.errorKey}`;

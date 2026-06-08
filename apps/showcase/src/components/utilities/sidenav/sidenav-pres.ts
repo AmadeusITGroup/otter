@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -40,10 +40,8 @@ export class SidenavPres {
   /**
    * List of links' groups
    */
-  @Input()
-  public linksGroups: SideNavLinksGroup[] = [];
+  public linksGroups = input<SideNavLinksGroup[]>([]);
 
   /** Active url */
-  @Input()
-  public activeUrl?: string | null = null;
+  public activeUrl = input<string | null | undefined>(null);
 }

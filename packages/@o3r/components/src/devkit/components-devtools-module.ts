@@ -1,4 +1,6 @@
 import {
+  EnvironmentProviders,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
@@ -19,6 +21,7 @@ import {
   OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
 } from './components-devtools-token';
 
+/** @deprecated Will be removed in v16. Use {@link provideComponentsDevtools} instead. */
 @NgModule({
   imports: [
     StoreModule,
@@ -43,4 +46,18 @@ export class ComponentsDevtoolsModule {
       ]
     };
   }
+}
+
+/**
+ * Provide components devtools functionality for the application.
+ * @param options Optional partial components devtools configuration to override defaults.
+ */
+export function provideComponentsDevtools(options?: Partial<ComponentsDevtoolsServiceOptions>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    {
+      provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
+      useValue: { ...OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS, ...options }
+    },
+    ComponentsDevtoolsMessageService
+  ]);
 }

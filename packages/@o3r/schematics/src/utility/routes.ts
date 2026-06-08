@@ -50,21 +50,21 @@ function isRoutesDeclaration(declaration: ts.VariableDeclaration): boolean {
 }
 
 /**
- * Get the Routes variable declaration from the given App Routing Module path.
+ * Get the Routes variable declaration from the given App Routes Definition path.
  * @param tree File tree
  * @param context Context of the rule
- * @param appRoutingModulePath Path of the App Routing Module
+ * @param appRoutesDefinitionPath Path of the App Routes Definition
  */
-export function getRoutesDeclaration(tree: Tree, context: SchematicContext, appRoutingModulePath: string): ts.VariableDeclaration | null {
-  const buffer = tree.read(appRoutingModulePath);
+export function getRoutesDeclaration(tree: Tree, context: SchematicContext, appRoutesDefinitionPath: string): ts.VariableDeclaration | null {
+  const buffer = tree.read(appRoutesDefinitionPath);
 
   if (!buffer) {
-    context.logger.error(`Cannot read ${appRoutingModulePath}`);
+    context.logger.error(`Cannot read ${appRoutesDefinitionPath}`);
     return null;
   }
 
   const sourceFile = ts.createSourceFile(
-    appRoutingModulePath,
+    appRoutesDefinitionPath,
     buffer.toString(),
     ts.ScriptTarget.ES2015,
     true
@@ -84,10 +84,10 @@ export function getRoutesDeclaration(tree: Tree, context: SchematicContext, appR
  * Gets the Routes Node array of the App Routing Module of the given path.
  * @param tree File tree
  * @param context Context of the rule
- * @param appRoutingModulePath
+ * @param appRoutesDefinitionPath
  */
-export function getRoutesNodeArray(tree: Tree, context: SchematicContext, appRoutingModulePath: string): ts.NodeArray<ts.ObjectLiteralExpression> | null {
-  const routesDeclaration = getRoutesDeclaration(tree, context, appRoutingModulePath);
+export function getRoutesNodeArray(tree: Tree, context: SchematicContext, appRoutesDefinitionPath: string): ts.NodeArray<ts.ObjectLiteralExpression> | null {
+  const routesDeclaration = getRoutesDeclaration(tree, context, appRoutesDefinitionPath);
 
   if (!routesDeclaration) {
     context.logger.error('No Routes declaration found');
@@ -112,15 +112,15 @@ export function getRoutesNodeArray(tree: Tree, context: SchematicContext, appRou
 }
 
 /**
- * Inserts a route in the App Routing Module of the given path.
+ * Inserts a route in the App Routes Definition of the given path.
  * @param tree File tree
  * @param context Context of the rule
- * @param appRoutingModulePath Path of the App Routing Module
+ * @param appRoutesDefinitionPath Path of the App Routes Definition
  * @param route The Route to insert
  * @param standalone Whether the page component is standalone
  */
-export function insertRoute(tree: Tree, context: SchematicContext, appRoutingModulePath: string, route: Route, standalone = true) {
-  const routes = getRoutesNodeArray(tree, context, appRoutingModulePath);
+export function insertRoute(tree: Tree, context: SchematicContext, appRoutesDefinitionPath: string, route: Route, standalone = true) {
+  const routes = getRoutesNodeArray(tree, context, appRoutesDefinitionPath);
 
   if (routes) {
     const noStarRoutes = routes.filter((r) => !hasRoutePath(r, '**'));
@@ -128,7 +128,7 @@ export function insertRoute(tree: Tree, context: SchematicContext, appRoutingMod
     const routeString = `{path: '${route.path}', load${standalone ? 'Component' : 'Children'}: () => import('${route.import}').then((m) => m.${route.module})}`;
     const content = noStarRoutes.length > 0 ? `,\n${routeString}` : routeString;
 
-    const recorder = tree.beginUpdate(appRoutingModulePath);
+    const recorder = tree.beginUpdate(appRoutesDefinitionPath);
     recorder.insertLeft(index, content);
     tree.commitUpdate(recorder);
   }

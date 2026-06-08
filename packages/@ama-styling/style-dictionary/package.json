@@ -39,10 +39,10 @@
     }
   },
   "dependencies": {
-    "@angular-devkit/architect": "0.2102.13",
-    "@angular-devkit/schematics": "~21.2.0",
+    "@angular-devkit/architect": "0.2200.0",
+    "@angular-devkit/schematics": "~22.0.0",
     "@o3r/schematics": "workspace:~",
-    "@schematics/angular": "~21.2.0",
+    "@schematics/angular": "~22.0.0",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
@@ -73,7 +73,7 @@
     }
   },
   "devDependencies": {
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~22.0.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~22.7.0",
@@ -86,7 +86,7 @@
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/telemetry": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
-    "@schematics/angular": "~21.2.0",
+    "@schematics/angular": "~22.0.0",
     "@stylistic/eslint-plugin": "~5.10.0",
     "@types/jest": "~30.0.0",
     "@types/minimist": "^1.2.2",
@@ -94,7 +94,7 @@
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.60.0",
     "@vitest/coverage-istanbul": "^4.0.18",
-    "angular-eslint": "~21.4.0",
+    "angular-eslint": "~22.0.0",
     "chokidar": "~5.0.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
@@ -117,7 +117,7 @@
     "style-dictionary": "~5.4.0",
     "ts-jest": "~29.4.0",
     "type-fest": "^5.3.1",
-    "typescript": "~5.9.2",
+    "typescript": "~6.0.3",
     "typescript-eslint": "~8.60.0",
     "vitest": "~4.1.0"
   },

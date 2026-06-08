@@ -6,13 +6,13 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   forwardRef,
   inject,
   Input,
+  input,
   type OnDestroy,
   type OnInit,
-  Output,
+  output,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -90,16 +90,16 @@ export class FormsEmergencyContactPres implements OnInit, OnDestroy, ControlValu
   public translations: FormsEmergencyContactPresTranslation = translations;
 
   /** ID of the parent component used to compute the ids of the form controls */
-  @Input() public id!: string;
+  public id = input.required<string>();
 
   /** Custom validators applied on the form */
-  @Input() public customValidators?: CustomFormValidation<EmergencyContact>;
+  public customValidators = input<CustomFormValidation<EmergencyContact>>();
 
   /** Register a function to be called when the submit is done outside of the presenter (from page) */
-  @Output() public registerInteraction: EventEmitter<() => void> = new EventEmitter<() => void>();
+  public registerInteraction = output<() => void>();
 
   /** Emit when the submit has been fired on the form */
-  @Output() public submitEmergencyContactForm: EventEmitter<void> = new EventEmitter<void>();
+  public submitEmergencyContactForm = output<void>();
 
   protected changeDetector = inject(ChangeDetectorRef);
 
@@ -155,9 +155,10 @@ export class FormsEmergencyContactPres implements OnInit, OnDestroy, ControlValu
    * Get custom validators and primitive validators and apply them on the form
    */
   public applyValidation() {
+    const customValidators = this.customValidators();
     const globalValidators = [];
-    if (this.customValidators && this.customValidators.global) {
-      globalValidators.push(this.customValidators.global);
+    if (customValidators && customValidators.global) {
+      globalValidators.push(customValidators.global);
     }
     this.form.setValidators(globalValidators);
 
@@ -166,15 +167,15 @@ export class FormsEmergencyContactPres implements OnInit, OnDestroy, ControlValu
     const phoneValidators = [Validators.required, Validators.pattern('^[0-9]{10}$')];
     const emailValidators = [Validators.email];
     /* eslint-enable @typescript-eslint/unbound-method */
-    if (this.customValidators && this.customValidators.fields) {
-      if (this.customValidators.fields.name) {
-        nameValidators.push(this.customValidators.fields.name);
+    if (customValidators && customValidators.fields) {
+      if (customValidators.fields.name) {
+        nameValidators.push(customValidators.fields.name);
       }
-      if (this.customValidators.fields.phone) {
-        phoneValidators.push(this.customValidators.fields.phone);
+      if (customValidators.fields.phone) {
+        phoneValidators.push(customValidators.fields.phone);
       }
-      if (this.customValidators.fields.email) {
-        emailValidators.push(this.customValidators.fields.email);
+      if (customValidators.fields.email) {
+        emailValidators.push(customValidators.fields.email);
       }
     }
     this.form.controls.name.setValidators(nameValidators);
@@ -197,7 +198,7 @@ export class FormsEmergencyContactPres implements OnInit, OnDestroy, ControlValu
       return {
         ...errorsMap,
         [controlFlatErrors.controlName || 'global']: {
-          htmlElementId: `${this.id}${controlFlatErrors.controlName || ''}`,
+          htmlElementId: `${this.id()}${controlFlatErrors.controlName || ''}`,
           errorMessages: (controlFlatErrors.customErrors || []).concat(
             controlFlatErrors.errors.map((error) => {
               const translationKey = `${this.componentSelector}.${controlFlatErrors.controlName || ''}.${error.errorKey}`;

@@ -11,32 +11,33 @@ import {
 import localeEN from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
 import {
+  ApplicationConfig,
+  importProvidersFrom,
   isDevMode,
-  NgModule,
   provideZonelessChangeDetection,
   SecurityContext,
 } from '@angular/core';
 import {
-  BrowserModule,
-} from '@angular/platform-browser';
-import {
-  BrowserAnimationsModule,
+  provideAnimations,
+  provideNoopAnimations,
 } from '@angular/platform-browser/animations';
+import {
+  provideRouter,
+  withHashLocation,
+  withInMemoryScrolling,
+} from '@angular/router';
 import {
   provideTranslocoMessageformat,
 } from '@jsverse/transloco-messageformat';
 import {
-  NgbOffcanvasModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  EffectsModule,
+  provideEffects,
 } from '@ngrx/effects';
 import {
+  provideStore,
   RuntimeChecks,
-  StoreModule,
 } from '@ngrx/store';
 import {
-  StoreDevtoolsModule,
+  provideStoreDevtools,
 } from '@ngrx/store-devtools';
 import {
   ApplicationDevtoolsModule,
@@ -92,18 +93,13 @@ import {
 import {
   ClipboardButtonPres,
   DatePickerHebrewInputPres,
-  ScrollBackTopPres,
-  SidenavPres,
 } from '../components/utilities';
 import {
   markedAlert,
 } from '../helpers/marked-alert-extension';
 import {
-  App,
-} from './app';
-import {
-  AppRoutingModule,
-} from './app-routing-module';
+  appRoutes,
+} from './app.routes';
 
 const runtimeChecks = {
   strictActionImmutability: false,
@@ -146,31 +142,28 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
   };
 }
 
-@NgModule({
-  declarations: [
-    App
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule.withConfig({ disableAnimations: prefersReducedMotion() }),
-    EffectsModule.forRoot([]),
-    StoreModule.forRoot({}, { runtimeChecks }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    LocalizationOverrideStoreModule,
-    LocalizationRulesEngineActionModule,
-    RulesEngineRunnerModule.forRoot({ debug: true }),
-    AppRoutingModule,
-    SidenavPres,
-    NgbOffcanvasModule,
-    ScrollBackTopPres,
-    ApplicationDevtoolsModule,
-    ComponentsDevtoolsModule,
-    StylingDevtoolsModule,
-    ConfigurationDevtoolsModule,
-    MonacoEditorModule.forRoot()
-  ],
+export const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection(),
+    ...(prefersReducedMotion() ? [provideNoopAnimations()] : [provideAnimations()]),
+    provideRouter(
+      appRoutes,
+      withHashLocation(),
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+    ),
+    provideStore({}, { runtimeChecks }),
+    provideEffects([]),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    importProvidersFrom(
+      LocalizationOverrideStoreModule,
+      LocalizationRulesEngineActionModule,
+      RulesEngineRunnerModule.forRoot({ debug: true }),
+      ApplicationDevtoolsModule,
+      ComponentsDevtoolsModule,
+      StylingDevtoolsModule,
+      ConfigurationDevtoolsModule,
+      MonacoEditorModule.forRoot()
+    ),
     provideCustomComponents(new Map(), withComponent('exampleDatePickerFlavorHebrew', DatePickerHebrewInputPres)),
     provideDynamicContent(),
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
@@ -202,7 +195,5 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     provideLocalization(localizationConfigurationFactory),
     provideLocalizationDevtools(),
     provideTranslocoMessageformat()
-  ],
-  bootstrap: [App]
-})
-export class AppModule {}
+  ]
+};
