@@ -16,8 +16,8 @@ const mockEditor = {
   setValue: jest.fn(),
   getValue: jest.fn().mockReturnValue(''),
   dispose: jest.fn(),
-  onDidChangeModelContent: jest.fn(),
-  onDidBlurEditorWidget: jest.fn(),
+  onDidChangeModelContent: jest.fn().mockReturnValue({ dispose: jest.fn() }),
+  onDidBlurEditorWidget: jest.fn().mockReturnValue({ dispose: jest.fn() }),
   getModel: jest.fn(),
   layout: jest.fn()
 };
