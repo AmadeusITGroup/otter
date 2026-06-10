@@ -317,7 +317,8 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
       execFileSync('yarn', ['config', 'set', 'nodeLinker', 'pnp'], execOptions);
       // Pre-approve the locally published workspace scopes so they are not held back by `npmMinimalAgeGate` (Yarn >= 4.15),
       // as they are republished to the local registry on every run and are therefore always younger than the configured age gate.
-      execFileSync('yarn', ['config', 'set', 'npmPreapprovedPackages', '--json', JSON.stringify(WORKSPACE_SCOPES.map((scope) => `${scope}/*`))], execOptions);
+      const npmPreapprovedPackages = JSON.stringify(WORKSPACE_SCOPES.map((scope) => `${scope}/*`));
+      execFileSync('yarn', ['config', 'set', 'npmPreapprovedPackages', '--json', execOptions.shell ? `"${npmPreapprovedPackages.replaceAll('"', '\\"')}"` : npmPreapprovedPackages], execOptions);
       WORKSPACE_SCOPES.forEach((scope) => execFileSync('yarn', ['config', 'set', `npmScopes.${scope.replace(/^@/, '')}.npmRegistryServer`, options.registry], execOptions));
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-sdk.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.o3r.npmRegistryServer', options.registry], execOptions);
