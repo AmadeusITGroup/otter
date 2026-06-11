@@ -26,8 +26,6 @@ import {
   DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
-  RulesEngineDevtoolsModule,
-  RulesEngineRunnerModule,
   RulesEngineRunnerService,
   RulesetsStore,
   setRulesetsEntities,
@@ -54,8 +52,6 @@ import {
   selector: 'o3r-placeholder-page',
   imports: [
     PlaceholderPres,
-    RulesEngineRunnerModule,
-    RulesEngineDevtoolsModule,
     PlaceholderRulesEngineActionModule,
     RouterModule,
     IN_PAGE_NAV_PRES_DIRECTIVES,

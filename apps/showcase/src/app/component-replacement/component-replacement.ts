@@ -10,7 +10,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule,
+  RouterLink,
 } from '@angular/router';
 import {
   O3rComponent,
@@ -39,7 +39,7 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    RouterModule,
+    RouterLink,
     InPageNavPres,
     AsyncPipe,
     IN_PAGE_NAV_PRES_DIRECTIVES,
