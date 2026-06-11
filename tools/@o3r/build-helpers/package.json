@@ -41,7 +41,7 @@
     "@nx/eslint-plugin": "~22.7.0",
     "@o3r/eslint-plugin": "workspace:~",
     "@stylistic/eslint-plugin": "~5.10.0",
-    "@types/node": "~24.12.0",
+    "@types/node": "~24.13.0",
     "@typescript-eslint/parser": "~8.60.0",
     "angular-eslint": "~21.4.0",
     "eslint": "~9.39.0",
