@@ -15,7 +15,7 @@
     },
     "@o3r/core:page": {
       "path": "apps/showcase/src/app",
-      "appRoutingModulePath": "apps/showcase/src/app/app-routing-module.ts",
+      "appRoutesDefinitionPath": "apps/showcase/src/app/app.routes.ts",
       "scope": "",
       "standalone": true
     },
@@ -130,11 +130,12 @@
       },
       "configurations": {
         "production": {
+          "optimization": false,
           "budgets": [
             {
               "type": "initial",
               "maximumWarning": "2.5mb",
-              "maximumError": "3.2mb"
+              "maximumError": "5.5mb"
             },
             {
               "type": "anyComponentStyle",

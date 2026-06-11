@@ -6,13 +6,13 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  RouterModule,
+  provideRouter,
 } from '@angular/router';
 import {
   NgbScrollSpyService,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  StoreModule,
+  provideStore,
 } from '@ngrx/store';
 import {
   O3rElement,
@@ -42,11 +42,11 @@ describe('Configuration', () => {
     TestBed.configureTestingModule({
       imports: [
         Configuration,
-        StoreModule.forRoot(),
-        RouterModule.forRoot([]),
         AsyncPipe
       ],
       providers: [
+        provideRouter([]),
+        provideStore(),
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
         provideMarkdown()
       ]

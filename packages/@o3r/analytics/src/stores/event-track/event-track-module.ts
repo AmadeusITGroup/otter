@@ -1,11 +1,14 @@
 import {
+  EnvironmentProviders,
   InjectionToken,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
+  provideState,
   StoreModule,
 } from '@ngrx/store';
 import {
@@ -24,6 +27,9 @@ export function getDefaultEventTrackReducer() {
   return eventTrackReducer;
 }
 
+/**
+ * @deprecated Will be removed in v16. Use {@link provideEventTrackStore} instead.
+ */
 @NgModule({
   imports: [
     StoreModule.forFeature(EVENT_TRACK_STORE_NAME, EVENT_TRACK_REDUCER_TOKEN)
@@ -41,4 +47,14 @@ export class EventTrackStoreModule {
       ]
     };
   }
+}
+
+/**
+ * Provide EventTrack feature store.
+ * @param reducerFactory Optional factory to override the default reducer.
+ */
+export function provideEventTrackStore(reducerFactory?: () => ActionReducer<EventTrackState, Action>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideState(EVENT_TRACK_STORE_NAME, reducerFactory ? reducerFactory() : eventTrackReducer)
+  ]);
 }
