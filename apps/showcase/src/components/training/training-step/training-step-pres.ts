@@ -26,21 +26,21 @@ export class TrainingStepPres {
   /**
    * Description of the coding project to load in the code view editor
    */
-  public project = input<TrainingProject | undefined | null>();
+  public readonly project = input<TrainingProject | undefined | null>();
   /**
    * Whether to allow the user to modify the project files in the editor
    */
-  public editorMode = input<EditorMode>();
+  public readonly editorMode = input<EditorMode>();
   /**
    * Training step title
    */
-  public title = input<string>();
+  public readonly title = input<string>();
   /**
    * Training instructions to do the exercise
    */
-  public instructions = input<string>();
+  public readonly instructions = input<string>();
   /**
    * Display terminal
    */
-  public displayTerminal = input<boolean>(true);
+  public readonly displayTerminal = input<boolean>(true);
 }

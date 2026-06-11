@@ -99,7 +99,7 @@ export class RulesEnginePres implements OnDestroy, DynamicConfigurableWithSignal
   });
 
   /** Input configuration to override the default configuration of the component */
-  public config = input<Partial<RulesEnginePresConfig>>();
+  public readonly config = input<Partial<RulesEnginePresConfig>>();
 
   @O3rConfig()
   public readonly configSignal = configSignal(

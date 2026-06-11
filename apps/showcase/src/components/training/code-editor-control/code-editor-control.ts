@@ -5,7 +5,7 @@ import {
   computed,
   ElementRef,
   inject,
-  Input,
+  input,
   OnDestroy,
   viewChild,
   ViewEncapsulation,
@@ -51,7 +51,7 @@ export class CodeEditorControl implements OnDestroy, AfterViewInit {
   /**
    * Show the terminal used as output for the command process
    */
-  @Input() public showOutput = true;
+  public readonly showOutput = input(true);
 
   /**
    * Reference to the iframe used to display the content of the application served in the web container
