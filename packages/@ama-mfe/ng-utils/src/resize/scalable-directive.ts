@@ -46,12 +46,12 @@ export class ScalableDirective {
   /**
    * The connection ID for the element, used as channel id backup
    */
-  public connect = input<string>();
+  public readonly connect = input<string>();
 
   /**
    * The channel id
    */
-  public scalable = input<string>();
+  public readonly scalable = input<string>();
 
   private readonly resizeHandler = inject(ResizeConsumerService);
   private readonly destroyRef = inject(DestroyRef);

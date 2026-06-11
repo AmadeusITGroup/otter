@@ -2,6 +2,7 @@ import {
   Directive,
   Injectable,
   NgModule,
+  Provider,
 } from '@angular/core';
 import {
   Observable,
@@ -33,6 +34,7 @@ export class C11nMockService {
 
 /**
  * The purpose of this module is to be imported in the unit tests of the components which are using c11n directive
+ * @deprecated Will be removed in v16. Use {@link provideC11nMock} and import `MockC11nDirective` directly instead.
  */
 @NgModule({
   declarations: [MockC11nDirective],
@@ -40,3 +42,12 @@ export class C11nMockService {
   providers: [{ provide: C11nService, useClass: C11nMockService }]
 })
 export class C11nMockModule {}
+
+/**
+ * Provide C11n mock service for testing.
+ */
+export function provideC11nMock(): Provider[] {
+  return [
+    { provide: C11nService, useClass: C11nMockService }
+  ];
+}

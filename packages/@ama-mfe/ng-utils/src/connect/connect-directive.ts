@@ -27,12 +27,12 @@ export class ConnectDirective {
   /**
    * The connection ID required for the message peer service.
    */
-  public connect = input.required<string>();
+  public readonly connect = input.required<string>();
 
   /**
    * The sanitized source URL for the iframe.
    */
-  public src = input<SafeResourceUrl>();
+  public readonly src = input<SafeResourceUrl>();
 
   /**
    * Binds the `src` attribute of the iframe to the sanitized source URL.

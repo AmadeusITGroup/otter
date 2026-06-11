@@ -13,11 +13,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule,
+  RouterLink,
 } from '@angular/router';
 import {
   configSignal,
-  ConfigurationBaseServiceModule,
   DynamicConfigurableWithSignal,
   O3rConfig,
 } from '@o3r/configuration';
@@ -25,7 +24,8 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  MarkdownModule,
+  LanguagePipe,
+  MarkdownComponent,
 } from 'ngx-markdown';
 import {
   ConfigurationPres,
@@ -57,12 +57,12 @@ const CONFIG_OVERRIDE = {
 @Component({
   selector: 'o3r-configuration',
   imports: [
-    RouterModule,
+    RouterLink,
     ConfigurationPres,
-    ConfigurationBaseServiceModule,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     AsyncPipe,
-    MarkdownModule
+    LanguagePipe,
+    MarkdownComponent
   ],
   templateUrl: './configuration.html',
   styleUrls: ['./configuration.scss'],
@@ -76,7 +76,7 @@ export class Configuration implements DynamicConfigurableWithSignal<Configuratio
   public links$ = this.inPageNavPresService.links$;
 
   /** Input configuration to override the default configuration of the component */
-  public config = input<Partial<ConfigurationConfig>>();
+  public readonly config = input<Partial<ConfigurationConfig>>();
   /** Configuration signal based on the input and the stored configuration */
   @O3rConfig()
   public configSignal = configSignal(
