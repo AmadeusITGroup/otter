@@ -1,4 +1,6 @@
 import {
+  EnvironmentProviders,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
@@ -16,6 +18,7 @@ import {
   STORAGE_SYNC_OPTIONS,
 } from './rehydrater';
 
+/** @deprecated Will be removed in v16. Use {@link provideCapacitorRehydrater} instead. */
 @NgModule({
   imports: [
     StoreModule
@@ -34,4 +37,16 @@ export class CapacitorRehydraterModule {
       ]
     };
   }
+}
+
+/**
+ * Provide capacitor rehydrater for the application.
+ * @param options Storage sync configuration options.
+ */
+export function provideCapacitorRehydrater(options: StorageSyncOptions): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideLogger(),
+    { provide: STORAGE_SYNC_OPTIONS, useValue: options },
+    CapacitorRehydrater
+  ]);
 }

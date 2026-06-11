@@ -1,10 +1,8 @@
 import {
-  DIR_DOCUMENT,
   Direction,
   Directionality,
 } from '@angular/cdk/bidi';
 import {
-  inject,
   Injectable,
   OnDestroy,
 } from '@angular/core';
@@ -32,7 +30,7 @@ export class TextDirectionality extends Directionality implements OnDestroy {
   private _value: Direction = 'ltr';
 
   constructor() {
-    super(inject(DIR_DOCUMENT, { optional: true }));
+    super();
     this.change
       .pipe(startWith(this._value))
       .subscribe((value: Direction) => this._value = value);

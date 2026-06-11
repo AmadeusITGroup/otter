@@ -1,4 +1,6 @@
 import {
+  EnvironmentProviders,
+  makeEnvironmentProviders,
   NgModule,
 } from '@angular/core';
 import {
@@ -8,6 +10,7 @@ import {
   LocalizationOverrideStoreModule,
 } from '@o3r/transloco';
 
+/** @deprecated Will be removed in v16. Use {@link provideLocalizationRulesEngineAction} instead. */
 @NgModule({
   imports: [
     LocalizationOverrideStoreModule
@@ -17,3 +20,12 @@ import {
   ]
 })
 export class LocalizationRulesEngineActionModule {}
+
+/**
+ * Provide localization rules engine action handler for the application.
+ */
+export function provideLocalizationRulesEngineAction(): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    LocalizationRulesEngineActionHandler
+  ]);
+}

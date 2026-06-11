@@ -1,11 +1,14 @@
 import {
+  EnvironmentProviders,
   InjectionToken,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
+  provideState,
   StoreModule,
 } from '@ngrx/store';
 import {
@@ -24,6 +27,7 @@ export function getDefaultConfigurationReducer() {
   return configurationReducer;
 }
 
+/** @deprecated Will be removed in v16. Use {@link provideConfigurationStore} instead. */
 @NgModule({
   imports: [
     StoreModule.forFeature(CONFIGURATION_STORE_NAME, CONFIGURATION_REDUCER_TOKEN)
@@ -41,4 +45,15 @@ export class ConfigurationStoreModule {
       ]
     };
   }
+}
+
+/**
+ * Provide the Configuration store for the application.
+ * @param reducerFactory Optional custom reducer factory. Falls back to the default reducer.
+ */
+export function provideConfigurationStore(reducerFactory?: () => ActionReducer<ConfigurationState, Action>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideState(CONFIGURATION_STORE_NAME, reducerFactory ? reducerFactory() : configurationReducer),
+    { provide: CONFIGURATION_REDUCER_TOKEN, useFactory: reducerFactory || (() => configurationReducer) }
+  ]);
 }

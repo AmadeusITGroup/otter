@@ -41,14 +41,14 @@ describe('App', () => {
       ComponentsDevtoolsModule,
       StoreModule.forRoot(),
       ConfigurationDevtoolsModule,
-      EffectsModule.forRoot()
+      EffectsModule.forRoot(),
+      App
     ],
     providers: [
       provideMockStore(),
       provideLocalizationDevtools(),
       provideLocalizationMock(localizationConfiguration, mockTranslations)
-    ],
-    declarations: [App]
+    ]
   }));
 
   it('should create the app', () => {

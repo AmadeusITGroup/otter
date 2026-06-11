@@ -1,4 +1,6 @@
 import {
+  EnvironmentProviders,
+  makeEnvironmentProviders,
   NgModule,
 } from '@angular/core';
 import {
@@ -8,6 +10,7 @@ import {
   ConfigurationStoreModule,
 } from '@o3r/configuration';
 
+/** @deprecated Will be removed in v16. Use {@link provideConfigurationRulesEngineAction} instead. */
 @NgModule({
   imports: [
     ConfigurationStoreModule
@@ -17,3 +20,12 @@ import {
   ]
 })
 export class ConfigurationRulesEngineActionModule {}
+
+/**
+ * Provide configuration rules engine action handler for the application.
+ */
+export function provideConfigurationRulesEngineAction(): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    ConfigurationRulesEngineActionHandler
+  ]);
+}

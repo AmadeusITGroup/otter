@@ -1,11 +1,14 @@
 import {
+  EnvironmentProviders,
   InjectionToken,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
+  provideState,
   StoreModule,
 } from '@ngrx/store';
 import {
@@ -24,6 +27,7 @@ export function getDefaultConfigOverrideReducer() {
   return configOverrideReducer;
 }
 
+/** @deprecated Will be removed in v16. Use {@link provideConfigOverrideStore} instead. */
 @NgModule({
   imports: [
     StoreModule.forFeature(CONFIG_OVERRIDE_STORE_NAME, CONFIG_OVERRIDE_REDUCER_TOKEN)
@@ -41,4 +45,15 @@ export class ConfigOverrideStoreModule {
       ]
     };
   }
+}
+
+/**
+ * Provide the ConfigOverride store for the application.
+ * @param reducerFactory Optional custom reducer factory. Falls back to the default reducer.
+ */
+export function provideConfigOverrideStore(reducerFactory?: () => ActionReducer<ConfigOverrideState, Action>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideState(CONFIG_OVERRIDE_STORE_NAME, reducerFactory ? reducerFactory() : configOverrideReducer),
+    { provide: CONFIG_OVERRIDE_REDUCER_TOKEN, useFactory: reducerFactory || (() => configOverrideReducer) }
+  ]);
 }

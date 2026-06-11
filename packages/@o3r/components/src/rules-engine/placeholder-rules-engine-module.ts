@@ -1,8 +1,11 @@
 import {
+  EnvironmentProviders,
+  makeEnvironmentProviders,
   NgModule,
 } from '@angular/core';
 import {
   EffectsModule,
+  provideEffects,
 } from '@ngrx/effects';
 import {
   PlaceholderRulesEngineActionHandler,
@@ -15,6 +18,7 @@ import {
   PlaceholderTemplateStoreModule,
 } from '@o3r/components';
 
+/** @deprecated Will be removed in v16. Use {@link providePlaceholderRulesEngineAction} instead. */
 @NgModule({
   imports: [
     EffectsModule.forFeature([PlaceholderTemplateResponseEffect]),
@@ -26,3 +30,13 @@ import {
   ]
 })
 export class PlaceholderRulesEngineActionModule {}
+
+/**
+ * Provide placeholder rules engine action handler for the application.
+ */
+export function providePlaceholderRulesEngineAction(): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideEffects(PlaceholderTemplateResponseEffect),
+    PlaceholderRulesEngineActionHandler
+  ]);
+}

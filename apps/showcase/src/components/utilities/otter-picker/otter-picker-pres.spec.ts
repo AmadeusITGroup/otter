@@ -16,6 +16,7 @@ describe('OtterPickerPres', () => {
     });
     fixture = TestBed.createComponent(OtterPickerPres);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('id', 'test-otter-picker');
     fixture.detectChanges();
   });
 

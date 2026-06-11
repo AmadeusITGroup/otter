@@ -1,4 +1,6 @@
 import {
+  EnvironmentProviders,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
@@ -19,6 +21,7 @@ import {
   OTTER_APPLICATION_DEVTOOLS_OPTIONS,
 } from './application-devtools-token';
 
+/** @deprecated Will be removed in v16. Use {@link provideApplicationDevtools} instead. */
 @NgModule({
   providers: [
     { provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS },
@@ -43,4 +46,20 @@ export class ApplicationDevtoolsModule {
       ]
     };
   }
+}
+
+/**
+ * Provide application devtools functionality for the application.
+ * @param options Optional partial application devtools configuration to override defaults.
+ */
+export function provideApplicationDevtools(options?: Partial<ApplicationDevtoolsServiceOptions>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    {
+      provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS,
+      useValue: { ...OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, ...options }
+    },
+    ApplicationDevtoolsMessageService,
+    ApplicationDevtoolsConsoleService,
+    OtterApplicationDevtools
+  ]);
 }

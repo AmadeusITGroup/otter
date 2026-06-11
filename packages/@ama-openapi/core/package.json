@@ -54,7 +54,7 @@
     }
   },
   "devDependencies": {
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~22.0.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~22.7.0",
@@ -72,7 +72,7 @@
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.60.0",
     "@vitest/coverage-istanbul": "^4.0.18",
-    "angular-eslint": "~21.4.0",
+    "angular-eslint": "~22.0.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
     "eslint-import-resolver-node": "~0.4.0",
@@ -88,7 +88,7 @@
     "memfs": "~4.57.0",
     "nx": "~22.7.0",
     "type-fest": "^5.3.1",
-    "typescript": "~5.9.2",
+    "typescript": "~6.0.3",
     "typescript-eslint": "~8.60.0",
     "vitest": "~4.1.0"
   },

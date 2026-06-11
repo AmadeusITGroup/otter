@@ -1,12 +1,8 @@
 import {
-  NgModule,
-} from '@angular/core';
-import {
-  RouterModule,
   Routes,
 } from '@angular/router';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'configuration', loadComponent: () => import('./configuration/index').then((m) => m.Configuration), title: 'Otter Showcase - Configuration' },
   { path: 'component-replacement', loadComponent: () => import('./component-replacement/index').then((m) => m.ComponentReplacement), title: 'Otter Showcase - Component replacement' },
@@ -23,11 +19,3 @@ const appRoutes: Routes = [
   { path: 'forms', loadComponent: () => import('./forms/index').then((m) => m.Forms), title: 'Otter Showcase - Forms' },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
-
-@NgModule({
-  imports: [
-    RouterModule.forRoot(appRoutes, { scrollPositionRestoration: 'enabled', useHash: true })
-  ],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}

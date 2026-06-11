@@ -62,20 +62,20 @@
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:~",
-    "@angular-devkit/core": "^21.0.0",
+    "@angular-devkit/core": "~22.0.0",
     "@angular-devkit/schematics-cli": "^21.0.0",
-    "@angular/cli": "^21.0.0",
+    "@angular/cli": "~22.0.0",
     "@o3r/schematics": "workspace:~",
     "@o3r/telemetry": "workspace:~",
     "@openapitools/openapi-generator-cli": "^2.15.0",
     "openapi-types": "^12.0.0",
     "type-fest": "^5.3.1",
-    "typescript": "^5.9.0"
+    "typescript": "~6.0.3"
   },
   "dependencies": {
     "@ama-sdk/openapi-codegen-typescript": "workspace:~",
-    "@angular-devkit/core": "~21.2.0",
-    "@angular-devkit/schematics": "~21.2.0",
+    "@angular-devkit/core": "~22.0.0",
+    "@angular-devkit/schematics": "~22.0.0",
     "@o3r/schematics": "workspace:~",
     "chokidar": "~5.0.0",
     "ejs": "~3.1.9",
@@ -90,7 +90,7 @@
   "devDependencies": {
     "@ama-sdk/core": "workspace:~",
     "@angular-devkit/schematics-cli": "~21.2.0",
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~22.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~22.7.0",
     "@nx/jest": "~22.7.0",
@@ -99,7 +99,7 @@
     "@o3r/telemetry": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
     "@openapitools/openapi-generator-cli": "~2.31.1",
-    "@schematics/angular": "~21.2.0",
+    "@schematics/angular": "~22.0.0",
     "@stylistic/eslint-plugin": "~5.10.0",
     "@types/ejs": "^3.1.2",
     "@types/jest": "~30.0.0",
@@ -108,7 +108,7 @@
     "@types/node": "~24.12.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.60.0",
-    "angular-eslint": "~21.4.0",
+    "angular-eslint": "~22.0.0",
     "commit-and-tag-version": "^12.6.1",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
@@ -134,7 +134,7 @@
     "semver": "^7.5.2",
     "ts-jest": "~29.4.0",
     "type-fest": "^5.3.1",
-    "typescript": "~5.9.2",
+    "typescript": "~6.0.3",
     "typescript-eslint": "~8.60.0"
   },
   "generatorDependencies": {

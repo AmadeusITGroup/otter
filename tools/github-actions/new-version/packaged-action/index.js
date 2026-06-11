@@ -39523,9 +39523,10 @@ function formatGitTagsOutput(gitOutput) {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.NewVersion = void 0;
+const tslib_1 = __nccwpck_require__(8684);
 const node_child_process_1 = __nccwpck_require__(1421);
 const node_util_1 = __nccwpck_require__(7975);
-const semver = __nccwpck_require__(5225);
+const semver = tslib_1.__importStar(__nccwpck_require__(5225));
 const index_1 = __nccwpck_require__(1338);
 const promisifiedExec = (0, node_util_1.promisify)(node_child_process_1.exec);
 /**
