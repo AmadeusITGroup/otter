@@ -183,7 +183,7 @@
   },
   "dependencies": {
     "@o3r/schematics": "workspace:~",
-    "esbuild": "~0.27.0",
+    "esbuild": "~0.28.0",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
@@ -203,7 +203,7 @@
     "@babel/preset-typescript": "~7.29.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@jsverse/transloco": "~8.2.1",
+    "@jsverse/transloco": "~8.3.0",
     "@material/slider": "^14.0.0",
     "@ngrx/store": "~21.1.0",
     "@ngx-translate/core": "~16.0.4",
@@ -221,7 +221,7 @@
     "@stylistic/eslint-plugin": "~5.10.0",
     "@swc/helpers": "~0.5.17",
     "@types/jest": "~30.0.0",
-    "@types/node": "~24.12.0",
+    "@types/node": "~24.13.0",
     "@types/pixelmatch": "^5.2.3",
     "@types/pngjs": "^6.0.0",
     "@typescript-eslint/parser": "~8.60.0",
