@@ -10500,7 +10500,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    shell-quote: "npm:^1.8.1"
+    shell-quote: "npm:^1.8.4"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
@@ -36162,7 +36162,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shell-quote@npm:^1.6.1, shell-quote@npm:^1.7.3, shell-quote@npm:^1.8.1, shell-quote@npm:^1.8.3, shell-quote@npm:^1.8.4":
+"shell-quote@npm:^1.6.1, shell-quote@npm:^1.7.3, shell-quote@npm:^1.8.3, shell-quote@npm:^1.8.4":
   version: 1.8.4
   resolution: "shell-quote@npm:1.8.4"
   checksum: 10/a3e3796385f2cd5cf0b78207a4439f0c7395c0833fc75b2473084b5d298c109c5c0fa687fcd1c04e4b4484866e5bb8eaae7efae443b80fff71ea7e29baf11f0c
