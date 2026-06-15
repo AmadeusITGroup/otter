@@ -444,7 +444,7 @@
     "@vscode/vsce": "^3.2.1",
     "angular-eslint": "~21.4.0",
     "cpy-cli": "^6.0.0",
-    "esbuild": "~0.28.0",
+    "esbuild": "~0.28.1",
     "eslint-import-resolver-node": "~0.4.0",
     "eslint-import-resolver-typescript": "~4.4.0",
     "eslint-plugin-import": "~2.32.0",
