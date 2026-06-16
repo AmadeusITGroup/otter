@@ -12,7 +12,7 @@
     },
     "@o3r/core:page": {
       "path": "apps/showcase/src/app",
-      "appRoutingModulePath": "apps/showcase/src/app/app-routing-module.ts",
+      "appRoutesDefinitionPath": "apps/showcase/src/app/app.routes.ts",
       "scope": "",
       "standalone": true
     },

@@ -76,7 +76,7 @@ export class Configuration implements DynamicConfigurableWithSignal<Configuratio
   public links$ = this.inPageNavPresService.links$;
 
   /** Input configuration to override the default configuration of the component */
-  public config = input<Partial<ConfigurationConfig>>();
+  public readonly config = input<Partial<ConfigurationConfig>>();
   /** Configuration signal based on the input and the stored configuration */
   @O3rConfig()
   public configSignal = configSignal(

@@ -3,11 +3,10 @@ import {
 } from '@ama-styling/devkit';
 import {
   inject,
-  provideZonelessChangeDetection,
   runInInjectionContext,
 } from '@angular/core';
 import {
-  platformBrowser,
+  bootstrapApplication,
 } from '@angular/platform-browser';
 import {
   ApplicationDevtoolsConsoleService,
@@ -29,13 +28,16 @@ import {
   LocalizationDevtoolsMessageService,
 } from '@o3r/transloco';
 import {
-  AppModule,
-} from './app/app-module';
+  App,
+} from './app/app';
+import {
+  appConfig,
+} from './app/app.config';
 
 document.body.dataset.dynamiccontentpath = localStorage.getItem('dynamicPath') || '';
-platformBrowser().bootstrapModule(AppModule, { applicationProviders: [provideZonelessChangeDetection()] })
-  .then((m) => {
-    runInInjectionContext(m.injector, () => {
+bootstrapApplication(App, appConfig)
+  .then((appRef) => {
+    runInInjectionContext(appRef.injector, () => {
       inject(ApplicationDevtoolsConsoleService);
       inject(ApplicationDevtoolsMessageService);
       inject(RulesEngineDevtoolsConsoleService);
