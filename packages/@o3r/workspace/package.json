@@ -154,7 +154,7 @@
     "jest": "~30.4.0",
     "jest-environment-jsdom": "~30.4.0",
     "jest-junit": "~16.0.0",
-    "jest-preset-angular": "~16.1.0",
+    "jest-preset-angular": "~16.2.0",
     "lerna": "^8.1.7",
     "lint-staged": "^16.0.0",
     "ts-jest": "~29.4.0",

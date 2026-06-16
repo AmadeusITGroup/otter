@@ -9,13 +9,10 @@ import type {
   RoutedMessage,
 } from '@amadeus-it-group/microfrontends';
 import {
-  DestroyRef,
-  inject,
   Injectable,
 } from '@angular/core';
 import {
-  ConsumerManagerService,
-  type MessageConsumer,
+  AbstractMessageConsumer,
 } from '../managers/index';
 
 /**
@@ -26,7 +23,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class HistoryConsumerService implements MessageConsumer<HistoryMessage> {
+export class HistoryConsumerService extends AbstractMessageConsumer<HistoryMessage> {
   /**
    * The type of messages this service handles.
    */
@@ -45,24 +42,7 @@ export class HistoryConsumerService implements MessageConsumer<HistoryMessage> {
     }
   };
 
-  private readonly consumerManagerService = inject(ConsumerManagerService);
-
   constructor() {
-    this.start();
-    inject(DestroyRef).onDestroy(() => this.stop());
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public start() {
-    this.consumerManagerService.register(this);
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public stop() {
-    this.consumerManagerService.unregister(this);
+    super();
   }
 }
