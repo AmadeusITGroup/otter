@@ -130,8 +130,8 @@
     }
   ],
   "resolutions": {
-    "@angular-devkit/schematics": "21.2.13",
-    "@schematics/angular": "21.2.13",
+    "@angular-devkit/schematics": "21.2.15",
+    "@schematics/angular": "21.2.15",
     "@sinonjs/fake-timers": "~15.4.0",
     "@types/node": "~24.13.0",
     "ajv@8.17.1": "~8.18.0",
@@ -159,7 +159,7 @@
     "@agnos-ui/core-bootstrap": "~0.10.0",
     "@amadeus-it-group/tansu": "~2.0.0",
     "@ampproject/remapping": "^2.3.0",
-    "@angular-devkit/architect": "0.2102.13",
+    "@angular-devkit/architect": "0.2102.15",
     "@angular-devkit/build-angular": "~21.2.0",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
@@ -188,7 +188,7 @@
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@jsverse/transloco": "~8.3.0",
     "@jsverse/transloco-messageformat": "~8.3.0",
-    "@jsverse/utils": "1.0.0-beta.5",
+    "@jsverse/utils": "1.0.0-beta.6",
     "@ng-bootstrap/ng-bootstrap": "~20.0.0",
     "@ng-select/ng-select": "~21.8.0",
     "@ngrx/effects": "~21.1.0",

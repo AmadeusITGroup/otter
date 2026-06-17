@@ -51,7 +51,7 @@
     "@formatjs/intl-numberformat": "~9.3.0",
     "@jsverse/transloco": "~8.3.0",
     "@jsverse/transloco-messageformat": "~8.3.0",
-    "@jsverse/utils": "1.0.0-beta.5",
+    "@jsverse/utils": "1.0.0-beta.6",
     "@ng-bootstrap/ng-bootstrap": "~20.0.0",
     "@ng-select/ng-select": "~21.8.0",
     "@ngrx/effects": "~21.1.0",
@@ -111,7 +111,7 @@
   "devDependencies": {
     "@ama-styling/style-dictionary": "workspace:~",
     "@amadeus-it-group/kassette": "^1.7.0",
-    "@angular-devkit/architect": "0.2102.13",
+    "@angular-devkit/architect": "0.2102.15",
     "@angular-devkit/build-angular": "~21.2.0",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
