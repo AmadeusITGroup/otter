@@ -16,7 +16,7 @@ jobs:
   build:
     runs-on: <%= runner %>
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - uses: ./.github/actions/setup
       - name: Build
         run: <%= packageManager %> run build
@@ -24,7 +24,7 @@ jobs:
   unit-tests:
     runs-on: <%= runner %>
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - uses: ./.github/actions/setup
       - name: Unit tests
         run: <%= packageManager %> run test
@@ -32,7 +32,7 @@ jobs:
   lint:
     runs-on: <%= runner %>
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - uses: ./.github/actions/setup
       - name: Lint
         run: <%= packageManager %> run lint
@@ -45,7 +45,7 @@ jobs:
     outputs:
       nextVersionTag: ${{ steps.newVersion.outputs.nextVersionTag }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: New version
         if: github.event_name != 'merge_group'
         id: newVersion
