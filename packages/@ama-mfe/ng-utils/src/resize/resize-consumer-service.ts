@@ -9,14 +9,11 @@ import type {
   RoutedMessage,
 } from '@amadeus-it-group/microfrontends';
 import {
-  DestroyRef,
-  inject,
   Injectable,
   signal,
 } from '@angular/core';
 import {
-  ConsumerManagerService,
-  MessageConsumer,
+  AbstractMessageConsumer,
 } from '../managers/index';
 
 /**
@@ -25,7 +22,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class ResizeConsumerService implements MessageConsumer<ResizeMessage> {
+export class ResizeConsumerService extends AbstractMessageConsumer<ResizeMessage> {
   private readonly newHeight = signal<{ height: number; channelId: string } | undefined>(undefined);
 
   /**
@@ -49,24 +46,7 @@ export class ResizeConsumerService implements MessageConsumer<ResizeMessage> {
     '1.0': (message: RoutedMessage<ResizeV1_0>) => this.newHeight.set({ height: message.payload.height, channelId: message.from })
   };
 
-  private readonly consumerManagerService = inject(ConsumerManagerService);
-
   constructor() {
-    this.start();
-    inject(DestroyRef).onDestroy(() => this.stop());
-  }
-
-  /**
-   * Starts the resize handler service by registering it into the consumer manager service.
-   */
-  public start() {
-    this.consumerManagerService.register(this);
-  }
-
-  /**
-   * Stops the resize handler service by unregistering it from the consumer manager service.
-   */
-  public stop() {
-    this.consumerManagerService.unregister(this);
+    super();
   }
 }

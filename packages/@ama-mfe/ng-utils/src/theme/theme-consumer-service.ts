@@ -9,7 +9,6 @@ import type {
   RoutedMessage,
 } from '@amadeus-it-group/microfrontends';
 import {
-  DestroyRef,
   inject,
   Injectable,
   SecurityContext,
@@ -21,8 +20,7 @@ import {
   LoggerService,
 } from '@o3r/logger';
 import {
-  ConsumerManagerService,
-  MessageConsumer,
+  AbstractMessageConsumer,
 } from '../managers/index';
 import {
   applyTheme,
@@ -35,9 +33,8 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class ThemeConsumerService implements MessageConsumer<ThemeMessage> {
+export class ThemeConsumerService extends AbstractMessageConsumer<ThemeMessage> {
   private readonly domSanitizer = inject(DomSanitizer);
-  private readonly consumerManagerService = inject(ConsumerManagerService);
   private readonly logger = inject(LoggerService);
   /**
    * The type of messages this service handles ('theme').
@@ -67,21 +64,6 @@ export class ThemeConsumerService implements MessageConsumer<ThemeMessage> {
   };
 
   constructor() {
-    this.start();
-    inject(DestroyRef).onDestroy(() => this.stop());
-  }
-
-  /**
-   * Starts the theme handler service by registering it into the consumer manager service.
-   */
-  public start() {
-    this.consumerManagerService.register(this);
-  }
-
-  /**
-   * Stops the theme handler service by unregistering it from the consumer manager service.
-   */
-  public stop() {
-    this.consumerManagerService.unregister(this);
+    super();
   }
 }
