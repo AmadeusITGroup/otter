@@ -79,6 +79,11 @@ export class NavigationConsumerService extends AbstractMessageConsumer<Navigatio
 
   constructor() {
     super();
+    /**
+     * Auto-starts the consumer on creation.
+     * @deprecated The constructor auto-starts the consumer for backwards compatibility. It will be removed in v15;
+     */
+    this.start();
   }
 
   /**

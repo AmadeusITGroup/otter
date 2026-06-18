@@ -33,7 +33,7 @@
     "postbuild": "patch-package-json-exports",
     "prepare:compile": "cp-package-json",
     "build": "yarn nx build ama-mfe-ng-utils",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' 'migration.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "devDependencies": {
@@ -93,6 +93,9 @@
     "communication protocol"
   ],
   "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  },
   "peerDependenciesMeta": {
     "@ama-mfe/messages": {
       "optional": true

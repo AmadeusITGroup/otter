@@ -11,6 +11,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   AbstractMessageConsumer,
 } from './abstract-message-consumer-service';
 import {
@@ -31,8 +34,9 @@ class TestConsumer extends AbstractMessageConsumer<TestMessage> {
     '1.0': ((_message: RoutedMessage<TestMessage & { version: '1.0' }>) => {}) as MessageCallback<TestMessage & { version: '1.0' }>
   };
 
-  constructor(autoStart = true) {
-    super(autoStart);
+  constructor() {
+    super();
+    this.start();
   }
 }
 
@@ -41,10 +45,6 @@ class NoAutoStartConsumer extends AbstractMessageConsumer<TestMessage> {
   public readonly supportedVersions = {
     '1.0': ((_message: RoutedMessage<TestMessage & { version: '1.0' }>) => {}) as MessageCallback<TestMessage & { version: '1.0' }>
   };
-
-  constructor() {
-    super(false);
-  }
 }
 
 @Component({
@@ -69,6 +69,7 @@ class NoAutoStartHostComponent {
 
 describe('AbstractMessageConsumer', () => {
   let consumerManagerServiceMock: jest.Mocked<ConsumerManagerService>;
+  let loggerServiceMock: jest.Mocked<LoggerService>;
   let fixture: ComponentFixture<TestHostComponent>;
 
   beforeEach(() => {
@@ -77,20 +78,26 @@ describe('AbstractMessageConsumer', () => {
       unregister: jest.fn()
     } as unknown as jest.Mocked<ConsumerManagerService>;
 
+    loggerServiceMock = {
+      warn: jest.fn(),
+      error: jest.fn()
+    } as unknown as jest.Mocked<LoggerService>;
+
     TestBed.configureTestingModule({
       imports: [TestHostComponent, NoAutoStartHostComponent],
       providers: [
-        { provide: ConsumerManagerService, useValue: consumerManagerServiceMock }
+        { provide: ConsumerManagerService, useValue: consumerManagerServiceMock },
+        { provide: LoggerService, useValue: loggerServiceMock }
       ]
     });
   });
 
-  it('should auto-start and register with the consumer manager service', () => {
+  it('should register with the consumer manager service when start is called', () => {
     fixture = TestBed.createComponent(TestHostComponent);
     expect(consumerManagerServiceMock.register).toHaveBeenCalledWith(fixture.componentInstance.consumer);
   });
 
-  it('should not register when autoStart is false', () => {
+  it('should not register when start is not called', () => {
     TestBed.createComponent(NoAutoStartHostComponent);
     expect(consumerManagerServiceMock.register).not.toHaveBeenCalled();
   });
