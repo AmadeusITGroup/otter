@@ -6,6 +6,9 @@
   "root": "apps/showcase",
   "prefix": "app",
   "tags": [],
+  "implicitDependencies": [
+    "training-*"
+  ],
   "generators": {
     "@schematics/angular:component": {
       "style": "scss"
@@ -45,7 +48,6 @@
       "executor": "@angular-devkit/build-angular:application",
       "inputs": [
         "source",
-        "^structure",
         "{projectRoot}/dev-resources",
         "{projectRoot}/training-assets",
         "{projectRoot}/*.metadata.json"
