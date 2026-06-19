@@ -30,8 +30,8 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "postbuild": "patch-package-json-main"
   },
-  "main": "./src/public_api.js",
-  "types": "./src/public_api.d.ts",
+  "main": "./dist/fesm2022/o3r-core.mjs",
+  "types": "./dist/types/o3r-core.d.ts",
   "peerDependencies": {
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0",
     "@angular-devkit/core": "^21.0.0",
