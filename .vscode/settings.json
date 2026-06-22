@@ -115,5 +115,7 @@
   "js/ts.tsdk.path": ".yarn/sdks/typescript/lib",
   "js/ts.tsserver.watchOptions": "vscode",
   "js/ts.preferences.preferTypeOnlyAutoImports": true,
-  "vitest.configSearchPatternExclude": "apps/chrome-devtools/vite.config.ts"
+  "vitest.configSearchPatternExclude": "apps/chrome-devtools/vite.config.ts",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
