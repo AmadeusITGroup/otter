@@ -31,7 +31,7 @@ export type EventEmitterify<T extends BaseContextOutput> = { [P in keyof T]: Eve
 /**
  * Context of the component
  */
-export type Context<T extends ContextInput = {}, U extends BaseContextOutput = {}> = { [P in keyof T]: (T[P] | InputSignal<T[P]>) } & EventEmitterify<U>;
+export type Context<T extends ContextInput = {}, U extends BaseContextOutput = {}> = { [P in keyof T]: T[P] } & EventEmitterify<U>;
 
 /**
  * Type helper to generate the template context outputs
