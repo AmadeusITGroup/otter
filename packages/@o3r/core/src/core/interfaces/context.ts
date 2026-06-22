@@ -1,6 +1,5 @@
 import type {
   EventEmitter,
-  InputSignal,
 } from '@angular/core';
 import type {
   FormControl,
@@ -49,7 +48,7 @@ export interface TemplateContext<
   /** Component configuration */
   config?: Partial<N>;
   /** Component inputs context */
-  inputs: { [T in keyof S]: S[T] | InputSignal<S[T]> } & { [key: string]: any };
+  inputs: { [T in keyof S]: S[T] } & { [key: string]: any };
   /** Component outputs context */
   outputs: Functionify<F & { [key: string]: any }>;
   /** Component translation */
