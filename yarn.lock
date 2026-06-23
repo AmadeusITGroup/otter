@@ -26741,20 +26741,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-proxy-middleware@npm:3.0.5":
-  version: 3.0.5
-  resolution: "http-proxy-middleware@npm:3.0.5"
-  dependencies:
-    "@types/http-proxy": "npm:^1.17.15"
-    debug: "npm:^4.3.6"
-    http-proxy: "npm:^1.18.1"
-    is-glob: "npm:^4.0.3"
-    is-plain-object: "npm:^5.0.0"
-    micromatch: "npm:^4.0.8"
-  checksum: 10/83c1956be6451a5f4a2f3c7b3d84085dbd47e1efb5bb684c1ed668a6606c18c7c07be823b0dbba1326955b64cf88de2672492940b0b48d140215fbdb06105c9a
-  languageName: node
-  linkType: hard
-
 "http-proxy-middleware@npm:^2.0.9":
   version: 2.0.9
   resolution: "http-proxy-middleware@npm:2.0.9"
@@ -26773,7 +26759,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-proxy-middleware@npm:^3.0.5":
+"http-proxy-middleware@npm:^3.0.5, http-proxy-middleware@npm:^3.0.7":
   version: 3.0.7
   resolution: "http-proxy-middleware@npm:3.0.7"
   dependencies:
