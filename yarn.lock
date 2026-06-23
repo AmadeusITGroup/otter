@@ -9921,7 +9921,7 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.61.0"
-    vite: "npm:~7.3.1"
+    vite: "npm:~8.0.16"
   languageName: unknown
   linkType: soft
 
@@ -11029,7 +11029,7 @@ __metadata:
     typescript-eslint: "npm:~8.61.0"
     uuid: "npm:~14.0.0"
     verdaccio: "npm:~6.7.0"
-    vite: "npm:~7.3.1"
+    vite: "npm:~8.0.16"
     vitest: "npm:~4.1.0"
     wait-on: "npm:~9.0.5"
     webpack: "npm:~5.107.0"
@@ -39430,7 +39430,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^6.0.0 || ^7.0.0 || ^8.0.0":
+"vite@npm:^6.0.0 || ^7.0.0 || ^8.0.0, vite@npm:~8.0.16":
   version: 8.0.16
   resolution: "vite@npm:8.0.16"
   dependencies:
