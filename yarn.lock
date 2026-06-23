@@ -11000,7 +11000,7 @@ __metadata:
     monaco-editor: "npm:~0.55.0"
     ng-packagr: "npm:~21.2.0"
     ngx-markdown: "npm:~21.3.0"
-    ngx-monaco-editor-v2: "npm:^20.0.0"
+    ngx-monaco-editor-v2: "npm:^21.0.0"
     ngx-monaco-tree: "npm:~20.1.0"
     npm-cli-login: "npm:~1.0.0"
     npm-run-all2: "npm:^8.0.0"
@@ -12167,7 +12167,7 @@ __metadata:
     minimist: "npm:^1.2.6"
     monaco-editor: "npm:~0.55.0"
     ngx-markdown: "npm:~21.3.0"
-    ngx-monaco-editor-v2: "npm:^20.0.0"
+    ngx-monaco-editor-v2: "npm:^21.0.0"
     ngx-monaco-tree: "npm:~20.1.0"
     pixelmatch: "npm:^7.0.0"
     playwright-lighthouse: "npm:~4.0.0"
@@ -31073,16 +31073,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ngx-monaco-editor-v2@npm:^20.0.0":
-  version: 20.3.0
-  resolution: "ngx-monaco-editor-v2@npm:20.3.0"
+"ngx-monaco-editor-v2@npm:^21.0.0":
+  version: 21.1.4
+  resolution: "ngx-monaco-editor-v2@npm:21.1.4"
   dependencies:
-    tslib: "npm:^2.1.0"
+    tslib: "npm:^2.8.1"
   peerDependencies:
-    "@angular/common": ^20.3.2
-    "@angular/core": ^20.3.2
-    monaco-editor: ^0.52.2
-  checksum: 10/c6b4ad0606564d9a268b570e5f798a925e00c02d13cea22f362e9030c69d94b88e5769c19a46e9a31d82e91defb3fd66000727ce8694c8acba5c257b15e7a9a2
+    "@angular/common": ^21.1.4
+    "@angular/core": ^21.1.4
+    monaco-editor: ^0.55.1
+  checksum: 10/6a845dc8bc87ae9c843f9188879c4bd7edb5ad56aef088cd828197285221450e2862f55161dc2dc4658d5fe59c406a28badd46fae1bf10ad611606d74ea9a20e
   languageName: node
   linkType: hard
 
