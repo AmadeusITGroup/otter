@@ -13,7 +13,7 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "build:plugins": "tsc -b tsconfig.plugins.json",
+    "build:plugins": "tsc -b tsconfig.plugins.json && yarn generate-cjs-manifest plugins",
     "postbuild": "patch-package-json-exports",
     "build": "yarn nx build analytics",
     "prepare:compile": "cp-package-json",

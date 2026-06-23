@@ -26,7 +26,7 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest middlewares schematics builders cli",
     "postbuild": "patch-package-json-exports",
     "prepare:compile": "cp-package-json",
     "build": "yarn nx build configuration",
