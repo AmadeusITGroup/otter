@@ -96,7 +96,7 @@
     "marked": "~17.0.0",
     "monaco-editor": "~0.55.0",
     "ngx-markdown": "~21.3.0",
-    "ngx-monaco-editor-v2": "^20.0.0",
+    "ngx-monaco-editor-v2": "^21.0.0",
     "ngx-monaco-tree": "~20.1.0",
     "pixelmatch": "^7.0.0",
     "pngjs": "^7.0.0",
