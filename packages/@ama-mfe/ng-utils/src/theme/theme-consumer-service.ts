@@ -17,9 +17,6 @@ import {
   DomSanitizer,
 } from '@angular/platform-browser';
 import {
-  LoggerService,
-} from '@o3r/logger';
-import {
   AbstractMessageConsumer,
 } from '../managers/index';
 import {
@@ -35,7 +32,6 @@ import {
 })
 export class ThemeConsumerService extends AbstractMessageConsumer<ThemeMessage> {
   private readonly domSanitizer = inject(DomSanitizer);
-  private readonly logger = inject(LoggerService);
   /**
    * The type of messages this service handles ('theme').
    */
@@ -65,5 +61,10 @@ export class ThemeConsumerService extends AbstractMessageConsumer<ThemeMessage> 
 
   constructor() {
     super();
+    /**
+     * Auto-starts the consumer on creation.
+     * @deprecated The constructor auto-starts the consumer for backwards compatibility. It will be removed in v15;
+     */
+    this.start();
   }
 }

@@ -6,6 +6,9 @@ import {
   inject,
 } from '@angular/core';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   ConsumerManagerService,
 } from './consumer-manager-service';
 import type {
@@ -25,6 +28,8 @@ export abstract class AbstractMessageConsumer<T extends VersionedMessage = Versi
   protected readonly consumerManagerService = inject(ConsumerManagerService);
   /** The reference used to handle the destruction of the consumer */
   protected readonly destroyRef = inject(DestroyRef);
+  /** Logger shared with subclasses. */
+  protected readonly logger = inject(LoggerService);
 
   private unregisterCallback?: (() => void);
 
@@ -33,16 +38,6 @@ export abstract class AbstractMessageConsumer<T extends VersionedMessage = Versi
 
   /** @inheritdoc */
   public abstract readonly supportedVersions: MessageConsumer<T>['supportedVersions'];
-
-  /**
-   * Creates an instance of AbstractMessageConsumer and optionally starts it.
-   * @param autoStart If true, the consumer will be started immediately after creation. Defaults to true.
-   */
-  constructor(autoStart = true) {
-    if (autoStart) {
-      this.start();
-    }
-  }
 
   /** @inheritdoc */
   public start(): void {
