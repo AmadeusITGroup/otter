@@ -25,6 +25,9 @@ import {
 import {
   registerDevtools,
 } from './helpers/devtools-registration';
+import {
+  removeTranslocoExternalDependency,
+} from './helpers/remove-transloco-external-dependency';
 import type {
   NgAddSchematicsSchema,
 } from './schema';
@@ -71,6 +74,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     updateI18n(options),
     options.skipLinter ? noop() : applyEsLintFix(),
     ngAddDependenciesRule(options, packageJsonPath, { dependenciesToInstall, devDependenciesToInstall }),
+    removeTranslocoExternalDependency,
     updateCmsAdapter(options),
     registerPackageCollectionSchematics(packageJson),
     setupSchematicsParamsForProject({ '@o3r/core:component*': { useLocalization: true } }, options.projectName),
