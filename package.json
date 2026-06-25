@@ -151,14 +151,7 @@
     "undici@^5.25.4": "^6.24.0",
     "undici@^5.28.5": "^6.24.0",
     "undici@7.24.4": "^7.28.0",
-    "undici@7.24.7": "^7.28.0",
-    "@angular-devkit/schematics": "21.2.13",
-    "@angular-devkit/schematics-cli": "21.2.13",
-    "@angular-devkit/core": "21.2.13",
-    "@angular-devkit/build-angular": "21.2.13",
-    "@schematics/angular": "21.2.13",
-    "@angular/build": "21.2.13",
-    "@angular/cli": "21.2.13"
+    "undici@7.24.7": "^7.28.0"
   },
   "dependencies": {
     "@actions/core": "^2.0.0",
