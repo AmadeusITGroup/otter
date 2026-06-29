@@ -67,11 +67,25 @@ describe('Update V14.4', () => {
       expect(app.test.options.externalDependencies).toBeUndefined();
     });
 
-    it('should add @o3r/transloco to karma test targets (webpack-based)', async () => {
+    it('should NOT add @o3r/transloco to the webpack-based karma builder (option unsupported by its schema)', async () => {
       initialTree.create('package.json', JSON.stringify({ name: 'test-project', version: '0.0.0' }));
       const parsed = JSON.parse(angularJsonMock);
       parsed.projects['test-app'].architect.karmaTest = {
         builder: '@angular-devkit/build-angular:karma',
+        options: {}
+      };
+      initialTree.overwrite('angular.json', JSON.stringify(parsed, null, 2));
+
+      const tree: UnitTestTree = await runner.runSchematic('migration-v14_4', {}, initialTree);
+      const result = JSON.parse(tree.readText('angular.json'));
+      expect(result.projects['test-app'].architect.karmaTest.options.externalDependencies).toBeUndefined();
+    });
+
+    it('should add @o3r/transloco to the esbuild-based @angular/build:karma builder', async () => {
+      initialTree.create('package.json', JSON.stringify({ name: 'test-project', version: '0.0.0' }));
+      const parsed = JSON.parse(angularJsonMock);
+      parsed.projects['test-app'].architect.karmaTest = {
+        builder: '@angular/build:karma',
         options: {}
       };
       initialTree.overwrite('angular.json', JSON.stringify(parsed, null, 2));
