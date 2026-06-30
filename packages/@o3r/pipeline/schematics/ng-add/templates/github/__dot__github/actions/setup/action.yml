@@ -16,7 +16,7 @@ runs:
       id: yarn-cache-dir-path
       run: echo "dir=$(<% if (yarn2) { %>yarn config get cacheFolder<% } else { %>yarn cache dir<% } %>)" >> $GITHUB_OUTPUT
     - name: Cache dependencies
-      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
       with:
         path: |
           ${{ steps.yarn-cache-dir-path.outputs.dir }}
