@@ -148,9 +148,11 @@ jobs:
           nxCmd: ${{ inputs.affected && 'nx affected' || 'nx run-many'}}
         run: yarn ${{ env.nxCmd }} --target=package-github-action
 
-  prompt-registry:
+  ai-validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - uses: ./tools/github-actions/setup
-      - uses: AmadeusITGroup/prompt-registry/github-actions/validate-collections@b794745619dad347662204639f1a96f64a99ac23 # v0.0.34
+      # TODO reactivate once https://github.com/AmadeusITGroup/ai-primitives-hub/issues/311 is resolved
+      # - uses: AmadeusITGroup/ai-primitives-hub/github-actions/validate-collections@b794745619dad347662204639f1a96f64a99ac23 # v0.0.34
+      - run: node tools/@o3r/workspace-helpers/scripts/check-plugin-marketplace-sync.mjs
