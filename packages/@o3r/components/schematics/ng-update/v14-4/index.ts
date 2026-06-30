@@ -15,13 +15,10 @@ const TRANSLOCO_PACKAGE = '@o3r/transloco';
 
 /** Angular builders that perform JavaScript bundling and support the externalDependencies option */
 const BUNDLING_BUILDERS = new Set([
-  '@angular-devkit/build-angular:browser',
   '@angular-devkit/build-angular:browser-esbuild',
-  '@angular/build:application',
   '@angular-devkit/build-angular:server',
-  '@angular-devkit/build-angular:app-shell',
-  '@angular-devkit/build-angular:prerender',
-  '@angular-devkit/build-angular:karma'
+  '@angular/build:application',
+  '@angular/build:karma'
 ]);
 
 /**
@@ -78,7 +75,8 @@ const addTranslocoExternalDependency: Rule = (tree, context) => {
           + '  const { IgnorePlugin } = require(\'webpack\');\n'
           + '  config.plugins.push(new IgnorePlugin({\n'
           + `    resourceRegExp: /^${TRANSLOCO_PACKAGE.replace('/', '\\/')}$/\n`
-          + '  }));'
+          + '  }));\n'
+          + `For testing only, if adjusting the webpack config is not possible, you can as a last resort install ${TRANSLOCO_PACKAGE} as a dev dependency so it is bundled normally during tests.`
         );
         continue;
       }
