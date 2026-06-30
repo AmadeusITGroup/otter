@@ -933,7 +933,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:~4.4.0"
     globals: "npm:^16.0.0"
     globby: "npm:~16.2.0"
-    js-yaml: "npm:^4.1.1"
+    js-yaml: "npm:^4.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.57.0"
     nx: "npm:~22.7.0"
@@ -1550,7 +1550,7 @@ __metadata:
     jest: "npm:~30.4.0"
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.4.0"
-    js-yaml: "npm:^4.1.1"
+    js-yaml: "npm:^4.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     mem-fs: "npm:^4.0.0"
     minimatch: "npm:~10.2.0"
@@ -1639,7 +1639,7 @@ __metadata:
     jest: "npm:~30.4.0"
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.4.0"
-    js-yaml: "npm:^4.1.1"
+    js-yaml: "npm:^4.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.5.0"
     openapi-types: "npm:^12.0.0"
@@ -10807,7 +10807,7 @@ __metadata:
     jest-environment-jsdom: "npm:~30.4.0"
     jest-preset-angular: "npm:~16.2.0"
     jest-util: "npm:~30.4.0"
-    js-yaml: "npm:^4.1.1"
+    js-yaml: "npm:^4.3.0"
     jsdom: "npm:~27.4.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.4.0"
@@ -11507,7 +11507,7 @@ __metadata:
     jest: "npm:~30.4.0"
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.4.0"
-    js-yaml: "npm:^4.1.1"
+    js-yaml: "npm:^4.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~22.7.0"
     rxjs: "npm:^7.8.1"
@@ -28418,6 +28418,17 @@ __metadata:
   bin:
     js-yaml: bin/js-yaml.js
   checksum: 10/51de2067a2b44b07ba5206132e56005f8b568ff279bb4d2f645068958c56fa4827d40a6841c983234671fa0a134bf094d0b0717873c2a3d319185297af145a6d
+  languageName: node
+  linkType: hard
+
+"js-yaml@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "js-yaml@npm:4.3.0"
+  dependencies:
+    argparse: "npm:^2.0.1"
+  bin:
+    js-yaml: bin/js-yaml.js
+  checksum: 10/2bcec3a8118d7f744badeb04e14366578d234a736f353d41fe35d2305e4ce2409a8e041d277f07cd6bbc8aaa12128d650a68ce43247072519bede20962d2126f
   languageName: node
   linkType: hard
 
