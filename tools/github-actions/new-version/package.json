@@ -35,7 +35,7 @@
     "@types/node": "~24.13.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.62.0",
-    "@vercel/ncc": "~0.38.0",
+    "@vercel/ncc": "~0.44.0",
     "angular-eslint": "~21.4.0",
     "eslint": "~9.39.0",
     "eslint-plugin-import": "~2.32.0",
