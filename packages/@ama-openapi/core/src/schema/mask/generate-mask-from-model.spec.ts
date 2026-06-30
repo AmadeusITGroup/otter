@@ -156,6 +156,67 @@ describe('generateMaskSchemaModelAt', () => {
     });
   });
 
+  it('should prepend filePath when modelPath starts with #/', async () => {
+    const ctxFilePath = '/root/schemas/root.json';
+    const modelPath = '#/definitions/User';
+    const description = 'User definition';
+
+    parseFileMock.mockResolvedValueOnce({
+      definitions: {
+        User: {
+          type: 'string',
+          description
+        }
+      }
+    });
+
+    const ctx = createBaseCtx({
+      filePath: ctxFilePath,
+      modelPaths: {}
+    });
+
+    const result = await generateMaskSchemaModelAt(modelPath, ctx);
+
+    expect(parseFileMock).toHaveBeenCalledWith('/root/schemas/root.json');
+    expect(result).toEqual({
+      description,
+      oneOf: [
+        { $ref: FIELD_SCHEMA_REF },
+        { type: 'string' }
+      ]
+    });
+  });
+
+  it('should prepend filePath and build mask $ref when modelPath starts with #/ and modelPaths has entry', async () => {
+    const ctxFilePath = '/root/schemas/root.json';
+    const modelPath = '#/definitions/User';
+    const description = 'Root schema';
+
+    parseFileMock.mockResolvedValueOnce({ description });
+
+    const ctx = createBaseCtx({
+      filePath: ctxFilePath,
+      packageName: 'my-pkg',
+      modelPaths: {
+        [ctxFilePath]: 'models/root.ts'
+      }
+    });
+
+    generateModelNameRefMock.mockReturnValue('MyPkgRoot');
+    getMaskFileNameMock.mockReturnValue('my-pkg-root.mask.json');
+
+    const result = await generateMaskSchemaModelAt(modelPath, ctx);
+
+    expect(parseFileMock).toHaveBeenCalledWith('/root/schemas/root.json');
+    expect(result).toEqual({
+      description,
+      oneOf: [
+        { $ref: FIELD_SCHEMA_REF },
+        { $ref: './my-pkg-root.mask.json#/definitions/properties/User' }
+      ]
+    });
+  });
+
   it('should drill down into model using innerPath when no modelPaths entry is present', async () => {
     const filePath = '/root/schemas/user.json';
     const modelPath = `${filePath}#/components/schemas/User`;
