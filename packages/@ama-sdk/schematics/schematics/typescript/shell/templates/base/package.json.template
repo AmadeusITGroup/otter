@@ -76,6 +76,7 @@
     "@ama-sdk/schematics": "<%= sdkCoreRange %>",
     "@ama-sdk/client-fetch": "<%= sdkCoreRange %>",
     "@ama-sdk/core": "<%= sdkCoreRange %>",
+    "@eslint/compat": "<%= versions['@eslint/compat'] %>",
     "@o3r/eslint-config": "<%= sdkCoreRange %>",
     "@o3r/eslint-plugin": "<%= sdkCoreRange %>",
     "@o3r/schematics": "<%= sdkCoreRange %>",

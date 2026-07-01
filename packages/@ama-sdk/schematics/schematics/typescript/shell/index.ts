@@ -53,6 +53,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       tslib: amaSdkSchematicsPackageJson.dependencies!.tslib,
       '@commitlint/cli': amaSdkSchematicsPackageJson.generatorDependencies['@commitlint/cli'],
       '@commitlint/config-conventional': amaSdkSchematicsPackageJson.generatorDependencies['@commitlint/config-conventional'],
+      '@eslint/compat': amaSdkSchematicsPackageJson.generatorDependencies['@eslint/compat'],
       '@swc/helpers': amaSdkSchematicsPackageJson.generatorDependencies['@swc/helpers'],
       '@swc/cli': amaSdkSchematicsPackageJson.generatorDependencies['@swc/cli'],
       '@swc/core': amaSdkSchematicsPackageJson.generatorDependencies['@swc/core'],
