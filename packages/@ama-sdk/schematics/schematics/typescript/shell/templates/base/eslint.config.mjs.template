@@ -1,4 +1,5 @@
 import o3rConfig from '@o3r/eslint-config';
+import { ignoreFilesWithGitAttribute } from '@o3r/eslint-config/helpers';
 import globals from 'globals';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -48,14 +49,10 @@ export default [
       }
     }
   },
+  ignoreFilesWithGitAttribute(fileURLToPath(new URL('.gitattributes', import.meta.url)), 'linguist-generated'),
   {
     name: '<%= projectPackageName %>/ignores',
     ignores: [
-      '/src/api',
-      '/src/constants',
-      '/src/models/base',
-      '/src/spec/api-mocks.ts',
-      '/src/spec/operation-adapter.ts',
       '/dist',
       '/build',
       '/scripts',
@@ -63,7 +60,7 @@ export default [
     ]
   },
   {
-    name: '@o3r-training/showcase-sdk/typescript-files',
+    name: '<%= projectPackageName %>/typescript-files',
     files: ['**/*.ts'],
     rules: {
       '@typescript-eslint/no-unused-vars': 'off',
