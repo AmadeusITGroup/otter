@@ -16,7 +16,7 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  MarkdownModule,
+  MarkdownComponent,
 } from 'ngx-markdown';
 import {
   DesignTokenPres,
@@ -34,7 +34,7 @@ import {
     DesignTokenPres,
     RouterLink,
     IN_PAGE_NAV_PRES_DIRECTIVES,
-    MarkdownModule
+    MarkdownComponent
   ],
   templateUrl: './design-token.html',
   styleUrl: './design-token.scss',

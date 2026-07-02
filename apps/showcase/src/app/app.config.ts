@@ -3,7 +3,7 @@ import {
 } from '@ama-sdk/client-fetch';
 import {
   OTTER_STYLING_DEVTOOLS_OPTIONS,
-  StylingDevtoolsModule,
+  provideStylingDevtools,
 } from '@ama-styling/devkit';
 import {
   registerLocaleData,
@@ -11,47 +11,47 @@ import {
 import localeEN from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
 import {
+  ApplicationConfig,
   isDevMode,
-  NgModule,
   provideZonelessChangeDetection,
   SecurityContext,
 } from '@angular/core';
 import {
-  BrowserModule,
-} from '@angular/platform-browser';
-import {
-  BrowserAnimationsModule,
+  provideAnimations,
+  provideNoopAnimations,
 } from '@angular/platform-browser/animations';
+import {
+  provideRouter,
+  withHashLocation,
+  withInMemoryScrolling,
+} from '@angular/router';
 import {
   provideTranslocoMessageformat,
 } from '@jsverse/transloco-messageformat';
 import {
-  NgbOffcanvasModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  EffectsModule,
+  provideEffects,
 } from '@ngrx/effects';
 import {
+  provideStore,
   RuntimeChecks,
-  StoreModule,
 } from '@ngrx/store';
 import {
-  StoreDevtoolsModule,
+  provideStoreDevtools,
 } from '@ngrx/store-devtools';
 import {
-  ApplicationDevtoolsModule,
   OTTER_APPLICATION_DEVTOOLS_OPTIONS,
   prefersReducedMotion,
+  provideApplicationDevtools,
 } from '@o3r/application';
 import {
-  ComponentsDevtoolsModule,
   OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
+  provideComponentsDevtools,
   provideCustomComponents,
   withComponent,
 } from '@o3r/components';
 import {
-  ConfigurationDevtoolsModule,
   OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
+  provideConfigurationDevtools,
 } from '@o3r/configuration';
 import {
   provideDynamicContent,
@@ -64,17 +64,16 @@ import {
 } from '@o3r/logger';
 import {
   OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
-  RulesEngineRunnerModule,
+  provideRulesEngineRunner,
 } from '@o3r/rules-engine';
 import {
   LocalizationConfiguration,
-  LocalizationOverrideStoreModule,
   OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
   provideLocalization,
   provideLocalizationDevtools,
 } from '@o3r/transloco';
 import {
-  LocalizationRulesEngineActionModule,
+  provideLocalizationRulesEngineAction,
 } from '@o3r/transloco/rules-engine';
 import {
   PetApi,
@@ -86,24 +85,19 @@ import {
   SANITIZE,
 } from 'ngx-markdown';
 import {
-  MonacoEditorModule,
   NGX_MONACO_EDITOR_CONFIG,
+  provideMonacoEditor,
 } from 'ngx-monaco-editor-v2';
 import {
   ClipboardButtonPres,
   DatePickerHebrewInputPres,
-  ScrollBackTopPres,
-  SidenavPres,
 } from '../components/utilities';
 import {
   markedAlert,
 } from '../helpers/marked-alert-extension';
 import {
-  App,
-} from './app';
-import {
-  AppRoutingModule,
-} from './app-routing-module';
+  appRoutes,
+} from './app.routes';
 
 const runtimeChecks = {
   strictActionImmutability: false,
@@ -146,31 +140,25 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
   };
 }
 
-@NgModule({
-  declarations: [
-    App
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule.withConfig({ disableAnimations: prefersReducedMotion() }),
-    EffectsModule.forRoot([]),
-    StoreModule.forRoot({}, { runtimeChecks }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    LocalizationOverrideStoreModule,
-    LocalizationRulesEngineActionModule,
-    RulesEngineRunnerModule.forRoot({ debug: true }),
-    AppRoutingModule,
-    SidenavPres,
-    NgbOffcanvasModule,
-    ScrollBackTopPres,
-    ApplicationDevtoolsModule,
-    ComponentsDevtoolsModule,
-    StylingDevtoolsModule,
-    ConfigurationDevtoolsModule,
-    MonacoEditorModule.forRoot()
-  ],
+export const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection(),
+    ...(prefersReducedMotion() ? [provideNoopAnimations()] : [provideAnimations()]),
+    provideRouter(
+      appRoutes,
+      withHashLocation(),
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+    ),
+    provideStore({}, { runtimeChecks }),
+    provideEffects(),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideRulesEngineRunner({ debug: true }),
+    provideLocalizationRulesEngineAction(),
+    provideApplicationDevtools(),
+    provideComponentsDevtools(),
+    provideConfigurationDevtools(),
+    provideStylingDevtools(),
+    provideMonacoEditor(),
     provideCustomComponents(new Map(), withComponent('exampleDatePickerFlavorHebrew', DatePickerHebrewInputPres)),
     provideDynamicContent(),
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
@@ -202,7 +190,5 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     provideLocalization(localizationConfigurationFactory),
     provideLocalizationDevtools(),
     provideTranslocoMessageformat()
-  ],
-  bootstrap: [App]
-})
-export class AppModule {}
+  ]
+};

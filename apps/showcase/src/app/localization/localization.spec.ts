@@ -6,7 +6,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  RouterModule,
+  provideRouter,
 } from '@angular/router';
 import {
   NgbScrollSpyService,
@@ -40,11 +40,11 @@ describe('Localization', () => {
     };
     TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot([]),
         Localization,
         AsyncPipe
       ],
       providers: [
+        provideRouter([]),
         LocalizationService,
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
         provideMarkdown(),

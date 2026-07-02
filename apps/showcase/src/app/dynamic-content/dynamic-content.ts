@@ -10,13 +10,14 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule,
+  RouterLink,
 } from '@angular/router';
 import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  MarkdownModule,
+  LanguagePipe,
+  MarkdownComponent,
 } from 'ngx-markdown';
 import {
   DynamicContentPres,
@@ -32,11 +33,12 @@ import {
 @Component({
   selector: 'o3r-dynamic-content',
   imports: [
-    RouterModule,
+    RouterLink,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     DynamicContentPres,
     AsyncPipe,
-    MarkdownModule
+    LanguagePipe,
+    MarkdownComponent
   ],
   templateUrl: './dynamic-content.html',
   styleUrls: ['./dynamic-content.scss'],

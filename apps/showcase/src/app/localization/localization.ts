@@ -10,13 +10,13 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule,
+  RouterLink,
 } from '@angular/router';
 import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  MarkdownModule,
+  MarkdownComponent,
 } from 'ngx-markdown';
 import {
   IN_PAGE_NAV_PRES_DIRECTIVES,
@@ -30,11 +30,11 @@ import {
 @Component({
   selector: 'o3r-localization',
   imports: [
-    RouterModule,
+    RouterLink,
     LocalizationPres,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     AsyncPipe,
-    MarkdownModule
+    MarkdownComponent
   ],
   templateUrl: './localization.html',
   styleUrls: ['./localization.scss'],

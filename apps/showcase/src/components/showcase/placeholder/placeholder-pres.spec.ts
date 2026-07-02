@@ -3,13 +3,16 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  EffectsModule,
+  provideEffects,
 } from '@ngrx/effects';
 import {
-  StoreModule,
+  provideStore,
 } from '@ngrx/store';
 import {
-  RulesEngineRunnerModule,
+  providePlaceholder,
+} from '@o3r/components';
+import {
+  provideRulesEngineRunner,
 } from '@o3r/rules-engine';
 import {
   PlaceholderPres,
@@ -21,10 +24,13 @@ describe('PlaceholderPres', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        PlaceholderPres,
-        StoreModule.forRoot(),
-        EffectsModule.forRoot(),
-        RulesEngineRunnerModule.forRoot()
+        PlaceholderPres
+      ],
+      providers: [
+        provideStore(),
+        provideEffects(),
+        provideRulesEngineRunner(),
+        providePlaceholder()
       ]
     });
     fixture = TestBed.createComponent(PlaceholderPres);
