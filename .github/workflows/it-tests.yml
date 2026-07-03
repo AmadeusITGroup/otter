@@ -76,7 +76,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        # windows-2025 (Server 2025) is required for Dev Drive + automatic CopyFileW block cloning used by the copy-on-write clone.
+        os: [ubuntu-latest, windows-2025]
         packageManager: [yarn, npm]
         testEnvironment: [o3r-project-with-app]
     name: it-tests (${{ matrix.os }}, ${{ matrix.packageManager }}, ${{ matrix.testEnvironment }})
@@ -85,6 +86,43 @@ jobs:
       ENFORCED_PACKAGE_MANAGER: ${{ matrix.packageManager }}
       PREPARE_TEST_ENV_TYPE: ${{ matrix.testEnvironment }}
     steps:
+      # Provision a ReFS Dev Drive on Windows so the generated test apps can be cloned copy-on-write (block cloning)
+      # instead of being reinstalled for every test case. The `it-tests` folder is relocated onto this drive (via
+      # O3R_IT_TESTS_FOLDER below) so that the base app and its per-test clones share a single volume, which block cloning requires.
+      - name: Setup ReFS Dev Drive (Windows)
+        id: dev-drive
+        if: runner.os == 'Windows'
+        # Never fail the job on provisioning issues: if the Dev Drive cannot be created, the tests fall back to the default
+        # folder and the previous copy + reinstall behaviour (see the guard on O3R_IT_TESTS_COW_CLONE below).
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $drive = New-VHD -Path "C:\dev_drive.vhdx" -SizeBytes 20GB -Dynamic |
+            Mount-VHD -Passthru |
+            Initialize-Disk -Passthru |
+            New-Partition -AssignDriveLetter -UseMaximumSize |
+            Format-Volume -DevDrive -Confirm:$false -Force
+          $letter = "$($drive.DriveLetter):"
+          Write-Output "Provisioned Dev Drive at $letter"
+          "path=$letter" >> $env:GITHUB_OUTPUT
+      # Provision a btrfs loopback volume on Linux for the same reason: ubuntu-latest uses ext4, which does not support
+      # reflinks, so `cp --reflink` would silently fall back to a full copy. A btrfs volume enables real copy-on-write clones.
+      - name: Setup btrfs copy-on-write volume (Linux)
+        id: cow-volume
+        if: runner.os == 'Linux'
+        # Never fail the job on provisioning issues: fall back to the default folder + copy/reinstall behaviour instead.
+        continue-on-error: true
+        shell: bash
+        run: |
+          sudo apt-get update && sudo apt-get install -y btrfs-progs
+          mountPoint="$RUNNER_TEMP/cow-volume"
+          truncate -s 20G "$RUNNER_TEMP/cow.img"
+          mkfs.btrfs "$RUNNER_TEMP/cow.img"
+          mkdir -p "$mountPoint"
+          sudo mount -o loop,user_subvol_rm_allowed "$RUNNER_TEMP/cow.img" "$mountPoint"
+          sudo chown -R "$(id -u):$(id -g)" "$mountPoint"
+          echo "Provisioned btrfs copy-on-write volume at $mountPoint"
+          echo "path=$mountPoint" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: ${{ inputs.ref }}
@@ -121,17 +159,36 @@ jobs:
       - name: Test
         id: it-tests
         run: yarn test-int
+        env:
+          # Run the generated apps from the copy-on-write volume (ReFS Dev Drive on Windows, btrfs on Linux) and clone
+          # them copy-on-write for each test instead of reinstalling the dependencies every time.
+          # If provisioning failed (empty output), both vars stay empty and the previous copy + reinstall behaviour is used.
+          O3R_IT_TESTS_FOLDER: ${{ steps.dev-drive.outputs.path && format('{0}\it-tests', steps.dev-drive.outputs.path) || (steps.cow-volume.outputs.path && format('{0}/it-tests', steps.cow-volume.outputs.path)) || '' }}
+          O3R_IT_TESTS_COW_CLONE: ${{ (steps.dev-drive.outputs.path || steps.cow-volume.outputs.path) && 'true' || '' }}
       - name: Zip generated app on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
             mkdir -p ./otter
             cp -R ./.cache ./otter/.cache
-            zip -r it-tests.zip ../it-tests ./otter/.cache -x "./otter/.cache/nx/*" -x "../it-tests/*/node_modules/*"
+            # The generated apps live on the btrfs copy-on-write volume when it was provisioned, otherwise in the default folder.
+            itTests="${COW_VOLUME_PATH:+$COW_VOLUME_PATH/it-tests}"
+            itTests="${itTests:-../it-tests}"
+            zip -r it-tests.zip "$itTests" ./otter/.cache -x "./otter/.cache/nx/*" -x "*/node_modules/*"
           elif [ "$RUNNER_OS" == "Windows" ]; then
-            tar -acf it-tests.zip -C ../ --exclude="it-tests/*/node_modules/*" it-tests
+            if [ -n "$DEV_DRIVE_PATH" ]; then
+              # The generated apps live on the Dev Drive, so zip them from there.
+              devDrive="${DEV_DRIVE_PATH%:}"
+              tar -acf it-tests.zip -C "/${devDrive,,}/" --exclude="it-tests/*/node_modules/*" it-tests
+            else
+              # Dev Drive provisioning failed: the apps are in the default folder.
+              tar -acf it-tests.zip -C ../ --exclude="it-tests/*/node_modules/*" it-tests
+            fi
           fi
         shell: bash
+        env:
+          DEV_DRIVE_PATH: ${{ steps.dev-drive.outputs.path }}
+          COW_VOLUME_PATH: ${{ steps.cow-volume.outputs.path }}
       - name: Publish generated tests environment on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

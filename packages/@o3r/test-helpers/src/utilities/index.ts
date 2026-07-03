@@ -1,5 +1,6 @@
 export * from './add-package';
 export * from './angular';
+export * from './clone-app';
 export * from './create-with-lock';
 export * from './exec';
 export * from './git';

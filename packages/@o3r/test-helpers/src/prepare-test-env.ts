@@ -2,7 +2,6 @@ import type {
   ExecSyncOptions,
 } from 'node:child_process';
 import {
-  cpSync,
   existsSync,
   mkdirSync,
   readFileSync,
@@ -19,9 +18,12 @@ import {
   createTestEnvironmentOtterProjectWithAppAndLib,
 } from './test-environments/create-test-environment-otter-project';
 import {
+  copyAppSources,
+  copyOnWriteClone,
   createWithLock,
   getLatestPackageVersion,
   getPackageManager,
+  isCopyOnWriteCloneEnabled,
   type Logger,
   packageManagerInstallWithFrozenLock,
   setPackagerManagerConfig,
@@ -62,7 +64,11 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const logger = options?.logger || console;
   const yarnVersionParam = options?.yarnVersion;
   const rootFolderPath = process.cwd();
-  const itTestsFolderPath = path.resolve(rootFolderPath, '..', 'it-tests');
+  // The it-tests folder can be relocated (e.g. onto a copy-on-write Dev Drive in CI) through O3R_IT_TESTS_FOLDER.
+  // Both the base app and the per-test clones live under it, so keeping them on a single volume is what enables block cloning.
+  const itTestsFolderPath = process.env.O3R_IT_TESTS_FOLDER
+    ? path.resolve(process.env.O3R_IT_TESTS_FOLDER)
+    : path.resolve(rootFolderPath, '..', 'it-tests');
   const workspacePath = path.resolve(itTestsFolderPath, folderName);
   const globalFolderPath = path.resolve(rootFolderPath, '.cache', 'test-app');
   const o3rVersion = '~999';
@@ -103,15 +109,15 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   }
 
   const prepareFinalApp = (baseApp: string) => {
-    logger.debug?.(`Copying ${baseApp} to ${workspacePath}`);
     const baseProjectPath = path.join(itTestsFolderPath, baseApp);
-    cpSync(baseProjectPath, workspacePath, {
-      recursive: true,
-      dereference: true,
-      filter: (source) =>
-        !/(?:^|[/\\])node_modules(?:[/\\]|$)/.test(source)
-        && !/(?:^|[/\\])\.git(?:[/\\]|$)/.test(source)
-    });
+    if (isCopyOnWriteCloneEnabled()) {
+      // Clone the fully installed base app (including node_modules) using a copy-on-write copy, so no reinstall is needed.
+      logger.debug?.(`Copy-on-write cloning ${baseApp} to ${workspacePath}`);
+      copyOnWriteClone(baseProjectPath, workspacePath);
+      return;
+    }
+    logger.debug?.(`Copying ${baseApp} to ${workspacePath}`);
+    copyAppSources(baseProjectPath, workspacePath);
     if (existsSync(path.join(workspacePath, 'package.json'))) {
       packageManagerInstallWithFrozenLock(execAppOptions);
     }
