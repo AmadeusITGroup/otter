@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   AfterViewChecked,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -55,10 +59,13 @@ import {
   styleUrl: './placeholder.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  imports: [
+    AsyncPipe,
+    NgTemplateOutlet
+  ],
   host: {
     '[class.debug]': `mode() === 'debug'`
-  },
-  standalone: false
+  }
 })
 export class PlaceholderComponent implements OnInit, OnDestroy, AfterViewChecked {
   private readonly store = inject<Store<PlaceholderTemplateStore>>(Store);
