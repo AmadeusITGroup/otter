@@ -29,11 +29,11 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
 @Component({
   imports: [ScalableDirective],
   standalone: true,
-  template: `<div [connect]="connect" [scalable]="scalableValue"></div>`
+  template: `<div [connect]="connect()" [scalable]="scalableValue()"></div>`
 })
 class TestComponent {
-  public connect = 'testConnectId';
-  public scalableValue: string | undefined = 'testScalableId';
+  public connect = signal('testConnectId');
+  public scalableValue = signal<string | undefined>('testScalableId');
 }
 
 describe('ScalableDirective', () => {
@@ -79,9 +79,9 @@ describe('ScalableDirective', () => {
     const channelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set({ height: 300, channelId });
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
-    parentComponentFixture.componentInstance.scalableValue = channelId;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentFixture.componentInstance.scalableValue.set(channelId);
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
     expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'min-height', '300px');
     rendererSpy.mockClear();
   });
@@ -90,10 +90,10 @@ describe('ScalableDirective', () => {
     const channelId = 'connect-channel-id';
     newHeightFromChannelSignal.set({ height: 400, channelId });
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
-    parentComponentFixture.componentInstance.scalableValue = undefined;
-    parentComponentFixture.componentInstance.connect = channelId;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentFixture.componentInstance.scalableValue.set(undefined);
+    parentComponentFixture.componentInstance.connect.set(channelId);
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
     expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'min-height', '400px');
     rendererSpy.mockClear();
   });
@@ -103,10 +103,10 @@ describe('ScalableDirective', () => {
     const scalableChannelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set({ height: 400, channelId: scalableChannelId });
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
-    parentComponentFixture.componentInstance.scalableValue = scalableChannelId;
-    parentComponentFixture.componentInstance.connect = connectChannelId;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentFixture.componentInstance.scalableValue.set(scalableChannelId);
+    parentComponentFixture.componentInstance.connect.set(connectChannelId);
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
     expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'min-height', '400px');
     rendererSpy.mockClear();
   });
@@ -116,9 +116,8 @@ describe('ScalableDirective', () => {
     const scalableChannelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set({ height: 400, channelId: scalableChannelId });
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
-    parentComponentFixture.componentInstance.scalableValue = 'not-matching-channel-id';
-    parentComponentFixture.componentInstance.connect = connectChannelId;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentFixture.componentInstance.scalableValue.set('not-matching-channel-id');
+    parentComponentFixture.componentInstance.connect.set(connectChannelId);
     parentComponentFixture.detectChanges();
     // Note: The directive may still apply height from availableHeight (viewport),
     // so we check that the specific channel-based height was NOT applied
@@ -130,8 +129,7 @@ describe('ScalableDirective', () => {
     const channelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set(undefined);
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
-    parentComponentFixture.componentInstance.scalableValue = channelId;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentFixture.componentInstance.scalableValue.set(channelId);
     parentComponentFixture.detectChanges();
     expect(rendererSpy).not.toHaveBeenCalled();
     rendererSpy.mockClear();
@@ -142,8 +140,7 @@ describe('ScalableDirective', () => {
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
 
     newHeightFromChannelSignal.set({ channelId, height: undefined });
-    parentComponentFixture.componentInstance.scalableValue = channelId;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentFixture.componentInstance.scalableValue.set(channelId);
     parentComponentFixture.detectChanges();
 
     // Check that height undefined was not applied as a specific value
@@ -156,8 +153,7 @@ describe('ScalableDirective', () => {
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
 
     newHeightFromChannelSignal.set({ channelId, height: 0 });
-    parentComponentFixture.componentInstance.scalableValue = channelId;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentFixture.componentInstance.scalableValue.set(channelId);
     parentComponentFixture.detectChanges();
 
     // Check that 0px height was not applied
@@ -170,10 +166,10 @@ describe('ScalableDirective', () => {
     const scalableChannelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set({ height: 1000, channelId: scalableChannelId });
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
-    parentComponentFixture.componentInstance.scalableValue = scalableChannelId;
-    parentComponentFixture.componentInstance.connect = connectChannelId;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentFixture.componentInstance.scalableValue.set(scalableChannelId);
+    parentComponentFixture.componentInstance.connect.set(connectChannelId);
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
 
     expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'min-height', '1000px');
 
@@ -192,10 +188,10 @@ describe('ScalableDirective', () => {
     const scalableChannelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set({ height: 1000, channelId: scalableChannelId });
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
-    parentComponentFixture.componentInstance.scalableValue = scalableChannelId;
-    parentComponentFixture.componentInstance.connect = connectChannelId;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentFixture.componentInstance.scalableValue.set(scalableChannelId);
+    parentComponentFixture.componentInstance.connect.set(connectChannelId);
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
     expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'min-height', '1000px');
 
     // Update signal to different height
@@ -239,7 +235,7 @@ describe('ScalableDirective - Window Resize Handling', () => {
     });
 
     parentComponentFixture = TestBed.createComponent(TestComponent);
-    parentComponentFixture.componentInstance.scalableValue = channelId;
+    parentComponentFixture.componentInstance.scalableValue.set(channelId);
     directiveEl = parentComponentFixture.debugElement.query(By.directive(ScalableDirective));
     renderer = directiveEl.injector.get(Renderer2);
     rendererSpy = jest.spyOn(renderer, 'setStyle');
@@ -295,7 +291,7 @@ describe('ScalableDirective - Mixed Height Sources', () => {
     });
 
     parentComponentFixture = TestBed.createComponent(TestComponent);
-    parentComponentFixture.componentInstance.scalableValue = channelId;
+    parentComponentFixture.componentInstance.scalableValue.set(channelId);
     directiveEl = parentComponentFixture.debugElement.query(By.directive(ScalableDirective));
     renderer = directiveEl.injector.get(Renderer2);
     rendererSpy = jest.spyOn(renderer, 'setStyle');
@@ -324,6 +320,7 @@ describe('ScalableDirective - Mixed Height Sources', () => {
     newHeightFromChannelSignal.set({ height: 900, channelId });
     parentComponentFixture.changeDetectorRef.markForCheck();
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
 
     // Channel height should be applied
     expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'min-height', '900px');
@@ -346,12 +343,12 @@ describe('ScalableDirective - Mixed Height Sources', () => {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="scrollable-parent" style="overflow: auto; height: 500px;">
-      <div [scalable]="scalableValue"></div>
+      <div [scalable]="scalableValue()"></div>
     </div>
   `
 })
 class TestComponentWithScrollableParent {
-  public scalableValue: string | undefined = 'testScalableId';
+  public scalableValue = signal<string | undefined>('testScalableId');
 }
 
 describe('ScalableDirective with Scrollable Parent', () => {

@@ -46,12 +46,15 @@ export class StylingDevtoolsModule {
 }
 
 /**
- * Provide styling devtools functionality.
+ * Provide styling devtools functionality for the application.
  * @param options Optional partial styling devtools configuration to override defaults.
  */
 export function provideStylingDevtools(options?: Partial<StylingDevtoolsServiceOptions>): EnvironmentProviders {
   return makeEnvironmentProviders([
-    { provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: { ...OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS, ...options } },
+    {
+      provide: OTTER_STYLING_DEVTOOLS_OPTIONS,
+      useValue: { ...OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS, ...options }
+    },
     StylingDevtoolsMessageService,
     OtterStylingDevtools
   ]);
