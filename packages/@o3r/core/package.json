@@ -10,10 +10,6 @@
     "otter"
   ],
   "exports": {
-    ".": {
-      "types": "./dist/src/public_api.d.ts",
-      "default": "./dist/src/public_api.js"
-    },
     "./package.json": {
       "default": "./package.json"
     },
@@ -30,8 +26,6 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "postbuild": "patch-package-json-main"
   },
-  "main": "./src/public_api.js",
-  "types": "./src/public_api.d.ts",
   "peerDependencies": {
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0",
     "@angular-devkit/core": "^21.0.0",
