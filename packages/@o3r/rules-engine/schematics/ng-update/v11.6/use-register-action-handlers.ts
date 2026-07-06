@@ -11,8 +11,11 @@ import {
  * @param tree
  */
 export const useRegisterActionHandlers: Rule = (tree: Tree) => {
-  const files = findFilesInTree(tree.root, (file) => /\.actionHandlers\.(add|delete)/.test(tree.readText(file)));
+  const files = findFilesInTree(tree.root, (file) => file.endsWith('.ts'));
   files.forEach(({ content, path }) => {
+    if (!/\.actionHandlers\.(add|delete)/.test(content.toString())) {
+      return;
+    }
     tree.overwrite(
       path,
       content
