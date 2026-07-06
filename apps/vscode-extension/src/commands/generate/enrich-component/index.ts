@@ -7,4 +7,3 @@ export { generateAddIframeToComponentCommand } from './iframe-to-component-comma
 export { generateAddLocalizationKeyToComponentCommand } from './localization-key-to-component-commands';
 export { generateAddLocalizationToComponentCommand } from './localization-to-component-commands';
 export { generateAddRulesEngineToComponentCommand } from './rules-engine-to-component-commands';
-export { generateAddThemingToComponentCommand } from './theming-to-component-commands';
