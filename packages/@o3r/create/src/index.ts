@@ -15,7 +15,7 @@ import {
 import type {
   CliWrapper,
 } from '@o3r/telemetry';
-import * as minimist from 'minimist';
+import minimist from 'minimist';
 import {
   quote,
 } from 'shell-quote';
@@ -149,7 +149,7 @@ const exitProcessIfErrorInSpawnSync = (exitCode: number, { error, status }: Retu
 
 const schematicsCliOptions: any[][] = Object.entries(argv)
   .filter(([key]) => key !== '_' && !optionsList.includes(key))
-  .map(([key, value]) => value === true ? [key] : (value === false && key.length > 1 ? [`no-${key}`] : [key, value]))
+  .map(([key, value]) => value === true ? [key] : (value === false && key.length > 1 ? [`no-${key}`] : [key, value] as [string, unknown]))
   .map(([key, value]) => {
     const optionKey = key.length > 1 ? `--${key}` : `-${key}`;
     return typeof value === 'undefined' ? [optionKey] : [optionKey, value];

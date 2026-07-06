@@ -33,7 +33,7 @@
     "minimist": "^1.2.6"
   },
   "peerDependencies": {
-    "typescript": "^5.9.0"
+    "typescript": "~6.0.3"
   },
   "devDependencies": {
     "@angular/cli": "~21.2.0",
@@ -57,7 +57,7 @@
     "globals": "^16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~22.7.0",
-    "typescript": "~5.9.2",
+    "typescript": "~6.0.3",
     "typescript-eslint": "~8.62.0"
   }
 }

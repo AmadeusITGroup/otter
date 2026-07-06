@@ -5,12 +5,12 @@
  */
 import {
   existsSync,
-  readFileSync,
   readdirSync,
+  readFileSync,
 } from 'node:fs';
 import {
-  resolve,
   join,
+  resolve,
 } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..', '..', '..', '..');

@@ -29,7 +29,7 @@
     "semver": "^7.5.2"
   },
   "peerDependencies": {
-    "typescript": "^5.9.0"
+    "typescript": "~6.0.3"
   },
   "devDependencies": {
     "@nx/eslint-plugin": "~22.7.0",
@@ -52,6 +52,6 @@
     "globals": "^16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~22.7.0",
-    "typescript": "~5.9.2"
+    "typescript": "~6.0.3"
   }
 }

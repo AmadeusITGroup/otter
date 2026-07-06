@@ -14,7 +14,7 @@ import type {
   CliWrapper,
 } from '@o3r/telemetry';
 import * as globby from 'globby';
-import * as minimist from 'minimist';
+import minimist from 'minimist';
 import type {
   PackageJson,
 } from 'type-fest';

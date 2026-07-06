@@ -70,7 +70,7 @@
     "@openapitools/openapi-generator-cli": "^2.15.0",
     "openapi-types": "^12.0.0",
     "type-fest": "^5.3.1",
-    "typescript": "^5.9.0"
+    "typescript": "~6.0.3"
   },
   "dependencies": {
     "@ama-sdk/openapi-codegen-typescript": "workspace:~",
@@ -134,14 +134,14 @@
     "semver": "^7.5.2",
     "ts-jest": "~29.4.0",
     "type-fest": "^5.3.1",
-    "typescript": "~5.9.2",
+    "typescript": "~6.0.3",
     "typescript-eslint": "~8.62.0"
   },
   "generatorDependencies": {
     "@angular-eslint/eslint-plugin": "~21.1.0",
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
-    "@eslint/compat": "~2.0.4",
+    "@eslint/compat": "~2.1.0",
     "@swc/cli": "~0.8.0",
     "@swc/core": "~1.15.17",
     "@swc/helpers": "~0.5.17",

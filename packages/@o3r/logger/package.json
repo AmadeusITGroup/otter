@@ -127,7 +127,7 @@
     "smartlook-client": "^10.0.0",
     "ts-jest": "~29.4.0",
     "type-fest": "^5.3.1",
-    "typescript": "~5.9.2",
+    "typescript": "~6.0.3",
     "typescript-eslint": "~8.62.0"
   },
   "engines": {

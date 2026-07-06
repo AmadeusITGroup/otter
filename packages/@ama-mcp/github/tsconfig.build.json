@@ -4,7 +4,7 @@
     "outDir": "./dist",
     "rootDir": ".",
     "module": "commonjs",
-    "moduleResolution": "node10",
+    "moduleResolution": "bundler",
     "types": ["node"],
     "lib": ["ES2024"],
     "tsBuildInfoFile": "build/.tsbuildinfo",
