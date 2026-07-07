@@ -1,1 +1,1 @@
-export * from './reviver.reply';
+export * from './reviver-reply';

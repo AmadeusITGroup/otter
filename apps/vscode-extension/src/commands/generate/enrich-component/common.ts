@@ -40,7 +40,7 @@ export const findPathAndExecuteSchematic = (schematicName: string, getExtraOptio
           vscode.window.activeTextEditor.document.fileName
         )
         : await vscode.window.showInputBox({
-          placeHolder: '/src/component/my-component/my-component.component.ts',
+          placeHolder: '/src/component/my-component/my-component.ts',
           validateInput: (value) => {
             return value
               ? null

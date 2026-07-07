@@ -1,1 +1,1 @@
-export * from './sdk.component';
+export * from './sdk';

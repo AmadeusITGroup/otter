@@ -33,7 +33,7 @@ export function updateProjectTsConfig(targetPath: string, tsconfigName: string, 
 
     if (updateInputFiles) {
       tsconfig.config = Object.fromEntries(Object.entries(tsconfig.config).filter(([propName, _]) => propName !== 'files'));
-      tsconfig.config.exclude = ['**/*.spec.ts', '**/fixture/', '**/*.fixture.ts', '**/fixtures.ts'];
+      tsconfig.config.exclude = ['**/*.spec.ts', '**/fixture/', '**/*.fixture.ts', '**/*-fixture.ts', '**/fixtures.ts'];
       tsconfig.config.include = ['./src/**/*.ts'];
     }
     const baseTsConfig = findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], targetPath);

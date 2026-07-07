@@ -247,6 +247,13 @@ To achieve this, simply configure the following builder in your `angular.json` f
             "metadataPath": "./component.config.metadata.json" // Default value
           }
         },
+        "check-component-migration-metadata": {
+          "builder": "@o3r/components:check-component-migration-metadata",
+          "options": {
+            "migrationDataPath": "./migration-scripts/MIGRATION-*.json", // Required
+            "metadataPath": "./component.class.metadata.json" // Default value
+          }
+        },
         "check-style-migration-metadata": {
           "builder": "@o3r/styling:check-style-migration-metadata",
           "options": {
@@ -257,6 +264,13 @@ To achieve this, simply configure the following builder in your `angular.json` f
           "builder": "@o3r/localization:check-localization-migration-metadata",
           "options": {
             "migrationDataPath": "./migration-scripts/MIGRATION-*.json" // Required
+          }
+        },
+        "check-rule-fact-migration-metadata": {
+          "builder": "@o3r/rules-engine:check-rule-fact-migration-metadata",
+          "options": {
+            "migrationDataPath": "./migration-scripts/MIGRATION-*.json", // Required
+            "metadataPath": "./rules.facts.metadata.json" // Default value
           }
         }
       }

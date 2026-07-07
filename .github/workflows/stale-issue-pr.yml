@@ -1,0 +1,37 @@
+name: Mark and close stale issues and PRs
+
+on:
+  schedule:
+    - cron: "* * * * 0" # Runs every sunday
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    name: Stale issues & PRs scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run stale action
+        uses: actions/stale@5bef64f19d7facfb25b37b414482c7164d639639 # v9.1.0
+        with:
+          stale-issue-label: stale
+          stale-pr-label: stale
+          operations-per-run: 200
+          days-before-issue-stale: 180 # 6 months
+          days-before-pr-stale: 180 # 6 months
+          days-before-issue-close: 90 # 3 months
+          days-before-pr-close: 90 # 3 months
+          stale-issue-message: >-
+            This issue has had no activity for 6 months and has been marked as stale. If it is still relevant, please add a comment or update it; otherwise it will be auto-closed in another 3 months.
+          stale-pr-message: >-
+            This pull request has had no activity for 6 months and has been marked as stale. Please push new commits or comment to keep it open; otherwise it will be auto-closed in another 3 months.
+          close-issue-message: >-
+            This issue was automatically marked as stale due to 6 months of inactivity and has remained stale for another 3 months, so it is now being closed. If this is still relevant, feel free to reopen or create a new issue with updated context. Thank you!
+          close-pr-message: >-
+            This pull request was automatically marked as stale after 6 months of inactivity and has remained stale for another 3 months, so it is now being closed. If you still plan to work on this, you can reopen it or open a new PR rebased on the latest main branch.
+          exempt-issue-labels: 'pinned,security,workaround'
+          exempt-pr-labels: 'pinned,security'
+          exempt-all-assignees: true

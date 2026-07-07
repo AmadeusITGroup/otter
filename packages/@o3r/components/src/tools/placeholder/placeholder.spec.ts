@@ -25,7 +25,7 @@ import {
 } from 'rxjs';
 import {
   PlaceholderComponent,
-} from './placeholder.component';
+} from './placeholder';
 
 /**
  * Test component to check if the projection from ng-content works

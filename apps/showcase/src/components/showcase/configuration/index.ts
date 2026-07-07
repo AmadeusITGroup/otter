@@ -1,1 +1,1 @@
-export * from './configuration-pres.component';
+export * from './configuration-pres';

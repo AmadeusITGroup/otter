@@ -51,7 +51,7 @@ void (async () => {
         },
         files: [
           ...getTargetFiles({
-            'run-app-locally.tertiary-bg': 'src/app/run-app-locally/run-app-locally.style.vars.scss'
+            'run-app-locally.tertiary-bg': 'src/app/run-app-locally/run-app-locally-style-vars.scss'
           }, { format: 'o3r/css/variable' }),
           {
             destination: getPath('src/style/theme.scss'),

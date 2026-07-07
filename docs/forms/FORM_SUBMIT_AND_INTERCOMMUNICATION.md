@@ -63,7 +63,7 @@ import {
   AsyncInput,
 } from '@o3r/forms';
 
-export class FormsExampleContComponent implements OnInit {
+export class FormsExampleCont implements OnInit {
   /** Observable used to notify the component that a submit has been fired from the page */
   @Input()
   @AsyncInput()

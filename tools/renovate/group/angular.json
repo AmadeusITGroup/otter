@@ -17,6 +17,10 @@
       ],
       "groupName": "Angular dependencies",
       "groupSlug": "angular-dependencies"
+    },
+    {
+      "matchPackageNames": ["@angular-devkit/architect"],
+      "versioning": "regex:^[~^]?0\\.(?<major>\\d{2})(?<minor>\\d{2})\\.(?<patch>\\d+)$"
     }
   ]
 }

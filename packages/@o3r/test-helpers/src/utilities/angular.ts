@@ -15,15 +15,18 @@ import * as path from 'node:path';
  * @param modulePath path of the module to import
  */
 export async function addImportToAppModule(appFolderPath: string, moduleName: string, modulePath: string) {
-  let appModuleFilePath = path.join(appFolderPath, 'src/app/app.module.ts');
-  if (!existsSync(appModuleFilePath)) {
+  const appModuleFilePath1 = path.join(appFolderPath, 'src/app/app-module.ts');
+  const appModuleFilePath2 = path.join(appFolderPath, 'src/app/app.module.ts');
+  let appModuleFilePath = existsSync(appModuleFilePath1) ? appModuleFilePath1 : (existsSync(appModuleFilePath2) ? appModuleFilePath2 : undefined);
+  if (!appModuleFilePath) {
     // assume standalone component
-    appModuleFilePath = path.join(appFolderPath, 'src/app/app.component.ts');
+    const appComponentFilePath = path.join(appFolderPath, 'src/app/app.component.ts');
+    appModuleFilePath = existsSync(appComponentFilePath) ? appComponentFilePath : path.join(appFolderPath, 'src/app/app.ts');
   }
   const appModule = await readFile(appModuleFilePath, { encoding: 'utf8' });
   const relativeModulePath = path.relative(path.dirname(appModuleFilePath), path.join(appFolderPath, modulePath)).replace(/\\+/g, '/');
   await writeFile(appModuleFilePath, `import { ${moduleName} } from '${relativeModulePath}';\n${
-    appModule.replace(/(imports:\s*\[\s*)/, `$1\n    ${moduleName},`)
+    appModule.replace(/(imports:\s*\[\s*\n?)/, `$1\n    ${moduleName},\n`)
   }`);
 }
 

@@ -190,7 +190,7 @@ export function getExternalDependenciesInfo<T extends string, U extends string>(
   const peerDependenciesInfo = dependenciesToInstall.reduce((acc, name) => {
     const rootVersion = [
       name,
-      ...name.startsWith('@angular/') ? ['@angular/core'] : [],
+      ...name.startsWith('@angular/') && !['@angular/cdk', '@angular/material'].includes(name) ? ['@angular/core'] : [],
       ...name.startsWith('@angular-devkit/') && name !== '@angular-devkit/architect' ? ['@angular-devkit/core'] : [],
       ...name.startsWith('@ngrx/') ? ['@ngrx/store'] : []
     ]

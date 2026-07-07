@@ -68,6 +68,11 @@ describe('Create new sdk command', () => {
     ).not.toThrow();
     expect(() => packageManagerRun({ script: 'build' }, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeFalsy();
+
+    // Verify enums exports are generated correctly
+    const enumsContent = fs.readFileSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'enums.ts'), 'utf8');
+    expect(enumsContent).toContain('LIST_STATUS');
+    expect(enumsContent).toMatch(/export type \{.*Status.*\}/);
   });
 
   test('should generate a full SDK when the specification is provided', () => {

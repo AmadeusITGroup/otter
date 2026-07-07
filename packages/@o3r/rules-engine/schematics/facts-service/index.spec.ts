@@ -29,13 +29,13 @@ describe('Generate facts service', () => {
     }, initialTree);
 
     expect(tree.files.filter((f) => f.startsWith('/src/facts/first-example')).length).toBe(2);
-    const factsFile = tree.readText('/src/facts/first-example/first-example.facts.ts');
+    const factsFile = tree.readText('/src/facts/first-example/first-example-facts.ts');
     expect(factsFile).toContain('import type { FactDefinitions } from \'@o3r/rules-engine\';');
     expect(factsFile).toContain('export interface FirstExampleFacts extends FactDefinitions');
 
-    const serviceFile = tree.readText('/src/facts/first-example/first-example-facts.service.ts');
+    const serviceFile = tree.readText('/src/facts/first-example/first-example-facts-service.ts');
     expect(serviceFile).toMatch(/import {.*FactsService.*} from '@o3r\/rules-engine';/);
     expect(serviceFile).toMatch(/import {.*RulesEngineService.*} from '@o3r\/rules-engine';/);
-    expect(serviceFile).toContain('export class FirstExampleFactsService extends FactsService<FirstExampleFacts> {');
+    expect(serviceFile).toContain('export class FirstExampleFacts extends FactsService<FirstExampleFacts> {');
   });
 });

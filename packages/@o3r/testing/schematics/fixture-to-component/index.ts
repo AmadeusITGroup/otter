@@ -23,6 +23,8 @@ import {
   applyEsLintFix,
   askConfirmationToConvertComponent,
   createOtterSchematic,
+  getComponentBaseFileName,
+  getComponentFixtureName,
   getO3rComponentInfoOrThrowIfNotFound,
   NoOtterComponent,
   O3rCliError,
@@ -38,7 +40,7 @@ import type {
 
 const checkFixture = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [
-    posix.join(dirname(componentPath), `${baseFileName}.fixture.ts`)
+    posix.join(dirname(componentPath), `${baseFileName}-fixture.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new O3rCliError(`Unable to add fixture to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -52,14 +54,15 @@ const checkFixture = (componentPath: string, tree: Tree, baseFileName: string) =
 export function ngAddFixtureFn(options: NgAddFixtureSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const baseFileName = basename(options.path, '.component.ts');
+      const baseFileName = getComponentBaseFileName(options.path);
       const { name } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
 
       checkFixture(options.path, tree, baseFileName);
 
       const properties = {
         ...options,
-        componentFixture: name.concat('Fixture'),
+        componentFixture: getComponentFixtureName(baseFileName),
+        componentName: name,
         name: baseFileName
       };
 
@@ -69,7 +72,7 @@ export function ngAddFixtureFn(options: NgAddFixtureSchematicsSchema): Rule {
         move(dirname(options.path))
       ]), MergeStrategy.Overwrite);
 
-      const specFilePath = options.specFilePath || posix.join(dirname(options.path), `${baseFileName}.spec.ts`);
+      const specFilePath = options.specFilePath || posix.join(dirname(options.path), `${basename(options.path, '.ts')}.spec.ts`);
       const updateSpecRule: Rule = chain([
         addImportsRule(specFilePath, [
           {
@@ -77,7 +80,7 @@ export function ngAddFixtureFn(options: NgAddFixtureSchematicsSchema): Rule {
             importNames: ['O3rElement']
           },
           {
-            from: `./${baseFileName}.fixture`,
+            from: `./${baseFileName}-fixture`,
             importNames: [`${properties.componentFixture}Component`]
           }
         ]),

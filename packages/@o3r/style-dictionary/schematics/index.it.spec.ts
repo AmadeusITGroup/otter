@@ -19,19 +19,23 @@ import {
 
 describe('ng add otter style-dictionary hooks', () => {
   test('should add style-dictionary to an application', async () => {
-    const { applicationPath, workspacePath, appName, isInWorkspace, o3rVersion } = o3rEnvironment.testEnvironment;
+    const { applicationPath, workspacePath, appName, isInWorkspace, isYarnTest, o3rVersion } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/style-dictionary@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions)).not.toThrow();
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
     let diff = getGitDiff(workspacePath);
-    expect(diff.modified.length).toBe(3);
-    expect(diff.modified).toContain(path.join(relativeApplicationPath, 'package.json').replace(/[/\\]+/g, '/'));
-    expect(diff.modified).toContain('package.json');
-    expect(diff.added.length).toBe(2);
-    expect(diff.added).toContain(path.join(relativeApplicationPath, 'token.extensions.json').replace(/[/\\]+/g, '/'));
-    expect(diff.added).toContain(path.join(relativeApplicationPath, 'config.mjs').replace(/[/\\]+/g, '/'));
+
+    expect(diff.modified.sort()).toEqual([
+      path.join(relativeApplicationPath, 'package.json').replace(/[/\\]+/g, '/'),
+      isYarnTest ? 'yarn.lock' : 'package-lock.json',
+      'package.json'
+    ].sort());
+    expect(diff.added.sort()).toEqual([
+      path.join(relativeApplicationPath, 'token.extensions.json').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'config.mjs').replace(/[/\\]+/g, '/')
+    ].sort());
 
     await fs.writeFile(path.join(applicationPath, 'test.tokens.json'), JSON.stringify({ colors: { primary: { $value: '#000' } } }));
 
@@ -50,19 +54,23 @@ describe('ng add otter style-dictionary hooks', () => {
   });
 
   test('should add style-dictionary to a library', async () => {
-    const { libraryPath, workspacePath, libName, isInWorkspace, o3rVersion } = o3rEnvironment.testEnvironment;
+    const { libraryPath, workspacePath, libName, isInWorkspace, isYarnTest, o3rVersion } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/style-dictionary@${o3rVersion}`, '--skip-confirmation', '--project-name', libName] }, execAppOptions)).not.toThrow();
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
     let diff = getGitDiff(workspacePath);
-    expect(diff.modified.length).toBe(3);
-    expect(diff.modified).toContain(path.join(relativeLibraryPath, 'package.json').replace(/[/\\]+/g, '/'));
-    expect(diff.modified).toContain('package.json');
-    expect(diff.added.length).toBe(2);
-    expect(diff.added).toContain(path.join(relativeLibraryPath, 'token.extensions.json').replace(/[/\\]+/g, '/'));
-    expect(diff.added).toContain(path.join(relativeLibraryPath, 'config.mjs').replace(/[/\\]+/g, '/'));
+
+    expect(diff.modified.sort()).toEqual([
+      path.join(relativeLibraryPath, 'package.json').replace(/[/\\]+/g, '/'),
+      isYarnTest ? 'yarn.lock' : 'package-lock.json',
+      'package.json'
+    ].sort());
+    expect(diff.added.sort()).toEqual([
+      path.join(relativeLibraryPath, 'token.extensions.json').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'config.mjs').replace(/[/\\]+/g, '/')
+    ].sort());
 
     await fs.writeFile(path.join(libraryPath, 'test.tokens.json'), JSON.stringify({ colors: { primary: { $value: '#000' } } }));
 

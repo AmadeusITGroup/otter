@@ -6,6 +6,7 @@
     "composite": true,
     "rootDir": ".",
     "module": "CommonJS",
+    "moduleResolution": "node10",
     "tsBuildInfoFile": "./build/tsconfig.tsbuildinfo",
     "outDir": "./dist",
     "skipLibCheck": true /* because of @webcontainer/api 1.4.0 */

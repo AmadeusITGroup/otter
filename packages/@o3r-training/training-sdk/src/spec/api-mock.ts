@@ -1,5 +1,4 @@
-import { type ApiClient, isApiClient } from '@ama-sdk/core';
-import { ApiFetchClient, type BaseApiFetchClientConstructor } from '@ama-sdk/core';
+import { type ApiClient } from '@ama-sdk/core';
 
 import * as api from '../api';
 
@@ -7,7 +6,6 @@ import * as api from '../api';
  * Base path for the mock server
  */
 export const MOCK_SERVER_BASE_PATH = 'http://localhost:10010/v2';
-const MOCK_SERVER = new ApiFetchClient({basePath: MOCK_SERVER_BASE_PATH});
 
 export interface Api {
   dummyApi: api.DummyApi;

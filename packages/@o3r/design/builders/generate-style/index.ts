@@ -12,7 +12,7 @@ import type {
   BuilderWrapper,
 } from '@o3r/telemetry';
 import {
-  sync,
+  sync as globbySync,
 } from 'globby';
 import type {
   DesignTokenRendererOptions,
@@ -82,7 +82,7 @@ export default createBuilder<GenerateStyleSchematicsSchema>(createBuilderWithMet
    * @param renderDesignTokenOptions
    */
   const execute = async (renderDesignTokenOptions: DesignTokenRendererOptions): Promise<BuilderOutput> => {
-    const files = sync(designTokenFilePatterns, { cwd: context.workspaceRoot, absolute: true });
+    const files = globbySync(designTokenFilePatterns, { cwd: context.workspaceRoot, absolute: true });
     const inDependencies = designTokenFilePatterns
       .filter((pathName) => !pathName.startsWith('.') && !pathName.startsWith('*') && !pathName.startsWith('/'))
       .map((pathName) => {

@@ -24,7 +24,7 @@ export const formErrorMessagesAdapter: EntityAdapter<FormErrorModel> = createEnt
 /**
  * FormErrorMessages Store initial value
  */
-export const formErrorMessagesInitialState: FormErrorMessagesState = formErrorMessagesAdapter.getInitialState({});
+export const formErrorMessagesInitialState = formErrorMessagesAdapter.getInitialState<FormErrorMessagesState>({});
 
 /**
  *  List of basic actions for FormErrorMessages Store

@@ -9,22 +9,22 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  HomeComponent,
-} from './home.component';
+  Home,
+} from './home';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('Home', () => {
+  let component: Home;
+  let fixture: ComponentFixture<Home>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HomeComponent],
+      imports: [Home],
       providers: [
         provideMarkdown(),
         provideDynamicContent()
       ]
     });
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(Home);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

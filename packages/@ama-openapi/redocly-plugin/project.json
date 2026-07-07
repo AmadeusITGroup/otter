@@ -1,0 +1,40 @@
+{
+  "name": "ama-openapi-redocly-plugin",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-openapi/redocly-plugin/src",
+  "prefix": "ama",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "^build",
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:source"
+      }
+    },
+    "lint": {},
+    "test": {
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.cjs",
+        "passWithNoTests": true
+      }
+    },
+    "set-version": {},
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
+  },
+  "tags": []
+}

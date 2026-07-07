@@ -52,6 +52,7 @@ export default [
     name: '<%= projectPackageName %>/ignores',
     ignores: [
       '/src/api',
+      '/src/constants',
       '/src/models/base',
       '/src/spec/api-mocks.ts',
       '/src/spec/operation-adapter.ts',

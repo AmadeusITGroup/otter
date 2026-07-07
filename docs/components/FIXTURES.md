@@ -164,6 +164,6 @@ cont selectedRadioElement: O3rRadioElement = radioGroup.getSelectedItem();
 ## Naming convention
 
 | Attribute             | Pattern      |
-| --------------------- | ------------ |
-| **Fixture file name** | *.fixture.ts |
+| --------------------- |--------------|
+| **Fixture file name** | *-fixture.ts |
 | **Fixture name**      | *Fixture     |

@@ -1,1 +1,1 @@
-export * from './fact.interfaces';
+export * from './fact-interfaces';

@@ -24,7 +24,7 @@ export const configurationAdapter: EntityAdapter<ConfigurationModel> = createEnt
 /**
  * Configuration Store initial value
  */
-export const configurationInitialState: ConfigurationState = configurationAdapter.getInitialState({});
+export const configurationInitialState = configurationAdapter.getInitialState<ConfigurationState>({});
 
 /**
  *  List of basic actions for Configuration Store

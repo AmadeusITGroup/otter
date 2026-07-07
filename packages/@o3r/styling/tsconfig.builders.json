@@ -5,6 +5,7 @@
     "composite": true,
     "outDir": "./dist",
     "module": "CommonJS",
+    "moduleResolution": "node10",
     "rootDir": ".",
     "skipLibCheck": true, // because of @gerrit0/mini-shiki from typedoc
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"

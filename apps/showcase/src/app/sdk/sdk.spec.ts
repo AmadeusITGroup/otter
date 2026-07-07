@@ -9,6 +9,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   PetApi,
 } from '@o3r-training/showcase-sdk';
 import {
@@ -18,29 +21,36 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  SdkComponent,
-} from './sdk.component';
+  Sdk,
+} from './sdk';
 import '@angular/localize/init';
 
-describe('SdkComponent', () => {
-  let component: SdkComponent;
-  let fixture: ComponentFixture<SdkComponent>;
+describe('Sdk', () => {
+  let component: Sdk;
+  let fixture: ComponentFixture<Sdk>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
   const petApiFixture = new PetApiFixture();
   petApiFixture.findPetsByStatus = petApiFixture.findPetsByStatus.mockResolvedValue([]);
 
   beforeEach(() => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
+
     TestBed.configureTestingModule({
       imports: [
-        SdkComponent,
+        Sdk,
         RouterModule.forRoot([]),
         AsyncPipe
       ],
       providers: [
         { provide: PetApi, useValue: petApiFixture },
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
         provideMarkdown()
       ]
     });
-    fixture = TestBed.createComponent(SdkComponent);
+    fixture = TestBed.createComponent(Sdk);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

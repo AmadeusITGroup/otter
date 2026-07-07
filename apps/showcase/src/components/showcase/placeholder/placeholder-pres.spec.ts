@@ -12,22 +12,22 @@ import {
   RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
 import {
-  PlaceholderPresComponent,
-} from './placeholder-pres.component';
+  PlaceholderPres,
+} from './placeholder-pres';
 
-describe('PlaceholderPresComponent', () => {
-  let component: PlaceholderPresComponent;
-  let fixture: ComponentFixture<PlaceholderPresComponent>;
+describe('PlaceholderPres', () => {
+  let component: PlaceholderPres;
+  let fixture: ComponentFixture<PlaceholderPres>;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        PlaceholderPresComponent,
+        PlaceholderPres,
         StoreModule.forRoot(),
         EffectsModule.forRoot(),
         RulesEngineRunnerModule.forRoot()
       ]
     });
-    fixture = TestBed.createComponent(PlaceholderPresComponent);
+    fixture = TestBed.createComponent(PlaceholderPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

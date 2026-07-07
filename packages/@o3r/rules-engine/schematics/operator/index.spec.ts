@@ -28,7 +28,7 @@ describe('Generate operator', () => {
       rhsType: 'Date'
     }, initialTree);
 
-    const operatorsFile = tree.readText('/src/operators/basic/basic.operator.ts');
+    const operatorsFile = tree.readText('/src/operators/basic/basic-operator.ts');
     expect(operatorsFile.replace(/\r?\n/g, '\n')).toBe(`import {
   Operator,
   isString,
@@ -57,7 +57,7 @@ export const basic: Operator<string, Date> = {
       unaryOperator: true
     }, initialTree);
 
-    const operatorsFile = tree.readText('/src/operators/unary/unary.operator.ts');
+    const operatorsFile = tree.readText('/src/operators/unary/unary-operator.ts');
     expect(operatorsFile.replace(/\r?\n/g, '\n')).toBe(`import {
   UnaryOperator
 } from '@o3r/rules-engine';

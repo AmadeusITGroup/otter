@@ -1,1 +1,1 @@
-export * from './sdk-training.component';
+export * from './sdk-training';

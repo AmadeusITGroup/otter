@@ -1,5 +1,4 @@
 import {
-  basename,
   dirname,
   posix,
 } from 'node:path';
@@ -30,6 +29,8 @@ import {
   createOtterSchematic,
   generateBlockStatementsFromString,
   generateClassElementsFromString,
+  getComponentBaseFileName,
+  getComponentTranslationName,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
@@ -54,8 +55,8 @@ const localizationProperties = [
 
 const checkLocalization = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [
-    posix.join(dirname(componentPath), `${baseFileName}.localization.json`),
-    posix.join(dirname(componentPath), `${baseFileName}.translation.ts`)
+    posix.join(dirname(componentPath), `${baseFileName}-localization.json`),
+    posix.join(dirname(componentPath), `${baseFileName}-translation.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new O3rCliError(`Unable to add localization to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -87,16 +88,16 @@ const checkLocalization = (componentPath: string, tree: Tree, baseFileName: stri
 export function ngAddLocalizationFn(options: NgAddLocalizationSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const baseFileName = basename(options.path, '.component.ts');
-      const { name, selector, standalone, templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
+      const baseFileName = getComponentBaseFileName(options.path);
+      const { selector, standalone, templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
 
       checkLocalization(options.path, tree, baseFileName);
 
       const properties = {
         ...options,
-        componentTranslation: name.concat('Translation'),
+        componentTranslation: getComponentTranslationName(baseFileName),
         componentSelector: selector,
-        name: basename(options.path, '.component.ts')
+        name: baseFileName
       };
 
       const createLocalizationFilesRule: Rule = mergeWith(apply(url('./templates'), [
@@ -122,7 +123,7 @@ export function ngAddLocalizationFn(options: NgAddLocalizationSchematicsSchema):
             ]
           },
           {
-            from: `./${properties.name}.translation`,
+            from: `./${properties.name}-translation`,
             importNames: [
               'translations',
               properties.componentTranslation
@@ -227,7 +228,7 @@ export function ngAddLocalizationFn(options: NgAddLocalizationSchematicsSchema):
               .beginUpdate(options.path)
               .insertRight(
                 translationsPropLastDecorator.getEnd(),
-                `\n  @Localization('./${baseFileName}.localization.json')`
+                `\n  @Localization('./${baseFileName}-localization.json')`
               )
           );
 
@@ -325,10 +326,7 @@ const mockTranslationsCompilerProvider: Provider = {
                   ]
                 ))
               ],
-              `
-              const localizationService = TestBed.inject(LocalizationService);
-              localizationService.configure();
-            `
+              `const localizationService = TestBed.inject(LocalizationService);\nlocalizationService.configure();\n`
             )(ctx)
           ]);
 
@@ -346,7 +344,7 @@ const mockTranslationsCompilerProvider: Provider = {
       ]);
 
       const updateModuleRule: Rule = () => {
-        const moduleFilePath = options.path.replace(/component.ts$/, 'module.ts');
+        const moduleFilePath = options.path.replace(/\.ts$/, '-module.ts');
         const moduleSourceFile = ts.createSourceFile(
           moduleFilePath,
           tree.readText(moduleFilePath),

@@ -2,7 +2,9 @@
   "extends": "./tsconfig.build",
   "compilerOptions": {
     "rootDir": ".",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "module": "commonjs",
+    "moduleResolution": "node10"
   },
   "exclude": [
     "**/*.fixture.ts",
@@ -15,6 +17,7 @@
   "include": [
     "./src/api/**/*.ts",
     "./src/models/**/*.ts",
-    "./src/helpers/**/*.ts"
+    "./src/helpers/**/*.ts",
+    "./src/constants/**/*.ts"
   ]
 }

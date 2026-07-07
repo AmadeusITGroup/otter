@@ -3,7 +3,7 @@ import {
 } from '../core/request-plugin';
 import {
   ApiConfigurationOverride,
-} from './api-configuration-override.request';
+} from './api-configuration-override-request';
 
 describe('ApiConfigurationOverride Plugin', () => {
   let options: RequestOptions;

@@ -14,7 +14,6 @@ import * as actions from './rulesets.actions';
 import {
   RulesetsModel,
   RulesetsState,
-  RulesetsStateDetails,
 } from './rulesets.state';
 
 /**
@@ -27,7 +26,7 @@ export const rulesetsAdapter = createEntityAdapter<RulesetsModel>({
 /**
  * Rulesets Store initial value
  */
-export const rulesetsInitialState: RulesetsState = rulesetsAdapter.getInitialState<RulesetsStateDetails>({
+export const rulesetsInitialState = rulesetsAdapter.getInitialState<RulesetsState>({
   requestIds: []
 });
 

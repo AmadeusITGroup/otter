@@ -1,6 +1,6 @@
 import {
   PostProcess,
-} from './post-process.interface';
+} from './post-process-interface';
 
 /**
  * Post Process to add x-api-ref flag in definition

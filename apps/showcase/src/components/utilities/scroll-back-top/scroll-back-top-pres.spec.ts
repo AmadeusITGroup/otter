@@ -6,18 +6,18 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  ScrollBackTopPresComponent,
-} from './scroll-back-top-pres.component';
+  ScrollBackTopPres,
+} from './scroll-back-top-pres';
 
-describe('ScrollBackTopPresComponent', () => {
-  let component: ScrollBackTopPresComponent;
-  let fixture: ComponentFixture<ScrollBackTopPresComponent>;
+describe('ScrollBackTopPres', () => {
+  let component: ScrollBackTopPres;
+  let fixture: ComponentFixture<ScrollBackTopPres>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ScrollBackTopPresComponent, AsyncPipe]
+      imports: [ScrollBackTopPres, AsyncPipe]
     });
-    fixture = TestBed.createComponent(ScrollBackTopPresComponent);
+    fixture = TestBed.createComponent(ScrollBackTopPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

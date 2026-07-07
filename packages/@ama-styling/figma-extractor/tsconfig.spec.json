@@ -1,0 +1,20 @@
+{
+  "extends": "../../../tsconfig.jest",
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "allowJs": true,
+    "composite": true,
+    "outDir": "test",
+    "rootDir": ".",
+  },
+  "include": [
+    "**/*.spec.ts"
+  ],
+  "exclude": [],
+  "references": [
+    {
+      "path": "./tsconfig.build.composite.json"
+    }
+  ]
+}

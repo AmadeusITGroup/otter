@@ -1,21 +1,21 @@
 import {
   allPreset,
-} from './all.preset';
+} from './all-preset';
 import {
   basicPreset,
-} from './basic.preset';
+} from './basic-preset';
 import {
   cmsPreset,
-} from './cms.preset';
+} from './cms-preset';
 import type {
   Presets,
-} from './preset.interface';
+} from './preset-interface';
 import {
   recommendedPreset,
-} from './recommended.preset';
+} from './recommended-preset';
 
-export * from './external.preset';
-export * from './preset.interface';
+export * from './external-preset';
+export * from './preset-interface';
 
 export const presets: Presets = {
   basic: basicPreset,

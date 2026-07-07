@@ -3,7 +3,7 @@ import {
 } from '../core/request-plugin';
 import {
   ApiKeyRequest,
-} from './api-key.request';
+} from './api-key-request';
 
 describe('Api Key Request Plugin', () => {
   let options: RequestOptions;

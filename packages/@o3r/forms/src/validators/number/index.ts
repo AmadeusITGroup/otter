@@ -1,3 +1,3 @@
-export * from './max.directive';
-export * from './min.directive';
-export * from './number-validators.module';
+export * from './max-validator';
+export * from './min-validator';
+export * from './number-validators-module';

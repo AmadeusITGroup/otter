@@ -17,21 +17,25 @@ import {
 
 describe('ng add components', () => {
   test('should add components to an application', () => {
-    const { workspacePath, appName, isInWorkspace, o3rVersion, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
+    const { workspacePath, appName, isInWorkspace, o3rVersion, isYarnTest, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/components@${o3rVersion}`,
       '--skip-confirmation', '--enable-metadata-extract', '--project-name', appName] }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.modified).toContain('package.json');
-    expect(diff.modified).toContain('angular.json');
-    expect(diff.modified).toContain('apps/test-app/package.json');
-    expect(diff.modified.length).toBe(6);
-    expect(diff.added).toContain('apps/test-app/cms.json');
-    expect(diff.added).toContain('apps/test-app/placeholders.metadata.json');
-    expect(diff.added).toContain('apps/test-app/tsconfig.cms.json');
-    expect(diff.added).toContain('apps/test-app/migration-scripts/README.md');
-    expect(diff.added.length).toBe(4);
+    expect(diff.modified.sort()).toEqual([
+      '.gitignore',
+      'angular.json',
+      'apps/test-app/package.json',
+      'apps/test-app/src/main.ts',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json',
+      'package.json'
+    ].sort());
+    expect(diff.added.sort()).toEqual([
+      'apps/test-app/placeholders.metadata.json',
+      'apps/test-app/tsconfig.cms.json',
+      'apps/test-app/migration-scripts/README.md'
+    ].sort());
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -60,11 +64,11 @@ describe('ng add components', () => {
     const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
     expect(packageJson.dependencies['@o3r/components']).toBeDefined();
 
-    expect(diff.added).toContain('libs/test-lib/cms.json');
-    expect(diff.added).toContain('libs/test-lib/placeholders.metadata.json');
-    expect(diff.added).toContain('libs/test-lib/tsconfig.cms.json');
-    expect(diff.added).toContain('libs/test-lib/migration-scripts/README.md');
-    expect(diff.added.length).toBe(4);
+    expect(diff.added.sort()).toEqual([
+      'libs/test-lib/placeholders.metadata.json',
+      'libs/test-lib/tsconfig.cms.json',
+      'libs/test-lib/migration-scripts/README.md'
+    ].sort());
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);

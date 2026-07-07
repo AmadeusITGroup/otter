@@ -15,7 +15,6 @@ import * as actions from './placeholder-request.actions';
 import {
   PlaceholderRequestModel,
   PlaceholderRequestState,
-  PlaceholderRequestStateDetails,
 } from './placeholder-request.state';
 
 /**
@@ -28,7 +27,7 @@ export const placeholderRequestAdapter = createEntityAsyncRequestAdapter(createE
 /**
  * PlaceholderRequest Store initial value
  */
-export const placeholderRequestInitialState: PlaceholderRequestState = placeholderRequestAdapter.getInitialState<PlaceholderRequestStateDetails>({
+export const placeholderRequestInitialState = placeholderRequestAdapter.getInitialState<PlaceholderRequestState>({
   requestIds: []
 });
 

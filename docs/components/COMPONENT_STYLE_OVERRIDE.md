@@ -15,7 +15,7 @@ Here is an example of how your files architecture could look:
 ...
 >> **component**
 >>> **presenter**
->>>> **my-component-pres.component.ts**: styleUrls='my-component-pres.style.scss'\
->>>> **my-component-pres.style.scss**: component style - import style.theme.scss\
->>>> **my-component-pres.style.theme.scss**: variables - import app-styling.scss\
+>>>> **my-component-pres.ts**: styleUrls='my-component-pres.scss'\
+>>>> **my-component-pres.scss**: component style - import theme.scss\
+>>>> **my-component-pres-theme.scss**: variables - import app-styling.scss\
 >>>> ...

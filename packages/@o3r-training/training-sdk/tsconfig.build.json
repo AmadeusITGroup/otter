@@ -4,7 +4,6 @@
     "src/**/*.ts"
   ],
   "compilerOptions": {
-    "moduleResolution": "node",
     "noImplicitAny": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

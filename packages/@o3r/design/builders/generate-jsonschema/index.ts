@@ -8,7 +8,7 @@ import {
 import type {
   BuilderWrapper,
 } from '@o3r/telemetry';
-import * as globby from 'globby';
+import globby from 'globby';
 import type {
   DesignTokenVariableSet,
   DesignTokenVariableStructure,

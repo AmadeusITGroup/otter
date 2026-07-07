@@ -14,7 +14,7 @@ export const placeholderTemplateStorageDeserializer = (rawObject: any) => {
   if (!rawObject || !rawObject.ids) {
     return placeholderTemplateInitialState;
   }
-  const storeObject = placeholderTemplateAdapter.getInitialState(rawObject);
+  const storeObject = placeholderTemplateAdapter.getInitialState<PlaceholderTemplateState>(rawObject);
   for (const id of rawObject.ids) {
     storeObject.entities[id] = rawObject.entities[id] as PlaceholderTemplateModel;
   }

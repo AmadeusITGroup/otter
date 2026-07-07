@@ -47,6 +47,7 @@ const baseFileList = [
   '/package.json',
   '/src/api/index.ts',
   '/src/api/fixtures.jest.ts',
+  '/src/constants/servers.ts',
   '/src/index.ts',
   '/src/models/base/.editorconfig',
   '/src/models/base/enums.ts',

@@ -8,6 +8,7 @@
     "composite": true,
     "incremental": true,
     "module": "commonjs",
+    "moduleResolution": "node10",
     "tsBuildInfoFile": "build/tsconfig.build.tsbuildinfo"
   },
   "include": [

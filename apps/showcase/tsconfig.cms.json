@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.app",
-  "include": [
-    "src/**/*.component.ts",
-    "src/**/*.config.ts",
-    "src/**/*.module.ts"
-  ]
-}

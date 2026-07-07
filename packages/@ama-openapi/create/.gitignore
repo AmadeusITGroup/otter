@@ -1,0 +1,11 @@
+/index.*
+
+/common
+/component
+/configuration
+/dist*
+/errors
+/store
+/types
+/validation
+/utils

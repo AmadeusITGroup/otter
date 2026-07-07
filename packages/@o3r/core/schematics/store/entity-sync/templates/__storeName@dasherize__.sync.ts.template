@@ -9,7 +9,7 @@ export const <%= cStoreName %>StorageDeserializer = (rawObject: any) => {
   if (!rawObject || !rawObject.ids) {
     return <%= cStoreName %>InitialState;
   }
-  const storeObject = <%= cStoreName %>Adapter.getInitialState(rawObject);
+  const storeObject = <%= cStoreName %>Adapter.getInitialState<<%= storeName %>State>(rawObject);
   for (const id of rawObject.ids) {
     <% if (!hasSDK) { %>storeObject.entities[id] = rawObject.entities[id] as <%= storeModelName %>;
       <% } else { %>storeObject.entities[id] = <%= reviverModelName %>(rawObject.entities[id]);<% } %>

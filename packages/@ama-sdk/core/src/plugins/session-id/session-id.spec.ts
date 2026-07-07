@@ -3,7 +3,7 @@ import {
 } from '../core/request-plugin';
 import {
   SessionIdRequest,
-} from './session-id.request';
+} from './session-id-request';
 
 describe('Session ID Request Plugin', () => {
   let options: RequestOptions;

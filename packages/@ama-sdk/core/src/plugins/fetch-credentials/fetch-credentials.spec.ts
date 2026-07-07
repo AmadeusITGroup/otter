@@ -3,7 +3,7 @@ import {
 } from '../core/request-plugin';
 import {
   FetchCredentialsRequest,
-} from './fetch-credentials.request';
+} from './fetch-credentials-request';
 
 describe('Fetch API credentials Request Plugin', () => {
   const options: RequestOptions = { headers: new Headers(), basePath: 'http://test.com/truc', method: 'get' };

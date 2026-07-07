@@ -1,7 +1,7 @@
 import { Flight } from '../../models/base/flight/index';
 import { reviveFlight } from '../../models/base/flight/flight.reviver';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
-
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
+import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to DummyApi's dummyGet function */
 export interface DummyApiDummyGetRequestData {
 }
@@ -41,14 +41,19 @@ export class DummyApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${this.client.options.basePath}/dummy`;
-    const tokenizedUrl = `${this.client.options.basePath}/dummy`;
+    const basePath = `${serverBasePath}/dummy`;
+    const tokenizedUrl = `${serverBasePath}/dummy`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {

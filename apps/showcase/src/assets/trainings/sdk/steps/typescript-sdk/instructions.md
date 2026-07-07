@@ -15,7 +15,7 @@ Here are a couple of steps and hints to help you:
 
 #### Using the API object to perform an HTTP request
 Now, you can call the API object to perform the HTTP request you are looking for.\
-As you can see in `app.component.ts`, the `PetApi` has been injected and is ready to be used.\
+As you can see in `app.ts`, the `PetApi` has been injected and is ready to be used.\
 For this exercise, you will look for the pets that are of status **available** and display in the UI the names of the first ten pets.
 
 > [!TIP]

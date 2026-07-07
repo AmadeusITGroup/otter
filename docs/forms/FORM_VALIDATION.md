@@ -89,7 +89,7 @@ The validation function can be defined anywhere, but it has to be added to the v
 The object returned by the custom validator will be of type `ErrorMessageObject` compatible with the form error store. (See [Form Errors](./FORM_ERRORS.md)).
 The key `customErrors` of this object is used to identify the custom errors in the errors returned by a form control.
 
-You can find an [example](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms-parent/forms-parent.validators.ts) of two custom validators in the forms example of the showcase application.
+You can find an [example](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms-parent/forms-parent-validators.ts) of two custom validators in the forms example of the showcase application.
 
 * __Parent component__: 
 
@@ -97,7 +97,7 @@ The validators object in the parent component is of type [__CustomFormValidation
 This interface contains two entries: one for global (root) form validation and one for the other fields.
 The `fields` entry is receiving the form contract as generic type.
 
-The implementation of the two custom validators in the validators object of the parent component can be found in the [forms component of the showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms-parent/forms-parent.component.ts).
+The implementation of the two custom validators in the validators object of the parent component can be found in the [forms component of the showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms-parent/forms-parent.ts).
 
 #### Apply custom validators
 
@@ -144,23 +144,23 @@ The example below contains the two mandatory tasks to do when you need an async 
 ```typescript
 @Component({
   selector: 'o3r-forms-example-pres',
-  styleUrls: ['./forms-example-pres.style.scss'],
-  templateUrl: './forms-example-pres.template.html',
+  styleUrls: ['./forms-example-pres.scss'],
+  templateUrl: './forms-example-pres.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormsExamplePresComponent),
+      useExisting: forwardRef(() => FormsExamplePres),
       multi: true
     },
     {
       provide: NG_ASYNC_VALIDATORS,
-      useExisting: forwardRef(() => FormsExamplePresComponent),
+      useExisting: forwardRef(() => FormsExamplePres),
       multi: true
     }
   ]
 })
-export class FormsExamplePresComponent implements OnInit, AsyncValidator, ControlValueAccessor {
+export class FormsExamplePres implements OnInit, AsyncValidator, ControlValueAccessor {
   /** Return the errors for the validators applied global to the form plus the errors for each field */
   // ---> The implementation of this method is specific to each use case, the important thing is that it has to return a promise or an observable
   public validate(_control: AbstractControl): Observable<ValidationErrors | null> | Promise<ValidationErrors | null> {

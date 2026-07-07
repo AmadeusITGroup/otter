@@ -3,7 +3,7 @@ import {
 } from '../core/request-plugin';
 import {
   UrlRewriteRequest,
-} from './url-rewrite.request';
+} from './url-rewrite-request';
 
 describe('URL Rewrite Request Plugin', () => {
   const urlRewriter = jest.fn().mockReturnValue('http://ok');

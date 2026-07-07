@@ -1,5 +1,4 @@
 import {
-  basename,
   dirname,
   posix,
 } from 'node:path';
@@ -24,6 +23,8 @@ import {
   applyEsLintFix,
   askConfirmationToConvertComponent,
   createOtterSchematic,
+  getComponentBaseFileName,
+  getComponentContextName,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
@@ -34,9 +35,9 @@ import type {
   NgAddConfigSchematicsSchema,
 } from './schema';
 
-const checkContext = (componentPath: string, tree: Tree) => {
+const checkContext = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [
-    posix.join(dirname(componentPath), `${basename(componentPath, '.component.ts')}.context.ts`)
+    posix.join(dirname(componentPath), `${baseFileName}-context.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new O3rCliError(`Unable to add context to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -51,13 +52,15 @@ export function ngAddContextFn(options: NgAddConfigSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const componentPath = options.path;
     try {
+      const baseFileName = getComponentBaseFileName(componentPath);
       const { name } = getO3rComponentInfoOrThrowIfNotFound(tree, componentPath);
 
-      checkContext(componentPath, tree);
+      checkContext(componentPath, tree, baseFileName);
 
       const properties = {
-        componentContext: name.concat('Context'),
-        name: basename(componentPath, '.component.ts')
+        componentContext: getComponentContextName(baseFileName),
+        componentName: name,
+        name: baseFileName
       };
 
       const createConfigFilesRule: Rule = mergeWith(apply(url('./templates'), [
@@ -69,7 +72,7 @@ export function ngAddContextFn(options: NgAddConfigSchematicsSchema): Rule {
       const updateComponentRule: Rule = chain([
         addImportsRule(componentPath, [
           {
-            from: `./${properties.name}.context`,
+            from: `./${properties.name}-context`,
             importNames: [
               properties.componentContext
             ]

@@ -146,7 +146,7 @@ export const rehydrateApplicationState = (
 // and output the new object with extraneous properties removed.
 function createStateSlice(existingSlice: any, filter: (string | number | StorageKeyConfiguration | SyncStorageSyncOptions)[]) {
   return filter.reduce(
-    (memo: { [x: string]: any;[x: number]: any }, attr: string | number | StorageKeyConfiguration | SyncStorageSyncOptions) => {
+    (memo: { [x: string]: any; [x: number]: any }, attr: string | number | StorageKeyConfiguration | SyncStorageSyncOptions) => {
       if (typeof attr === 'string' || typeof attr === 'number') {
         const value = existingSlice?.[attr];
         if (value !== undefined) {

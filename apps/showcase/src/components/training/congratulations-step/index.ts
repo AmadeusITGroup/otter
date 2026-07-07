@@ -1,1 +1,1 @@
-export * from './congratulations-step.component';
+export * from './congratulations-step';

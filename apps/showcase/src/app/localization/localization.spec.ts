@@ -12,6 +12,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   TranslateCompiler,
   TranslateFakeCompiler,
 } from '@ngx-translate/core';
@@ -25,8 +28,8 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  LocalizationComponent,
-} from './localization.component';
+  Localization,
+} from './localization';
 
 const localizationConfiguration = { language: 'en' };
 const mockTranslations = {
@@ -36,21 +39,29 @@ const mockTranslationsCompilerProvider: Provider = {
   provide: TranslateCompiler,
   useClass: TranslateFakeCompiler
 };
-describe('LocalizationComponent', () => {
-  let component: LocalizationComponent;
-  let fixture: ComponentFixture<LocalizationComponent>;
+describe('Localization', () => {
+  let component: Localization;
+  let fixture: ComponentFixture<Localization>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(async () => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([]),
-        LocalizationComponent,
+        Localization,
         ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
         AsyncPipe
       ],
-      providers: [provideMarkdown()]
+      providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
+        provideMarkdown()
+      ]
     });
-    fixture = TestBed.createComponent(LocalizationComponent);
+    fixture = TestBed.createComponent(Localization);
     component = fixture.componentInstance;
     fixture.detectChanges();
     const localizationService = TestBed.inject(LocalizationService);

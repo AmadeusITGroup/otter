@@ -40,6 +40,7 @@ function ngGenerateServiceFn(options: NgGenerateServiceSchematicsSchema): Rule {
 
     const featureName = strings.dasherize(options.featureName);
     const name = strings.dasherize(options.name);
+    const type = options.type ? strings.dasherize(options.type) : '';
 
     let currentServiceIndex = '';
     const barrelPath = path.join(destination, 'index.ts');
@@ -82,6 +83,11 @@ function ngGenerateServiceFn(options: NgGenerateServiceSchematicsSchema): Rule {
       packageName = JSON.parse(tree.read(path.join(currentDirectory, 'package.json'))!.toString()).name?.split('/')[0] || destination;
     }
 
+    const servicePath = path.posix.join(destination, name, featureName, `${strings.dasherize(name)}-${strings.dasherize(featureName)}.ts`);
+    const serviceSpecPath = path.posix.join(destination, name, featureName, `${strings.dasherize(name)}-${strings.dasherize(featureName)}.spec.ts`);
+    const servicePathWithType = path.posix.join(destination, name, featureName, `${strings.dasherize(name)}-${strings.dasherize(featureName)}.${strings.dasherize(type)}.ts`);
+    const serviceSpecPathWithType = path.posix.join(destination, name, featureName, `${strings.dasherize(name)}-${strings.dasherize(featureName)}.${strings.dasherize(type)}.spec.ts`);
+
     const templateData = {
       ...strings,
       ...options,
@@ -89,14 +95,22 @@ function ngGenerateServiceFn(options: NgGenerateServiceSchematicsSchema): Rule {
       currentServiceIndex,
       currentFixtureJasmineIndex,
       currentFixtureJestIndex,
-      serviceName: strings.capitalize(strings.camelize(options.name + ' ' + options.featureName)),
+      serviceName: strings.capitalize(strings.camelize(options.name + ' ' + options.featureName + (options.addTypeToClassName && type ? ' ' + type : ''))),
+      type,
       packageName
     };
 
     const baseTemplateSource = apply(url('./templates/base'), [
       template(templateData),
       renameTemplateFiles(),
-      move(destination)
+      move(destination),
+      ...(type
+        ? [
+          move(servicePath, servicePathWithType),
+          move(serviceSpecPath, serviceSpecPathWithType)
+        ]
+        : []
+      )
     ]);
 
     const rules = [mergeWith(baseTemplateSource, MergeStrategy.Overwrite)];

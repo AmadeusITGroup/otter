@@ -2,7 +2,9 @@ const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
+/** @type {import('webpack').Configuration} */
 module.exports = {
+  mode: 'production',
   entry: {
     ui: './dist/src/ui/ui.js'
   },

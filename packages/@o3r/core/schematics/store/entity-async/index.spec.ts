@@ -63,7 +63,7 @@ describe('Store entity async generator', () => {
     }, initialTree);
 
     expect(tree.readContent('/example/index.ts').replace(/\s|\n/g, '')).toEqual(commonIndexContent.replace(/\s|\n/g, ''));
-    expect(tree.readContent('/example/example.module.ts').replace(/\s|\n/g, '')).toEqual(commonModuleContent.replace(/\s|\n/g, ''));
+    expect(tree.readContent('/example/example-module.ts').replace(/\s|\n/g, '')).toEqual(commonModuleContent.replace(/\s|\n/g, ''));
     expect(tree.readContent('/example/example.sync.ts').replace(/\s|\n/g, '')).toEqual(asyncEntitySyncContent.replace(/\s|\n/g, ''));
     expect(tree.readContent('/example/example.actions.ts').replace(/\s|\n/g, '')).toEqual(asyncEntityActionsContent.replace(/\s|\n/g, ''));
     expect(tree.readContent('/example/example.effect.spec.ts').replace(/\s|\n/g, '')).toEqual(asyncEntityEffectSpecContent.replace(/\s|\n/g, ''));

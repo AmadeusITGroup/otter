@@ -43,7 +43,6 @@
     "publish": {}
   },
   "tags": [
-    "private",
-    "showcase"
+    "access:private"
   ]
 }

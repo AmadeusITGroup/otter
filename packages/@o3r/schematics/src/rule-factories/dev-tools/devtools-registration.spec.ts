@@ -20,7 +20,7 @@ describe('Devtools Registration', () => {
     initialTree = Tree.empty();
     initialTree.create(mainFilePath, `
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppModule } from './app/app.module';
+import { AppModule } from './app/app-module';
 
 platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.error(err));
     `);
@@ -54,9 +54,9 @@ platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.error(e
     initialTree.overwrite(mainFilePath, `
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import { App } from './app/app';
 
-bootstrapApplication(AppComponent, appConfig)
+bootstrapApplication(App, appConfig)
   .catch((err) => console.error(err));
     `);
     const tree = await lastValueFrom(

@@ -6,12 +6,12 @@ import {
   provideDynamicContent,
 } from '@o3r/dynamic-content';
 import {
-  SdkTrainingComponent,
-} from './sdk-training.component';
+  SdkTraining,
+} from './sdk-training';
 
-describe('SdkTrainingComponent', () => {
-  let component: SdkTrainingComponent;
-  let fixture: ComponentFixture<SdkTrainingComponent>;
+describe('SdkTraining', () => {
+  let component: SdkTraining;
+  let fixture: ComponentFixture<SdkTraining>;
 
   beforeEach(async () => {
     global.fetch = jest.fn(() => Promise.resolve({
@@ -24,14 +24,14 @@ describe('SdkTrainingComponent', () => {
       text: () => Promise.resolve('')
     } as Response));
     await TestBed.configureTestingModule({
-      imports: [SdkTrainingComponent],
+      imports: [SdkTraining],
       providers: [
         provideDynamicContent()
       ]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(SdkTrainingComponent);
+    fixture = TestBed.createComponent(SdkTraining);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

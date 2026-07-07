@@ -1,11 +1,13 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "types": ["node"],
     "skipLibCheck": true, // Due to Jasmine / Jest fixture compilation conflicting on types
     "incremental": true,
     "composite": true,
     "outDir": "./dist",
     "module": "CommonJS",
+    "moduleResolution": "node10",
     "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },

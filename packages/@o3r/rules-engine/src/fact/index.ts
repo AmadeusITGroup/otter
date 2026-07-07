@@ -1,2 +1,2 @@
-export * from './fact.abstract-service';
-export * from './reserved.facts';
+export * from './fact-abstract-service';
+export * from './reserved-facts';

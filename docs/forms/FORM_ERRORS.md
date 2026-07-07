@@ -35,7 +35,7 @@ we can adapt the returned object to the store of error messages. This will ease 
 We have to make sure that we provide the `htmlElementId` of the errors in the store that match the __HTML fields__.
 To identify a field, we can generate an `id` in the parent component instance, provide it through the input mechanism, and concatenate it with the `formControlName`.
 Since we will have a __unique id__ by instance of the parent component, we are sure to have unique HTML identifiers for the form fields. You can find an example of this implementation
-in the subcomponents, such as the [personal information component](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/utilities/forms-personal-info/forms-personal-info-pres.component.ts),
+in the subcomponents, such as the [personal information component](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/utilities/forms-personal-info/forms-personal-info-pres.ts),
 of the forms page in the showcase application.
 
 The object returned by the `validate` function is the error object that is propagated to the parent component.
@@ -78,7 +78,7 @@ We put in place a generic helper [getFlatControlErrors](https://github.com/Amade
 This function gets a flattened list of all the errors from the form and its descendants and concatenates the __custom errors__.
 The object returned by the helper is of type [ControlFlatErrors](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/forms/src/core/flat-errors.ts), defined in __@o3r/forms__.
 
-You can find an example of the implementation of a `validate` [function](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/utilities/forms-personal-info/forms-personal-info-pres.component.ts)
+You can find an example of the implementation of a `validate` [function](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/utilities/forms-personal-info/forms-personal-info-pres.ts)
 in the forms example of the showcase application.
 
 This is only an example of an implementation. The `translationKey` and `translationParams` can be implemented differently depending on the use cases.
@@ -164,14 +164,14 @@ We have to add the default translation keys, corresponding to the custom validat
 // ---> in parent component class
 /** Localization of the component */
 @Input()
-@Localization('./forms-example-cont.localization.json')  // Here we will define the translation keys of the error messages
+@Localization('./forms-example-cont-localization.json')  // Here we will define the translation keys of the error messages
 public translations: FormsExampleContTranslation;
 ```
 
 Default values have to be defined for the custom errors, for example:
 
 ```json5
-// ----> forms-example-cont.localization.json
+// ----> forms-example-cont-localization.json
 {
   "form.dateOfBirth.dateInThePast": {
     "description": "Validator for date of birth",
@@ -194,14 +194,14 @@ Each possible validator should have a corresponding error message in the input c
 // ---> in input component class
 /** Localization of the component */
 @Input()
-@Localization('./forms-example-pres.localization.json') // Here we will define the translation keys of the error messages
+@Localization('./forms-example-pres-localization.json') // Here we will define the translation keys of the error messages
 public translations: FormsExamplePresTranslation;
 ```
 
 Default values have to be defined for the primitive errors, for example:
 
 ```json5
-// ----> forms-example-pres.localization.json
+// ----> forms-example-pres-localization.json
 {
   "o3r-forms-example-pres.name.required": {
     "description": "Required validator for the name",

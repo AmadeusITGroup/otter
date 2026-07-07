@@ -26,7 +26,7 @@ import type {
  */
 export function ngAddDesignTokenFn(options: NgAddDesignTokenSchematicsSchema): Rule {
   const fileName = basename(options.path.endsWith('.json') ? options.path : `${options.path}.json`);
-  const name = fileName.slice(0, fileName.includes('.') ? fileName.indexOf('.') : undefined);
+  const name = fileName.slice(0, fileName.includes('-theme.json') ? fileName.indexOf('-theme.json') : (fileName.includes('.') ? fileName.indexOf('.') : undefined));
 
   const createDesignTokenFilesRule: Rule = mergeWith(apply(url('./templates'), [
     template({

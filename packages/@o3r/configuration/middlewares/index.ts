@@ -1,1 +1,1 @@
-export * from './bootstrap-config.middleware';
+export * from './bootstrap-config-middleware';

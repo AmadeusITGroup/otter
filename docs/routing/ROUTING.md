@@ -76,9 +76,9 @@ shown in the example below
 import {Location} from '@angular/common';
 ...
 @Component({
-  selector: 'o3r-example',
-  styleUrls: ['./example.style.scss'],
-  templateUrl: './example.template.html',
+  selector: 'o3r-example-component',
+  styleUrls: ['./example-component.scss'],
+  templateUrl: './example-component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleComponent implements OnInit, OnDestroy, Configurable<ExampleConfig> {
@@ -207,7 +207,7 @@ and then inject the store in your block component constructor.
 ...
 import { v4 as uuidGenerate } from 'uuid';
 ...
-export class YourBlockContComponent {
+export class YourBlockCont {
   private readonly routingGuardId: string;
 
   constructor(..., private store: Store<RoutingGuardStore>) {
@@ -223,7 +223,7 @@ sure that the API calls triggered by your block are taken into account in the Ca
 ...
 import { v4 as uuidGenerate } from 'uuid';
 ...
-export class YourBlockContComponent implements OnInit {
+export class YourBlockCont implements OnInit {
   private readonly routingGuardId: string;
 
   constructor(..., private store: Store<RoutingGuardStore>) {
@@ -246,7 +246,7 @@ status.
 ...
 import { v4 as uuidGenerate } from 'uuid';
 ...
-export class YourBlockContComponent implements OnInit {
+export class YourBlockCont implements OnInit {
 
   private myBlockStatus$: Observable<AsyncItem | undefined>;
 

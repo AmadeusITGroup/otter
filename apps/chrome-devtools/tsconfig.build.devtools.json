@@ -4,7 +4,9 @@
     "tsBuildInfoFile": "build/devtools.tsbuildinfo",
     "composite": false
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "**/*.spec.ts",
     "src/app-components*.ts",

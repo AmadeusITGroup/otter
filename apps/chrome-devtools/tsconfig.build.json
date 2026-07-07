@@ -1,11 +1,15 @@
 {
   "extends": "../../tsconfig.build",
   "compilerOptions": {
-    "lib": ["es2023", "dom"],
-    "types": ["chrome"],
+    "lib": [
+      "es2023",
+      "dom"
+    ],
+    "types": [
+      "chrome"
+    ],
     "outDir": "dist/",
     "module": "es2022",
-    "moduleResolution": "node",
     "incremental": true,
     "composite": true,
     "tsBuildInfoFile": "build/.tsbuildinfo"

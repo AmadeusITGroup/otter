@@ -64,7 +64,7 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
       tsconfigCompilerOptions.esModuleInterop = true;
       tsconfigCompilerOptions.outDir = 'test';
       tsconfigFile.include ||= [];
-      tsconfigFile.include.concat(['**/fixture/', '**/*.fixture.ts', '**/fixtures.ts']);
+      tsconfigFile.include.concat(['**/fixture/', '**/*.fixture.ts', '**/*-fixture.ts', '**/fixtures.ts']);
       tree.overwrite(tsconfigPath, JSON.stringify(tsconfigFile, null, 2));
     }
 

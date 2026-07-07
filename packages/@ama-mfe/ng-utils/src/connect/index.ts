@@ -1,3 +1,3 @@
-export * from './connect.directive';
-export * from './connect.resources';
-export * from './connect.providers';
+export * from './connect-directive';
+export * from './connect-providers';
+export * from './connect-resources';

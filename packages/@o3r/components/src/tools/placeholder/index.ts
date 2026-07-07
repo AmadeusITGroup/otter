@@ -1,2 +1,2 @@
-export * from './placeholder.component';
-export * from './placeholder.module';
+export * from './placeholder';
+export * from './placeholder-module';

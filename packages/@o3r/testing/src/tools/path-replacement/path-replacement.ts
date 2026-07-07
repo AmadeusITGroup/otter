@@ -13,10 +13,10 @@ import {
 /**
  * Switch to the needed implementation of core testing, when running e2e tests
  * transforms ESM into CJS when needed
- * @param frameworkName Name of the framework used for e2e testing (playwright|protractor)
+ * @param frameworkName Name of the framework used for e2e testing (playwright)
  * @param customTransformOptions
  */
-export function adjustPath(frameworkName: 'playwright' | 'protractor', customTransformOptions: TransformOptions = {}) {
+export function adjustPath(frameworkName: 'playwright' = 'playwright', customTransformOptions: TransformOptions = {}) {
   const modulesCache: Record<string, any> = {};
   // eslint-disable-next-line @typescript-eslint/unbound-method -- No need to bind the method, we are using `apply`
   const originalRequire = Module.prototype.require;

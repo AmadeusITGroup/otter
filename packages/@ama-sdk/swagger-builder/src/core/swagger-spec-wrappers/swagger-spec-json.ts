@@ -4,7 +4,7 @@ import {
 } from './swagger-spec-file';
 import {
   SwaggerSpec,
-} from './swagger-spec.interface';
+} from './swagger-spec-interface';
 import {
   sanitizeDefinition,
 } from './utils';

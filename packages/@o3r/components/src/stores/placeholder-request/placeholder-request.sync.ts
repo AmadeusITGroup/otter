@@ -17,7 +17,7 @@ export const placeholderRequestStorageDeserializer = (rawObject: any) => {
   if (!rawObject || !rawObject.ids) {
     return placeholderRequestInitialState;
   }
-  const storeObject = placeholderRequestAdapter.getInitialState(rawObject);
+  const storeObject = placeholderRequestAdapter.getInitialState<PlaceholderRequestState>(rawObject);
   for (const id of rawObject.ids) {
     storeObject.entities[id] = rawObject.entities[id] as PlaceholderRequestModel;
   }

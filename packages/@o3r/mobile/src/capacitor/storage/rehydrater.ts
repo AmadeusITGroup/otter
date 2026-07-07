@@ -1,5 +1,5 @@
 import {
-  Inject,
+  inject,
   Injectable,
   InjectionToken,
 } from '@angular/core';
@@ -26,12 +26,13 @@ const noopDeserializer = (raw: string) => raw;
 
 @Injectable()
 export class CapacitorRehydrater {
+  private readonly store = inject<Store<any>>(Store);
+  private readonly logger = inject(LoggerService);
+
   private readonly options: StorageSyncOptions;
-  constructor(
-    private readonly store: Store<any>,
-    @Inject(STORAGE_SYNC_OPTIONS) options: Partial<StorageSyncOptions>,
-    private readonly logger: LoggerService
-  ) {
+  constructor() {
+    const options = inject<Partial<StorageSyncOptions>>(STORAGE_SYNC_OPTIONS);
+
     this.options = { keys: [], ...options };
   }
 

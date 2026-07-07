@@ -24,7 +24,7 @@ The localization module is built on top of an open source [ngx-translate](https:
 
 # How to use
 
-We provide an Angular module in **@o3r/localization** called [LocalizationModule](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/localization/src/tools/localization.module.ts) which comes with a translations loader.
+We provide an Angular module in **@o3r/localization** called [LocalizationModule](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/localization/src/tools/localization-module.ts) which comes with a translations loader.
 
 ## Configuration of Localization Module
 
@@ -37,12 +37,12 @@ with a custom configuration **factory** to specify the language of the applicati
 - The language of the application - display language
 - The fallback language - fallback in case the translation in the selected language does not exist
 
-All the possible configuration options can be found in the `LocalizationConfiguration` [interface](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/src/core/localization.configuration.ts).
+All the possible configuration options can be found in the `LocalizationConfiguration` [interface](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/src/core/localization-configuration.ts).
 
 You can also import the `LocalizationModule` without a configuration parameter in its `forRoot` method. In this case, you will be provided with some default `LocalizationConfiguration`.
 
 ```typescript
-// app.module.ts
+// app-module.ts
 
 import { registerLocaleData } from '@angular/common';
 import localeAR from '@angular/common/locales/ar';
@@ -96,7 +96,7 @@ A language can be specified asynchronously by using the `LocalizationService.use
   You only need to provide a token `LOCALIZATION_CONFIGURATION_TOKEN` with your custom factory and dependencies.
 
 ```typescript
-// app.module.ts
+// app-module.ts
 
 import localeAR from '@angular/common/locales/ar';
 import localeEN from '@angular/common/locales/en';
@@ -198,12 +198,12 @@ first checks that the component does not already contain localization files or p
 
 ### Generated files
 
-#### Localization file (`*.localization.json`)
+#### Localization file (`*-localization.json`)
 
 The JSON localization file defines an object of key/value pairs. Each value is a JSON object with the properties `description` and `defaultValue`.
 Eventually, you can reference a global key via `$ref` using a relative path to a global localization JSON file or in a different package in the dependencies.
 The purpose of this file is to provide a default localization for a component so that the developer can start building pages using components without worrying about localization.
-The `*.localization.json` file specifies default values in English only.
+The `*-localization.json` file specifies default values in English only.
 
 ```json5
 {
@@ -216,10 +216,10 @@ The `*.localization.json` file specifies default values in English only.
     "defaultValue": "This is my default value 2"
   },
   "o3r-my-component-pres.someglobalkey1": {
-    "$ref": "../global.localization.json#/someglobalkey1"
+    "$ref": "../global-localization.json#/someglobalkey1"
   },
   "o3r-my-component-pres.someglobalkey2": {
-    "$ref": "@scope/common/global.localization.json#/someglobalkey2"
+    "$ref": "@scope/common/global-localization.json#/someglobalkey2"
   }
 }
 ```
@@ -231,7 +231,7 @@ The `*.localization.json` file specifies default values in English only.
 To ensure the uniqueness of localization keys, it's a good idea to follow naming conventions. For components, we recommend prefixing each key by the component selector.
 Hence, the naming convention for keys is the component selector followed by `.` (dot character) and any string of your choice.
 
-For example, if your `SimpleHeaderPresComponent` has the selector `o3r-simple-header-pres`, then your keys may look like this:
+For example, if your `SimpleHeaderPres` has the selector `o3r-simple-header-pres`, then your keys may look like this:
 
 ```json5
 {
@@ -256,7 +256,7 @@ For VSCode users, we provide an Otter extension that allows to create localizati
 
 More details on how to do this in the [documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/vscode-extension/ADD_LOCALIZATION_KEY_TO_COMPONENT.md).
 
-#### Translation file (`*.translation.ts`)
+#### Translation file (`*-translation.ts`)
 
 The translation file is used to define the localization variables used by the component template.
 It typically defines an interface which extends `Translation` from `@o3r/core` with all possible variable names used by your component template.
@@ -276,7 +276,7 @@ export  const translations: MyComponentPresTranslation = {
 };
 ```
 
-For the `SimpleHeaderPresComponent` example, the translation file could look something like this:
+For the `SimpleHeaderPres` example, the translation file could look something like this:
 
 ```typescript
 import type { Translation } from '@o3r/core';
@@ -306,21 +306,21 @@ This will let you override localization keys from the template and give your com
 ```typescript
 import { Component, Input } from '@angular/core';
 import { Localization, LocalizationModule, Translatable } from '@o3r/localization';
-import { SimpleHeaderPresTranslation, translations } from './simple-header-pres.translation';
+import { SimpleHeaderPresTranslation, translations } from './simple-header-pres-translation';
 
 @Component({
   selector: 'o3r-simple-header-pres',
   imports: [LocalizationModule],
-  styleUrls: ['./simple-header-pres.style.scss'],
-  templateUrl: './simple-header-pres.template.html'
+  styleUrls: ['./simple-header-pres.scss'],
+  templateUrl: './simple-header-pres.html'
 })
 
-export class SimpleHeaderPresComponent implements Translatable<SimpleHeaderPresTranslation>, ... {
+export class SimpleHeaderPres implements Translatable<SimpleHeaderPresTranslation>, ... {
   /**
    * Localization of the component
    */
   @Input()
-  @Localization('./simple-header-pres.localization.json')
+  @Localization('./simple-header-pres-localization.json')
   public translations: SimpleHeaderPresTranslation = translations;
 }
 ```
@@ -351,7 +351,7 @@ We can now use the `translations` property (declared in the component file) in t
 ```
 
 > [!NOTE]
-> The code to the `o3rTranslate` pipe can be found in the [tools of the @o3r/localization module](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/src/tools/localization-translate.pipe.ts).
+> The code to the `o3rTranslate` pipe can be found in the [tools of the @o3r/localization module](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/src/tools/localization-translate-pipe.ts).
 
 ### Localization bundle
 
@@ -393,15 +393,15 @@ The locale is read from `this.localizationService.getCurrentLanguage()`. To be a
 ```typescript
 import { Component, inject, Input } from '@angular/core';
 import { Localization, LocalizationModule, LocalizationService, Translatable } from '@o3r/localization';
-import { SimpleHeaderPresTranslation, translations } from './simple-header-pres.translation';
+import { SimpleHeaderPresTranslation, translations } from './simple-header-pres-translation';
 
 @Component({
   selector: 'o3r-simple-header-pres',
   imports: [LocalizationModule],
-  styleUrls: ['./simple-header-pres.style.scss'],
-  templateUrl: './simple-header-pres.template.html'
+  styleUrls: ['./simple-header-pres.scss'],
+  templateUrl: './simple-header-pres.html'
 })
-export class SimpleHeaderPresComponent implements Translatable<SimpleHeaderPresTranslation>, ... {
+export class SimpleHeaderPres implements Translatable<SimpleHeaderPresTranslation>, ... {
 
   // ...
   private readonly localizationService = inject(LocalizationService);
@@ -448,20 +448,20 @@ A container can have its own translations (for error messages for example). In t
 
 ```typescript
 import { Translatable } from '@o3r/localization';
-import { MyContTranslation } from '../my.translation.ts';
+import { MyContTranslation } from '../my-cont-translation.ts';
 
 @Component({
   selector: 'o3r-my-cont',
-  templateUrl: './my.template.html',
+  templateUrl: './my-cont.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MyContComponent implements Translatable<MyContTranslation>, Block {
+export class MyCont implements Translatable<MyContTranslation>, Block {
 
   /**
    * Localization of the component
    */
   @Input()
-  @Localization('./my.localization.json')
+  @Localization('./my-cont-localization.json')
   public translations: MyContTranslation;
 }
 ```
@@ -471,7 +471,7 @@ There is also a possibility for the container to override the presenter's transl
 ### Configure the Localization Service in your root component
 
 ```typescript
-// app.component.ts
+// app.ts
 
 import { inject } from '@angular/core';
 import { LocalizationService } from '@o3r/localization';
@@ -484,10 +484,10 @@ constructor() {
 
 ### How to add RTL support in the application
 
-The `TextDirectionService` has to be injected in `app.component.ts` as follows:
+The `TextDirectionService` has to be injected in `app.ts` as follows:
 
 ```typescript
-// app.component.ts
+// app.ts
 
 import { inject } from '@angular/core';
 import { TextDirectionService } from '@o3r/localization';
@@ -504,7 +504,7 @@ public ngOnInit() {
 To be able to handle a large amount of ICU translations, a lazy compiler is provided in the `@o3r/localization` package.
 
 ```typescript
-// app.module.ts
+// app-module.ts
 
 import localeAR from '@angular/common/locales/ar';
 import localeEN from '@angular/common/locales/en';
@@ -556,7 +556,7 @@ Example: instead of saying **'You have added 2 bags'** you may want to say **'Nu
 You need to configure the `TranslateModule` for it to use `TranslateMessageFormatCompiler` as a compiler. We will use `TranslateMessageFormatLazyCompiler`, which is an Otter extension of the base compiler. See the [Lazy Compiler for ICU Translation support](#lazy-compiler-for-icu-translation-support) section above for details.
 
 ```typescript
-// app.module.ts
+// app-module.ts
 
 import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
 import { MESSAGE_FORMAT_CONFIG, TranslateMessageFormatLazyCompiler } from '@o3r/localization';
@@ -713,7 +713,7 @@ First, this mechanism has to be activated via the ``LocalizationConfiguration`` 
 Example:
 
 ````typescript
-// app.module.ts
+// app-module.ts
 
 export function localizationConfigurationFactory(): LocalizationConfiguration {
   return {
@@ -746,10 +746,10 @@ Example of usage in a debug component:
 // Component class
 @Component({
   selector: 'debug',
-  templateUrl: './debug.template.html',
+  templateUrl: './debug.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DebugComponent {
+export class Debug {
   constructor(private localizationService: LocalizationService) {}
 
   public toggleTranslation() {
@@ -816,7 +816,7 @@ import { LocalizationDevtoolsModule } from '@o3r/localization';
 export class AppModule {}
 ```
 
-2. Importing the `LocalizationDevtoolsMessageService` in the `main.ts` file of the application (we recommend doing this to avoid polluting the `app.component.ts` file):
+2. Importing the `LocalizationDevtoolsMessageService` in the `main.ts` file of the application (we recommend doing this to avoid polluting the `app.ts` file):
 
 ```typescript
 // main.ts
@@ -825,7 +825,7 @@ import { inject, runInInjectionContext } from '@angular/core';
 import '@angular/localize/init';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { LocalizationDevtoolsMessageService } from '@o3r/localization';
-import { AppModule } from './app/app.module';
+import { AppModule } from './app/app-module';
 
 platformBrowserDynamic().bootstrapModule(AppModule).then((m) => runInInjectionContext(m.injector, () => inject(ConfigurationDevtoolsConsoleService)))
 ```
@@ -842,7 +842,7 @@ platformBrowserDynamic().bootstrapModule(AppModule).then((m) => runInInjectionCo
 Or in the `AppModule`:
 
 ```typescript
-// app.module.ts
+// app-module.ts
 
 import { OTTER_LOCALIZATION_DEVTOOLS_OPTIONS } from '@o3r/localization';
 

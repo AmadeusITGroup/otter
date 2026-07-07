@@ -15,7 +15,7 @@ import {
 } from '@o3r/core';
 import {
   XmasHamper,
-} from '../../xmas-hamper.mock';
+} from '../../xmas-hamper-mock';
 import {
   ShoppingCart,
 } from './shopping-cart.model';

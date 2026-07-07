@@ -8,6 +8,8 @@
     "rootDir": "src",
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.cts"
+  ],
   "exclude": ["**/*.spec.ts"]
 }

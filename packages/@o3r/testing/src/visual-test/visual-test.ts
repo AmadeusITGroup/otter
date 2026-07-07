@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import * as pixelmatch from 'pixelmatch';
+import pixelmatch from 'pixelmatch';
 import {
   PNG,
 } from 'pngjs';
@@ -63,7 +63,8 @@ export function toBeVisuallySimilar() {
       if (actual.baseScreenshotNotFound) {
         return {
           pass: false,
-          message: `${visualTestMessages.baseImgNotFound} ${actual.baseScreenshotNotFound.baseScreenshotPath}` };
+          message: `${visualTestMessages.baseImgNotFound} ${actual.baseScreenshotNotFound.baseScreenshotPath}`
+        };
       }
       if (actual.imagesSize) {
         return {

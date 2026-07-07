@@ -6,6 +6,10 @@ import {
   askConfirmation,
 } from '@angular/cli/src/utilities/prompt';
 import {
+  classify,
+  dasherize,
+} from '@angular-devkit/core/src/utils/strings';
+import {
   chain,
   externalSchematic,
   noop,
@@ -131,10 +135,12 @@ export function ngAddLocalizationKeyFn(options: NgAddLocalizationKeySchematicsSc
       const { selector, templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
       const { localizationJsonPath, translationsPath, translationsVariableType } = getLocalizationInformation(options.path, tree);
 
+      const keyName = options.key.charAt(0).toLowerCase() + classify(options.key).slice(1);
+
       const properties = {
         ...options,
-        keyName: options.key,
-        keyValue: `${selector}.${options.key}`,
+        keyName,
+        keyValue: `${selector}.${options.keyToKebabCase ? dasherize(options.key) : keyName}`,
         defaultValue: options.value
       };
 

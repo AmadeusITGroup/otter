@@ -24,6 +24,7 @@
   "devDependencies": {
     "@angular/cli": "<%= rootDependencies['@angular/cli'] || 'latest' %>",
     "@angular/compiler-cli": "<%= rootDependencies['@angular/compiler-cli'] || rootDependencies['@angular/cli'] || 'latest' %>",
-    "typescript": "<%= enforceTildeRange(rootDependencies['typescript'] || 'latest') %>"
+    <% if (rootDependencies['@types/jasmine']) { %>"@types/jasmine": "<%= rootDependencies['@types/jasmine'] %>",
+    <% } %>"typescript": "<%= enforceTildeRange(rootDependencies['typescript'] || 'latest') %>"
   }
 }

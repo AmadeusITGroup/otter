@@ -3,18 +3,18 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  OtterPickerPresComponent,
-} from './otter-picker-pres.component';
+  OtterPickerPres,
+} from './otter-picker-pres';
 
-describe('OtterPickerPresComponent', () => {
-  let component: OtterPickerPresComponent;
-  let fixture: ComponentFixture<OtterPickerPresComponent>;
+describe('OtterPickerPres', () => {
+  let component: OtterPickerPres;
+  let fixture: ComponentFixture<OtterPickerPres>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [OtterPickerPresComponent]
+      imports: [OtterPickerPres]
     });
-    fixture = TestBed.createComponent(OtterPickerPresComponent);
+    fixture = TestBed.createComponent(OtterPickerPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,6 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>AmadeusITGroup/otter//packages/@ama-openapi/core/renovate#v<%- version %>"
+  ]
+}

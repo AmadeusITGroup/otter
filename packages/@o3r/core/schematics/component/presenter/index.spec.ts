@@ -20,7 +20,9 @@ import {
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
 function getGeneratedComponentPath(componentName: string, fileName: string, componentStructure: string) {
-  return `/${TYPES_DEFAULT_FOLDER['@o3r/core:component'].app}/${strings.dasherize(componentName)}/${componentStructure === 'full' ? PRESENTER_FOLDER + '/' : ''}${fileName}`;
+  return `/${TYPES_DEFAULT_FOLDER['@o3r/core:component'].app}/` + (componentStructure === 'full'
+    ? `${strings.dasherize(componentName)}/${PRESENTER_FOLDER + '/'}${fileName}`
+    : `${strings.dasherize(componentName) + (componentStructure === 'presenter' ? '-pres' : '-cont')}/${fileName}`);
 }
 
 describe('Component presenter', () => {
@@ -29,11 +31,11 @@ describe('Component presenter', () => {
 
   const componentName = 'testComponent';
   const expectedFileNames = [
-    'test-component-pres.component.ts',
-    'test-component-pres.context.ts',
+    'test-component-pres.ts',
+    'test-component-pres-context.ts',
     'test-component-pres.spec.ts',
-    'test-component-pres.style.scss',
-    'test-component-pres.template.html',
+    'test-component-pres.scss',
+    'test-component-pres.html',
     'README.md',
     'index.ts'
   ];
@@ -58,10 +60,40 @@ describe('Component presenter', () => {
       path: 'src/components'
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNames.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
+    expect(tree.files.filter((file) => /test-component-pres/.test(file)).length).toEqual(expectedFileNames.length);
+    expect(tree.files.filter((file) => /test-component-pres/.test(file))).toEqual(expect.arrayContaining(
       expectedFileNames.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
     );
+  });
+
+  it('should generate a presenter component with a type', async () => {
+    const tree = await runner.runSchematic('component-presenter', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      componentStructure: 'presenter',
+      activateDummy: true,
+      path: 'src/components',
+      type: 'test-type'
+    }, initialTree);
+
+    const expectedFileNamesWithType = [
+      'test-component-pres-context.ts',
+      'test-component-pres.test-type.ts',
+      'test-component-pres.test-type.spec.ts',
+      'test-component-pres.test-type.html',
+      'test-component-pres.test-type.scss',
+      'README.md',
+      'index.ts'
+    ];
+
+    expect(tree.files.filter((file) => /test-component-pres/.test(file)).sort()).toEqual(
+      expectedFileNamesWithType.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')).sort()
+    );
+    expect(tree.readContent(getGeneratedComponentPath(componentName, 'index.ts', 'presenter'))).toContain('export * from \'./test-component-pres.test-type\';');
+    const componentFileContent = tree.readContent(getGeneratedComponentPath(componentName, 'test-component-pres.test-type.ts', 'presenter'));
+    expect(componentFileContent).toContain(`export class TestComponentPresTestType`);
+    expect(componentFileContent).toContain(`import { TestComponentPresContext } from './test-component-pres-context'`);
   });
 
   it('should generate a presenter component as part of a full component structure', async () => {
@@ -90,7 +122,7 @@ describe('Component presenter', () => {
       path: 'src/components'
     }, initialTree);
 
-    expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-pres.component.ts', 'presenter')))
+    expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-pres.ts', 'presenter')))
       .toContain(`selector: '${getComponentSelectorWithoutSuffix(componentName, 'o3r')}-pres'`);
   });
 
@@ -105,7 +137,7 @@ describe('Component presenter', () => {
       path: 'src/components'
     }, initialTree);
 
-    expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-pres.component.ts', 'presenter')))
+    expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-pres.ts', 'presenter')))
       .toContain(`selector: '${getComponentSelectorWithoutSuffix(componentName, customPrefix)}-pres'`);
   });
 
@@ -120,7 +152,7 @@ describe('Component presenter', () => {
       path: 'src/components'
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-component-pres\.fixture\.ts$/.test(file)).length).toBe(0);
+    expect(tree.files.filter((file) => /test-component-pres[.-]fixture\.ts$/.test(file)).length).toBe(0);
   });
 
   it('should generate a presenter component without otter theme', async () => {
@@ -134,10 +166,10 @@ describe('Component presenter', () => {
       path: 'src/components'
     }, initialTree);
 
-    const expectedFileNamesWithoutOtterTheme = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.style.theme.scss');
+    const expectedFileNamesWithoutOtterTheme = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres-theme.scss');
 
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutOtterTheme.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
+    expect(tree.files.filter((file) => /test-component-pres/.test(file)).length).toEqual(expectedFileNamesWithoutOtterTheme.length);
+    expect(tree.files.filter((file) => /test-component-pres/.test(file))).toEqual(expect.arrayContaining(
       expectedFileNamesWithoutOtterTheme.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
     );
   });
@@ -175,10 +207,10 @@ describe('Component presenter', () => {
       path: 'src/components'
     }, initialTree);
 
-    const expectedFileNamesWithoutContext = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.context.ts');
+    const expectedFileNamesWithoutContext = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres-context.ts');
 
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutContext.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
+    expect(tree.files.filter((file) => /test-component-pres/.test(file)).length).toEqual(expectedFileNamesWithoutContext.length);
+    expect(tree.files.filter((file) => /test-component-pres/.test(file))).toEqual(expect.arrayContaining(
       expectedFileNamesWithoutContext.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
     );
   });
@@ -195,11 +227,11 @@ describe('Component presenter', () => {
     }, initialTree);
 
     const expectedFileNamesWithoutLocalization = expectedFileNames.filter((fileName) =>
-      fileName !== 'test-component-pres.localization.json' && fileName !== 'test-component-pres.translation.ts'
+      fileName !== 'test-component-pres-localization.json' && fileName !== 'test-component-pres-translation.ts'
     );
 
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutLocalization.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
+    expect(tree.files.filter((file) => /test-component-pres/.test(file)).length).toEqual(expectedFileNamesWithoutLocalization.length);
+    expect(tree.files.filter((file) => /test-component-pres/.test(file))).toEqual(expect.arrayContaining(
       expectedFileNamesWithoutLocalization.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
     );
   });
@@ -227,7 +259,7 @@ describe('Component presenter', () => {
       path: 'src/components'
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-component-pres\.config\.ts$/.test(file)).length).toBe(0);
+    expect(tree.files.filter((file) => /test-component-pres[.-]config\.ts$/.test(file)).length).toBe(0);
   });
 
   it('should generate a non standalone presenter component', async () => {
@@ -240,12 +272,12 @@ describe('Component presenter', () => {
       path: 'src/components'
     }, initialTree);
 
-    const expectedFileNamesWithModule = [...expectedFileNames, 'test-component-pres.module.ts'];
+    const expectedFileNamesWithModule = [...expectedFileNames, 'test-component-pres-module.ts'];
 
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithModule.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
-      expectedFileNamesWithModule.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
+    expect(tree.files.filter((file) => /test-component-pres/.test(file)).length).toEqual(expectedFileNamesWithModule.length);
+    expect(tree.files.filter((file) => /test-component-pres/.test(file))).toEqual(expect.arrayContaining(
+      expectedFileNamesWithModule.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
     );
-    expect(tree.readContent(tree.files.find((file) => file.includes('test-component-pres.component.ts')))).toContain('standalone: false');
+    expect(tree.readContent(tree.files.find((file) => file.includes('test-component-pres.ts')))).toContain('standalone: false');
   });
 });

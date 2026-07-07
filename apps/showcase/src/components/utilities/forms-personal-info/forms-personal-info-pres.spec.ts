@@ -9,19 +9,19 @@ import {
   mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
-  FormsPersonalInfoPresComponent,
-} from './forms-personal-info-pres.component';
+  FormsPersonalInfoPres,
+} from './forms-personal-info-pres';
 
-describe('FormsPersonalInfoPresComponent', () => {
-  let component: FormsPersonalInfoPresComponent;
-  let fixture: ComponentFixture<FormsPersonalInfoPresComponent>;
+describe('FormsPersonalInfoPres', () => {
+  let component: FormsPersonalInfoPres;
+  let fixture: ComponentFixture<FormsPersonalInfoPres>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsPersonalInfoPresComponent, ...mockTranslationModules(), ReactiveFormsModule]
+      imports: [FormsPersonalInfoPres, ...mockTranslationModules(), ReactiveFormsModule]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FormsPersonalInfoPresComponent);
+    fixture = TestBed.createComponent(FormsPersonalInfoPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

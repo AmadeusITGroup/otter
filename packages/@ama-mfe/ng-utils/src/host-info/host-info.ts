@@ -47,12 +47,13 @@ export interface MFEHostInformation {
  * - use `document.referrer` (will only work if called before any redirection in the iframe)
  * The host application ID is taken from the search parameter {@link MFE_HOST_APPLICATION_ID_PARAM} in the URL of the iframe
  * The module application ID is taken from the search parameter {@link MFE_APPLICATION_ID_PARAM} in the URL of the iframe
+ * @param locationParam - A {@link Location} object with information about the current location of the document. Defaults to global {@link location}.
  */
-export function getHostInfo(): MFEHostInformation {
-  const searchParams = new URLSearchParams(location.search);
+export function getHostInfo(locationParam: Location = location): MFEHostInformation {
+  const searchParams = new URLSearchParams(locationParam.search);
   const storedHostInfo = JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY) || '{}') as MFEHostInformation;
   return {
-    hostURL: searchParams.get(MFE_HOST_URL_PARAM) || storedHostInfo.hostURL || location.ancestorOrigins?.[0] || document.referrer,
+    hostURL: searchParams.get(MFE_HOST_URL_PARAM) || storedHostInfo.hostURL || locationParam.ancestorOrigins?.[0] || document.referrer,
     hostApplicationId: searchParams.get(MFE_HOST_APPLICATION_ID_PARAM) || storedHostInfo.hostApplicationId,
     moduleApplicationId: searchParams.get(MFE_MODULE_APPLICATION_ID_PARAM) || storedHostInfo.moduleApplicationId
   };

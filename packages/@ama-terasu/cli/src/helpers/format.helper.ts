@@ -13,7 +13,7 @@ import {
  */
 export const formatTitle = (text: string) => {
   const titleDecoratorSize = Math.min(Math.floor((terminalWidth() || 0) / 2) || 80, 80);
-  return `${chalk.grey('---')} ${chalk.bold(text)} ${chalk.grey(Array.from({ length: titleDecoratorSize - text.length - 5 }).fill('-').join(''))}`;
+  return `${chalk.grey('---')} ${chalk.bold(text)} ${chalk.grey('-'.repeat(titleDecoratorSize - text.length - 5))}`;
 };
 
 const formatHelpOptionsBlocks = (initialMessage: string, groups: string[]) => {

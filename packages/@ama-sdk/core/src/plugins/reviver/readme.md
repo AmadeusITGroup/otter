@@ -7,4 +7,4 @@ Plugin to revive a reply from the SDK.
 
 ### Type of plugins
 
-- Reply plugin: [ReviverReply](./reviver.reply.ts)
+- Reply plugin: [ReviverReply](./reviver-reply.ts)

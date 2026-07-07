@@ -1,1 +1,1 @@
-export * from './mgw-mdw-auth.request';
+export * from './mgw-mdw-auth-request';

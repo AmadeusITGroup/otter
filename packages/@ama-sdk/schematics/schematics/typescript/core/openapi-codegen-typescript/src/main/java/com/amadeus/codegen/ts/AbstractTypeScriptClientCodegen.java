@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.Schema;
 
 import org.apache.commons.lang3.StringUtils;
@@ -144,6 +143,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     additionalProperties.put("simpleMath", new LambdaHelper.SimpleMathLambda());
     additionalProperties.put("uppercaseFirst", new LambdaHelper.UppercaseFirstLambda());
     additionalProperties.put("kebabCase", new LambdaHelper.KebabCaseLambda());
+    additionalProperties.put("upperSnakeCase", new LambdaHelper.UpperSnakeCaseLambda());
     additionalProperties.put("parseRegexp", new LambdaHelper.ParseRegexp());
     additionalProperties.put("plurialize", new LambdaHelper.Plurialize());
     additionalProperties.put("urlParamReplacer", new LambdaHelper.UrlParamReplacerLambda());
@@ -316,7 +316,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   @Override
   public String getTypeDeclaration(Schema p) {
     if (ModelUtils.isArraySchema(p)) {
-      Schema items = ModelUtils.getSchemaItems((ArraySchema) p);
+      Schema items = ModelUtils.getSchemaItems(p);
       return getTypeDeclaration(ModelUtils.unaliasSchema(this.openAPI, items)) + "[]";
     } else if (ModelUtils.isMapSchema(p)) {
       Schema inner = getSchemaAdditionalProperties(p);
@@ -490,10 +490,28 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
 
     // Check that we have vendor extensions for dictionary
     if (property.vendorExtensions.containsKey("x-dictionary-name")) {
+      String name = (String) property.vendorExtensions.get("x-field-name");
+      String type = (String) property.vendorExtensions.get("x-field-type");
+      boolean propertyNameExists = false;
+      // Check if a property with the same name and type already exists
+      for (CodegenProperty prop : model.vars) {
+        if (type.equals(prop.baseType) && name.equals(prop.baseName)) {
+          String textToAdd = "Property is backed up as a dictionary extraction";
+          // Check if the text hasn't already been added
+          if (prop.description == null || !prop.description.contains(textToAdd)) {
+              prop.description = (prop.description != null && !prop.description.isEmpty())
+                  ? prop.description + " " + textToAdd
+                  : textToAdd;
+          }
+          propertyNameExists = true;
+          break;
+        }
+      }
+      property.vendorExtensions.put("x-field-exists", propertyNameExists);
+
       boolean isPrimitive = false;
       boolean isRevived = false;
 
-      String type = (String) property.vendorExtensions.get("x-field-type");
       if (typeMapping.containsKey(type) || languageSpecificPrimitives.contains(type)) {
         if (typeMapping.containsKey(type)) {
           property.vendorExtensions.put("x-field-type", (String) typeMapping.get(type));

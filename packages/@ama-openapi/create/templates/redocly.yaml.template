@@ -1,0 +1,10 @@
+extends:
+  - recommended
+
+plugins:
+  - '@ama-openapi/redocly-plugin'
+
+apis:
+  example@v1:
+    root: apis/example.v1.yaml
+    output: bundle/specification.yaml

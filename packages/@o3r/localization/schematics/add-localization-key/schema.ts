@@ -23,4 +23,7 @@ export interface NgAddLocalizationKeySchematicsSchema extends SchematicOptionObj
 
   /** Update the template by replacing matching value by the localization key */
   updateTemplate?: boolean | undefined;
+
+  /** Convert the key to kebab-case */
+  keyToKebabCase?: boolean | undefined;
 }

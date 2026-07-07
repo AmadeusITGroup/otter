@@ -27,16 +27,16 @@ import {
   EvaluationReason,
   RuleEvaluation,
   RuleEvaluationOutput,
-} from './engine.interface';
+} from './engine-interface';
 import type {
   Facts,
 } from './fact';
 import {
   executeOperator,
-} from './operator/operator.helpers';
+} from './operator/operator-helpers';
 import {
   Operator,
-} from './operator/operator.interface';
+} from './operator/operator-interface';
 import {
   isAllConditions,
   isConditionProperties,
@@ -44,7 +44,7 @@ import {
   isOperandFact,
   isOperandLiteral,
   isOperandRuntimeFact,
-} from './rule/rule.helpers';
+} from './rule/rule-helpers';
 import {
   ActionBlock,
   ActionSetTemporaryFactBlock,

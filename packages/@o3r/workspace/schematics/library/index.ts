@@ -27,10 +27,10 @@ import {
 } from 'type-fest';
 import {
   ngGenerateModule,
-} from './rules/rules.ng';
+} from './rules/rules-ng';
 import {
   nxGenerateModule,
-} from './rules/rules.nx';
+} from './rules/rules-nx';
 import {
   NgGenerateModuleSchema,
 } from './schema';

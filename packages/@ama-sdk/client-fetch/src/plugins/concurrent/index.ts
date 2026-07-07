@@ -1,1 +1,1 @@
-export * from './concurrent.fetch';
+export * from './concurrent-fetch';

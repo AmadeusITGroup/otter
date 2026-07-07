@@ -1,6 +1,6 @@
 import {
-  basename,
   dirname,
+  posix,
 } from 'node:path';
 import {
   apply,
@@ -17,6 +17,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
+  getComponentBaseFileName,
   O3rCliError,
 } from '@o3r/schematics';
 import {
@@ -27,13 +28,11 @@ import type {
   NgAddThemingSchematicsSchema,
 } from './schema';
 
-const checkTheming = (stylePath: string, tree: Tree) => {
-  if (!/style\.scss$/.test(stylePath)) {
-    throw new O3rCliError('Invalid input path: it must target a style.scss file');
+const checkTheming = (stylePath: string, tree: Tree, baseFileName: string) => {
+  if (!/\.scss$/.test(stylePath)) {
+    throw new O3rCliError('Invalid input path: it must target an scss file');
   }
-  if (tree.exists(
-    stylePath.replace(/\.scss$/, '.theme.scss')
-  )) {
+  if (tree.exists(posix.join(dirname(stylePath), `${baseFileName}-theme.scss`))) {
     throw new O3rCliError('This component already have theming.');
   }
 };
@@ -45,11 +44,11 @@ const checkTheming = (stylePath: string, tree: Tree) => {
 export function ngAddThemingFn(options: NgAddThemingSchematicsSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const stylePath = options.path;
-
-    checkTheming(stylePath, tree);
+    const baseFileName = getComponentBaseFileName(options.path);
+    checkTheming(stylePath, tree, baseFileName);
 
     const properties = {
-      name: basename(stylePath, '.style.scss')
+      name: baseFileName
     };
 
     const createThemingFilesRule: Rule = mergeWith(apply(url('./templates'), [
@@ -60,7 +59,7 @@ export function ngAddThemingFn(options: NgAddThemingSchematicsSchema): Rule {
 
     const updateStyleRule: Rule = () => {
       const recorder = tree.beginUpdate(stylePath);
-      const change = new InsertChange(stylePath, 0, `@import './${properties.name}.style.theme';\n\n`);
+      const change = new InsertChange(stylePath, 0, `@import './${properties.name}-theme';\n\n`);
       applyToUpdateRecorder(recorder, [change]);
       tree.commitUpdate(recorder);
       return tree;

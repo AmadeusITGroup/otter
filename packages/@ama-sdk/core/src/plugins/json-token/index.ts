@@ -1,2 +1,2 @@
-export * from './json-token.reply';
-export * from './json-token.request';
+export * from './json-token-reply';
+export * from './json-token-request';

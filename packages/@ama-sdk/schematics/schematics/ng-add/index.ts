@@ -3,9 +3,6 @@ import {
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  isJsonObject,
-} from '@angular-devkit/core';
-import {
   chain,
   externalSchematic,
   Rule,
@@ -14,10 +11,8 @@ import {
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
-  getExternalDependenciesInfo,
-  getWorkspaceConfig,
+  ngAddDependenciesRule,
   registerPackageCollectionSchematics,
-  setupDependencies,
 } from '@o3r/schematics';
 import {
   lastValueFrom,
@@ -36,8 +31,7 @@ import type {
   NgAddSchematicsSchema,
 } from './schema';
 
-const rootPackageJsonPath = '/package.json';
-const schematicsPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
 const swaggerIgnorePath = '/.swagger-codegen-ignore';
 const openApiIgnorePath = '/.openapi-generator-ignore';
@@ -54,53 +48,6 @@ const dependenciesToInstall: string[] = [];
 const devDependenciesToInstall = [
   '@openapitools/openapi-generator-cli'
 ];
-
-/**
- * Rule to update package.json scripts using yeoman generator from `@ama-sdk/generator-sdk`
- * @param tree Tree
- * @param context SchematicContext
- */
-export const updatePackageJsonScripts: Rule = (tree, context) => {
-  const packageJson = tree.readJson(rootPackageJsonPath);
-  if (!isJsonObject(packageJson)) {
-    context.logger.error('Failed to read correctly the package.json');
-    return tree;
-  }
-  if (!isJsonObject(packageJson.scripts)) {
-    context.logger.error(
-      'Failed to read correctly the scripts in the package.json'
-    );
-    return tree;
-  }
-  const scripts = Object.entries(packageJson.scripts).reduce(
-    (acc, [scriptName, cmd]) => {
-      if (typeof cmd === 'string') {
-        acc[scriptName] = cmd
-          .replace(/\byo\b/g, 'schematics') // Migrate from yeoman to schematics
-          .replace(
-            // Change generator path to schematics collection:name
-            /(\$\(yarn resolve )?(\.?\/?node_modules\/)?@ama-sdk\/generator-sdk\/(src\/)?generators\/([\w-]+)\)?(\s)?/g,
-            '@ama-sdk/schematics:$4$5'
-          )
-          .replace(
-            /@ama-sdk\/generator-sdk\/(src\/)?generators/g,
-            '@ama-sdk/schematics/schematics'
-          ) // Change relative path for swaggerConfigPath
-          .replace(
-            /@ama-sdk\/(schematics|generator-sdk):(core|shell|create|mock)/g,
-            '@ama-sdk/schematics:typescript-$2'
-          ) // Change typescript schematics name
-          .replaceAll(/--(swaggerSpecPath|swagger-spec-path)/g, '--spec-path') // Schematics arguments should be kebab-case
-          .replaceAll('--swaggerConfigPath', '--spec-config-path'); // Schematics arguments should be kebab-case
-      }
-      return acc;
-    },
-    packageJson.scripts
-  );
-  packageJson.scripts = scripts;
-  tree.overwrite(rootPackageJsonPath, JSON.stringify(packageJson, null, 2));
-  return tree;
-};
 
 /**
  * Create or udpate the OpenApi configuration with the version supported by the application
@@ -130,32 +77,6 @@ const createOpenApiToolsConfig: Rule = (tree) => {
     }));
   }
   return tree;
-};
-
-/**
- * Install the npm open api generator cli package
- * @param options
- */
-const installDependencies = (options: NgAddSchematicsSchema): Rule => {
-  return (tree, context) => {
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const projectDirectory = workspaceProject?.root || '.';
-    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
-
-    const externalDependenciesInfo = getExternalDependenciesInfo({
-      devDependenciesToInstall: devDependenciesToInstall,
-      dependenciesToInstall: dependenciesToInstall,
-      o3rPackageJsonPath: schematicsPackageJsonPath,
-      projectPackageJson,
-      projectType: workspaceProject?.projectType
-    },
-    context.logger
-    );
-    return setupDependencies({
-      projectName: options.projectName,
-      dependencies: externalDependenciesInfo
-    });
-  };
 };
 
 /**
@@ -202,9 +123,8 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return () => chain([
     registerPackageSchematics,
-    updatePackageJsonScripts,
     replaceSwaggerIgnore,
-    installDependencies(options),
+    ngAddDependenciesRule(options, packageJsonPath, { dependenciesToInstall, devDependenciesToInstall }),
     createOpenApiToolsConfig
   ]);
 }

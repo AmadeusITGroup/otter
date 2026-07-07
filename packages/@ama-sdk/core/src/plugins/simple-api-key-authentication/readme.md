@@ -59,4 +59,4 @@ store.pipe(
 
 ### Type of plugins
 
-- Request plugin: [SimpleApiKeyAuthenticationRequest](./simple-api-key-authentication.request.ts)
+- Request plugin: [SimpleApiKeyAuthenticationRequest](./simple-api-key-authentication-request.ts)

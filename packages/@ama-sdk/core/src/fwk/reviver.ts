@@ -27,8 +27,9 @@ export interface ReviverOptions {
 }
 
 /** Reviver type */
-export type ReviverType<T, V extends { [key: string]: any } = { [key: string]: any }, D extends { [key: string]: any } = { [key: string]: any }> =
-  (data: V, dictionary?: D, options?: ReviverOptions) => T | undefined;
+export type ReviverType<T, V extends { [key: string]: any } = { [key: string]: any }, D extends { [key: string]: any } = {
+  [key: string]: any;
+}> = (data: V, dictionary?: D, options?: ReviverOptions) => T | undefined;
 
 /**
  * Used in case of maps (dictionaries): All values of the map must be of the same type. reviveWithType will be called

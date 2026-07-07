@@ -18,7 +18,7 @@ describe('Enable rules-engine on component', () => {
   beforeEach(() => {
     initialTree = Tree.empty();
     initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
-    initialTree.create('test-folder/test-component.component.ts', `
+    initialTree.create('test-folder/test-component.ts', `
       import {Component} from '@angular/core';
       import {O3rComponent} from '@o3r/core';
       @O3rComponent({
@@ -36,10 +36,10 @@ describe('Enable rules-engine on component', () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('rules-engine-to-component', {
       projectName: 'test-project',
-      path: 'test-folder/test-component.component.ts'
+      path: 'test-folder/test-component.ts'
     }, initialTree);
 
-    const fileContent = tree.readContent(tree.files.find((file) => /test-(?:component\.){2}ts/.test(file)));
+    const fileContent = tree.readContent(tree.files.find((file) => /test-component\.ts/.test(file)));
     expect(fileContent).toMatch(/import {.*inject.*} from '@angular\/core'/);
     expect(fileContent).toMatch(/import {.*OnInit.*} from '@angular\/core'/);
     expect(fileContent).toMatch(/import {.*OnDestroy.*} from '@angular\/core'/);
@@ -53,6 +53,41 @@ describe('Enable rules-engine on component', () => {
     expect(fileContent).toMatch(/ngOnDestroy[^{]*{[^}]*this.rulesEngineService.disableRuleSetFor\(this.componentName\);/m);
   });
 
+  it('should update the module file', async () => {
+    initialTree.overwrite('test-folder/test-component.ts', `
+      import {Component} from '@angular/core';
+      import {O3rComponent} from '@o3r/core';
+      @O3rComponent({
+        componentType: 'Component'
+      })
+      @Component({
+        selector: 'empty-component',
+        template: '',
+        standalone: false
+      })
+      export class EmptyComponent {}
+    `);
+    initialTree.create('test-folder/test-component-module.ts', `
+      import { NgModule } from '@angular/core';
+      import { EmptyComponent } from './test-component';
+
+      @NgModule({
+        imports: [],
+        declarations: [EmptyComponent],
+        exports: [EmptyComponent]
+      })
+      export class EmptyModule {}
+    `);
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('rules-engine-to-component', {
+      projectName: 'test-project',
+      path: 'test-folder/test-component.ts'
+    }, initialTree);
+
+    const fileContent = tree.readContent(tree.files.find((file) => /test-component-module\.ts/.test(file)));
+    expect(fileContent).toMatch(/import {.*\bRulesEngineRunnerModule\b.*} from '@o3r\/rules-engine'/);
+  });
+
   it('should not add the rules-engine service to a component if non existing', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     await expect(async () => await runner.runSchematic('rules-engine-to-component', {
@@ -62,7 +97,7 @@ describe('Enable rules-engine on component', () => {
   });
 
   it('should not add the rules-engine service to a component if already present', async () => {
-    initialTree.create('test-folder/test-component-with-rules-engine.component.ts', `
+    initialTree.create('test-folder/test-component-with-rules-engine.ts', `
       import {Component} from '@angular/core';
       import {O3rComponent} from '@o3r/core';
       @O3rComponent({
@@ -79,14 +114,14 @@ describe('Enable rules-engine on component', () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     await expect(runner.runSchematic('rules-engine-to-component', {
       projectName: 'test-project',
-      path: 'test-folder/test-component-with-rules-engine.component.ts'
+      path: 'test-folder/test-component-with-rules-engine.ts'
     }, initialTree)).rejects.toThrow(
-      new O3rCliError('Unable to add rules-engine: component "test-folder/test-component-with-rules-engine.component.ts" already has at least one of these properties: rulesEngineService.')
+      new O3rCliError('Unable to add rules-engine: component "test-folder/test-component-with-rules-engine.ts" already has at least one of these properties: rulesEngineService.')
     );
   });
 
   it('should not add the rules-engine service to a component if already present in constructor', async () => {
-    initialTree.create('test-folder/test-component-with-rules-engine.component.ts', `
+    initialTree.create('test-folder/test-component-with-rules-engine.ts', `
       import {Component} from '@angular/core';
       import {O3rComponent} from '@o3r/core';
       @O3rComponent({
@@ -103,9 +138,9 @@ describe('Enable rules-engine on component', () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     await expect(runner.runSchematic('rules-engine-to-component', {
       projectName: 'test-project',
-      path: 'test-folder/test-component-with-rules-engine.component.ts'
+      path: 'test-folder/test-component-with-rules-engine.ts'
     }, initialTree)).rejects.toThrow(
-      new O3rCliError('Unable to add rules-engine: component "test-folder/test-component-with-rules-engine.component.ts" already has at least one of these properties: rulesEngineService.')
+      new O3rCliError('Unable to add rules-engine: component "test-folder/test-component-with-rules-engine.ts" already has at least one of these properties: rulesEngineService.')
     );
   });
 });

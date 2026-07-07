@@ -1,1 +1,1 @@
-export * from './forms-parent.component';
+export * from './forms-parent';

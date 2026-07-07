@@ -35,6 +35,7 @@ import {
   addMonorepoManager,
   addWorkspacesToProject,
   filterPackageJsonScripts,
+  patchAngularRootTsconfig,
 } from './helpers/npm-workspace';
 import {
   generateRenovateConfig,
@@ -166,6 +167,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       !options.skipLinter && hasEslint ? applyEsLintFix() : noop(),
       addWorkspacesToProject(),
       addMonorepoManager(ownPackageJsonContent, options.monorepoManager),
+      patchAngularRootTsconfig(),
       options.skipEditorConfigSetup ? noop() : generateEditorConfig(),
       options.skipLinter ? noop() : applyEditorConfig()
     ])(tree, context);

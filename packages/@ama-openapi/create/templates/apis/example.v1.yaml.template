@@ -1,0 +1,28 @@
+openapi: 3.0.0
+info:
+  title: My first OpenApi Model
+  version: '1.0'
+  description: Example of an OpenAPI specification
+
+servers:
+  - url: 'https://{environment}.my-api.com'
+    variables:
+      environment:
+        enum:
+          - 'dev'
+          - 'prd'
+        default: 'prd'
+        description: Software environment
+security: []
+paths:
+  '/v1/example':
+    get:
+      summary: Retrieve an example.
+      tags:
+        - ExampleTag
+      operationId: example-tag
+      responses:
+        '200':
+          $ref: '../responses/ExampleResponse.v1.yaml'
+      description: |-
+        Example endpoint description.

@@ -5,8 +5,8 @@ import {
   createBuilder,
 } from '@angular-devkit/architect';
 import type {
-  LoggerApi,
-} from '@angular-devkit/core/src/logger';
+  logging,
+} from '@angular-devkit/core';
 import {
   CmsMetadataData,
   createBuilderWithMetricsIfInstalled,
@@ -48,7 +48,7 @@ const STEP_NUMBER = 5;
  * @param logger
  * @param strictMode
  */
-function checkUniquenessLibraryAndName(configurations: ComponentConfigOutput[], logger: LoggerApi, strictMode = false) {
+function checkUniquenessLibraryAndName(configurations: ComponentConfigOutput[], logger: logging.LoggerApi, strictMode = false) {
   const setOfLibraryAndName: Set<string> = new Set();
   let errors = '';
   configurations.forEach((configuration) => {

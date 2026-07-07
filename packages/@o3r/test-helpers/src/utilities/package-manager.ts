@@ -4,6 +4,7 @@ import {
 } from 'node:child_process';
 import {
   existsSync,
+  readFileSync,
   rmSync,
 } from 'node:fs';
 import {
@@ -12,6 +13,9 @@ import {
 import {
   performance,
 } from 'node:perf_hooks';
+import {
+  sync as globbySync,
+} from 'globby';
 
 declare global {
   namespace NodeJS {
@@ -22,8 +26,7 @@ declare global {
   }
 }
 
-type Command =
-  | 'add'
+type Command = 'add'
   | 'create'
   | 'exec'
   | 'info'
@@ -63,6 +66,20 @@ const PACKAGE_MANAGERS_CMD = {
     workspaceRun: ['yarn', 'workspace']
   }
 } as const satisfies Record<'npm' | 'yarn', Record<Command, string[]>>;
+
+const getWorkspaceScopes = () => {
+  const files = globbySync('**/package.json', { cwd: process.cwd(), absolute: true, gitignore: true });
+  return Array.from(new Set(
+    files.map((file) => {
+      const packageJsonFileContent = readFileSync(file, { encoding: 'utf8' });
+      const packageJson = JSON.parse(packageJsonFileContent);
+      return packageJson.name?.split('/')[0];
+    }).filter((scope) => !!scope && scope.startsWith('@'))
+  ));
+};
+
+/** List of scopes in the current workspace */
+const WORKSPACE_SCOPES = getWorkspaceScopes();
 
 type CommandArguments = {
   /** Script to run or execute */
@@ -104,7 +121,12 @@ function execCmd(args: string[], execOptions: ExecSyncOptions) {
   try {
     const startTime = performance.now();
     const [runner, ...options] = args.filter((arg) => !!arg);
-    const output = execFileSync(runner, options, { ...execOptions, shell: process.platform === 'win32', stdio: 'pipe', encoding: 'utf8' });
+    const output = execFileSync(runner, options, {
+      ...execOptions,
+      shell: process.platform === 'win32',
+      stdio: 'pipe',
+      encoding: 'utf8'
+    });
     // eslint-disable-next-line no-console -- no logger available
     console.log(`${args.join(' ')} [${Math.ceil(performance.now() - startTime)}ms]\n${output}`);
     return output;
@@ -273,9 +295,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
   const packageManager = packageManagerOverride || getPackageManager();
 
   // Need to add this even for yarn because `ng add` only reads registry from .npmrc
-  execFileSync('npm', ['config', 'set', `@ama-sdk:registry=${options.registry}`, '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', `@ama-terasu:registry=${options.registry}`, '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', `@o3r:registry=${options.registry}`, '-L=project'], execOptions);
+  WORKSPACE_SCOPES.forEach((scope) => execFileSync('npm', ['config', 'set', `${scope}:registry=${options.registry}`, '-L=project'], execOptions));
 
   const packageJsonPath = join(execOptions.cwd as string, 'package.json');
   const shouldCleanPackageJson = !existsSync(packageJsonPath);
@@ -295,6 +315,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
         execFileSync('yarn', ['config', 'set', 'globalFolder', options.globalFolderPath], execOptions);
       }
       execFileSync('yarn', ['config', 'set', 'nodeLinker', 'pnp'], execOptions);
+      WORKSPACE_SCOPES.forEach((scope) => execFileSync('yarn', ['config', 'set', `npmScopes.${scope.replace(/^@/, '')}.npmRegistryServer`, options.registry], execOptions));
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-sdk.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-terasu.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.o3r.npmRegistryServer', options.registry], execOptions);

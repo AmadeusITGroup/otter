@@ -17,7 +17,6 @@ import {
 import {
   getTemplateFolder,
   getWorkspaceConfig,
-  writeAngularJson,
 } from '@o3r/schematics';
 
 /**
@@ -72,33 +71,5 @@ export function updateThemeFiles(rootPath: string, options: { projectName?: stri
     const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
 
     return rule;
-  };
-}
-
-type Asset = { glob: string; input: string; output: string };
-
-/**
- * Update assets list in angular.json for styling
- * @param options
- * @param options.projectName
- */
-export function removeV7OtterAssetsInAngularJson(options: { projectName?: string | null | undefined }): Rule {
-  return (tree: Tree, context: SchematicContext) => {
-    const workspace = getWorkspaceConfig(tree);
-    const projectName = options.projectName;
-    const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
-
-    // exit if not an application
-    if (!projectName || !workspace || !workspaceProject) {
-      context.logger.debug('This is not an application project. No need to search and remove old v7 otter styling assets reference.');
-      return;
-    }
-
-    if (workspaceProject.architect?.build?.options?.assets) {
-      workspaceProject.architect.build.options.assets = workspaceProject.architect.build.options.assets.filter((a: Asset) => !a.input || !a.input.includes('node_modules/@otter/styling/assets'));
-    }
-
-    workspace.projects[projectName] = workspaceProject;
-    writeAngularJson(tree, workspace);
   };
 }

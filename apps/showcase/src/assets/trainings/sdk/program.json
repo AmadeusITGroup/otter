@@ -10,7 +10,7 @@
       "htmlContentUrl": "./steps/typescript-sdk/instructions.md",
       "filesConfiguration": {
         "exerciseId": "sdk-how-to-use-otter-sdk",
-        "startingFile": "apps/tutorial-app/src/app/app.component.ts",
+        "startingFile": "apps/tutorial-app/src/app/app.ts",
         "urls": [
           {
             "path": ".",
@@ -129,7 +129,7 @@
       "htmlContentUrl": "./steps/date/instructions.md",
       "filesConfiguration": {
         "exerciseId": "sdk-utils-date",
-        "startingFile": "apps/tutorial-app/src/app/app.component.ts",
+        "startingFile": "apps/tutorial-app/src/app/app.ts",
         "urls": [
           {
             "path": ".",

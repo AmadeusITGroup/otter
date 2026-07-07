@@ -12,6 +12,10 @@ import type {
   Spec,
 } from 'swagger-schema-official';
 import {
+  AvailableSwaggerSpecTargets,
+  SwaggerSpec,
+} from './swagger-spec-wrappers/swagger-spec-interface';
+import {
   SwaggerSpecJson,
 } from './swagger-spec-wrappers/swagger-spec-json';
 import {
@@ -23,10 +27,6 @@ import {
 import {
   SwaggerSpecYaml,
 } from './swagger-spec-wrappers/swagger-spec-yaml';
-import {
-  AvailableSwaggerSpecTargets,
-  SwaggerSpec,
-} from './swagger-spec-wrappers/swagger-spec.interface';
 import {
   isUrlRefPath,
 } from './swagger-spec-wrappers/utils';

@@ -1,5 +1,4 @@
 import {
-  basename,
   dirname,
   posix,
 } from 'node:path';
@@ -26,6 +25,8 @@ import {
   askConfirmationToConvertComponent,
   createOtterSchematic,
   generateClassElementsFromString,
+  getComponentAnalyticsName,
+  getComponentBaseFileName,
   getO3rComponentInfoOrThrowIfNotFound,
   getPropertyFromDecoratorFirstArgument,
   isNgClassDecorator,
@@ -51,7 +52,7 @@ const analyticsProperties = [
 
 const checkAnalytics = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [
-    posix.join(componentPath, `${baseFileName}.analytics.ts`)
+    posix.join(componentPath, `${baseFileName}-analytics.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new O3rCliError(`Unable to add analytics to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -83,7 +84,7 @@ const checkAnalytics = (componentPath: string, tree: Tree, baseFileName: string)
 export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const baseFileName = basename(options.path, '.component.ts');
+      const baseFileName = getComponentBaseFileName(options.path);
       const { name, standalone, templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
 
       checkAnalytics(options.path, tree, baseFileName);
@@ -91,8 +92,8 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
       const properties = {
         ...options,
         componentName: name,
-        componentAnalytics: name.concat('Analytics'),
-        name: basename(options.path, '.component.ts')
+        componentAnalytics: getComponentAnalyticsName(baseFileName),
+        name: baseFileName
       };
 
       const createAnalyticsFilesRule: Rule = mergeWith(apply(url('./templates'), [
@@ -111,7 +112,7 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
             ]
           },
           {
-            from: `./${properties.name}.analytics`,
+            from: `./${properties.name}-analytics`,
             importNames: [
               'analyticsEvents',
               properties.componentAnalytics
@@ -219,7 +220,7 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
       };
 
       const updateModuleRule: Rule = () => {
-        const moduleFilePath = options.path.replace(/component.ts$/, 'module.ts');
+        const moduleFilePath = posix.join(dirname(options.path), `${properties.name}-module.ts`);
         const moduleSourceFile = ts.createSourceFile(
           moduleFilePath,
           tree.readText(moduleFilePath),

@@ -9,7 +9,7 @@ import {
 } from '../../interfaces/builder-configuration';
 import {
   PostProcess,
-} from './post-process.interface';
+} from './post-process-interface';
 
 /**
  * Post Process to Tree shake the final Swagger specification

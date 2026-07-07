@@ -30,7 +30,7 @@ export interface CustomFacts extends FactDefinitions {
 * The service fact
 ```typescript
 import {FactsService} from '@o3r/rules-engine';
-import type {CustomFacts} from './custom.facts.ts';
+import type {CustomFacts} from './custom-facts.ts';
 
 @Injectable()
 export class CustomFactsService extends FactsService<CustomFacts> {
@@ -52,7 +52,7 @@ import {Store} from '@ngrx/store';
 import {distinctUntilChanged, filter, map, select} from 'rxjs/operators';
 import {selectUserSelection} from '../store/user-selection';
 import type {SelectionState} from '../store/user-selection';
-import type {CustomFacts} from './custom.facts.ts';
+import type {CustomFacts} from './custom-facts.ts';
 
 @Injectable()
 export class CustomFactsService extends FactsService<CustomFacts> {
@@ -88,7 +88,7 @@ application actually requires it.
 
 ```typescript
 import {RulesEngineRunnerModule} from '@o3r/rules-engine';
-import {CustomFactsService} from './custom-facts.service';
+import {CustomFactsService} from './custom-facts-service';
 
 @NgModule({
   imports: [
@@ -106,10 +106,10 @@ You can now import your fact in your app module and register the facts:
 import {inject, runInInjectionContext} from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {appConfig} from './app/app.config';
-import {AppComponent} from './app/app.component';
-import {CustomFactsService} from './services/custom-fact.service';
+import {App} from './app/app';
+import {CustomFactsService} from './services/custom-facts-service';
 
-bootstrapApplication(AppComponent, appConfig)
+bootstrapApplication(App, appConfig)
   .then((m) => {
     runInInjectionContext(m.injector, () => {
       inject(CustomFactsService).register();

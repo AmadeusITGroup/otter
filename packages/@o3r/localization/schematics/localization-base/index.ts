@@ -310,7 +310,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
    */
   const setDefaultLanguage: Rule = (tree: Tree, context: SchematicContext) => {
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
-    const componentFilePath = moduleFilePath && moduleFilePath.replace(/\.(?:module|config)\.ts$/i, '.component.ts');
+    const componentFilePath = moduleFilePath && moduleFilePath.replace(/[.-](?:module|config)\.ts$/i, '.ts');
 
     if (!(componentFilePath && tree.exists(componentFilePath))) {
       context.logger.warn(`File ${componentFilePath!} not found, the default language won't be set`);
@@ -371,7 +371,17 @@ export function updateLocalization(options: { projectName?: string | null | unde
    */
   const addMockTranslationModule: Rule = (tree: Tree, context: SchematicContext) => {
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
-    const componentSpecFilePath = moduleFilePath && moduleFilePath.replace(/\.(?:module|config)\.ts$/i, '.component.spec.ts');
+
+    const possibleComponentSpecPaths = [
+      moduleFilePath && moduleFilePath.replace(/\.(?:module|config)\.ts$/i, '.component.spec.ts'),
+      moduleFilePath && moduleFilePath.replace(/\.(?:module|config)\.ts$/i, '.spec.ts')
+    ];
+
+    const componentSpecFilePath = possibleComponentSpecPaths.find((compPath) => compPath && tree.exists(compPath));
+
+    if (!(componentSpecFilePath && tree.exists(componentSpecFilePath))) {
+      return tree;
+    }
 
     if (!(componentSpecFilePath && tree.exists(componentSpecFilePath))) {
       return tree;
@@ -464,7 +474,7 @@ function updateI18nFn(options: { projectName?: string | undefined }): Rule {
           localizationConfigs: [{
             localizationFiles: workspace.schematics && workspace.schematics['@o3r/core:component']
               ? [workspace.schematics['@o3r/core:component'].path]
-              : ['**/*.localization.json']
+              : ['**/*-localization.json']
           }]
         }
       };

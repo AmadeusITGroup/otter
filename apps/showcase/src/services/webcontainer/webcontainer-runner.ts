@@ -39,7 +39,7 @@ import {
   createTerminalStream,
   killTerminal,
   makeProcessWritable,
-} from './webcontainer.helpers';
+} from './webcontainer-helpers';
 
 @Injectable({
   providedIn: 'root'

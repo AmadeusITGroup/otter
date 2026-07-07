@@ -1,1 +1,1 @@
-export * from './timeout.fetch';
+export * from './timeout-fetch';

@@ -1,0 +1,29 @@
+@if (!condition) {
+  <span class="input-value">true</span>
+} @else {
+  @if (!$any(condition).all && !$any(condition).any && !$any(condition).not) {
+    <span class="input-key">{{ lhs }}</span> {{ $any(condition).operator }}
+    @if (rhs !== undefined) {
+      <span class="input-value">{{ rhs }}</span>
+    }
+  }
+  @if ($any(condition).all || $any(condition).any || $any(condition).not) {
+    @if ($any(condition).all) {
+      <span>ALL</span>
+    }
+    @if ($any(condition).any) {
+      <span>ANY</span>
+    }
+    @if ($any(condition).not) {
+      <span>NOT</span>
+    }
+    <span>(
+      @for (cond of $any(condition).all || $any(condition).any || [$any(condition).not]; track cond; let last = $last) {
+        <o3r-rule-condition-pres [condition]="cond"></o3r-rule-condition-pres>
+        @if (!last) {
+          <span>, </span>
+        }
+      }
+    )</span>
+  }
+}

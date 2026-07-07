@@ -7,16 +7,8 @@ import type {
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
-  getExternalDependenciesInfo,
-  getO3rPeerDeps,
-  getPackageInstallConfig,
-  getProjectNewDependenciesTypes,
-  getWorkspaceConfig,
-  setupDependencies,
+  ngAddDependenciesRule,
 } from '@o3r/schematics';
-import type {
-  PackageJson,
-} from 'type-fest';
 import {
   updateCmsAdapter,
 } from '../cms-adapter';
@@ -39,50 +31,17 @@ const devDependenciesToInstall = [
   'semver'
 ];
 
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+
 /**
  * Add Otter extractors to an Angular Project
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return (tree, context) => {
-    const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const depsInfo = getO3rPeerDeps(packageJsonPath);
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const projectDirectory = workspaceProject?.root || '.';
-    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
-
-    const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
-      acc[dep] = {
-        inManifest: [{
-          range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
-          types: getProjectNewDependenciesTypes(workspaceProject)
-        }],
-        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
-      };
-      return acc;
-    }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-
-    const externalDependenciesInfo = getExternalDependenciesInfo({
-      devDependenciesToInstall,
-      dependenciesToInstall,
-      projectPackageJson,
-      o3rPackageJsonPath: packageJsonPath,
-      projectType: workspaceProject?.projectType
-    },
-    context.logger
-    );
-    return chain([
-      setupDependencies({
-        projectName: options.projectName,
-        dependencies: {
-          ...dependencies,
-          ...externalDependenciesInfo
-        },
-        ngAddToRun: depsInfo.o3rPeerDeps
-      }),
-      updateCmsAdapter(options, __dirname)
-    ]);
-  };
+  return chain([
+    ngAddDependenciesRule(options, packageJsonPath, { dependenciesToInstall, devDependenciesToInstall }),
+    updateCmsAdapter(options, __dirname)
+  ]);
 }
 
 /**

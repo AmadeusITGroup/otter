@@ -1,1 +1,1 @@
-export * from './retry.fetch';
+export * from './retry-fetch';

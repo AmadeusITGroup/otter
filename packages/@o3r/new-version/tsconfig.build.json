@@ -1,11 +1,13 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "incremental": true,
     "composite": true,
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "node10",
     "outDir": "./dist",
     "rootDir": ".",
     "tsBuildInfoFile": "./build/.tsbuildinfo"

@@ -15,6 +15,7 @@ import {
   createBuilderWithMetricsIfInstalled,
   getLibraryCmsMetadata,
 } from '@o3r/extractors';
+import globby from 'globby';
 import {
   MetadataFact,
   MetadataOperator,
@@ -24,8 +25,6 @@ import {
 import {
   type RulesEngineExtractorBuilderSchema,
 } from './schema';
-// eslint-disable-next-line @typescript-eslint/no-require-imports -- default import not working when used inside Otter mono-repository
-const globby = require('globby');
 
 export type * from './schema';
 

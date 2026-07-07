@@ -3,18 +3,18 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  ClipboardButtonPresComponent,
-} from './clipboard-button-pres.component';
+  ClipboardButtonPres,
+} from './clipboard-button-pres';
 
-describe('ClipboardButtonPresComponent', () => {
-  let component: ClipboardButtonPresComponent;
-  let fixture: ComponentFixture<ClipboardButtonPresComponent>;
+describe('ClipboardButtonPres', () => {
+  let component: ClipboardButtonPres;
+  let fixture: ComponentFixture<ClipboardButtonPres>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ClipboardButtonPresComponent]
+      imports: [ClipboardButtonPres]
     });
-    fixture = TestBed.createComponent(ClipboardButtonPresComponent);
+    fixture = TestBed.createComponent(ClipboardButtonPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

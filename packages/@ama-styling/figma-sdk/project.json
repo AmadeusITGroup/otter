@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
-  "name": "figma-sdk",
+  "name": "ama-figma-sdk",
   "projectType": "library",
   "root": "packages/@ama-styling/figma-sdk",
   "sourceRoot": "packages/@ama-styling/figma-sdk/src",
@@ -24,6 +24,9 @@
       ]
     },
     "lint": {},
-    "test": {}
+    "test": {},
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
   }
 }

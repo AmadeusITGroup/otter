@@ -25,7 +25,11 @@
       "outFiles": [
         "${workspaceFolder}/apps/vscode-extension/dist/**/*.js"
       ],
-      "preLaunchTask": "watch-vscode-extension"
+      "preLaunchTask": "watch-vscode-extension",
+      "env": {
+        "O3R_MCP_LOCAL": "true",
+        "O3R_DIRECTORY": "${workspaceFolder}"
+      }
     }
   ]
 }

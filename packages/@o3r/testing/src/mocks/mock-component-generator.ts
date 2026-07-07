@@ -118,7 +118,7 @@ function getSelector(parentNode: ts.Node, source: ts.SourceFile, isInDecorator =
  * @param config.isControlValueAccessor
  * @example
  * ```typescript
- * // hero.component.ts
+ * // hero.ts
  * \@Component({selector: 'hero'})
  * class HeroComponent {
  *   \@Input() name: string;
@@ -126,7 +126,7 @@ function getSelector(parentNode: ts.Node, source: ts.SourceFile, isInDecorator =
  * }
  *
  * // mock generation
- * class MockComponent extends generateMockComponent('hero.component.ts') {}
+ * class MockComponent extends generateMockComponent('hero.ts') {}
  * ```
  */
 export function generateMockComponent<T = Record<string, unknown>>(componentPath: string, config?: { template?: string; isControlValueAccessor?: boolean }): Type<T> {

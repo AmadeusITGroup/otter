@@ -14,8 +14,7 @@ export interface O3rCategoriesTagsRuleOption {
   globalConfigCategories?: string[];
 }
 
-type Messages =
-  | 'alreadyDefined'
+type Messages = 'alreadyDefined'
   | 'undefinedCategory'
   | 'onlyOneCategoryAllowed'
   | 'notInConfigurationInterface'

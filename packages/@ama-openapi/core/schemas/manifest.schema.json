@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OpenApi specification package manifest",
+  "$id": "@ama-openapi/core/schemas/manifest.schema.json",
+  "type": "object",
+  "properties": {
+    "models": {
+      "type": "object",
+      "description": "Dependency package containing the specification to include",
+      "additionalProperties": {
+        "oneOf": [
+          { "$ref": "#/definitions/model" },
+          { "type": "array", "items": { "$ref": "#/definitions/model" } }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true,
+  "definitions": {
+    "transform": {
+      "oneOf": [
+        {
+          "$ref": "./transform.schema.json"
+        },
+        {
+          "type": "string",
+          "description": "A reference to a predefined transform"
+        }
+      ]
+    },
+    "model": {
+      "examples": [
+        true,
+        "models/ExampleModel.v1.yaml",
+        {
+          "path": "models/ExampleModel.v1.yaml",
+          "transform": {
+            "mask": { "properties": { "field": true } },
+            "rename": "MyPrefix_$1"
+          }
+        }
+      ],
+      "oneOf": [
+        {
+          "type": "boolean",
+          "default": true,
+          "description": "Include the default model exposed by the artifact"
+        },
+        {
+          "type": "string",
+          "description": "Path to the specific model to include as is. The path is relative to the artifact root (e.g., 'models/ExampleModel.v1.yaml')"
+        },
+        {
+          "type": "object",
+          "description": "Detailed model inclusion with optional transformations to apply",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Path to the specific model to include as is. The path is relative to the artifact root (e.g., 'models/ExampleModel.v1.yaml')"
+            },
+            "transform": {
+              "$ref": "#/definitions/transform"
+            }
+          },
+          "required": [
+            "path"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

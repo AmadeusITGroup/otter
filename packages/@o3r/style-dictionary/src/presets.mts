@@ -4,28 +4,28 @@ import type {
 } from 'style-dictionary/types';
 import {
   cssFormat,
-} from './formats/css.format.mjs';
+} from './formats/css-format.mjs';
 import {
   metadataFormat,
-} from './formats/metadata.format.mjs';
+} from './formats/metadata-format.mjs';
 import {
   extensionsJsonParser,
-} from './parsers/extensions.json.parser.mjs';
+} from './parsers/extensions-json-parser.mjs';
 import {
   oneLineTokenJsonParser,
-} from './parsers/one-line-token.json.parser.mjs';
+} from './parsers/one-line-token-json-parser.mjs';
 import {
   extensionPropagatePreprocessor,
-} from './preprocessors/extensions.preprocessor.mjs';
+} from './preprocessors/extensions-preprocessor.mjs';
 import {
   cssRecommendedTransformGroup,
-} from './transform-groups/css-recommended.transform-group.mjs';
+} from './transform-groups/css-recommended-transform-group.mjs';
 import {
   ratioTransform,
-} from './transforms/ratio.transform.mjs';
+} from './transforms/ratio-transform.mjs';
 import {
   unitTransform,
-} from './transforms/unit.transform.mjs';
+} from './transforms/unit-transform.mjs';
 
 /**
  * Register Otter hooks

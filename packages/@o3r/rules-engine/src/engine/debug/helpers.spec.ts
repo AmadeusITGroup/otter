@@ -1,7 +1,7 @@
 import {
   RuleEvaluation,
   RuleEvaluationOutput,
-} from '../engine.interface';
+} from '../engine-interface';
 import {
   ActionBlock,
   Rule,

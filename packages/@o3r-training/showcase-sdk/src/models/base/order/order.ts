@@ -17,5 +17,9 @@ export interface Order {
   complete?: boolean;
 }
 
+/** Array of StatusEnum items */
+export const LIST_STATUS_ENUM = ['placed', 'approved', 'delivered'] as const;
+
+/** List of available values for StatusEnum */
 export type StatusEnum = 'placed' | 'approved' | 'delivered';
 

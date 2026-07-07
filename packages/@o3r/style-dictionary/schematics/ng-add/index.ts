@@ -12,12 +12,8 @@ import {
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
-  getExternalDependenciesInfo,
-  getO3rPeerDeps,
-  getPackageInstallConfig,
-  getProjectNewDependenciesTypes,
   getWorkspaceConfig,
-  setupDependencies,
+  ngAddDependenciesRule,
 } from '@o3r/schematics';
 import type {
   PackageJson,
@@ -37,47 +33,14 @@ const dependenciesToInstall: string[] = [
 const devDependenciesToInstall = [
   'style-dictionary'
 ];
+
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+
 /**
  * Add Otter Style Dictionary process to an Angular Project
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  const setup: Rule = (tree, context) => {
-    const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const depsInfo = getO3rPeerDeps(packageJsonPath, true);
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const projectDirectory = workspaceProject?.root || '.';
-    const projectPackageJson = tree.readJson(path.join(projectDirectory, 'package.json')) as PackageJson;
-    const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
-      acc[dep] = {
-        inManifest: [{
-          range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
-          types: getProjectNewDependenciesTypes(workspaceProject)
-        }],
-        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
-      };
-      return acc;
-    }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-    const externalDependenciesInfo = getExternalDependenciesInfo({
-      devDependenciesToInstall,
-      dependenciesToInstall,
-      o3rPackageJsonPath: packageJsonPath,
-      projectPackageJson,
-      projectType: workspaceProject?.projectType
-    },
-    context.logger
-    );
-
-    return setupDependencies({
-      projectName: options.projectName,
-      dependencies: {
-        ...dependencies,
-        ...externalDependenciesInfo
-      },
-      ngAddToRun: depsInfo.o3rPeerDeps
-    });
-  };
-
   const generateConfig: Rule = (tree, context) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const projectType = workspaceProject?.projectType || 'application';
@@ -98,10 +61,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
   const updatePackageJson: Rule = (tree, context) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const packageJsonPath = workspaceProject?.root && tree.exists(path.posix.join(workspaceProject.root, 'package.json'))
+    const workspacePackageJsonPath = workspaceProject?.root && tree.exists(path.posix.join(workspaceProject.root, 'package.json'))
       ? path.posix.join(workspaceProject.root, 'package.json')
       : 'package.json';
-    const packageJson = tree.readJson(packageJsonPath) as PackageJson;
+    const packageJson = tree.readJson(workspacePackageJsonPath) as PackageJson;
 
     packageJson.scripts ||= {};
     if (packageJson.scripts['generate:css']) {
@@ -115,14 +78,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       packageJson.scripts['generate:metadata'] = `style-dictionary build ${options.useJsExt ? '' : '-c config.mjs '}-p cms`;
     }
 
-    tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    tree.overwrite(workspacePackageJsonPath, JSON.stringify(packageJson, null, 2));
   };
 
   /* ng add rules */
   return chain([
-    setup,
     generateConfig,
-    updatePackageJson
+    updatePackageJson,
+    ngAddDependenciesRule(options, packageJsonPath, { dependenciesToInstall, devDependenciesToInstall })
   ]);
 }
 

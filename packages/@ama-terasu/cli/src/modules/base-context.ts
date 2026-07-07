@@ -13,8 +13,7 @@ import * as logger from 'loglevel';
 import {
   error,
 } from 'loglevel';
-import {
-  default as ora,
+import ora, {
   oraPromise,
 } from 'ora';
 import ProgressBar from 'progress';

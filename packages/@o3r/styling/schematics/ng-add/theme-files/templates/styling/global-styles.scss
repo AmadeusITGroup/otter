@@ -7,8 +7,8 @@
 @include o3r.apply-theme(otter-theme.$default-theme);
 
 // Expose variable override
-@import './component-styling.override';
-@import './component-variable.override';
+@import './component-styling-override';
+@import './component-variable-override';
 
 
 // Global style

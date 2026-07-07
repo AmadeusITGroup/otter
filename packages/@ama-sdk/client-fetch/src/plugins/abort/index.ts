@@ -1,1 +1,1 @@
-export * from './abort.fetch';
+export * from './abort-fetch';

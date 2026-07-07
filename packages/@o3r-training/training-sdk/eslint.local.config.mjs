@@ -14,6 +14,7 @@ export default [
     name: '@o3r-training/training-sdk/ignores',
     ignores: [
       'src/api/',
+      'src/constants/',
       'src/models/base/',
       'src/spec/api-mock.ts',
       'src/spec/operation-adapter.ts'

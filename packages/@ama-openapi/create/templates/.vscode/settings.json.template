@@ -1,0 +1,12 @@
+{
+  "editor.defaultFormatter": "Redocly.openapi-vs-code",
+  "files.readonlyFromPermissions": true,
+  "files.readonlyInclude": {
+    "**/.cache/**": true,
+    "**/node_modules/**": true,
+    "**/<%- externalModelPath %>/**/*.{json,yaml,yml}": true
+  },
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, openapi.manifest.yaml"
+  }
+}

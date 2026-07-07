@@ -52,8 +52,8 @@ const client = new ApiFetchClient(
 ```
 
 > [!WARN]
-> We recommend to use the [Timeout plugin](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/timeout) to implement more easily and properly a request timeout.
+> We recommend to use the [Timeout plugin](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/timeout) to implement more easily and properly a request timeout.
 
 ### Type of plugins
 
-- Fetch plugin: [AbortFetch](./abort.fetch.ts)
+- Fetch plugin: [AbortFetch](./abort-fetch.ts)

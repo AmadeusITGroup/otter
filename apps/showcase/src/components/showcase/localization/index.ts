@@ -1,1 +1,1 @@
-export * from './localization-pres.component';
+export * from './localization-pres';
