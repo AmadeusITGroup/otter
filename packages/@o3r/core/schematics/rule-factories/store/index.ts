@@ -44,7 +44,7 @@ const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
 
 /**
  * Add Redux Store support
- * @param options @see RuleFactory.options
+ * @param options {@link RuleFactory.options}
  * @param options.projectName
  * @param options.workingDirector
  * @param options.dependenciesSetupConfig

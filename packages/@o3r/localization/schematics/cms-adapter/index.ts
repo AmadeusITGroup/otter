@@ -15,7 +15,7 @@ import {
 
 /**
  * Update CMS adapter tools
- * @param options @see RuleFactory.options
+ * @param options {@link RuleFactory.options}
  * @param options.projectName
  */
 function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule {
@@ -94,7 +94,7 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
 
 /**
  * Update CMS adapter tools
- * @param options @see RuleFactory.options
+ * @param options {@link RuleFactory.options}
  * @param options.projectName
  */
 export const updateCmsAdapter = createOtterSchematic(updateCmsAdapterFn);

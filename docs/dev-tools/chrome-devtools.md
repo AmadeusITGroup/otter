@@ -1,6 +1,6 @@
 # Otter Chrome DevTools
 
-Otter Framework is providing an [Otter Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) for your applications.
+Otter Framework is providing an [Otter Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/cgbnjkegcpddliemjooeiomcdnacbdol) for your applications.
 The extension comes with the following features:
 
 - **Application information**: application version, environment, build date, etc.
@@ -13,7 +13,7 @@ The extension comes with the following features:
 
 ## How to install the extension
 
-You can find the **Otter Devtools** Chrome extension by clicking on [this link](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) or by searching for `Otter DevTools` in the [Chrome Web Store](https://chrome.google.com/webstore).
+You can find the **Otter Devtools** Chrome extension by clicking on [this link](https://chrome.google.com/webstore/detail/otter-devtools/cgbnjkegcpddliemjooeiomcdnacbdol) or by searching for `Otter DevTools` in the [Chrome Web Store](https://chrome.google.com/webstore).
 
 ## How to enable auto package registration
 
@@ -95,11 +95,11 @@ export class App {
 
 > [!TIP]
 > The services can be also activated at bootstrap time by providing `isActivatedOnBootstrap: true` to their dedicated token `OTTER_<module>_DEVTOOLS_OPTIONS`. For example:
-> 
+>
 > `{provide: 'OTTER_CONFIGURATION_DEVTOOLS_OPTIONS', useValue: {isActivatedOnBootstrap: true}}`
-> 
+>
 > The services need to be injected in the application.
-> 
+>
 > `platformBrowserDynamic().bootstrapModule(AppModule).then((m) => runInInjectionContext(m.injector, () => inject(ConfigurationDevtoolsConsoleService)))`
 
 ### How to enable more features by providing metadata files

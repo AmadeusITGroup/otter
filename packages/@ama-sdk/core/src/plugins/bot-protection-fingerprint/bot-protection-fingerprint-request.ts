@@ -189,7 +189,7 @@ export interface BotProtectionFingerprintRequestOptions {
  *     }
  *   });
  *
- *   const apiConfig: BaseApiConstructor = {
+ *   const apiConfig: ApiClient = {
  *     basePath: 'https://my-gateway.com/v2',
  *     requestPlugins: [botProtection, gateway],
  *     fetchPlugins: [new PerformanceMetricPlugin({

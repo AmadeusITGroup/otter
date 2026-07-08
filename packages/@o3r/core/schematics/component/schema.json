@@ -48,10 +48,6 @@
       "type": "boolean",
       "description": "Generate component fixtures for tests"
     },
-    "useOtterTheming": {
-      "type": "boolean",
-      "description": "Generate component with Otter theming architecture"
-    },
     "useOtterConfig": {
       "type": "boolean",
       "description": "Generate component with Otter configuration"

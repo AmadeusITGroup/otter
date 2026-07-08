@@ -70,7 +70,6 @@ to create components and services consistent with your project.
 {
   "schematics": {
     "@o3r/core:component": {
-      "useOtterTheming": true,
       "useOtterAnalytics": true
     }
   }

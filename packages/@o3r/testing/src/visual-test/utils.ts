@@ -40,9 +40,5 @@ export function isVisualTestingEnabled() {
  */
 export function toggleVisualTestingRender(enabled: boolean) {
   const visualTestingClass = 'visual-testing-render';
-  if (enabled) {
-    document.body.classList.add(visualTestingClass);
-  } else {
-    document.body.classList.remove(visualTestingClass);
-  }
+  document.body.classList.toggle(visualTestingClass, enabled);
 }

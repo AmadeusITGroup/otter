@@ -146,7 +146,7 @@ export class EngineDebugger {
       rulesetName: ruleset.name,
       inputFacts,
       triggers: rulesetTriggers,
-      rulesEvaluations: flagCachedRules(rulesExecutions?.sort((a, b) => a.timestamp - b.timestamp) || [], rulesetTriggers),
+      rulesEvaluations: flagCachedRules(rulesExecutions?.toSorted((a, b) => a.timestamp - b.timestamp) || [], rulesetTriggers),
       temporaryFacts: runtimeFactValues
     };
     return baseRulesetOutputExecution;

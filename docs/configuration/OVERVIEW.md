@@ -593,7 +593,7 @@ As illustrated in the [configuration schema](#component-configuration-types):
 
 ### Enable Chrome extension debugging
 
-The Otter framework provides a [Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) to help debug the application.
+The Otter framework provides a [Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/cgbnjkegcpddliemjooeiomcdnacbdol) to help debug the application.
 To enable the communication between the application and the extension, the two following steps are required:
 
 1. Importing the Devtools module into the application AppModule:

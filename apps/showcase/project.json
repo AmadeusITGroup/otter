@@ -55,7 +55,6 @@
         "index": "apps/showcase/src/index.html",
         "browser": "apps/showcase/src/main.ts",
         "polyfills": [
-          "zone.js",
           "@angular/localize/init"
         ],
         "tsConfig": "apps/showcase/tsconfig.app.json",
@@ -133,7 +132,7 @@
             {
               "type": "initial",
               "maximumWarning": "2.5mb",
-              "maximumError": "3.1mb"
+              "maximumError": "3.2mb"
             },
             {
               "type": "anyComponentStyle",

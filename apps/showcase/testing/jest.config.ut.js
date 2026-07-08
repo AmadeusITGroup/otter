@@ -13,5 +13,8 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '<rootDir>/dev-resources/',
     '<rootDir>/training-assets/'
+  ],
+  transformIgnorePatterns: [
+    'node_modules/(?!.*\\.mjs$|parse5|jsdom|marked|ngx-markdown)'
   ]
 };

@@ -19,6 +19,9 @@ import {
   TranslateFakeCompiler,
 } from '@ngx-translate/core';
 import {
+  provideDynamicContent,
+} from '@o3r/dynamic-content';
+import {
   LocalizationService,
 } from '@o3r/localization';
 import {
@@ -61,7 +64,8 @@ describe('RulesEnginePres', () => {
         RulesEngineRunnerModule.forRoot(),
         ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
         AsyncPipe
-      ]
+      ],
+      providers: [provideDynamicContent()]
     });
     fixture = TestBed.createComponent(RulesEnginePres);
     component = fixture.componentInstance;

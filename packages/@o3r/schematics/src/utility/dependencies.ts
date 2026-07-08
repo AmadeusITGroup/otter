@@ -97,7 +97,7 @@ export function getDependencyMaximumVersionRange(packageName: string, packageJso
     .filter((packageVersion): packageVersion is string => {
       return valid(packageVersion) !== null || validRange(packageVersion) !== null;
     })
-    .sort((rangeA, rangeB) =>
+    .toSorted((rangeA, rangeB) =>
       isRangeGreater(rangeB, rangeA) ? 1 : (isRangeGreater(rangeA, rangeB) ? -1 : 0)
     );
   return rangeSortedByHighestMinimum[0];

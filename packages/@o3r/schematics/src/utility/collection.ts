@@ -51,7 +51,7 @@ export function getDefaultOptionsForSchematic<T extends WorkspaceSchematics['*:*
 
     return Object.entries<Record<string, string>>(schematics)
       .filter(([key, _]) => new RegExp(key.replace(/\*/g, '.*')).test(`${collection}:${schematicName}`))
-      .sort(([a], [b]) => (a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0))
+      .toSorted(([a], [b]) => (a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0))
       .map(([_, value]) => value)
       .reduce((config, value) => ({ ...config, ...value }), acc);
   }, {} as T);
@@ -68,7 +68,7 @@ export function getSchematicOptions<T extends WorkspaceSchematics['*:*'] = Works
 
   const options = config.schematics && Object.entries(config.schematics)
     .filter(([name]) => new RegExp(name.replace(/\*/g, '.*')).test(schematicName))
-    .sort(([a], [b]) => ((a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0)))
+    .toSorted(([a], [b]) => ((a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0)))
     .reduce((acc, [, opts]) => ({ ...acc, ...opts }), {} as any);
 
   return options && Object.keys(options).length > 0 ? options : config.schematics?.['*:*'] as T;

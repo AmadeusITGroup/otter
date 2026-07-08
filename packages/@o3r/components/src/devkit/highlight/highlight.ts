@@ -172,7 +172,7 @@ export class HighlightService {
 
     Object.values(overlayData).forEach((chips) => {
       chips
-        .sort(({ depth: depthA }, { depth: depthB }) => depthA - depthB)
+        .toSorted(({ depth: depthA }, { depth: depthB }) => depthA - depthB)
         .forEach(({ chip, overlay }, index, array) => {
           if (index !== 0) {
             // In case of overlap,
