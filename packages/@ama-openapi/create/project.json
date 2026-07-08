@@ -15,24 +15,10 @@
       },
       "dependsOn": [
         "compile",
-        "copy-templates"
+        "expose-templates"
       ]
     },
-    "copy-templates": {
-      "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/templates/**"
-      ],
-      "inputs": [
-        "templates"
-      ],
-      "options": {
-        "script": "copy:templates"
-      },
-      "dependsOn": [
-        "compile"
-      ]
-    },
+    "expose-templates": {},
     "compile": {
       "executor": "nx:run-script",
       "outputs": ["{projectRoot}/dist/index.*"],

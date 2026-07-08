@@ -22,7 +22,7 @@ export type {{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#up
 export interface {{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData {
     {{#allParams}}
   /** {{#description}}{{{description}}}{{/description}}{{^description}}{{#isArray}}List of {{#plurialize}}{{#noArrayInType}}{{{dataType}}}{{/noArrayInType}}{{/plurialize}}{{/isArray}}{{/description}} */
-  '{{baseName}}'{{^required}}?{{/required}}{{#required}}{{#defaultValue}}?{{/defaultValue}}{{/required}}: {{#isEnum}}{{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#uppercaseFirst}}{{paramName}}{{/uppercaseFirst}}Enum{{#isArray}}[]{{/isArray}}{{/isEnum}}{{^isEnum}}{{#isBodyParam}}{{{baseType}}}{{#isArray}}[]{{/isArray}}{{/isBodyParam}}{{^isBodyParam}}{{{dataType}}}{{/isBodyParam}}{{/isEnum}};
+  '{{^isBodyParam}}{{baseName}}{{/isBodyParam}}{{#isBodyParam}}{{#vendorExtensions}}{{#x-body-param-name}}{{x-body-param-name}}{{/x-body-param-name}}{{^x-body-param-name}}{{#transformBodyRequest}}{{baseName}}{{/transformBodyRequest}}{{/x-body-param-name}}{{/vendorExtensions}}{{/isBodyParam}}'{{^required}}?{{/required}}{{#required}}{{#defaultValue}}?{{/defaultValue}}{{/required}}: {{#isEnum}}{{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#uppercaseFirst}}{{paramName}}{{/uppercaseFirst}}Enum{{#isArray}}[]{{/isArray}}{{/isEnum}}{{^isEnum}}{{#isBodyParam}}{{{baseType}}}{{#isArray}}[]{{/isArray}}{{/isBodyParam}}{{^isBodyParam}}{{{dataType}}}{{/isBodyParam}}{{/isEnum}};
     {{/allParams}}
 }
   {{/operation}}
@@ -95,10 +95,11 @@ export class {{classname}} implements Api {
       {{/consumes}}
     {{/hasFormParams}}
     {{#bodyParam}}
+    const bodyRequestParam = '{{#vendorExtensions}}{{#x-body-param-name}}{{x-body-param-name}}{{/x-body-param-name}}{{^x-body-param-name}}{{#transformBodyRequest}}{{baseName}}{{/transformBodyRequest}}{{/x-body-param-name}}{{/vendorExtensions}}';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['{{baseName}}'] !== 'undefined' ? JSON.stringify(data['{{baseName}}']) : {{#isArray}}'[]'{{/isArray}}{{^isArray}}'{}'{{/isArray}};
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : {{#isArray}}'[]'{{/isArray}}{{^isArray}}'{}'{{/isArray}};
     } else {
-      body = data['{{baseName}}'] as any;
+      body = data[bodyRequestParam] as any;
     }
     {{/bodyParam}}
 

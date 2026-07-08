@@ -101,16 +101,21 @@
   "otter.extract.styling.prefix": "o3r",
   "search.useIgnoreFiles": true,
   "search.exclude": {
-    "**/*.code-search": true,
     "**/github-actions/*/packaged-action/**": true,
     "**/.yarn": true,
     "**/.pnp.*": true,
     "**/.cache/**": true,
     "**/dist/**": true,
+    "**/dist-*/**": true,
+    "**/build/**": true,
+    "**/coverage/**": true,
     "**/.tsbuildinfo*": true
   },
-  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "js/ts.tsdk.path": ".yarn/sdks/typescript/lib",
+  "js/ts.tsserver.watchOptions": "vscode",
+  "js/ts.preferences.preferTypeOnlyAutoImports": true,
+  "vitest.maximumConfigs": 100,
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.tsserver.watchOptions": "vscode",
-  "typescript.preferences.preferTypeOnlyAutoImports": true
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

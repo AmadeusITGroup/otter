@@ -5,6 +5,12 @@ import {
   resolve,
 } from 'node:path';
 import {
+  beforeEach,
+  describe,
+  expect,
+  test,
+} from 'vitest';
+import {
   OTTER_EXTENSIONS_NODE_NAME,
   OTTER_NAME_PREFIX,
 } from '../constants.mjs';

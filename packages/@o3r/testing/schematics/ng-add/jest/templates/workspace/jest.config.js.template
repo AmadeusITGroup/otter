@@ -6,7 +6,6 @@ module.exports = {
   ...getJestGlobalConfig(__dirname),
   passWithNoTests: true,
   projects: getJestProjects(__dirname),
-  globalSetup: 'jest-preset-angular/global-setup',
   reporters: [
     'default',
     'github-actions'

@@ -17,7 +17,7 @@ export interface StoreApiGetOrderByIdRequestData {
 /** Parameters object to StoreApi's placeOrder function */
 export interface StoreApiPlaceOrderRequestData {
   /**  */
-  'Order'?: Order;
+  'orderBody'?: Order;
 }
 export class StoreApi implements Api {
 
@@ -222,10 +222,11 @@ export class StoreApi implements Api {
     const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
 
     let body: RequestBody = '';
+    const bodyRequestParam = 'orderBody';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['Order'] !== 'undefined' ? JSON.stringify(data['Order']) : '{}';
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : '{}';
     } else {
-      body = data['Order'] as any;
+      body = data[bodyRequestParam] as any;
     }
 
     let queryParams = {};

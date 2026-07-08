@@ -1,4 +1,9 @@
 import {
+  describe,
+  expect,
+  it,
+} from 'vitest';
+import {
   DECORATOR_ID_REDIRECT_REF,
   redirectRefsDecorator,
 } from './replace-refs.decorator.mjs';
@@ -18,8 +23,8 @@ describe('redirectRefsDecorator', () => {
       const decorator = redirectRefsDecorator({});
       expect(decorator).toBeDefined();
       expect(decorator.ref).toBeDefined();
-      expect(decorator.ref.enter).toBeDefined();
-      expect(decorator.ref.leave).toBeDefined();
+      expect((decorator.ref as any).enter).toBeDefined();
+      expect((decorator.ref as any).leave).toBeDefined();
     });
 
     it('should handle empty options', () => {
@@ -50,8 +55,8 @@ describe('redirectRefsDecorator', () => {
       const node = { $ref: 'my-models/User' };
       const parent = { node };
 
-      decorator.ref.enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('https://example.com/');
     });
@@ -69,8 +74,8 @@ describe('redirectRefsDecorator', () => {
       const node = { $ref: '#/User' };
       const parent = { node };
 
-      decorator.ref.enter(nodeEnter, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(nodeEnter, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('https://example.com/my-models/#/User');
     });
@@ -86,8 +91,8 @@ describe('redirectRefsDecorator', () => {
       const node = { $ref: 'other-models/User' };
       const parent = { node };
 
-      decorator.ref.enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('other-models/User');
     });
@@ -109,8 +114,8 @@ describe('redirectRefsDecorator', () => {
         'x-custom': 'value'
       };
 
-      decorator.ref.enter(enterNode, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(enterNode, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('https://example.com/my-models/#/User');
     });
@@ -135,8 +140,8 @@ describe('redirectRefsDecorator', () => {
         node
       };
 
-      decorator.ref.enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('https://example.com/models-v1/');
     });
@@ -154,8 +159,8 @@ describe('redirectRefsDecorator', () => {
         node
       };
 
-      decorator.ref.enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('other-models/User');
     });
@@ -173,8 +178,8 @@ describe('redirectRefsDecorator', () => {
         node
       };
 
-      decorator.ref.enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('other-models/User');
     });
@@ -193,8 +198,8 @@ describe('redirectRefsDecorator', () => {
       const node = { $ref: 'schema.json#/definitions/User' };
       const parent = { node };
 
-      decorator.ref.enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('schema.json#/definitions/User');
     });
@@ -212,8 +217,8 @@ describe('redirectRefsDecorator', () => {
       const node = { $ref: 'User-Model_v2.json' };
       const parent = { node };
 
-      decorator.ref.enter(enterNode, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(enterNode, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('https://example.com/my-models/User-Model_v2.json');
     });
@@ -235,8 +240,8 @@ describe('redirectRefsDecorator', () => {
         }
       };
 
-      decorator.ref.enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('https://external-api.com/#/User');
     });
@@ -263,8 +268,8 @@ describe('redirectRefsDecorator', () => {
         }
       };
 
-      decorator.ref.enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('https://example.com/User');
     });
@@ -281,13 +286,13 @@ describe('redirectRefsDecorator', () => {
 
       const node1 = { $ref: 'models/User' };
       const parent1 = { node: node1 };
-      decorator.ref.enter(node1, { parent: parent1, location: { absolutePointer: '#/paths/~1users/get/responses/200' } } as any);
-      decorator.ref.leave(node1, { location: { absolutePointer: '#/paths/~1users/get/responses/200' } } as any);
+      (decorator.ref as any).enter(node1, { parent: parent1, location: { absolutePointer: '#/paths/~1users/get/responses/200' } } as any);
+      (decorator.ref as any).leave(node1, { location: { absolutePointer: '#/paths/~1users/get/responses/200' } } as any);
 
       const node2 = { $ref: 'models/Product' };
       const parent2 = { node: node2 };
-      decorator.ref.enter(node2, { parent: parent2, location: { absolutePointer: '#/paths/~1products/get/responses/200' } } as any);
-      decorator.ref.leave(node2, { location: { absolutePointer: '#/paths/~1products/get/responses/200' } } as any);
+      (decorator.ref as any).enter(node2, { parent: parent2, location: { absolutePointer: '#/paths/~1products/get/responses/200' } } as any);
+      (decorator.ref as any).leave(node2, { location: { absolutePointer: '#/paths/~1products/get/responses/200' } } as any);
 
       expect(node1.$ref).toBe('https://api.example.com/v1/models/User');
       expect(node2.$ref).toBe('https://api.example.com/v1/models/Product');
@@ -301,8 +306,8 @@ describe('redirectRefsDecorator', () => {
       const node = { $ref: 'models/User' };
       const parent = { node };
 
-      decorator.ref.enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
-      decorator.ref.leave(node, { location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).enter(node, { parent, location: { absolutePointer: '#/test' } } as any);
+      (decorator.ref as any).leave(node, { location: { absolutePointer: '#/test' } } as any);
 
       expect(node.$ref).toBe('models/User');
     });
