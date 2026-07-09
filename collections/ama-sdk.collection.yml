@@ -3,7 +3,7 @@ id: ama-sdk
 name: Ama SDK
 description: Collection for @ama-sdk - TypeScript SDK generation from OpenAPI specifications
 items:
-  - path: ../tools/llm/plugins/ama-sdk/skills/create-sdk.md
+  - path: tools/llm/plugins/ama-sdk/skills/create-sdk.md
     kind: skill
     title: Create SDK
     description: Create a TypeScript SDK from an OpenAPI spec (standalone or monorepo)
@@ -11,21 +11,21 @@ items:
       - create
       - standalone
       - monorepo
-  - path: ../tools/llm/plugins/ama-sdk/skills/use-sdk.md
+  - path: tools/llm/plugins/ama-sdk/skills/use-sdk.md
     kind: skill
     title: Use SDK
     description: Install, configure, and use a TypeScript SDK with fetch, Angular, or beacon clients
     tags:
       - usage
       - client
-  - path: ../tools/llm/plugins/ama-sdk/skills/sdk-plugins/SKILL.md
+  - path: tools/llm/plugins/ama-sdk/skills/sdk-plugins/SKILL.md
     kind: skill
     title: SDK Plugins
     description: Use and create @ama-sdk plugins for authentication, resilience, and request processing
     tags:
       - plugins
       - extensibility
-  - path: ../tools/llm/plugins/ama-sdk/agents/sdk-setup.agent.md
+  - path: tools/llm/plugins/ama-sdk/agents/sdk-setup.agent.md
     kind: agent
     title: SDK Setup
     description: Orchestrates SDK creation by detecting project context and guiding through standalone vs monorepo workflows
