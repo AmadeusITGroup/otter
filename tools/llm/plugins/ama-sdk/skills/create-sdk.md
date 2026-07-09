@@ -153,3 +153,4 @@ For schematic options, see: https://github.com/AmadeusITGroup/otter/blob/main/pa
 - Install and configure a client (`@ama-sdk/client-fetch`, `@ama-sdk/client-angular`, or `@ama-sdk/client-beacon`) — see **use-sdk** skill
 - Add plugins for auth, retry, or caching — see **sdk-plugins** skill
 - Generate mocks for testing with `typescript-mock` schematic
+- Expose the SDK to AI assistants (generate `SDK_CONTEXT.md` and configure the MCP server) — see **sdk-mcp-setup** skill
