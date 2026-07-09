@@ -148,6 +148,5 @@ jobs:
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - uses: ./tools/github-actions/setup
-      # TODO reactivate once https://github.com/AmadeusITGroup/ai-primitives-hub/issues/311 is resolved
-      # - uses: AmadeusITGroup/ai-primitives-hub/github-actions/validate-collections@b794745619dad347662204639f1a96f64a99ac23 # v0.0.34
+      - uses: AmadeusITGroup/ai-primitives-hub/github-actions/validate-collections@4988081fc02e126935a301c1d548faf4685662cf # v0.0.37
       - run: node tools/@o3r/workspace-helpers/scripts/check-plugin-marketplace-sync.mjs
