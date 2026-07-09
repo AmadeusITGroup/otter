@@ -23,6 +23,8 @@ import {
 interface NgUpdateOptions {
   // eslint-disable-next-line @typescript-eslint/naming-convention -- Angular naming convention
   'migrate-only'?: boolean;
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- Angular naming convention
+  'allow-dirty'?: boolean;
   from?: string;
   to?: string;
 }
@@ -62,7 +64,7 @@ function triggerPackageGroupUpdates(tree: Tree, packageJsonPath: string, ngUpdat
       // eslint-disable-next-line no-console -- Logging some stuff
       console.log(`Looking for updates in ${dependency}`);
       const options = Object.entries(ngUpdateOptions)
-        .filter(([key]) => ['migrate-only', 'from', 'to', 'next', 'force'].includes(key))
+        .filter(([key]) => ['migrate-only', 'allow-dirty', 'from', 'to', 'next', 'force'].includes(key))
         .map(([key, value]) => `--${key}=${value}`).join(' ');
       const cmd = `${executor} ng update ${dependency} ${options}`;
       try {
