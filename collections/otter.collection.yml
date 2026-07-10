@@ -2,7 +2,16 @@
 id: otter
 name: Otter
 description: Collection for Otter
-items: []
+items:
+  - path: tools/llm/plugins/otter/skills/otter-rules-engine/SKILL.md
+    kind: skill
+    title: Otter Rules Engine
+    description: Author and debug rules-engine facts, operators, actions, and rulesets in an Otter workspace
+    tags:
+      - rules-engine
+      - facts
+      - operators
+      - rulesets
 display:
   ordering: manual
   show_badge: true
