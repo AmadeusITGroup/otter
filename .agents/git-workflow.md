@@ -62,3 +62,21 @@ yarn build      # Full build (mandatory)
 yarn lint       # Linting (mandatory)
 yarn test       # Unit tests (mandatory)
 ```
+
+## Troubleshooting
+
+### Pre-commit hook fails with a PnP resolution error
+
+If a commit fails on the pre-commit hook with an error like:
+
+```
+Couldn't find <package>@npm:<version> in the currently installed PnP map - running an install might help
+```
+
+the Yarn PnP map is out of date. Run `yarn install`, then retry the commit:
+
+```bash
+yarn install
+```
+
+This only repairs the local PnP state; it does not change the lockfile when dependencies are unchanged.
