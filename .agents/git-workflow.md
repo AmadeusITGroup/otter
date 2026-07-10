@@ -63,6 +63,24 @@ yarn lint       # Linting (mandatory)
 yarn test       # Unit tests (mandatory)
 ```
 
+## Creating a Pull Request
+
+Always follow the repository PR template defined in [`.github/pull_request_template.md`](../.github/pull_request_template.md). When opening a PR, read that file and reproduce its sections in the description, filling in the placeholders:
+
+- Summarize the changes, the related issue, and the motivation/context behind them.
+- Link the corresponding issue using one of the template's prefixes so the PR is associated with it. Each PR should be linked to an issue (see [contributing.md](./contributing.md)). If none applies, keep the `*- No issue associated -*` placeholder.
+
+When creating the PR from the CLI, first read `.github/pull_request_template.md` to get its current structure, then pass a body that follows that structure with the placeholders filled in — do not pass the raw template, as it only contains empty sections and comments:
+
+```bash
+gh pr create --title "<type>(<scope>): concise description" --body "$(cat <<'EOF'
+<body following the template's sections, with the summary and related issue filled in>
+EOF
+)"
+```
+
+The PR title must follow the same [Conventional Commits](https://www.conventionalcommits.org/) format as commit messages.
+
 ## Troubleshooting
 
 ### Pre-commit hook fails with a PnP resolution error
