@@ -25,6 +25,14 @@ items:
     tags:
       - plugins
       - extensibility
+  - path: tools/llm/plugins/ama-sdk/skills/sdk-mcp-setup.md
+    kind: skill
+    title: SDK MCP Setup
+    description: Configure the @ama-sdk/mcp server to expose SDK_CONTEXT.md to Claude Code and GitHub Copilot
+    tags:
+      - mcp
+      - context
+      - setup
   - path: tools/llm/plugins/ama-sdk/agents/sdk-setup.agent.md
     kind: agent
     title: SDK Setup

@@ -9,6 +9,7 @@ AI-powered skills for creating, using, and extending TypeScript SDKs generated f
 | **create-sdk** | Create a TypeScript SDK from an OpenAPI spec (standalone or monorepo) |
 | **use-sdk** | Install, configure clients (Fetch/Angular/Beacon), and call APIs |
 | **sdk-plugins** | Use built-in plugins and create custom ones for auth, retry, etc. |
+| **sdk-mcp-setup** | Configure the `@ama-sdk/mcp` server so AI assistants read `SDK_CONTEXT.md` |
 
 ## Agents
 
@@ -52,6 +53,8 @@ The same [`.claude-plugin/`](../../../../.claude-plugin/marketplace.json) manife
 **"How do I call the search endpoint from my SDK?"** → triggers `use-sdk` skill
 
 **"I have a monorepo, add an SDK library"** → triggers `create-sdk` skill
+
+**"Set up the ama-sdk MCP so Copilot/Claude knows my SDK"** → triggers `sdk-mcp-setup` skill
 
 ## Related Packages
 

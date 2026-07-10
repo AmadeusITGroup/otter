@@ -61,6 +61,11 @@ Ask if they need:
 - Resilience (retry, timeout) → configure fetch plugins
 - Custom behavior → guide through custom plugin creation
 
+### Phase 6: AI Context / MCP (Optional)
+
+Ask if they want AI assistants (Claude Code, GitHub Copilot) to understand the SDK:
+- Generate `SDK_CONTEXT.md` with `amasdk-update-sdk-context` and configure the `@ama-sdk/mcp` server → delegate to `sdk-mcp-setup` skill
+
 ## Constraints
 
 - **Never modify an OpenAPI specification.** If the spec has issues, suggest the user fix it upstream.
