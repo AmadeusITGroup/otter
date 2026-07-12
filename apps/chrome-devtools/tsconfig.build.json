@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.build",
   "compilerOptions": {
-    "skipLibCheck": true /* because of fdir 6.5.0 importing picomatch without bundled types */,
     "lib": [
       "es2023",
       "dom"
