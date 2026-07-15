@@ -7,7 +7,7 @@
     "actionType": {
       "type": "string",
       "description": "Action Type",
-      "const": "UPDATE_LOCALIZATION"
+      "const": "UPDATE_LOCALISATION"
     },
     "key": {
       "type": "string",
