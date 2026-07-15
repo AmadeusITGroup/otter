@@ -1,0 +1,34 @@
+import {
+  deepFill,
+  immutablePrimitive,
+  otterComponentInfoPropertyName,
+} from '@o3r/core';
+
+/**
+ * Decorator to pass localization url
+ * @param url
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- decorator should start with a capital letter
+export function Localization(url: string) {
+  return (target: any, key: string) => {
+    const privateField = url || `_${key}`;
+    const privateValue = target[key];
+
+    if (delete target[key]) {
+      Object.defineProperty(target, key, {
+        get: function (this: any) {
+          return this[privateField];
+        },
+        set: function (this: any, value: Record<string, unknown>) {
+          const currentField = this[privateField] || privateValue;
+          this[privateField] = typeof currentField === 'undefined' ? immutablePrimitive(value) : deepFill(currentField, value);
+          if (this[otterComponentInfoPropertyName]) {
+            this[otterComponentInfoPropertyName].translations = this[privateField];
+          }
+        },
+        enumerable: true,
+        configurable: true
+      });
+    }
+  };
+}

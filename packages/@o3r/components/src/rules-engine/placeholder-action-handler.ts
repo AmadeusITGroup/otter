@@ -17,23 +17,24 @@ import {
   DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
-  LocalizationService,
-} from '@o3r/localization';
-import {
   LoggerService,
 } from '@o3r/logger';
 import {
   combineLatest,
   distinctUntilChanged,
   firstValueFrom,
+  from,
   map,
+  Observable,
   of,
   startWith,
   Subject,
+  switchMap,
   withLatestFrom,
 } from 'rxjs';
 import {
   ActionUpdatePlaceholderBlock,
+  type PlaceholderLocalizationService,
   RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE,
 } from './placeholder-interfaces';
 import {
@@ -54,6 +55,15 @@ import {
 export class PlaceholderRulesEngineActionHandler implements RulesEngineActionHandler<ActionUpdatePlaceholderBlock> {
   private readonly logger = inject(LoggerService);
   private readonly injector = inject(Injector);
+  // Prefer `@o3r/transloco`, fall back to `@o3r/localization`; both are optional peer dependencies.
+  // TODO: use `injectAsync` to resolve the optional `LocalizationService` token once migrated to ng22
+  // TODO: remove the dynamic-import fallback and inject the `LocalizationService` from the single supported translation package in v16
+  private readonly translationService: Promise<PlaceholderLocalizationService | undefined> = import('@o3r/transloco')
+    .then((mod) => this.injector.get(mod.LocalizationService, null) as PlaceholderLocalizationService | null)
+    .catch(() => null)
+    .then((service) => service ?? import('@o3r/localization')
+      .then((mod) => (this.injector.get(mod.LocalizationService, null) as PlaceholderLocalizationService | null) ?? undefined)
+      .catch(() => undefined));
 
   protected placeholdersActions$: Subject<{ placeholderId: string; templateUrl: string; priority: number }[]> = new Subject();
 
@@ -62,15 +72,23 @@ export class PlaceholderRulesEngineActionHandler implements RulesEngineActionHan
 
   constructor() {
     const store = inject<Store<PlaceholderTemplateStore>>(Store);
-    const translateService = inject(LocalizationService, { optional: true });
 
-    const lang$ = translateService
-      ? translateService.getTranslateService().onLangChange.pipe(
-        map(({ lang }) => lang),
-        startWith(translateService.getCurrentLanguage()),
-        distinctUntilChanged()
-      )
-      : of(null);
+    const lang$ = from(this.translationService).pipe(
+      switchMap((translationService) => {
+        if (!translationService) {
+          return of(null);
+        }
+        const translateService = translationService.getTranslateService();
+        // `@o3r/localization` (ngx-translate) exposes `onLangChange`, while `@o3r/transloco` (transloco) exposes `langChanges$`
+        const langChange$: Observable<string> = translateService.onLangChange
+          ? translateService.onLangChange.pipe(map(({ lang }) => lang))
+          : translateService.langChanges$!;
+        return langChange$.pipe(
+          startWith(translationService.getCurrentLanguage()),
+          distinctUntilChanged()
+        );
+      })
+    );
 
     const filteredActions$ = combineLatest([
       lang$,

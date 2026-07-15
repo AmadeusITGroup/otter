@@ -1,10 +1,4 @@
 import {
-  AllConditions,
-  BinaryOperation,
-  NotCondition,
-  OperandFact,
-} from '../structure';
-import {
   isAllConditions,
   isAnyConditions,
   isConditionProperties,
@@ -36,7 +30,7 @@ describe('Rule helpers', () => {
           type: 'LITERAL',
           value: true
         }
-      } as BinaryOperation)).toBeTruthy();
+      })).toBeTruthy();
     });
   });
 
@@ -54,7 +48,7 @@ describe('Rule helpers', () => {
       expect(isOperandFact({
         type: 'FACT',
         value: 'testFact'
-      } as OperandFact)).toBeTruthy();
+      })).toBeTruthy();
     });
   });
 
@@ -66,7 +60,7 @@ describe('Rule helpers', () => {
       expect(isOperandRuntimeFact('test')).toBeFalsy();
       expect(isOperandRuntimeFact(false)).toBeFalsy();
       expect(isOperandRuntimeFact(true)).toBeFalsy();
-      expect(isOperandRuntimeFact({ type: 'FACT', value: 'testFact' } as OperandFact)).toBeFalsy();
+      expect(isOperandRuntimeFact({ type: 'FACT', value: 'testFact' })).toBeFalsy();
     });
 
     test('should return true if an inner fact operand', () => {
@@ -109,7 +103,7 @@ describe('Rule helpers', () => {
     test('should return true if an all condition', () => {
       expect(isAllConditions({
         all: []
-      } as AllConditions)).toBeTruthy();
+      })).toBeTruthy();
     });
   });
 
@@ -140,7 +134,7 @@ describe('Rule helpers', () => {
     test('should return true if a not condition', () => {
       expect(isNotCondition({
         not: {}
-      } as NotCondition)).toBeTruthy();
+      })).toBeTruthy();
     });
   });
 });

@@ -2,9 +2,6 @@ import {
   AsyncPipe,
 } from '@angular/common';
 import {
-  Provider,
-} from '@angular/core';
-import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
@@ -15,15 +12,11 @@ import {
   NgbScrollSpyService,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  TranslateCompiler,
-  TranslateFakeCompiler,
-} from '@ngx-translate/core';
+  provideLocalizationMock,
+} from '@o3r/testing/transloco';
 import {
   LocalizationService,
-} from '@o3r/localization';
-import {
-  mockTranslationModules,
-} from '@o3r/testing/localization';
+} from '@o3r/transloco';
 import {
   provideMarkdown,
 } from 'ngx-markdown';
@@ -34,10 +27,6 @@ import {
 const localizationConfiguration = { language: 'en' };
 const mockTranslations = {
   en: {}
-};
-const mockTranslationsCompilerProvider: Provider = {
-  provide: TranslateCompiler,
-  useClass: TranslateFakeCompiler
 };
 describe('Localization', () => {
   let component: Localization;
@@ -53,12 +42,13 @@ describe('Localization', () => {
       imports: [
         RouterModule.forRoot([]),
         Localization,
-        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
         AsyncPipe
       ],
       providers: [
+        LocalizationService,
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
-        provideMarkdown()
+        provideMarkdown(),
+        provideLocalizationMock(localizationConfiguration, mockTranslations)
       ]
     });
     fixture = TestBed.createComponent(Localization);

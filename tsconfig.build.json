@@ -63,6 +63,8 @@
       "@o3r/testing": ["packages/@o3r/testing/dist", "packages/@o3r/testing/src/public_api"],
       "@o3r/testing/*": ["packages/@o3r/testing/dist/esm/*", "packages/@o3r/testing/dist/*", "packages/@o3r/testing/src/*"],
       "@o3r/third-party": ["packages/@o3r/third-party/dist", "packages/@o3r/third-party/src/public_api"],
+      "@o3r/transloco": ["packages/@o3r/transloco/dist", "packages/@o3r/transloco/src/public_api"],
+      "@o3r/transloco/*": ["packages/@o3r/transloco/dist/*", "packages/@o3r/transloco/src/*/public_api"],
       "@o3r/workspace": ["packages/@o3r/workspace/dist", "packages/@o3r/workspace/src/public_api"]
     }
   },

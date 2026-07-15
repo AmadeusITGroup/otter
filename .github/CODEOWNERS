@@ -12,6 +12,7 @@
 # Default reviewers for CMS Plugin JSON Schemas
 /packages/@o3r/application/schemas/ @AmadeusITGroup/otter_cms
 /packages/@o3r/localization/schemas/ @AmadeusITGroup/otter_cms
+/packages/@o3r/transloco/schemas/ @AmadeusITGroup/otter_cms
 /packages/@o3r/configuration/schemas/ @AmadeusITGroup/otter_cms
 /packages/@o3r/components/schemas/ @AmadeusITGroup/otter_cms
 /packages/@o3r/dynamic-content/schemas/ @AmadeusITGroup/otter_cms
