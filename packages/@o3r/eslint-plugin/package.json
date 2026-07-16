@@ -24,7 +24,7 @@
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy './collection.json' dist"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "~8.60.0",
+    "@typescript-eslint/utils": "~8.61.0",
     "globby": "^11.1.0",
     "semver": "^7.5.2",
     "tslib": "^2.6.2",
@@ -55,7 +55,7 @@
     "@angular-devkit/core": "~21.2.0",
     "@angular-eslint/test-utils": "~21.4.0",
     "@angular/cli": "~21.2.0",
-    "@angular/compiler": "~21.2.4",
+    "@angular/compiler": "~21.2.17",
     "@babel/core": "~7.29.0",
     "@babel/preset-typescript": "~7.29.0",
     "@compodoc/compodoc": "^1.1.32",
@@ -69,10 +69,10 @@
     "@stylistic/eslint-plugin": "~5.10.0",
     "@types/eslint": "~9.6.0",
     "@types/jest": "~30.0.0",
-    "@types/node": "~24.12.0",
+    "@types/node": "~24.13.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/parser": "~8.60.0",
-    "@typescript-eslint/rule-tester": "~8.60.0",
+    "@typescript-eslint/parser": "~8.61.0",
+    "@typescript-eslint/rule-tester": "~8.61.0",
     "angular-eslint": "~21.4.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
@@ -94,7 +94,7 @@
     "ts-jest": "~29.4.0",
     "type-fest": "^5.3.1",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.60.0",
+    "typescript-eslint": "~8.61.0",
     "yaml-eslint-parser": "^1.2.2"
   },
   "schematics": "./collection.json"
