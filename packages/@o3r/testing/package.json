@@ -226,7 +226,7 @@
     "@types/pngjs": "^6.0.0",
     "@typescript-eslint/parser": "~8.60.0",
     "angular-eslint": "~21.4.0",
-    "concurrently": "^9.1.0",
+    "concurrently": "^9.2.3",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
     "eslint-import-resolver-node": "~0.4.0",
