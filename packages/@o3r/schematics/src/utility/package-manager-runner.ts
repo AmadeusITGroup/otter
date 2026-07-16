@@ -94,9 +94,11 @@ export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | stri
 export function getPackageManagerExecutor(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string): string {
   const pckManager = getPackageManager({ workspaceConfig });
   if (!packageName) {
-    return `${pckManager} exec` satisfies SupportedPackageManagerExecutors;
+    return pckManager === 'npm' ? 'npm exec --' : `${pckManager} exec`;
   }
-  return `${pckManager} ${PACKAGE_MANAGER_WORKSPACE_MAPPING[pckManager]} ${packageName} exec`;
+  return pckManager === 'npm'
+    ? `npm ${PACKAGE_MANAGER_WORKSPACE_MAPPING[pckManager]} ${packageName} exec --`
+    : `${pckManager} ${PACKAGE_MANAGER_WORKSPACE_MAPPING[pckManager]} ${packageName} exec`;
 }
 
 /**
