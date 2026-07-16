@@ -51,6 +51,12 @@ npm create @o3r my-project
 
 Please read the [Contributing](./CONTRIBUTING.md) file for details on our code of conduct and the process to submit pull requests.
 
+## AI Coding Agents
+
+This repository includes an [AGENTS.md](./AGENTS.md) file that provides context for AI coding assistants (Claude Code, GitHub Copilot, Cursor, Windsurf, etc.). 
+
+The documentation is split into focused context files in [`.agents/`](./.agents/) to optimize token usage - AI agents load only what they need for their current task (testing, building, committing, etc.), reducing token consumption by 50-60% compared to a single large file.
+
 ## Versioning
 
 Please refer to [Security file](./SECURITY.md).

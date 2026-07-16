@@ -10,14 +10,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule,
-} from '@angular/router';
-import {
   Store,
 } from '@ngrx/store';
 import {
   PlaceholderRulesEngineActionHandler,
-  PlaceholderRulesEngineActionModule,
 } from '@o3r/components/rules-engine';
 import {
   O3rComponent,
@@ -26,8 +22,6 @@ import {
   DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
-  RulesEngineDevtoolsModule,
-  RulesEngineRunnerModule,
   RulesEngineRunnerService,
   RulesetsStore,
   setRulesetsEntities,
@@ -54,10 +48,6 @@ import {
   selector: 'o3r-placeholder-page',
   imports: [
     PlaceholderPres,
-    RulesEngineRunnerModule,
-    RulesEngineDevtoolsModule,
-    PlaceholderRulesEngineActionModule,
-    RouterModule,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     AsyncPipe
   ],

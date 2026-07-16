@@ -34,7 +34,6 @@ import {
   O3rDynamicContentPipe,
 } from '@o3r/dynamic-content';
 import {
-  RulesEngineRunnerModule,
   RulesEngineRunnerService,
 } from '@o3r/rules-engine';
 import {
@@ -72,7 +71,6 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
     O3rDynamicContentPipe,
     O3rLocalizationTranslatePipe,
     ReactiveFormsModule,
-    RulesEngineRunnerModule,
     DatePickerInputPres
   ]
 })
@@ -99,7 +97,7 @@ export class RulesEnginePres implements OnDestroy, DynamicConfigurableWithSignal
   });
 
   /** Input configuration to override the default configuration of the component */
-  public config = input<Partial<RulesEnginePresConfig>>();
+  public readonly config = input<Partial<RulesEnginePresConfig>>();
 
   @O3rConfig()
   public readonly configSignal = configSignal(

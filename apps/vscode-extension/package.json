@@ -225,12 +225,6 @@
         "title": "Add rules engine to component",
         "category": "Otter",
         "enablement": "resourceFilename =~ /.ts$/"
-      },
-      {
-        "command": "otter.generate.theming-to-component",
-        "title": "Add theming to component",
-        "category": "Otter",
-        "enablement": "resourceFilename =~ /.scss$/"
       }
     ],
     "menus": {
@@ -283,10 +277,6 @@
         {
           "command": "otter.generate.rules-engine-to-component",
           "group": "otter.generate.enrich-component.group"
-        },
-        {
-          "command": "otter.generate.theming-to-component",
-          "group": "otter.generate.enrich-component.group"
         }
       ],
       "otter.editor.context.submenu": [
@@ -337,10 +327,6 @@
         },
         {
           "command": "otter.generate.rules-engine-to-component",
-          "group": "otter.generate.group"
-        },
-        {
-          "command": "otter.generate.theming-to-component",
           "group": "otter.generate.group"
         }
       ],
@@ -439,8 +425,8 @@
     "@types/jest": "~30.0.0",
     "@types/node": "~24.13.0",
     "@types/vscode": "~1.120.0",
-    "@typescript-eslint/parser": "~8.61.0",
-    "@typescript-eslint/utils": "~8.61.0",
+    "@typescript-eslint/parser": "~8.62.0",
+    "@typescript-eslint/utils": "~8.62.0",
     "@vscode/vsce": "^3.2.1",
     "angular-eslint": "~21.4.0",
     "cpy-cli": "^6.0.0",
@@ -465,6 +451,6 @@
     "rxjs": "^7.8.1",
     "ts-jest": "~29.4.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.61.0"
+    "typescript-eslint": "~8.62.0"
   }
 }

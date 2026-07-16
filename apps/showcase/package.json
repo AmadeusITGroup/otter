@@ -27,9 +27,9 @@
     "patch:package": "cpy 'package.json' 'dist' && patch-package-json-main"
   },
   "dependencies": {
-    "@agnos-ui/angular-bootstrap": "~0.10.0",
-    "@agnos-ui/angular-headless": "~0.10.0",
-    "@agnos-ui/core-bootstrap": "~0.10.0",
+    "@agnos-ui/angular-bootstrap": "~0.11.0",
+    "@agnos-ui/angular-headless": "~0.11.0",
+    "@agnos-ui/core-bootstrap": "~0.11.0",
     "@ama-sdk/client-fetch": "workspace:~",
     "@ama-sdk/core": "workspace:~",
     "@ama-sdk/schematics": "workspace:~",
@@ -111,7 +111,7 @@
   "devDependencies": {
     "@ama-styling/style-dictionary": "workspace:~",
     "@amadeus-it-group/kassette": "^1.7.0",
-    "@angular-devkit/architect": "0.2102.16",
+    "@angular-devkit/architect": "0.2102.18",
     "@angular-devkit/build-angular": "~21.2.0",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
@@ -133,7 +133,7 @@
     "@types/bootstrap": "^5.2.10",
     "@types/jest": "~30.0.0",
     "@types/node": "~24.13.0",
-    "@typescript-eslint/parser": "~8.61.0",
+    "@typescript-eslint/parser": "~8.62.0",
     "@webcontainer/api": "~1.6.0",
     "angular-eslint": "~21.4.0",
     "concurrently": "^9.2.3",
@@ -163,7 +163,7 @@
     "style-dictionary": "~5.4.0",
     "ts-jest": "~29.4.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.61.0",
+    "typescript-eslint": "~8.62.0",
     "webpack": "~5.107.0"
   }
 }

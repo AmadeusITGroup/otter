@@ -53,7 +53,7 @@
     "**/{package.json,.yarnrc.yml,*.ts,*.mts,*.cts*.js,*.mjs,*.cjs,*.html}": [
       "eslint --quiet --fix --cache-location .cache/eslint"
     ],
-    "{.claude-plugin,.github/plugin}/marketplace.json|tools/llm/plugins/otter/{.plugin,.claude-plugin}/plugin.json": [
+    "{.claude-plugin,.github/plugin}/marketplace.json|tools/llm/plugins/*/{.plugin,.claude-plugin}/plugin.json": [
       "node tools/@o3r/workspace-helpers/scripts/check-plugin-marketplace-sync.mjs"
     ],
     "*": [
@@ -159,12 +159,12 @@
     "@actions/core": "^2.0.0",
     "@actions/exec": "^2.0.0",
     "@actions/github": "^6.0.0",
-    "@agnos-ui/angular-bootstrap": "~0.10.0",
-    "@agnos-ui/angular-headless": "~0.10.0",
-    "@agnos-ui/core-bootstrap": "~0.10.0",
+    "@agnos-ui/angular-bootstrap": "~0.11.0",
+    "@agnos-ui/angular-headless": "~0.11.0",
+    "@agnos-ui/core-bootstrap": "~0.11.0",
     "@amadeus-it-group/tansu": "~2.0.0",
     "@ampproject/remapping": "^2.3.0",
-    "@angular-devkit/architect": "0.2102.16",
+    "@angular-devkit/architect": "0.2102.18",
     "@angular-devkit/build-angular": "~21.2.0",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
@@ -191,6 +191,7 @@
     "@design-factory/design-factory": "~21.1.0",
     "@design-factory/styles": "~21.1.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
+    "@eslint/compat": "~2.1.0",
     "@jsverse/transloco": "~8.3.0",
     "@jsverse/transloco-messageformat": "~8.3.0",
     "@jsverse/utils": "1.0.0-beta.6",
@@ -232,8 +233,8 @@
     "@types/jest": "~30.0.0",
     "@types/node": "~24.13.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/parser": "~8.61.0",
-    "@typescript-eslint/rule-tester": "~8.61.0",
+    "@typescript-eslint/parser": "~8.62.0",
+    "@typescript-eslint/rule-tester": "~8.62.0",
     "@vitest/coverage-istanbul": "^4.0.18",
     "@vscode/codicons": "^0.0.45",
     "@webcontainer/api": "~1.6.0",
@@ -310,7 +311,7 @@
     "tslib": "^2.6.2",
     "type-fest": "^5.3.1",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.61.0",
+    "typescript-eslint": "~8.62.0",
     "uuid": "~14.0.0",
     "verdaccio": "~6.7.0",
     "vite": "~8.0.0",

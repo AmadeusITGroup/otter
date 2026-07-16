@@ -36,7 +36,7 @@ Invoke an agent by mentioning it (e.g. "use the otter-migration agent to upgrade
 **GitHub Copilot in VS Code** — either:
 
 - Run **Chat: Install Plugin From Source** from the Command Palette and enter this repository's URL, or
-- Add the marketplace to your `settings.json` so plugins stay discoverable:
+- Add the marketplace to your user `settings.json` so plugins stay discoverable:
 
   ```json
   "chat.plugins.marketplaces": {

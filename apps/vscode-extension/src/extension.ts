@@ -27,7 +27,6 @@ import {
   generateAddLocalizationKeyToComponentCommand,
   generateAddLocalizationToComponentCommand,
   generateAddRulesEngineToComponentCommand,
-  generateAddThemingToComponentCommand,
   generateConvertComponentCommand,
 } from './commands/generate/enrich-component';
 import {
@@ -94,7 +93,6 @@ export function activate(context: ExtensionContext) {
     commands.registerCommand('otter.generate.localization-key-to-component', generateAddLocalizationKeyToComponentCommand),
     commands.registerCommand('otter.generate.localization-to-component', generateAddLocalizationToComponentCommand),
     commands.registerCommand('otter.generate.rules-engine-to-component', generateAddRulesEngineToComponentCommand),
-    commands.registerCommand('otter.generate.theming-to-component', generateAddThemingToComponentCommand),
     commands.registerCommand('otter.menu.generate.component', wrapCommandWhenExplorerContext(context, generateComponentGenerateCommand)),
     commands.registerCommand('otter.menu.generate.service', wrapCommandWhenExplorerContext(context, generateServiceGenerateCommand)),
     commands.registerCommand('otter.menu.generate.store', wrapCommandWhenExplorerContext(context, generateStoreGenerateCommand)),
