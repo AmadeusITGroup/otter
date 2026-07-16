@@ -47,7 +47,7 @@ function findFilesInTreeRec(memory: Set<FileEntry>, directory: DirEntry, fileMat
  * @param fileMatchesCriteria a function defining the criteria to look for
  * @param ignoreDirectories optional parameter to ignore folders
  */
-export function findFilesInTree(directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[] = ['node_modules', '.git', '.yarn']) {
+export function findFilesInTree(directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[] = ['node_modules', '.git', '.yarn', '.angular']) {
   const memory = new Set<FileEntry>();
   findFilesInTreeRec(memory, directory, fileMatchesCriteria, ignoreDirectories);
   return Array.from(memory);
