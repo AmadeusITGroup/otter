@@ -56,5 +56,55 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular/cli",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@figma/eslint-plugin-figma-plugins",
+          "@figma/plugin-typings",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@schematics/angular",
+          "@stylistic/eslint-plugin",
+          "@types/jest",
+          "@types/node",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "cpy-cli",
+          "esbuild",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "html-inline-script-webpack-plugin",
+          "html-webpack-plugin",
+          "jest",
+          "jest-environment-jsdom",
+          "jest-junit",
+          "jest-util",
+          "jsonc-eslint-parser",
+          "style-loader",
+          "ts-jest",
+          "ts-loader",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint",
+          "url-loader",
+          "webpack",
+          "webpack-cli"
+        ]
+      }
+    ]
+  }
 }

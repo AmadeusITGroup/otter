@@ -7,7 +7,9 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": ["compile"]
+      "dependsOn": [
+        "compile"
+      ]
     },
     "compile": {
       "executor": "nx:run-script",
@@ -18,5 +20,66 @@
     "lint": {},
     "test": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@actions/github",
+          "@angular-devkit/schematics",
+          "@angular/animations",
+          "@angular/cli",
+          "@angular/common",
+          "@angular/compiler",
+          "@angular/compiler-cli",
+          "@angular/core",
+          "@angular/platform-browser",
+          "@angular/platform-browser-dynamic",
+          "@azure/functions",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@nx/js",
+          "@stylistic/eslint-plugin",
+          "@types/ejs",
+          "@types/express-serve-static-core",
+          "@types/jest",
+          "@types/node",
+          "@types/semver",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "cpy-cli",
+          "ejs",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "ioredis",
+          "jest",
+          "jest-environment-jsdom",
+          "jest-junit",
+          "jest-util",
+          "jsonc-eslint-parser",
+          "nock",
+          "nx",
+          "probot",
+          "rxjs",
+          "semver",
+          "smee-client",
+          "ts-jest",
+          "tslib",
+          "typescript",
+          "typescript-eslint"
+        ]
+      }
+    ]
+  }
 }
