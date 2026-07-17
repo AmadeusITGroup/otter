@@ -82,8 +82,8 @@
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
     "@angular/cli": "~21.2.0",
-    "@angular/common": "~21.2.4",
-    "@angular/core": "~21.2.4",
+    "@angular/common": "~21.2.17",
+    "@angular/core": "~21.2.17",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~22.7.0",
     "@nx/jest": "~22.7.0",
@@ -95,8 +95,8 @@
     "@swc/cli": "~0.8.0",
     "@swc/core": "~1.15.17",
     "@types/jest": "~30.0.0",
-    "@types/node": "~24.12.0",
-    "@typescript-eslint/parser": "~8.60.0",
+    "@types/node": "~24.13.0",
+    "@typescript-eslint/parser": "~8.61.0",
     "angular-eslint": "~21.4.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
@@ -121,7 +121,7 @@
     "ts-jest": "~29.4.0",
     "type-fest": "^5.3.1",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.60.0"
+    "typescript-eslint": "~8.61.0"
   },
   "engines": {
     "node": "^22.17.0 || ^24.0.0"
