@@ -8962,6 +8962,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@o3r-internal/external-deps-hasher@workspace:*, @o3r-internal/external-deps-hasher@workspace:tools/@o3r-internal/external-deps-hasher":
+  version: 0.0.0-use.local
+  resolution: "@o3r-internal/external-deps-hasher@workspace:tools/@o3r-internal/external-deps-hasher"
+  peerDependencies:
+    "@nx/jest": ~22.7.0
+    nx: ~22.7.0
+  languageName: unknown
+  linkType: soft
+
 "@o3r-training/showcase-sdk@workspace:packages/@o3r-training/showcase-sdk, @o3r-training/showcase-sdk@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r-training/showcase-sdk@workspace:packages/@o3r-training/showcase-sdk"
@@ -10743,6 +10752,7 @@ __metadata:
     "@nx/js": "npm:~22.7.0"
     "@nx/vitest": "npm:~22.7.0"
     "@nx/workspace": "npm:~22.7.0"
+    "@o3r-internal/external-deps-hasher": "workspace:*"
     "@o3r/components": "workspace:~"
     "@o3r/eslint-config": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"

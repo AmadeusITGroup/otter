@@ -22,7 +22,6 @@
   },
   "namedInputs": {
     "sharedGlobals": [
-      "{workspaceRoot}/yarn.lock",
       "{workspaceRoot}/tsconfig.base.json",
       "{workspaceRoot}/nx.json",
       "{workspaceRoot}/.nxignore",
@@ -259,7 +258,7 @@
       "cache": true
     },
     "test-int": {
-      "executor": "@nx/jest:jest",
+      "executor": "@o3r-internal/external-deps-hasher:jest",
       "dependsOn": [
         {
           "projects": [
@@ -281,7 +280,10 @@
         "source",
         "schematics",
         "integration-test",
-        "^schematics"
+        "^schematics",
+        {
+          "externalDependencies": []
+        }
       ],
       "outputs": [
         "{projectRoot}/dist-test/it-report.xml",
