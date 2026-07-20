@@ -210,6 +210,7 @@
     "@nx/js": "~22.7.0",
     "@nx/vitest": "~22.7.0",
     "@nx/workspace": "~22.7.0",
+    "@o3r-internal/external-deps-hasher": "workspace:*",
     "@o3r/components": "workspace:~",
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
