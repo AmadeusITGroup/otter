@@ -1,10 +1,12 @@
 {
-  "$schema": "https://raw.githubusercontent.com/AmadeusITGroup/otter/refs/heads/main/packages/@ama-openapi/core/schemas/manifest.schema.json",
+  "$schema": "./schemas/manifest.schema.json",
   "name": "<%- packageName %>",
   "keywords": [
-    "open-api",
-    "ama-open-api",
-    "specification"
+<%-
+  packageKeywords
+    .map((keyword)=> `    "${keyword}"`)
+    .join(',\n')
+%>
   ],
   "preferUnplugged": true,
   "version": "0.0.0-placeholder",
@@ -22,6 +24,7 @@
     "build": "redocly bundle",
     "retrieve-externals": "ama-openapi install",
     "watch:retrieve-externals": "ama-openapi watch",
+    "prepare": "ama-openapi generate-schema",
     "postinstall": "ama-openapi install"
   },
   "dependencies": {

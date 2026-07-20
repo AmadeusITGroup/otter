@@ -42,9 +42,9 @@ import * as ts from 'typescript';
 
 /**
  * Add Otter localization support
- * @param options @see RuleFactory.options
+ * @param options {@link RuleFactory.options}
  * @param options.projectName
- * @param rootPath @see RuleFactory.rootPath
+ * @param rootPath {@link RuleFactory.rootPath}
  */
 export function updateLocalization(options: { projectName?: string | null | undefined }, rootPath: string): Rule {
   const mainAssetsFolder = 'src/assets';

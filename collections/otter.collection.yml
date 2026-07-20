@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/AmadeusITGroup/prompt-registry/refs/heads/main/schemas/collection.schema.json
+id: otter
+name: Otter
+description: Collection for Otter
+items: []
+display:
+  ordering: manual
+  show_badge: true
+mcp:
+  items:
+    otter:
+      command: npx
+      args:
+        - -y
+        - -p
+        - '@o3r/mcp'
+        - o3r-mcp-start
+
+    angular:
+      command: npx
+      args:
+        - -y
+        - '@angular/cli'
+        - mcp
+
+    playwright:
+      command: npx
+      args:
+        - -y
+        - '@playwright/mcp'

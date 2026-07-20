@@ -51,8 +51,8 @@ export const cssFormat: Format = {
       const propertyFormatter = getDefaultCssFormatter(baseFormatterOptions);
 
       return allTokens
-        .sort(sortByPath)
-        .sort(outputReferences ? sortByReference(tokens, { unfilteredTokens, usesDtcg }) : () => 0)
+        .toSorted(sortByPath)
+        .toSorted(outputReferences ? sortByReference(tokens, { unfilteredTokens, usesDtcg }) : () => 0)
         .filter(({ attributes }) => !attributes?.private)
         .map((token) => ({
           token,

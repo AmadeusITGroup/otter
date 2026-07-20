@@ -52,5 +52,12 @@ export default [
         ...globals.node
       }
     }
+  },
+  {
+    name: '@o3r/chrome-devtools/prefer-self-closing-tags-overrides',
+    files: ['src/app-*.html'],
+    rules: {
+      '@angular-eslint/template/prefer-self-closing-tags': 'off'
+    }
   }
 ];

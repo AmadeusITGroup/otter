@@ -56,7 +56,6 @@ describe('new otter application', () => {
     const defaultOptions = [
       '--activate-dummy',
       '--use-otter-config', 'false',
-      '--use-otter-theming', 'false',
       '--use-otter-analytics', 'false',
       '--use-localization', 'false',
       '--use-context', 'false',
@@ -70,7 +69,6 @@ describe('new otter application', () => {
     const advancedOptions = [
       '--activate-dummy',
       '--use-otter-config', 'true',
-      '--use-otter-theming', 'true',
       '--use-otter-analytics', 'true',
       '--use-localization', 'true',
       '--use-context', 'true',
@@ -108,7 +106,6 @@ describe('new otter application', () => {
 
     expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/services').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
     expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/store').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
-    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/styling').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
 
     expect(diff.modified).toContainEqual(expect.stringMatching(new RegExp(path.posix.join(relativeApplicationPath, 'src/app/app.routes.ts').replace(/[/\\]+/g, '[\\\\/]'))));
 

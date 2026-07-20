@@ -4,8 +4,6 @@ import {
 import {
   InjectionToken,
   makeEnvironmentProviders,
-  ModuleWithProviders,
-  NgModule,
   type Provider,
 } from '@angular/core';
 import {
@@ -34,31 +32,6 @@ export function appBaseHrefFactory(config: BuildTimeProperties) {
 }
 
 export const ENVIRONMENT_CONFIG_TOKEN = new InjectionToken<BuildTimeProperties>('Environment config');
-
-/**
- * @deprecated Will be removed in v14.
- */
-@NgModule()
-export class AppServerRoutingModule {
-  /**
-   * Injects the APP_BASE_HREF with a custom factory
-   * @param config The application environment configuration
-   * @deprecated Please use {@link provideEnvironment} instead. Will be removed in v14.
-   */
-  public static forRoot(config: Partial<BuildTimeProperties>): ModuleWithProviders<AppServerRoutingModule> {
-    return {
-      ngModule: AppServerRoutingModule,
-      providers: [
-        { provide: ENVIRONMENT_CONFIG_TOKEN, useValue: { ...DEFAULT_BUILD_PROPERTIES, ...config } },
-        {
-          provide: APP_BASE_HREF,
-          useFactory: appBaseHrefFactory,
-          deps: [ENVIRONMENT_CONFIG_TOKEN]
-        }
-      ]
-    };
-  }
-}
 
 type EnvironmentFeatureKind = 'base-href';
 

@@ -12,6 +12,7 @@ Key features include:
 look and feel.
 - [Resize](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/resize/): Dynamically adjusts the iframe dimensions to fit the content of the embedded application, enhancing the
 user experience.
+- [User Activity](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/user-activity/): Tracks user interactions across embedded micro-frontends for session timeout functionality, analytics, or any feature that needs to detect user activity.
 
 ## Installation
 To install the package, run:
@@ -146,6 +147,7 @@ You will find more information for each service in their respective `README.md`:
 - [Navigation](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/navigation/README.md)
 - [Resize](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/resize/README.md)
 - [Theme](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/theme/README.md)
+- [User Activity](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/user-activity/README.md)
 
 ### Write your own producer and consumers.
 Use the `ProducerManagerService` and the `ConsumerManagerService` to support your own custom messages.
@@ -295,3 +297,9 @@ The host information is stored in session storage so it won't be lost when navig
 When using iframes to embed applications, the browser history might be shared by the main page and the embedded iframe. For example `<iframe src="https://example.com" sandbox="allow-same-origin">` will share the same history as the main page. This can lead to unexpected behavior when using browser 'back' and 'forward' buttons.
 
 To avoid this, the `@ama-mfe/ng-utils` will forbid the application running in the iframe to alter the browser history. It will happen when connection is configured using `provideConection()` function. This will prevent the iframe to be able to use the `history.pushState` and `history.replaceState` methods.
+
+### User Activity Tracking
+
+The User Activity Tracking feature allows a host application (shell) to monitor user interactions across embedded micro-frontends. This is useful for implementing session timeout functionality, analytics, or any feature that needs to know when users are actively interacting with the application.
+
+For detailed documentation, configuration options, and examples, see the [User Activity README](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/user-activity/README.md).

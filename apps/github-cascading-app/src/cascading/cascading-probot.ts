@@ -253,7 +253,7 @@ export class CascadingProbot extends Cascading {
     const { data } = await this.options.octokit.rest.pulls.list(this.options.repo);
     return data
       .filter(({ head, base }) => (!targetBranch || base.ref === targetBranch) && (!baseBranch || head.ref === baseBranch))
-      .sort((prA, prB) => (Date.parse(prA.created_at) - Date.parse(prB.created_at)))
+      .toSorted((prA, prB) => (Date.parse(prA.created_at) - Date.parse(prB.created_at)))
       .map((pr): CascadingPullRequestInfo => ({
         ...pr,
         originBranchName: pr.head.ref,

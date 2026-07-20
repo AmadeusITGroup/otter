@@ -18,7 +18,7 @@ describe('sortByPath', () => {
       }
     ] as TransformedToken[];
 
-    const res = tokens.sort(sortByPath);
+    const res = tokens.toSorted(sortByPath);
     expect(res.length).toBe(2);
     expect(res[0].name).toBe('my.var.a');
     expect(res[1].name).toBe('my.var.z');
@@ -40,7 +40,7 @@ describe('sortByPath', () => {
       }
     ] as TransformedToken[];
 
-    const res = tokens.sort(sortByPath);
+    const res = tokens.toSorted(sortByPath);
     expect(res.length).toBe(3);
     expect(res[0].name).toBe('my.var');
     expect(res[1].name).toBe('my.var.a');
@@ -67,7 +67,7 @@ describe('sortByPath', () => {
       }
     ] as TransformedToken[];
 
-    const res = tokens.sort(sortByPath);
+    const res = tokens.toSorted(sortByPath);
     expect(res.length).toBe(4);
     expect(res[0].name).toBe('my.var');
     expect(res[1].name).toBe('my.var.00');
@@ -95,7 +95,7 @@ describe('sortByPath', () => {
       }
     ] as TransformedToken[];
 
-    const res = tokens.sort(sortByPath);
+    const res = tokens.toSorted(sortByPath);
     expect(res.length).toBe(4);
     expect(res[0].name).toBe('my.var');
     expect(res[1].name).toBe('my.var.00');

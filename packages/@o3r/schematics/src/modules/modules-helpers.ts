@@ -148,7 +148,7 @@ export async function getAvailableModules(keyword: string, scopeWhitelist: strin
 export interface AvailableModuleOptionsWithLatestPackage extends AvailableModuleOptions {
   /**
    * List of whitelisted scopes
-   * @default {@see OTTER_MODULE_SUPPORTED_SCOPES}
+   * @default {@link OTTER_MODULE_SUPPORTED_SCOPES}
    */
   scopeWhitelist?: string[] | readonly string[];
 }

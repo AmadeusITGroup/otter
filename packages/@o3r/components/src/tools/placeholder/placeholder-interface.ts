@@ -3,7 +3,7 @@ import type {
 } from '@o3r/core';
 
 /**
- * Payload of the {@see PlaceholderLoadingStatusMessage}
+ * Payload of the {@link PlaceholderLoadingStatusMessage}
  *
  * Describe the state of an identified placeholder: what template is being loaded and whether the load is done
  */

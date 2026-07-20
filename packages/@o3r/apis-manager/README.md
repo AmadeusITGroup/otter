@@ -31,7 +31,7 @@ ng add @o3r/apis-manager
 
 ## Usage
 
-The API Manager Module (`ApiManagerModule`) needs to be imported and configured at **application level**, which will then be used by the **ApiFactory** service.
+The API Manager provider (`provideApiManager`) needs to be provided and configured at **application level**, which will then be used by the **ApiFactory** service.
 
 ### Application side configuration
 
@@ -41,12 +41,13 @@ In the example that follows, we define the default base configuration that API c
 The plugins and fetch client come from the ``@ama-sdk/core`` module, but custom ones can be created if needed as long as they follow the ``ApiClient`` interface from ``@ama-sdk/core``. More details on ``@ama-sdk/core`` [here](https://www.npmjs.com/package/@ama-sdk/core).
 
 ```typescript
+import { ApplicationConfig } from '@angular/core';
 import { ApiFetchClient, ApiKeyRequest, JsonTokenReply, JsonTokenRequest, ReviverReply, ExceptionReply } from '@ama-sdk/core';
 import { ApiFetchClient } from '@ama-sdk/client-fetch';
-import { ApiManager, ApiManagerModule } from '@o3r/apis-manager';
+import { ApiManager, provideApiManager } from '@o3r/apis-manager';
 
 const PROXY_SERVER = "https://your-enpoint-base-path";
-export const apiManager = new ApiManager(
+const apiManager = new ApiManager(
   new ApiFetchClient({
     basePath: PROXY_SERVER,
     requestPlugins: [new ApiKeyRequest('YourApiKey', 'Authorization')]
@@ -61,20 +62,20 @@ export const apiManager = new ApiManager(
   }
 );
 
-@NgModule({
-  imports: [
-    ...,
-    ApiManagerModule.forRoot(apiManager)
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideApiManager(apiManager)
   ]
-})
+};
 ```
 
 The **ApiManager** instance can be customized via a *factory* function provided to the `API_TOKEN`:
 
 ```typescript
+import { ApplicationConfig } from '@angular/core';
 import { ApiClient, ApiFetchClient, ApiKeyRequest, Mark, PerformanceMetricPlugin } from '@ama-sdk/core';
 import { ApiFetchClient } from '@ama-sdk/client-fetch';
-import { ApiManager, ApiManagerModule, API_TOKEN } from '@o3r/apis-manager';
+import { ApiManager, API_TOKEN } from '@o3r/apis-manager';
 import { EventTrackService } from '@o3r/analytics';
 
 const PROXY_SERVER = "https://your-enpoint-base-path";
@@ -96,21 +97,16 @@ export function apiFactory(eventTrackService: EventTrackService): ApiManager {
   });
 }
 
-@NgModule({
-  imports: [
-    ...,
-    ApiManagerModule
-  ],
+export const appConfig: ApplicationConfig = {
   providers: [
-    ...,
     {provide: API_TOKEN, useFactory: apiFactory, deps: [EventTrackService]}
   ]
-})
+};
 ```
 
 ### Retrieve API instance with configuration
 
-The API instances can be retrieved via the injection of the ``ApiFactoryService`` provided by the ``ApiManagerModule`` (imported at app level).
+The API instances can be retrieved via the injection of the ``ApiFactoryService`` (provided when using ``provideApiManager`` at app level).
 
 ```typescript
 import { ExampleApi } from '@shared/sdk';
@@ -133,18 +129,18 @@ class MyClass {
 Some users may want to enforce existing components or services to use a specific SDK instead of the default API SDK.
 To do so, the ``INITIAL_APIS_TOKEN`` will allow to indicate to the ``ApiFactory`` which class it must use (instead of default ones).
 
-In the AppModule:
+In your application configuration:
 
 ```typescript
+import { ApplicationConfig } from '@angular/core';
 import { ExampleApi, AnotherExampleApi } from '@custom/sdk';
 import { INITIAL_APIS_TOKEN } from '@o3r/apis-manager';
 
-@NgModule({
+export const appConfig: ApplicationConfig = {
   providers: [
     { provide: INITIAL_APIS_TOKEN, useValue: [ExampleApi, AnotherExampleApi] }
   ]
-})
-class AppModule {};
+};
 ```
 
 Then the following code (from an existing component) will use the custom API:

@@ -80,7 +80,7 @@ export const getFileVersions = async (apiClient: ApiClient, options: VersionsOpt
       label: coerce(version.label)!.toString(),
       fileKey: options.fileKey
     }))
-    .sort((a, b) => -compare(a.label, b.label));
+    .toSorted((a, b) => -compare(a.label, b.label));
 };
 
 /**
@@ -121,7 +121,7 @@ export const getAvailableMajorVersions = async (apiClient: ApiClient, options: M
       });
       return acc;
     }, [] as { version: string; range: string; file: (typeof filesResponse.files)[0] }[])
-    .sort((a, b) => -compare(a.version, b.version));
+    .toSorted((a, b) => -compare(a.version, b.version));
 };
 
 /**
@@ -139,5 +139,5 @@ export const getAllVersions = async (apiClient: ApiClient, options: MajorVersion
     }));
   return (await Promise.all(fullVersionsMap))
     .flat()
-    .sort((a, b) => -compare(a.label, b.label));
+    .toSorted((a, b) => -compare(a.label, b.label));
 };

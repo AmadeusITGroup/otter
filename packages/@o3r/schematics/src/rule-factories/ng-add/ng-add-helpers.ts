@@ -49,7 +49,7 @@ const getNgAddSchema = (packageName: string, context: SchematicContext) => {
 
 const sortDependencies = (packageJson: PackageJson, depType: 'dependencies' | 'devDependencies' | 'peerDependencies') => {
   packageJson[depType] = packageJson[depType]
-    ? Object.fromEntries(Object.entries(packageJson[depType] || {}).sort(([key1, _val1], [key2, _val2]) => key1.localeCompare(key2)))
+    ? Object.fromEntries(Object.entries(packageJson[depType] || {}).toSorted(([key1, _val1], [key2, _val2]) => key1.localeCompare(key2)))
     : undefined;
 };
 

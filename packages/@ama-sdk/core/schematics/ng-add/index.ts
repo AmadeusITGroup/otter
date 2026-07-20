@@ -44,7 +44,7 @@ const updateImports: Rule = (tree) => {
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
 /**
- * Rule to import all the necessary dependency to run an @ama-sdk based application
+ * Rule to import all the necessary dependency to run an `@ama-sdk` based application
  * Helps to migrate from previous versions with an import replacement
  * @param options schema options
  */
@@ -57,7 +57,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 }
 
 /**
- * Rule to import all the necessary dependency to run an @ama-sdk based application
+ * Rule to import all the necessary dependency to run an `@ama-sdk` based application
  * Helps to migrate from previous versions with an import replacement
  * @param options
  */

@@ -140,7 +140,7 @@ describe('Navigation Producer Service', () => {
         }
       });
 
-      expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/test');
+      expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/test', { state: { triggeredByMessage: true } });
     });
   });
 

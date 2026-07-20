@@ -17,5 +17,8 @@ module.exports = {
   fakeTimers: {
     enableGlobally: true
   },
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
+  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
+  transformIgnorePatterns: [
+    'node_modules/(?!.*\\.mjs$|parse5|jsdom)'
+  ]
 };

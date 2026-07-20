@@ -1,0 +1,11 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { StyleLazyLoaderModule } from '@o3r/dynamic-content';
+
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [CommonModule, StyleLazyLoaderModule],
+  template: '<div>Example</div>'
+})
+export class ExampleComponent {}

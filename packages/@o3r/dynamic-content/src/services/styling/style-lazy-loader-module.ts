@@ -1,11 +1,9 @@
 import {
   NgModule,
 } from '@angular/core';
-import {
-  DynamicContentModule,
-} from '../dynamic-content/index';
 
-@NgModule({
-  imports: [DynamicContentModule]
-})
+/**
+ * @deprecated Will be removed in v15
+ */
+@NgModule({})
 export class StyleLazyLoaderModule {}

@@ -30,7 +30,7 @@ async function run(): Promise<void> {
       .map((release) => release.tag_name.replace(/^v/i, ''))
       .map((tagWithoutV) => clean(tagWithoutV))
       .filter((cleanedTag): cleanedTag is string => cleanedTag !== null)
-      .sort(compare)
+      .toSorted(compare)
       .pop();
     const isLatest = latestVersion ? compare(latestVersion, version) <= 0 : true;
 

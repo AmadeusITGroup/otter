@@ -47,6 +47,12 @@ export interface Model {
   /** Path to the model in the artifact */
   path?: string;
 
+  /** Inner path within the model file */
+  innerPath?: string;
+
+  /** Path to the model file in the artifact */
+  filePath?: string;
+
   /**
    * Transforms to apply to the model
    * Note that for each transform object, a new definition will be generated
