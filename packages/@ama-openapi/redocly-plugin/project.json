@@ -29,7 +29,9 @@
       "plugin": "@nx/vitest",
       "executor": "@nx/vitest:test",
       "inputs": [
-        { "env": "RUNNER_OS" },
+        {
+          "env": "RUNNER_OS"
+        },
         "builders",
         "schematics",
         "source",
@@ -45,5 +47,48 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular/cli",
+          "@compodoc/compodoc",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint",
+          "@nx/eslint-plugin",
+          "@nx/js",
+          "@nx/vitest",
+          "@redocly/openapi-core",
+          "@stylistic/eslint-plugin",
+          "@types/minimist",
+          "@types/node",
+          "@types/semver",
+          "@types/yargs",
+          "@typescript-eslint/parser",
+          "@vitest/coverage-istanbul",
+          "angular-eslint",
+          "cpy-cli",
+          "dotenv",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "jsonc-eslint-parser",
+          "nx",
+          "tslib",
+          "typescript",
+          "typescript-eslint",
+          "vitest",
+          "yargs"
+        ]
+      }
+    ]
+  }
 }

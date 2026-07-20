@@ -13,5 +13,37 @@
       "executor": "nx:noop",
       "dependsOn": []
     }
+  },
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular/cli",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint-plugin",
+          "@stylistic/eslint-plugin",
+          "@types/node",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "globby",
+          "jsonc-eslint-parser",
+          "minimist",
+          "nx",
+          "typescript",
+          "typescript-eslint"
+        ]
+      }
+    ]
   }
 }

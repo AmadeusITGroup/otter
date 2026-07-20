@@ -7,11 +7,16 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/package.json"],
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": ["compile", "build-builders"]
+      "dependsOn": [
+        "compile",
+        "build-builders"
+      ]
     },
     "prepare-build-builders": {},
     "build-builders": {},
@@ -25,7 +30,9 @@
       "options": {
         "script": "build:source"
       },
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "lint": {},
     "vitest": {
@@ -42,5 +49,59 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular-devkit/core",
+          "@angular-devkit/schematics",
+          "@angular/cli",
+          "@angular/compiler",
+          "@compodoc/compodoc",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@nx/vitest",
+          "@schematics/angular",
+          "@stylistic/eslint-plugin",
+          "@types/css-tree",
+          "@types/jest",
+          "@types/node",
+          "@typescript-eslint/parser",
+          "@vitest/coverage-istanbul",
+          "angular-eslint",
+          "cpy-cli",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "jest",
+          "jest-junit",
+          "jest-util",
+          "jsonc-eslint-parser",
+          "nx",
+          "postcss",
+          "postcss-scss",
+          "rimraf",
+          "rxjs",
+          "semver",
+          "stylelint",
+          "ts-jest",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint",
+          "vitest"
+        ]
+      }
+    ]
+  }
 }

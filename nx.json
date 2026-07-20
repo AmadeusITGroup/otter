@@ -22,7 +22,6 @@
   },
   "namedInputs": {
     "sharedGlobals": [
-      "{workspaceRoot}/yarn.lock",
       "{workspaceRoot}/tsconfig.base.json",
       "{workspaceRoot}/nx.json",
       "{workspaceRoot}/.nxignore",
@@ -281,6 +280,7 @@
         "source",
         "schematics",
         "integration-test",
+        "usedExternalDependencies",
         "^schematics"
       ],
       "outputs": [

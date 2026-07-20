@@ -7,12 +7,18 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/package.json"],
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
       "options": {
         "script": "postbuild",
         "tsConfig": "{projectRoot}/tsconfig.build.json"
       },
-      "dependsOn": ["build-builders", "compile", "build-fixtures"]
+      "dependsOn": [
+        "build-builders",
+        "compile",
+        "build-fixtures"
+      ]
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
@@ -20,7 +26,10 @@
         "project": "packages/@o3r/dynamic-content/src/ng-package.json",
         "tsConfig": "packages/@o3r/dynamic-content/tsconfig.build.json"
       },
-      "dependsOn": ["prepare", "^build"]
+      "dependsOn": [
+        "prepare",
+        "^build"
+      ]
     },
     "prepare": {},
     "build-fixtures": {
@@ -46,5 +55,68 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular-devkit/architect",
+          "@angular-devkit/build-angular",
+          "@angular-devkit/core",
+          "@angular-devkit/schematics",
+          "@angular/animations",
+          "@angular/cli",
+          "@angular/common",
+          "@angular/compiler",
+          "@angular/compiler-cli",
+          "@angular/core",
+          "@angular/platform-browser",
+          "@angular/platform-browser-dynamic",
+          "@babel/core",
+          "@babel/preset-typescript",
+          "@compodoc/compodoc",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@ngrx/store",
+          "@nx/eslint",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@nx/js",
+          "@schematics/angular",
+          "@stylistic/eslint-plugin",
+          "@types/jasmine",
+          "@types/jest",
+          "@types/node",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "cheerio",
+          "cpy-cli",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "jest",
+          "jest-environment-jsdom",
+          "jest-junit",
+          "jest-preset-angular",
+          "jest-util",
+          "jsdom",
+          "jsonc-eslint-parser",
+          "nx",
+          "rxjs",
+          "ts-jest",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint"
+        ]
+      }
+    ]
+  }
 }
