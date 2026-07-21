@@ -41,13 +41,40 @@ export const jestDependencies = (eslintDependencies: boolean) => [
 /**
  * Run jest on 'npm/yarn run test'
  * @param workingDirectory
+ * @param isAngular
+ * @param projectName
  */
-function setupJestScript(workingDirectory: string) {
+function setupJestScript(workingDirectory: string, isAngular: boolean, projectName: string) {
   return (tree: Tree) => {
     const packageJsonFile = tree.readJson(`${workingDirectory}/package.json`) as PackageJson;
     packageJsonFile.scripts ||= {};
-    packageJsonFile.scripts.test = 'jest';
+    packageJsonFile.scripts.test = isAngular ? `ng test ${projectName}` : 'jest';
     tree.overwrite(`${workingDirectory}/package.json`, JSON.stringify(packageJsonFile, null, 2));
+  };
+}
+
+/**
+ * Set jest files and script in the generated library.
+ * @param projectName
+ */
+export function setUpJestForAngularJson(projectName: string) {
+  return (tree: Tree) => {
+    const angularFile = tree.readJson('/angular.json') as { projects: any };
+    const project: any = angularFile.projects[projectName];
+    if (project) {
+      project.architect ||= {};
+      project.architect.test = {
+        builder: '@angular-builders/jest:run',
+        options: {
+          tsConfig: `tsconfig.spec.json`,
+          config: `jest.config.js`,
+          setupFilesAfterEnv: './testing/setup-jest.ts'
+        }
+      };
+
+      tree.overwrite('/angular.json', JSON.stringify(angularFile, null, 2));
+    }
+    return tree;
   };
 }
 
@@ -63,20 +90,24 @@ export function setupJest(options: NgAddSchematicsSchema): Rule {
       throw new O3rCliError(`Could not find working directory for project ${options.projectName || ''}`);
     }
     const rootRelativePath = path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './'));
+    const isAngularSetup = tree.exists('/angular.json');
     const setupJestInProject = mergeWith(apply(url('./jest/templates/project'), [
       template({
         ...options,
         rootRelativePath,
-        isAngularSetup: tree.exists('/angular.json')
+        isAngularSetup
       }),
       move(workingDirectory),
       renameTemplateFiles()
     ]), MergeStrategy.Overwrite);
 
-    const rules = [
-      setupJestScript(workingDirectory),
-      setupJestInProject
-    ];
+    const rules = options.projectName
+      ? [
+        setupJestScript(workingDirectory, isAngularSetup, options.projectName),
+        setupJestInProject,
+        setUpJestForAngularJson(options.projectName)
+      ]
+      : [];
 
     if (tree.exists('/jest.config.js')) {
       context.logger.info('Jest configuration files already exist at the root of the project.');

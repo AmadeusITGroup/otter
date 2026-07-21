@@ -6,9 +6,6 @@ import {
 } from 'vite';
 import manifest from './src/manifest';
 
-// https://vitejs.dev/config/
-export default defineConfig(() => {
-  return {
-    plugins: [crx({ manifest })]
-  };
+export default defineConfig({
+  plugins: [crx({ manifest })]
 });

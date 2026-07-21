@@ -375,6 +375,7 @@ paths:
         '405':
           description: Invalid input
       requestBody:
+        x-body-param-name: "orderBody"
         content:
           application/json:
             schema:

@@ -1,3 +1,8 @@
+import {
+  describe,
+  expect,
+  it,
+} from 'vitest';
 import type {
   RetrievedDependencyModel,
 } from '../manifest/extract-dependency-models.mjs';

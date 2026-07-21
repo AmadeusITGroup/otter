@@ -2,14 +2,20 @@ import type {
   UserContext,
 } from '@redocly/openapi-core';
 import {
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
+import {
   DECORATOR_ID_REMOVE_UNUSED_COMPONENTS,
   removeUnusedComponentsDecorator,
 } from './remove-unused-components.decorator.mjs';
 
-jest.mock('@redocly/openapi-core', () => {
+vi.mock('@redocly/openapi-core', () => {
   return {
     logger: {
-      info: jest.fn()
+      info: vi.fn()
     }
   };
 });
@@ -23,7 +29,7 @@ describe('removeUnusedComponentsDecorator', () => {
 
   describe('decorator initialization', () => {
     it('should create a decorator with required visitor methods', () => {
-      const decorator = removeUnusedComponentsDecorator();
+      const decorator = removeUnusedComponentsDecorator({});
       expect(decorator).toBeDefined();
       expect(decorator.Paths).toBeDefined();
       expect(decorator.NamedSchemas).toBeDefined();
@@ -39,7 +45,7 @@ describe('removeUnusedComponentsDecorator', () => {
 
   describe('registerComponent (via Paths.leave)', () => {
     it('should register refs from paths', () => {
-      const decorator = removeUnusedComponentsDecorator();
+      const decorator = removeUnusedComponentsDecorator({});
       const node = {
         '/users': {
           get: {
@@ -59,7 +65,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      decorator.Paths.leave!(node, ctx);
+      (decorator.Paths as any).leave(node, ctx);
 
       // Now check if the component is considered used
       const components = {
@@ -72,7 +78,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave(components, componentsCtx);
 
       expect(components.schemas).toBeDefined();
       expect(components.schemas.User).toBeDefined();
@@ -80,7 +86,7 @@ describe('removeUnusedComponentsDecorator', () => {
     });
 
     it('should handle nested refs in arrays', () => {
-      const decorator = removeUnusedComponentsDecorator();
+      const decorator = removeUnusedComponentsDecorator({});
       const node = {
         '/users': {
           get: {
@@ -95,7 +101,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      decorator.Paths.leave!(node, ctx);
+      (decorator.Paths as any).leave(node, ctx);
 
       // Component cleanup should not remove referenced parameters
       const components = {
@@ -107,7 +113,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave(components, componentsCtx);
 
       expect(components.schemas).toBeUndefined();
     });
@@ -136,7 +142,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      decorator.Paths.leave!(node, ctx);
+      (decorator.Paths as any).leave(node, ctx);
 
       const components = {
         schemas: {
@@ -149,7 +155,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave(components, componentsCtx);
 
       expect(components.schemas.Base).toBeDefined();
       expect(components.schemas.Extended).toBeDefined();
@@ -169,7 +175,7 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(node, ctx);
+      (decorator.NamedSchemas as any).Schema(node, ctx);
 
       // Self-references should not be counted as external usage
       const components = {
@@ -181,7 +187,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave(components, componentsCtx);
 
       // RecursiveSchema is not referenced from paths, so it should be removed
       expect(components.schemas).toBeUndefined();
@@ -227,8 +233,8 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths/users' }
       } as UserContext;
 
-      decorator.Paths.leave!(node1, ctx1);
-      decorator.Paths.leave!(node2, ctx2);
+      (decorator.Paths as any).leave(node1, ctx1);
+      (decorator.Paths as any).leave(node2, ctx2);
 
       const components = {
         schemas: {
@@ -239,7 +245,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave(components, componentsCtx);
 
       expect(components.schemas.User).toBeDefined();
     });
@@ -258,7 +264,7 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(schemaNode, schemaCtx);
+      (decorator.NamedSchemas as any).Schema(schemaNode, schemaCtx);
 
       // Register usage from paths
       const pathNode = {
@@ -280,7 +286,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      decorator.Paths.leave!(pathNode, pathCtx);
+      (decorator.Paths as any).leave(pathNode, pathCtx);
 
       // Test component cleanup
       const components = {
@@ -294,7 +300,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave(components, componentsCtx);
 
       expect(components.schemas.BaseModel).toBeDefined();
       expect(components.schemas.ExtendedModel).toBeDefined();
@@ -325,7 +331,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      decorator.Paths.leave!(pathNode, pathCtx);
+      (decorator.Paths as any).leave(pathNode, pathCtx);
 
       const components = {
         schemas: {
@@ -338,7 +344,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave(components, componentsCtx);
 
       expect(components.schemas.User).toBeDefined();
       expect(components.schemas.Product).toBeUndefined();
@@ -360,7 +366,7 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(schemaB, schemaBCtx);
+      (decorator.NamedSchemas as any).Schema(schemaB, schemaBCtx);
 
       // Register path that only uses schema A
       const pathNode = {
@@ -382,7 +388,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      decorator.Paths.leave!(pathNode, pathCtx);
+      (decorator.Paths as any).leave(pathNode, pathCtx);
 
       const components = {
         schemas: {
@@ -395,7 +401,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave(components, componentsCtx);
 
       // SchemaA is used from path
       expect(components.schemas.SchemaA).toBeDefined();
@@ -417,7 +423,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave(components, componentsCtx);
 
       expect(components.schemas).toBeUndefined();
     });
@@ -434,7 +440,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      expect(() => decorator.Components.leave!(components as any, componentsCtx)).not.toThrow();
+      expect(() => (decorator.Components as any).leave(components, componentsCtx)).not.toThrow();
       expect(components.parameters).toBeDefined();
     });
 
@@ -447,7 +453,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components/schemas/SchemaC' }
       } as UserContext;
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(schemaC, schemaCCtx);
+      (decorator.NamedSchemas as any).Schema(schemaC, schemaCCtx);
 
       const schemaB = {
         type: 'object',
@@ -459,7 +465,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components/schemas/SchemaB' }
       } as UserContext;
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(schemaB, schemaBCtx);
+      (decorator.NamedSchemas as any).Schema(schemaB, schemaBCtx);
 
       const schemaA = {
         type: 'object',
@@ -471,7 +477,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components/schemas/SchemaA' }
       } as UserContext;
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(schemaA, schemaACtx);
+      (decorator.NamedSchemas as any).Schema(schemaA, schemaACtx);
 
       // Use SchemaA from path
       const pathNode = {
@@ -492,7 +498,7 @@ describe('removeUnusedComponentsDecorator', () => {
       const pathCtx = {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
-      decorator.Paths.leave!(pathNode, pathCtx);
+      (decorator.Paths as any).leave(pathNode, pathCtx);
 
       const components = {
         schemas: {
@@ -506,7 +512,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave(components, componentsCtx);
 
       // All schemas in the chain should be kept
       expect(components.schemas.SchemaA).toBeDefined();
@@ -525,7 +531,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components/schemas/SchemaA' }
       } as UserContext;
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(schemaA, schemaACtx);
+      (decorator.NamedSchemas as any).Schema(schemaA, schemaACtx);
 
       // Use SchemaA from path
       const pathNode = {
@@ -546,7 +552,7 @@ describe('removeUnusedComponentsDecorator', () => {
       const pathCtx = {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
-      decorator.Paths.leave!(pathNode, pathCtx);
+      (decorator.Paths as any).leave(pathNode, pathCtx);
 
       const components = {
         schemas: {
@@ -558,7 +564,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave(components, componentsCtx);
 
       // SchemaA is used from path, so it should not be removed
       expect(components.schemas.SchemaA).toBeDefined();
@@ -577,7 +583,7 @@ describe('removeUnusedComponentsDecorator', () => {
         components: {}
       };
 
-      decorator.Root.leave!(root as any);
+      (decorator.Root as any).leave(root as any);
 
       expect(root.components).toBeUndefined();
     });
@@ -596,7 +602,7 @@ describe('removeUnusedComponentsDecorator', () => {
         }
       };
 
-      decorator.Root.leave!(root as any);
+      (decorator.Root as any).leave(root as any);
 
       expect(root.components).toBeDefined();
       expect(root.components.schemas).toBeDefined();
@@ -611,7 +617,7 @@ describe('removeUnusedComponentsDecorator', () => {
         paths: {}
       };
 
-      expect(() => decorator.Root.leave!(root as any)).not.toThrow();
+      expect(() => (decorator.Root as any).leave(root as any)).not.toThrow();
       expect((root as any).components).toBeUndefined();
     });
   });
@@ -631,7 +637,7 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      expect(() => decorator.NamedParameters.Parameter(parameterNode, ctx)).not.toThrow();
+      expect(() => (decorator.NamedParameters as any).Parameter(parameterNode, ctx)).not.toThrow();
     });
 
     it('should register response refs via NamedResponses.Response', () => {
@@ -650,7 +656,7 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      expect(() => decorator.NamedResponses.Response(responseNode, ctx)).not.toThrow();
+      expect(() => (decorator.NamedResponses as any).Response(responseNode, ctx)).not.toThrow();
     });
 
     it('should register example refs via NamedExamples.Example', () => {
@@ -664,7 +670,7 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      expect(() => decorator.NamedExamples.Example(exampleNode, ctx)).not.toThrow();
+      expect(() => (decorator.NamedExamples as any).Example(exampleNode, ctx)).not.toThrow();
     });
 
     it('should register request body refs via NamedRequestBodies.RequestBody', () => {
@@ -682,7 +688,7 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      expect(() => decorator.NamedRequestBodies.RequestBody(requestBodyNode, ctx)).not.toThrow();
+      expect(() => (decorator.NamedRequestBodies as any).RequestBody(requestBodyNode, ctx)).not.toThrow();
     });
 
     it('should register header refs via NamedHeaders.Header', () => {
@@ -697,7 +703,7 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      expect(() => decorator.NamedHeaders.Header(headerNode, ctx)).not.toThrow();
+      expect(() => (decorator.NamedHeaders as any).Header(headerNode, ctx)).not.toThrow();
     });
   });
 
@@ -719,9 +725,9 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components/schemas/Animal' }
       } as UserContext;
 
-      decorator.Schema.enter!(animalSchema, animalSchemaCtx);
+      (decorator.Schema as any).enter!(animalSchema, animalSchemaCtx);
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(animalSchema, animalSchemaCtx);
+      (decorator.NamedSchemas as any).Schema(animalSchema, animalSchemaCtx);
 
       // Derived schema using oneOf
       const petSchema = {
@@ -734,8 +740,8 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(petSchema, petSchemaCtx);
-      decorator.Schema.leave!(petSchema, petSchemaCtx);
+      (decorator.NamedSchemas as any).Schema(petSchema, petSchemaCtx);
+      (decorator.Schema as any).leave!(petSchema, petSchemaCtx);
 
       // Use Pet from paths
       const pathNode = {
@@ -757,7 +763,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      decorator.Paths.leave!(pathNode, pathCtx);
+      (decorator.Paths as any).leave!(pathNode, pathCtx);
 
       const components = {
         schemas: {
@@ -769,7 +775,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave!(components, componentsCtx);
 
       expect(components.schemas.Animal).toBeDefined();
       expect(components.schemas.Pet).toBeDefined();
@@ -789,9 +795,9 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components/schemas/Shape' }
       } as UserContext;
 
-      decorator.Schema.enter!(shapeSchema, shapeSchemaCtx);
+      (decorator.Schema as any).enter!(shapeSchema, shapeSchemaCtx);
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(shapeSchema, shapeSchemaCtx);
+      (decorator.NamedSchemas as any).Schema(shapeSchema, shapeSchemaCtx);
 
       // Derived schema using anyOf
       const drawableSchema = {
@@ -804,8 +810,8 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(drawableSchema, drawableSchemaCtx);
-      decorator.Schema.leave!(drawableSchema, drawableSchemaCtx);
+      (decorator.NamedSchemas as any).Schema(drawableSchema, drawableSchemaCtx);
+      (decorator.Schema as any).leave!(drawableSchema, drawableSchemaCtx);
 
       // Use Drawable from paths
       const pathNode = {
@@ -825,7 +831,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      decorator.Paths.leave!(pathNode, pathCtx);
+      (decorator.Paths as any).leave!(pathNode, pathCtx);
 
       const components = {
         schemas: {
@@ -837,7 +843,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave!(components, componentsCtx);
 
       expect(components.schemas.Shape).toBeDefined();
       expect(components.schemas.Drawable).toBeDefined();
@@ -861,10 +867,10 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components/schemas/Vehicle' }
       } as UserContext;
 
-      decorator.Schema.enter!(vehicleSchema, vehicleSchemaCtx);
-      decorator.Discriminator.leave!(vehicleSchema.discriminator, vehicleSchemaCtx);
+      (decorator.Schema as any).enter!(vehicleSchema, vehicleSchemaCtx);
+      (decorator.Discriminator as any).leave!(vehicleSchema.discriminator, vehicleSchemaCtx);
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(vehicleSchema, vehicleSchemaCtx);
+      (decorator.NamedSchemas as any).Schema(vehicleSchema, vehicleSchemaCtx);
 
       const carSchema = {
         allOf: [
@@ -876,7 +882,7 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(carSchema, carSchemaCtx);
+      (decorator.NamedSchemas as any).Schema(carSchema, carSchemaCtx);
 
       const truckSchema = {
         allOf: [
@@ -888,7 +894,7 @@ describe('removeUnusedComponentsDecorator', () => {
       } as UserContext;
 
       // eslint-disable-next-line new-cap -- Part of the Redocly definition
-      decorator.NamedSchemas.Schema(truckSchema, truckSchemaCtx);
+      (decorator.NamedSchemas as any).Schema(truckSchema, truckSchemaCtx);
 
       // Use Vehicle from paths
       const pathNode = {
@@ -910,7 +916,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      decorator.Paths.leave!(pathNode, pathCtx);
+      (decorator.Paths as any).leave!(pathNode, pathCtx);
 
       const components = {
         schemas: {
@@ -923,7 +929,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/components' }
       } as UserContext;
 
-      decorator.Components.leave!(components, componentsCtx);
+      (decorator.Components as any).leave!(components, componentsCtx);
 
       // With explicit mapping, all mapped schemas should be kept
       expect(components.schemas.Vehicle).toBeDefined();
@@ -952,7 +958,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      expect(() => decorator.Paths.leave!(node as any, ctx)).not.toThrow();
+      expect(() => (decorator.Paths as any).leave!(node as any, ctx)).not.toThrow();
     });
 
     it('should handle empty objects', () => {
@@ -963,7 +969,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      expect(() => decorator.Paths.leave!(node, ctx)).not.toThrow();
+      expect(() => (decorator.Paths as any).leave!(node, ctx)).not.toThrow();
     });
 
     it('should handle primitive values in objects', () => {
@@ -982,7 +988,7 @@ describe('removeUnusedComponentsDecorator', () => {
         location: { absolutePointer: '#/paths' }
       } as UserContext;
 
-      expect(() => decorator.Paths.leave!(node, ctx)).not.toThrow();
+      expect(() => (decorator.Paths as any).leave!(node, ctx)).not.toThrow();
     });
   });
 });
