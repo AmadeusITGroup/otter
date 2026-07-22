@@ -1,8 +1,9 @@
 import {
   Directive,
+  EnvironmentProviders,
   Injectable,
+  makeEnvironmentProviders,
   NgModule,
-  Provider,
 } from '@angular/core';
 import {
   Observable,
@@ -18,8 +19,7 @@ import {
 @Directive({
   selector: '[c11n]',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property -- mocked directive
-  inputs: ['config', 'component', 'inputs', 'outputs'],
-  standalone: false
+  inputs: ['config', 'component', 'inputs', 'outputs']
 })
 export class MockC11nDirective {}
 
@@ -37,17 +37,16 @@ export class C11nMockService {
  * @deprecated Will be removed in v16. Use {@link provideC11nMock} and import `MockC11nDirective` directly instead.
  */
 @NgModule({
-  declarations: [MockC11nDirective],
-  exports: [MockC11nDirective],
+  imports: [MockC11nDirective],
   providers: [{ provide: C11nService, useClass: C11nMockService }]
 })
 export class C11nMockModule {}
 
 /**
- * Provide C11n mock service for testing.
+ * Provide C11n mock service for unit testing.
  */
-export function provideC11nMock(): Provider[] {
-  return [
+export function provideC11nMock(): EnvironmentProviders {
+  return makeEnvironmentProviders([
     { provide: C11nService, useClass: C11nMockService }
-  ];
+  ]);
 }

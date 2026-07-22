@@ -27,10 +27,9 @@
       "description": "Page scope (e.g. booking, servicing, ssci, etc.)",
       "default": ""
     },
-    "appRoutingModulePath": {
+    "appRoutesDefinitionPath": {
       "type": "string",
-      "description": "Application routing module path (will be renamed into `appRoutesDefinitionPath` in Otter v14)",
-      "alias": "appRoutesDefinitionPath"
+      "description": "Application routes definition path"
     },
     "prefix": {
       "type": "string",
