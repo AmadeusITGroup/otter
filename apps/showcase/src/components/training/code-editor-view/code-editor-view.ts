@@ -484,7 +484,7 @@ export class CodeEditorView implements OnDestroy {
   /**
    * @inheritDoc
    */
-  public async onClickFile(filePath: string) {
+  public async onClickFile(filePath: string | null) {
     const path = `${this.project().cwd}/${filePath}`;
     if (await this.webContainerService.isFile(path)) {
       this.form.controls.file.setValue(filePath);

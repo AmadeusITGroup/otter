@@ -15,3 +15,14 @@ The message interfaces exposed in this package cover common use cases such as:
 - [Theme](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/theme/: a host application requests its embedded module to apply a common css theme. 
 
 Messages are identified thanks to their type property and are versioned for backward compatibility.
+
+## Navigation messages
+### v1.0
+Carries the target `url` only.
+
+### v1.1
+Adds an optional `extras` field to forward a subset of Angular `NavigationExtras` across the iframe boundary so the
+receiving router can reproduce the original history/location semantics. Currently supports:
+- `replaceUrl`: when set, the host navigates by replacing the current history entry instead of pushing a new one. This is
+  the key fix for modules that call `router.navigate(..., { replaceUrl: true })` to skip a route from history — without
+  forwarding, the host still pushes a new entry and the browser back button gets stuck in a loop.

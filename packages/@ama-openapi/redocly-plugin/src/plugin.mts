@@ -11,6 +11,10 @@ import {
   ENVIRONMENT_VARIABLE_PREFIX,
 } from './constants.mjs';
 import {
+  DECORATOR_ID_ENFORCE_DISCRIMINATOR_MANDATORY,
+  enforceDiscriminatorMandatoryDecorator,
+} from './plugins/decorators/common/enforce-discriminator-mandatory/enforce-discriminator-mandatory.decorator.mjs';
+import {
   DECORATOR_ID_REDIRECT_REF,
   redirectRefsDecorator,
 } from './plugins/decorators/common/replace-refs/replace-refs.decorator.mjs';
@@ -52,16 +56,20 @@ export const amaOpenapiPlugin = async (options?: AmaOpenapiPluginOptions): Promi
     id: 'ama-openapi',
     decorators: {
       oas2: {
+        [DECORATOR_ID_ENFORCE_DISCRIMINATOR_MANDATORY]: enforceDiscriminatorMandatoryDecorator,
         [DECORATOR_ID_REDIRECT_REF]: redirectRefsDecorator
       },
       oas3: {
+        [DECORATOR_ID_ENFORCE_DISCRIMINATOR_MANDATORY]: enforceDiscriminatorMandatoryDecorator,
         [DECORATOR_ID_REDIRECT_REF]: redirectRefsDecorator,
         [DECORATOR_ID_REMOVE_UNUSED_COMPONENTS]: removeUnusedComponentsDecorator
       },
       async2: {
+        [DECORATOR_ID_ENFORCE_DISCRIMINATOR_MANDATORY]: enforceDiscriminatorMandatoryDecorator,
         [DECORATOR_ID_REDIRECT_REF]: redirectRefsDecorator
       },
       async3: {
+        [DECORATOR_ID_ENFORCE_DISCRIMINATOR_MANDATORY]: enforceDiscriminatorMandatoryDecorator,
         [DECORATOR_ID_REDIRECT_REF]: redirectRefsDecorator
       }
     }

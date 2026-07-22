@@ -2,6 +2,40 @@
 
 This package exposes [OpenApi specification](https://swagger.io/specification/) which can be used to use to generate an SDK or be referred in another specification.
 
+## LLM Integration
+
+This project uses the **`ama-openapi`** plugin from the Otter marketplace to enhance LLM-powered coding assistants with
+OpenAPI specification operations.
+
+**What the plugin provides:**
+
+- OpenAPI spec editing, validation, and linting assistance
+- Model generation and SDK scaffolding support
+- Intelligent suggestions for API design and spec operations
+- Integration with the Redocly workflow used in this project
+
+**Setup for VS Code with GitHub Copilot:**
+
+The plugin is already configured in this project's `.claude/` instructions. To use it with GitHub Copilot in VS Code:
+
+1. **Install GitHub Copilot Extension:**
+- Install from [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
+- Or search for "GitHub Copilot" in VS Code Extensions
+
+2. **Verify Plugin Configuration:**
+- The plugin instructions are configured in the `.claude/` directory
+- The Otter marketplace is configured to use the GitHub repo `AmadeusITGroup/otter`
+
+3. **Usage:**
+- When working in the `spec/` directory, Copilot will automatically use the plugin for OpenAPI-related tasks
+- Ask Copilot to help with spec editing, validation, or model generation
+- The plugin understands the Redocly workflow and project structure
+
+**Documentation:**
+
+- [Otter Plugin Documentation](https://github.com/AmadeusITGroup/otter/tree/main/tools/llm/plugins/ama-openapi)
+- [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
+
 ## How to work on it
 
 **Requirements:**

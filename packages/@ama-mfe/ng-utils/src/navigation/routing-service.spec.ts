@@ -96,7 +96,7 @@ describe('Navigation Producer Service', () => {
     expect(producerManagerService.register).toHaveBeenCalledWith(routingService);
   });
 
-  it('should send navigation message via messageService if embedded', () => {
+  it('should broadcast a v1.1 navigation message when embedded', () => {
     Object.defineProperty(mockedWindow, 'top', { value: globalThis.window.top });
     Object.defineProperty(mockedWindow, 'self', { value: mockedWindow });
     runInInjectionContext(TestBed.inject(Injector), () => {
@@ -107,8 +107,61 @@ describe('Navigation Producer Service', () => {
 
     expect(messageService.send).toHaveBeenCalledWith({
       type: 'navigation',
-      version: '1.0',
+      version: '1.1',
       url: 'end-url'
+    });
+  });
+
+  it('should include the replaceUrl extra in the v1.1 navigation message when embedded', () => {
+    Object.defineProperty(mockedWindow, 'top', { value: globalThis.window.top });
+    Object.defineProperty(mockedWindow, 'self', { value: mockedWindow });
+    jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { replaceUrl: true } } as any);
+
+    runInInjectionContext(TestBed.inject(Injector), () => {
+      routingService.handleEmbeddedRouting();
+    });
+
+    routerEventsSubject.next(new NavigationEnd(1, 'start-url', 'end-url'));
+
+    expect(messageService.send).toHaveBeenCalledWith({
+      type: 'navigation',
+      version: '1.1',
+      url: 'end-url',
+      extras: { replaceUrl: true }
+    });
+  });
+
+  it('should include the replaceUrl extra in the v1.1 navigation message when not embedded', () => {
+    jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { replaceUrl: true, state: { channelId: 'test-channel-id' } } } as any);
+
+    runInInjectionContext(TestBed.inject(Injector), () => {
+      routingService.handleEmbeddedRouting();
+    });
+
+    routerEventsSubject.next(new NavigationEnd(1, 'start-url', 'end-url'));
+
+    expect(messageService.send).toHaveBeenCalledWith({
+      type: 'navigation',
+      version: '1.1',
+      url: 'end-url',
+      extras: { replaceUrl: true }
+    }, { to: ['test-channel-id'] });
+  });
+
+  it('should forward received v1.1 Navigation message with replaceUrl extra to the router', () => {
+    TestBed.runInInjectionContext(() => {
+      void routingService.supportedVersions['1.1']({
+        from: 'sender',
+        to: ['receiver'],
+        payload: {
+          type: 'navigation',
+          version: '1.1',
+          url: '/test',
+          extras: { replaceUrl: true }
+        }
+      });
+
+      expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/test', { state: { triggeredByMessage: true }, replaceUrl: true });
     });
   });
 
@@ -128,7 +181,7 @@ describe('Navigation Producer Service', () => {
 
   it('should forward received Navigation message to the router', () => {
     TestBed.runInInjectionContext(() => {
-      expect(Object.keys(routingService.supportedVersions)).toEqual(['1.0']);
+      expect(Object.keys(routingService.supportedVersions)).toEqual(['1.0', '1.1']);
 
       void routingService.supportedVersions['1.0']({
         from: 'sender',
@@ -155,7 +208,7 @@ describe('Navigation Producer Service', () => {
 
     expect(messageService.send).toHaveBeenCalledWith({
       type: 'navigation',
-      version: '1.0',
+      version: '1.1',
       url: 'end-url'
     }, { to: ['test-channel-id'] });
   });

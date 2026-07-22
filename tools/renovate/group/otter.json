@@ -31,6 +31,9 @@
         "/^@ama-styling/",
         "/^@ama-openapi/"
       ],
+      "matchDepTypes": [
+        "!peerDependencies"
+      ],
       "rangeStrategy": "bump"
     },
     {

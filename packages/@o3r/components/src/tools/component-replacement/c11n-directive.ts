@@ -1,10 +1,12 @@
 import {
   ComponentRef,
   Directive,
+  type EventEmitter,
   forwardRef,
   inject,
   Injector,
   Input,
+  type InputSignal,
   KeyValueChangeRecord,
   KeyValueDiffer,
   KeyValueDiffers,
@@ -34,6 +36,15 @@ import {
   Subscription,
 } from 'rxjs';
 
+/**
+ * Minimum interface for components used with c11n directive
+ */
+interface C11nComponent {
+  [key: string]: any;
+  config?: any;
+  validate?: (control: AbstractControl) => any;
+}
+
 @Directive({
   selector: '[c11n]',
   providers: [
@@ -53,7 +64,7 @@ export class C11nDirective<
   D extends Configuration = Configuration,
   I extends ContextInput = ContextInput,
   O extends BaseContextOutput = BaseContextOutput,
-  T extends Context<I, O> = Context<I, O>> implements OnChanges, OnDestroy {
+  T extends C11nComponent = Context<I, O>> implements OnChanges, OnDestroy {
   private readonly viewContainerRef = inject(ViewContainerRef);
   private readonly differsService = inject(KeyValueDiffers);
   private readonly injector = inject(Injector);
@@ -68,7 +79,7 @@ export class C11nDirective<
   @Input() public formControl?: FormControl;
 
   /** The input setter */
-  @Input() public set inputs(value: { [K in keyof I]: I[K] }) {
+  @Input() public set inputs(value: { [K in keyof I]: I[K] | InputSignal<I[K]> }) {
     this._inputs = value;
     if (!this.differInputs && value) {
       // eslint-disable-next-line unicorn/no-array-callback-reference -- KeyValueDiffers.find is not an array function
@@ -77,7 +88,7 @@ export class C11nDirective<
   }
 
   /** The input getter */
-  public get inputs(): { [K in keyof I]: I[K] } {
+  public get inputs(): { [K in keyof I]: I[K] | InputSignal<I[K]> } {
     return this._inputs;
   }
 
@@ -89,7 +100,7 @@ export class C11nDirective<
 
   private componentSubscriptions: Subscription[] = [];
 
-  private _inputs!: { [K in keyof I]: I[K] };
+  private _inputs!: { [K in keyof I]: I[K] | InputSignal<I[K]> };
 
   private differInputs!: KeyValueDiffer<string, any>;
 
@@ -141,7 +152,8 @@ export class C11nDirective<
 
       // Initialize outputs
       if (this.outputs) {
-        const subscriptions = Object.keys(this.outputs).map((outputName) => this.componentRef.instance[outputName].subscribe((val: any) => this.outputs![outputName](val)));
+        const subscriptions = Object.keys(this.outputs)
+          .map((outputName) => (this.componentRef.instance[outputName] as EventEmitter<any>).subscribe((val: any) => this.outputs![outputName](val)));
         this.componentSubscriptions.push(...subscriptions);
       }
 
@@ -155,7 +167,7 @@ export class C11nDirective<
       }
       // In case of lazy loaded component keep the config
       if (!changes.config && this.config) {
-        inputChanges.config = new SimpleChange<D>(this.componentRef.instance.config, this.config, true);
+        inputChanges.config = new SimpleChange<D>(this.componentRef.instance.config as D, this.config, true);
         this.uninitializedInputs.delete('config');
       }
     }
