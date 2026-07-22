@@ -105,12 +105,12 @@ export class ChromeExtensionConnectionService implements OnDestroy {
   /** Stream of messages received from the service worker */
   public message$ = this.messageSubject.asObservable();
   /** Stream the state of the extension connection to the Otter application*/
-  public appState$ = this.message$.pipe(
-    map(() => 'connected' as AppState),
+  public appState$: Observable<AppState> = this.message$.pipe(
+    map(() => 'connected' as const),
     take(1),
-    startWith('loading' as AppState),
+    startWith('loading' as const),
     timeout(3000),
-    catchError(() => of('timeout' as AppState))
+    catchError(() => of<AppState>('timeout'))
   );
 
   private readonly configurations = new ReplaySubject<Dictionary<ConfigurationModel>>(1);

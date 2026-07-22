@@ -93,3 +93,5 @@ coverage
 .nx/workspace-data
 
 .github/instructions/nx.instructions.md
+
+.verdaccio/conf/htpasswd

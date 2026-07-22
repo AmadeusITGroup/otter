@@ -83,7 +83,7 @@ describe('Configuration Store', () => {
   );
 
   beforeEach(() => {
-    configurationReducer(configurationInitialState, { type: 'fake' } as any);
+    configurationReducer(configurationInitialState, { type: 'fake' });
   });
 
   it('should have the correct initial state', () => {

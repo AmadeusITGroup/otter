@@ -14,7 +14,7 @@ describe('EventTrack Store reducer', () => {
   const secondEventTrack: EventTrackState = { heroComponent: { id: 'Page', TTI: 30 }, isTTIComputed: true };
 
   it('should by default return the initial state', () => {
-    const state = eventTrackReducer(eventTrackInitialState, { type: 'fake' } as any);
+    const state = eventTrackReducer(eventTrackInitialState, { type: 'fake' });
 
     expect(state).toEqual(eventTrackInitialState);
   });

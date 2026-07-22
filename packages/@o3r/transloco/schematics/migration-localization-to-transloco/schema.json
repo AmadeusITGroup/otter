@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "MigrationLocalizationToTranslocoSchema",
+  "title": "Transloco Migration Options",
+  "type": "object",
+  "properties": {
+    "skipInstall": {
+      "type": "boolean",
+      "default": false,
+      "description": "Skip npm/yarn install after migration"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "default": false,
+      "description": "Skip running lint --fix after migration"
+    },
+    "dryRun": {
+      "type": "boolean",
+      "default": false,
+      "description": "Preview changes without applying them"
+    },
+    "verbose": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show detailed transformation logs"
+    }
+  },
+  "required": [],
+  "additionalProperties": true
+}

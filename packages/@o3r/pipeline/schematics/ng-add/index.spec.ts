@@ -40,7 +40,7 @@ describe('ng-add', () => {
       runner: 'windows-latest',
       npmRegistry: 'private.registry.com',
       defaultBranchName: 'develop'
-    } as NgAddSchematicsSchema, initialTree);
+    }, initialTree);
 
     expect(tree.exists('.github/actions/setup/action.yml')).toBe(true);
     expect(tree.exists('.github/workflows/main.yml')).toBe(true);

@@ -69,7 +69,8 @@ export interface ConfigurationInformationWrapper {
 /** Configuration file extractor */
 export class ComponentConfigExtractor {
   /** List of all the configuration patterns that can be used inside a Page/Block or Component */
-  public readonly COMPONENT_CONFIGURATION_INTERFACES: RegExp[] = [/^Configuration\s*<?/, new RegExp('AppBuildConfiguration' as ConfigType), new RegExp('AppRuntimeConfiguration' as ConfigType)];
+  public readonly COMPONENT_CONFIGURATION_INTERFACES: RegExp[] =
+    [/^Configuration\s*<?/, new RegExp('AppBuildConfiguration' satisfies ConfigType), new RegExp('AppRuntimeConfiguration' satisfies ConfigType)];
 
   /** List of all the configuration patterns */
   public readonly CONFIGURATION_INTERFACES: RegExp[] = [...this.COMPONENT_CONFIGURATION_INTERFACES, /^NestedConfiguration$/];
@@ -323,7 +324,7 @@ export class ComponentConfigExtractor {
           const content = extendedInterfaceNode.getText(source);
           isConfiguration = isConfiguration || this.CONFIGURATION_INTERFACES.some((r) => r.test(content));
           if (typeof runtime === 'undefined') {
-            runtime = new RegExp('AppBuildConfiguration' as ConfigType).test(content) ? false : new RegExp('AppRuntimeConfiguration' as ConfigType).test(content) || undefined;
+            runtime = new RegExp('AppBuildConfiguration' satisfies ConfigType).test(content) ? false : new RegExp('AppRuntimeConfiguration' satisfies ConfigType).test(content) || undefined;
           }
         });
       } else if (isConfiguration && ts.isPropertySignature(node)) {

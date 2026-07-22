@@ -16,7 +16,7 @@ const ruleTester = new RuleTester({
 
 const validHTML = '<p innerText="test"></p>';
 
-ruleTester.run(name, noInnerHTMLRule as any /* workaround for 5.9.0 breaking change on interface */, {
+ruleTester.run(name, noInnerHTMLRule, {
   valid: [validHTML],
   invalid: [
     {

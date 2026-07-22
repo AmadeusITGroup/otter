@@ -10,7 +10,7 @@ describe('PlaceholderTemplate Store reducer', () => {
   });
 
   it('should by default return the initial state', () => {
-    const state = placeholderTemplateReducer(placeholderTemplateInitialState, { type: 'fake' } as any);
+    const state = placeholderTemplateReducer(placeholderTemplateInitialState, { type: 'fake' });
     expect(state).toEqual(placeholderTemplateInitialState);
   });
   it('ACTION_DELETE_ENTITY and ACTION_SET_ENTITY actions should work properly', () => {

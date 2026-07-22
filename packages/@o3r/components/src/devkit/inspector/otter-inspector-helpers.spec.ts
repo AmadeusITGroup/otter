@@ -16,9 +16,9 @@ import type {
 import {
   ConfigurationObserver,
 } from '@o3r/configuration';
-import {
+import type {
   Translation,
-} from '@o3r/localization';
+} from '@o3r/core';
 import {
   getAnalyticEvents,
   getConfigId,
