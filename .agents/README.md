@@ -31,6 +31,9 @@ The main `AGENTS.md` file in the repository root provides a quick start guide an
 **Contributing:**
 - **`contributing.md`** - Contribution rules, PR process, and quality requirements (~40 lines)
 
+**Agent Tasks (runnable prompts):**
+- **`fix-audit.md`** - Fix critical audit vulnerabilities for a given PR number (used by `/fix-audit` in Claude Code and `fix-audit.prompt.md` in Copilot)
+
 **Advanced Features:**
 - **`advanced.md`** - Otter-specific concepts, metadata extraction, core modules (~30 lines)
 - **`tools.md`** - Verdaccio, documentation generation, VSCode integration (~50 lines)
