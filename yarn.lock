@@ -11007,7 +11007,6 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.62.0"
-    uuid: "npm:~14.0.0"
     verdaccio: "npm:~6.7.0"
     vite: "npm:~8.0.0"
     vitest: "npm:~4.1.0"
