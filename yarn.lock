@@ -10551,7 +10551,7 @@ __metadata:
     typedoc: "npm:~0.28.0"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.62.0"
-    typescript-json-schema: "npm:^0.67.0"
+    typescript-json-schema: "npm:^0.68.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
     "@angular-devkit/core": ^21.0.0
@@ -11715,7 +11715,7 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.62.0"
-    typescript-json-schema: "npm:^0.67.0"
+    typescript-json-schema: "npm:^0.68.0"
     unionfs: "npm:~4.6.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
@@ -18566,7 +18566,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn-walk@npm:^8.1.1, acorn-walk@npm:^8.2.0, acorn-walk@npm:^8.3.4":
+"acorn-walk@npm:^8.1.1, acorn-walk@npm:^8.2.0":
   version: 8.3.5
   resolution: "acorn-walk@npm:8.3.5"
   dependencies:
@@ -19408,19 +19408,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.16.0":
-  version: 1.18.0
-  resolution: "axios@npm:1.18.0"
-  dependencies:
-    follow-redirects: "npm:^1.16.0"
-    form-data: "npm:^4.0.5"
-    https-proxy-agent: "npm:^5.0.1"
-    proxy-from-env: "npm:^2.1.0"
-  checksum: 10/586a1a9534531c6ec4ee8fbab07a536ecaa8d29bd16b40ab0f9fce361fcd24da1538a54aadde0562f08f30b55bf80f9b7ededf1987e6506f722e1fb338b09d5d
-  languageName: node
-  linkType: hard
-
-"axios@npm:^1.18.1":
+"axios@npm:^1.16.0, axios@npm:^1.18.1":
   version: 1.18.1
   resolution: "axios@npm:1.18.1"
   dependencies:
@@ -38248,9 +38236,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-json-schema@npm:^0.67.0":
-  version: 0.67.4
-  resolution: "typescript-json-schema@npm:0.67.4"
+"typescript-json-schema@npm:^0.68.0":
+  version: 0.68.0
+  resolution: "typescript-json-schema@npm:0.68.0"
   dependencies:
     "@types/json-schema": "npm:^7.0.15"
     "@types/node": "npm:^24.10.2"
@@ -38259,11 +38247,10 @@ __metadata:
     safe-stable-stringify: "npm:^2.5.0"
     ts-node: "npm:^10.9.2"
     typescript: "npm:~5.9.3"
-    vm2: "npm:^3.11.3"
     yargs: "npm:^18.0.0"
   bin:
     typescript-json-schema: bin/typescript-json-schema
-  checksum: 10/221b8e5efc589cf5784d64e5bf6eaf00f3fe19ef40008e7aaa24dd4c7c5a70c780980cb4824590a969e791606af55875e737d16b899aa296391d2eedbb54811f
+  checksum: 10/ebd68ee732cc278f59d204db7047f48c477a77218fe1281ddf0cc7bec799140b403fcd1d8164746f73ed8d9b08b76b95bfe03893bc270d6eae68a0f0f3365012
   languageName: node
   linkType: hard
 
@@ -39101,18 +39088,6 @@ __metadata:
   bin:
     vitest: ./vitest.mjs
   checksum: 10/64f9d1a0aae92c493c39822ecae8ec5b5a336fc27166f776d08c01ae79ef1ec5485a1826ef1451bb05df2edaae109894125c2ecceadaa56c17be2690f66f9758
-  languageName: node
-  linkType: hard
-
-"vm2@npm:~3.11.4":
-  version: 3.11.5
-  resolution: "vm2@npm:3.11.5"
-  dependencies:
-    acorn: "npm:^8.15.0"
-    acorn-walk: "npm:^8.3.4"
-  bin:
-    vm2: bin/vm2
-  checksum: 10/aaaea54b3c51e61bcefb38a1c67c2779efb73a83c1dd73e371652f704097ce71822df510e694a523aa8a3fc47b9ef394c1917b7457f30ef6c6fe62f757442dd4
   languageName: node
   linkType: hard
 
