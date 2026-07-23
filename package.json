@@ -165,7 +165,7 @@
     "@agnos-ui/core-bootstrap": "~0.11.0",
     "@amadeus-it-group/tansu": "~2.0.0",
     "@ampproject/remapping": "^2.3.0",
-    "@angular-devkit/architect": "0.2102.18",
+    "@angular-devkit/architect": "0.2102.19",
     "@angular-devkit/build-angular": "~21.2.0",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
@@ -355,5 +355,5 @@
     "apps/*",
     "mcps/@*/*"
   ],
-  "packageManager": "yarn@4.17.0"
+  "packageManager": "yarn@4.17.1"
 }
