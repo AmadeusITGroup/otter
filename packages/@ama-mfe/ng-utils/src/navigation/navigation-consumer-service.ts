@@ -10,7 +10,6 @@ import type {
   RoutedMessage,
 } from '@amadeus-it-group/microfrontends';
 import {
-  DestroyRef,
   inject,
   Injectable,
 } from '@angular/core';
@@ -25,8 +24,7 @@ import {
   hostQueryParams,
 } from '../host-info';
 import {
-  ConsumerManagerService,
-  type MessageConsumer,
+  AbstractMessageConsumer,
 } from '../managers/index';
 
 /**
@@ -37,7 +35,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class NavigationConsumerService implements MessageConsumer<NavigationMessage> {
+export class NavigationConsumerService extends AbstractMessageConsumer<NavigationMessage> {
   private readonly router = inject(Router);
   private readonly activeRoute = inject(ActivatedRoute);
   private readonly requestedUrl = new Subject<{ url: string; channelId?: string }>();
@@ -79,11 +77,13 @@ export class NavigationConsumerService implements MessageConsumer<NavigationMess
     }
   };
 
-  private readonly consumerManagerService = inject(ConsumerManagerService);
-
   constructor() {
+    super();
+    /**
+     * Auto-starts the consumer on creation.
+     * @deprecated The constructor auto-starts the consumer for backwards compatibility. It will be removed in v15;
+     */
     this.start();
-    inject(DestroyRef).onDestroy(() => this.stop());
   }
 
   /**
@@ -112,19 +112,5 @@ export class NavigationConsumerService implements MessageConsumer<NavigationMess
       queryParams,
       replaceUrl: extras?.replaceUrl
     });
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public start() {
-    this.consumerManagerService.register(this);
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public stop() {
-    this.consumerManagerService.unregister(this);
   }
 }
