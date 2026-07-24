@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/AmadeusITGroup/ai-primitives-hub/refs/heads/main/schemas/collection.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/AmadeusITGroup/ai-primitives-hub/refs/heads/main/packages/core/src/public/schemas/collection.schema.json
 id: ama-sdk
 name: Ama SDK
 description: Collection for @ama-sdk - TypeScript SDK generation from OpenAPI specifications
@@ -40,6 +40,8 @@ items:
     tags:
       - setup
       - orchestration
+readme:
+  path: tools/llm/plugins/ama-sdk/README.md
 display:
   ordering: manual
   show_badge: true
