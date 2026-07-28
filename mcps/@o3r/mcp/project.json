@@ -23,7 +23,10 @@
       "options": {
         "script": "compile"
       },
-      "dependsOn": ["prepare", "^build"]
+      "dependsOn": [
+        "prepare",
+        "^build"
+      ]
     },
     "expose-resources": {},
     "test": {},
@@ -31,5 +34,60 @@
     "prepare-publish": {},
     "publish": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular-devkit/architect",
+          "@angular-devkit/schematics",
+          "@angular/cli",
+          "@angular/common",
+          "@angular/compiler",
+          "@angular/compiler-cli",
+          "@angular/core",
+          "@angular/platform-browser",
+          "@angular/platform-browser-dynamic",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@nx/js",
+          "@octokit/rest",
+          "@stylistic/eslint-plugin",
+          "@types/jest",
+          "@types/node",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "cpy-cli",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "jest",
+          "jest-environment-jsdom",
+          "jest-junit",
+          "jest-preset-angular",
+          "jest-util",
+          "jsdom",
+          "jsonc-eslint-parser",
+          "nx",
+          "rxjs",
+          "ts-jest",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint",
+          "zod"
+        ]
+      }
+    ]
+  }
 }
