@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/AmadeusITGroup/ai-primitives-hub/refs/heads/main/schemas/collection.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/AmadeusITGroup/ai-primitives-hub/refs/heads/main/packages/core/src/public/schemas/collection.schema.json
 id: otter
 name: Otter
 description: Collection for Otter
@@ -12,6 +12,8 @@ items:
       - facts
       - operators
       - rulesets
+readme:
+  path: tools/llm/plugins/otter/README.md
 display:
   ordering: manual
   show_badge: true
