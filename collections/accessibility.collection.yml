@@ -1,0 +1,73 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/AmadeusITGroup/ai-primitives-hub/refs/heads/main/packages/core/src/public/schemas/collection.schema.json
+id: accessibility
+name: Accessibility
+description: WCAG conformance skills and audit agents for UI components and pages. Covers ARIA patterns, automated axe testing, component-level audits, and full page audits.
+items:
+  - path: tools/llm/plugins/a11y/skills/a11y-aria-patterns/SKILL.md
+    kind: skill
+    title: ARIA Patterns Reference
+    description: ARIA roles, patterns, and mandatory behaviors for common UI primitives. Reference for designers and developers.
+    tags:
+      - aria
+      - patterns
+      - wcag
+      - design
+  - path: tools/llm/plugins/a11y/skills/a11y-axe-playwright/SKILL.md
+    kind: skill
+    title: Axe Tests with Playwright
+    description: Write and review automated accessibility tests using @axe-core/playwright. Covers setup, tag selection, scoping, and interpreting violations.
+    tags:
+      - axe
+      - playwright
+      - testing
+      - wcag
+  - path: tools/llm/plugins/a11y/skills/a11y-component-audit/SKILL.md
+    kind: skill
+    title: Component Accessibility Audit
+    description: WCAG 2.1/2.2 AA audit gate for UI components and PRs. Validates ARIA, keyboard, contrast, and emits an evidence block.
+    tags:
+      - audit
+      - component
+      - wcag
+      - pr-review
+  - path: tools/llm/plugins/a11y/skills/a11y-page-checks/SKILL.md
+    kind: skill
+    title: Page-Level Accessibility Checks
+    description: WCAG checks that only apply at full page scope — heading hierarchy, page title uniqueness, focus on route change, and full-page axe scan.
+    tags:
+      - audit
+      - page
+      - wcag
+      - heading
+  - path: tools/llm/plugins/a11y/skills/a11y-keyboard-playwright/SKILL.md
+    kind: skill
+    title: Keyboard and Focus Tests with Playwright
+    description: Write keyboard-only test variants and focus management checks using Playwright. Covers navigation patterns, focus expectations, helpers, and file structure conventions.
+    tags:
+      - keyboard
+      - playwright
+      - testing
+      - wcag
+  - path: tools/llm/plugins/a11y/agents/a11y-full-page-audit.agent.md
+    kind: agent
+    title: Full Page Accessibility Audit
+    description: Full WCAG 2.1 AA page-level audit for QA and release gates. Covers all component checks plus heading hierarchy, page title, and focus on route change.
+    tags:
+      - audit
+      - page
+      - wcag
+      - qa
+  - path: tools/llm/plugins/a11y/agents/a11y-write-playwright-tests.agent.md
+    kind: agent
+    title: Write Playwright Accessibility Tests
+    description: Generates missing axe scan and keyboard-only Playwright test files for a component or page, following project conventions.
+    tags:
+      - playwright
+      - testing
+      - axe
+      - keyboard
+readme:
+  path: tools/llm/plugins/a11y/README.md
+display:
+  ordering: manual
+  show_badge: true

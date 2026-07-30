@@ -23,6 +23,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: false # TODO reactivate once we fix the issue with Angular application build with optimization activated
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

@@ -10,13 +10,13 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule,
+  RouterLink,
 } from '@angular/router';
 import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  MarkdownModule,
+  MarkdownComponent,
 } from 'ngx-markdown';
 import {
   ComponentReplacementPres,
@@ -39,12 +39,12 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    RouterModule,
+    RouterLink,
     InPageNavPres,
     AsyncPipe,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     ComponentReplacementPres,
-    MarkdownModule
+    MarkdownComponent
   ]
 })
 export class ComponentReplacement implements AfterViewInit {

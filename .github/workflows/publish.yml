@@ -126,6 +126,7 @@ jobs:
           publish-profile: ${{ env.PUBLISH_PROFILE }}
 
   publish-extensions:
+    if: false # TODO reactivate once we fix the issue with Angular application build with optimization activated
     runs-on: ubuntu-latest
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     needs: [publish]

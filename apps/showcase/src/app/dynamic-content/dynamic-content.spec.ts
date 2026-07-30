@@ -6,7 +6,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  RouterModule,
+  provideRouter,
 } from '@angular/router';
 import {
   NgbScrollSpyService,
@@ -42,10 +42,10 @@ describe('DynamicContent', () => {
     TestBed.configureTestingModule({
       imports: [
         DynamicContent,
-        RouterModule.forRoot([]),
         AsyncPipe
       ],
       providers: [
+        provideRouter([]),
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
         provideMarkdown(),
         provideDynamicContent()

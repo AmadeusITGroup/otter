@@ -4,6 +4,7 @@ import {
   input,
   Pipe,
   type PipeTransform,
+  signal,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -73,15 +74,15 @@ describe('IframeEmbedComponent', () => {
     imports: [IframeEmbedComponent],
     template: `
       <mfe-iframe-embed
-        [src]="src"
-        [moduleId]="moduleId"
-        [hostApplicationId]="hostApplicationId" />
+        [src]="src()"
+        [moduleId]="moduleId()"
+        [hostApplicationId]="hostApplicationId()" />
     `
   })
   class TestHostComponent {
-    public src: string | SafeResourceUrl = 'https://example.com';
-    public moduleId = 'test-module';
-    public hostApplicationId = 'test-host-app';
+    public src = signal<string | SafeResourceUrl>('https://example.com');
+    public moduleId = signal('test-module');
+    public hostApplicationId = signal('test-host-app');
   }
 
   let hostFixture: ComponentFixture<TestHostComponent>;
@@ -118,8 +119,7 @@ describe('IframeEmbedComponent', () => {
   describe('safeSrc computed', () => {
     it('should sanitize a plain string input', () => {
       const bypassSpy = jest.spyOn(domSanitizer, 'bypassSecurityTrustResourceUrl');
-      hostComponent.src = 'https://test-url.com/page';
-      hostFixture.changeDetectorRef.markForCheck();
+      hostComponent.src.set('https://test-url.com/page');
       hostFixture.detectChanges();
 
       const result = component.safeSrc();
@@ -132,8 +132,7 @@ describe('IframeEmbedComponent', () => {
       const safeUrl = domSanitizer.bypassSecurityTrustResourceUrl('https://pre-sanitized.com');
       const bypassSpy = jest.spyOn(domSanitizer, 'bypassSecurityTrustResourceUrl');
 
-      hostComponent.src = safeUrl;
-      hostFixture.changeDetectorRef.markForCheck();
+      hostComponent.src.set(safeUrl);
       hostFixture.detectChanges();
 
       const result = component.safeSrc();
@@ -145,16 +144,14 @@ describe('IframeEmbedComponent', () => {
 
   describe('inputs', () => {
     it('should expose the moduleId input', () => {
-      hostComponent.moduleId = 'my-module';
-      hostFixture.changeDetectorRef.markForCheck();
+      hostComponent.moduleId.set('my-module');
       hostFixture.detectChanges();
 
       expect(component.moduleId()).toBe('my-module');
     });
 
     it('should expose the hostApplicationId input', () => {
-      hostComponent.hostApplicationId = 'my-host-app';
-      hostFixture.changeDetectorRef.markForCheck();
+      hostComponent.hostApplicationId.set('my-host-app');
       hostFixture.detectChanges();
 
       expect(component.hostApplicationId()).toBe('my-host-app');

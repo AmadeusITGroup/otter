@@ -151,19 +151,19 @@ export class CodeEditorView implements OnDestroy {
   /**
    * Allow to edit the code in the monaco editor
    */
-  public editorMode = input<EditorMode>('readonly');
+  public readonly editorMode = input<EditorMode>('readonly');
 
   /**
    * Display terminal
    */
-  public displayTerminal = input<boolean>(true);
+  public readonly displayTerminal = input<boolean>(true);
 
   /**
    * Project to load in the code editor.
    * It should describe the files to load, the starting file, the folder dedicated to the project as well as the
    * commands to initialize the project
    */
-  public project = input.required<TrainingProject>();
+  public readonly project = input.required<TrainingProject>();
 
   /**
    * Service to load files and run commands in the application instance of the webcontainer.

@@ -3,7 +3,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  RouterModule,
+  provideRouter,
 } from '@angular/router';
 import {
   NgbScrollSpyService,
@@ -29,8 +29,9 @@ describe('Forms', () => {
       stop: jest.fn()
     };
     await TestBed.configureTestingModule({
-      imports: [RouterModule.forRoot([]), Forms],
+      imports: [Forms],
       providers: [
+        provideRouter([]),
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
         provideMarkdown(),
         provideLocalizationMock()

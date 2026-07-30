@@ -4,17 +4,29 @@
  * and throws an error if any pair has diverged.
  */
 import {
+  existsSync,
+  readdirSync,
   readFileSync,
 } from 'node:fs';
 import {
+  join,
   resolve,
 } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..', '..', '..', '..');
 
+const pluginsDir = resolve(root, 'tools/llm/plugins');
+const pluginPairs = readdirSync(pluginsDir, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => [
+    join('tools/llm/plugins', entry.name, '.plugin/plugin.json'),
+    join('tools/llm/plugins', entry.name, '.claude-plugin/plugin.json')
+  ])
+  .filter(([path1, path2]) => existsSync(resolve(root, path1)) && existsSync(resolve(root, path2)));
+
 const filePairs = [
   ['.claude-plugin/marketplace.json', '.github/plugin/marketplace.json'],
-  ['tools/llm/plugins/otter/.plugin/plugin.json', 'tools/llm/plugins/otter/.claude-plugin/plugin.json']
+  ...pluginPairs
 ];
 
 const errors = filePairs

@@ -1,8 +1,59 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/AmadeusITGroup/prompt-registry/refs/heads/main/schemas/collection.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/AmadeusITGroup/ai-primitives-hub/refs/heads/main/packages/core/src/public/schemas/collection.schema.json
 id: otter
 name: Otter
 description: Collection for Otter
-items: []
+items:
+  - path: tools/llm/plugins/otter/skills/otter-rules-engine/SKILL.md
+    kind: skill
+    title: Otter Rules Engine
+    description: Author and debug rules-engine facts, operators, actions, and rulesets in an Otter workspace
+    tags:
+      - rules-engine
+      - facts
+      - operators
+      - rulesets
+  - path: tools/llm/plugins/otter/skills/otter-mcp-setup/SKILL.md
+    kind: skill
+    title: Otter MCP Setup
+    description: Install and configure the @o3r/mcp MCP server for Claude Code and VS Code
+    tags:
+      - mcp
+      - setup
+      - configuration
+  - path: tools/llm/plugins/otter/skills/otter-new-config/SKILL.md
+    kind: skill
+    title: Otter New Config
+    description: Introduce new configuration flags (feature toggles, URLs, enums) in an Otter workspace with correct scope, safe defaults, and absence-detection patterns
+    tags:
+      - configuration
+      - feature-toggle
+      - schematics
+  - path: tools/llm/plugins/otter/skills/otter-schematics/SKILL.md
+    kind: skill
+    title: Otter Schematics
+    description: Create Angular artifacts (components, libraries, services, fixtures) using Otter schematics instead of manual file creation
+    tags:
+      - schematics
+      - components
+      - scaffolding
+  - path: tools/llm/plugins/otter/skills/playwright-e2e-testing/SKILL.md
+    kind: skill
+    title: Playwright E2E Testing
+    description: Write Playwright end-to-end tests following the Actions/Checks/Scenarios architecture and the mandatory 3-gate creation process
+    tags:
+      - playwright
+      - e2e
+      - testing
+  - path: tools/llm/plugins/otter/agents/otter-migration.agent.md
+    kind: agent
+    title: Otter Migration
+    description: Safely upgrade @o3r, @ama-mfe, and @ama-sdk packages across an Otter workspace, handling Angular peer-dependency upgrades and migration schematics
+    tags:
+      - migration
+      - upgrade
+      - angular
+readme:
+  path: tools/llm/plugins/otter/README.md
 display:
   ordering: manual
   show_badge: true

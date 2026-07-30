@@ -17,14 +17,11 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  PlaceholderModule,
+  PlaceholderComponent,
 } from '@o3r/components';
 import {
   O3rComponent,
 } from '@o3r/core';
-import {
-  RulesEngineRunnerModule,
-} from '@o3r/rules-engine';
 import {
   TripFactsService,
 } from '../../../facts/trip/trip-facts-service';
@@ -42,10 +39,9 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    PlaceholderModule,
     ReactiveFormsModule,
-    RulesEngineRunnerModule,
-    DatePickerInputPres
+    DatePickerInputPres,
+    PlaceholderComponent
   ]
 })
 export class PlaceholderPres {
