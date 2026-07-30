@@ -138,6 +138,7 @@
     "qs": "~6.15.0",
     "rxjs": "^7.8.1",
     "shell-quote": "^1.8.4",
+    "tar": "^7.5.22",
     "typescript-json-schema/typescript": "~5.9.2"
   },
   "dependencies": {
