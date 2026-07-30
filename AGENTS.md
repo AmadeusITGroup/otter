@@ -47,7 +47,7 @@ Detailed documentation is split into context-specific files in `.agents/` to red
 
 **Version Control:**
 
-- **[git-workflow.md](./.agents/git-workflow.md)** - Git workflow, commit messages, protected branches, and CI/CD rules
+- **[git-workflow.md](./.agents/git-workflow.md)** - Git workflow, commit messages, protected branches, CI/CD rules, and **PR creation** (read this before opening any PR)
 
 **Contributing:**
 
