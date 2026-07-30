@@ -3,7 +3,7 @@ id: ama-sdk
 name: Ama SDK
 description: Collection for @ama-sdk - TypeScript SDK generation from OpenAPI specifications
 items:
-  - path: tools/llm/plugins/ama-sdk/skills/create-sdk.md
+  - path: tools/llm/plugins/ama-sdk/skills/create-sdk/SKILL.md
     kind: skill
     title: Create SDK
     description: Create a TypeScript SDK from an OpenAPI spec (standalone or monorepo)
@@ -11,7 +11,7 @@ items:
       - create
       - standalone
       - monorepo
-  - path: tools/llm/plugins/ama-sdk/skills/use-sdk.md
+  - path: tools/llm/plugins/ama-sdk/skills/use-sdk/SKILL.md
     kind: skill
     title: Use SDK
     description: Install, configure, and use a TypeScript SDK with fetch, Angular, or beacon clients
@@ -25,7 +25,7 @@ items:
     tags:
       - plugins
       - extensibility
-  - path: tools/llm/plugins/ama-sdk/skills/sdk-mcp-setup.md
+  - path: tools/llm/plugins/ama-sdk/skills/sdk-mcp-setup/SKILL.md
     kind: skill
     title: SDK MCP Setup
     description: Configure the @ama-sdk/mcp server to expose SDK_CONTEXT.md to Claude Code and GitHub Copilot
