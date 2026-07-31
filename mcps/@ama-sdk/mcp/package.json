@@ -13,7 +13,8 @@
   ],
   "sideEffects": false,
   "bin": {
-    "ama-sdk-mcp": "./dist/src/cli.js"
+    "ama-sdk-mcp": "./dist/src/cli.js",
+    "ama-sdk-mcp-start": "./dist/src/cli.js"
   },
   "exports": {
     "./package.json": {
