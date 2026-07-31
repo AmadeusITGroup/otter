@@ -10,7 +10,7 @@ import {
 } from '@ama-mcp/core';
 import type {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
 import {
   Octokit,
 } from '@octokit/rest';
@@ -32,7 +32,7 @@ export interface GetRepositoriesUsingLibraryOptions extends CacheToolOptions, Gi
    * Limit to 10 scopes to avoid hitting GitHub search API rate limit
    * @example ['ama-mcp', 'o3r']
    */
-  scopes: string[];
+  scopes: readonly string[];
   /**
    * Name of the library to look for in the dependencies
    * @example 'Otter'
@@ -218,9 +218,9 @@ export function registerGetRepositoriesUsingLibraryTool(server: McpServer, optio
         readOnlyHint: true,
         openWorldHint: false
       },
-      outputSchema: {
+      outputSchema: z.object({
         repositories: z.array(z.string()).describe(`List of repositories depending on ${libraryName}`)
-      }
+      })
     },
     () => {
       const reposUsingLibrary = cacheManager

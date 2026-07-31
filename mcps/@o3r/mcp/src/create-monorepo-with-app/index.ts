@@ -6,7 +6,7 @@ import {
 } from 'node:path';
 import type {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
 import {
   z,
 } from 'zod';
@@ -28,10 +28,10 @@ export async function registerCreateMonorepoWithAppTool(server: McpServer, resou
     {
       title: 'Create Monorepo with App',
       description: createDescription,
-      inputSchema: {
+      inputSchema: z.object({
         repositoryName: z.string().describe(repositoryNameDescription),
         applicationName: z.string().describe(applicationNameDescription).optional()
-      }
+      })
     },
     ({ repositoryName, applicationName = 'frontend' }) => {
       return {
