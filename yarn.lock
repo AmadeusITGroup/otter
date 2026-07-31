@@ -2094,7 +2094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2102.18, @angular-devkit/architect@npm:>= 0.2100.0 < 0.2200.0":
+"@angular-devkit/architect@npm:0.2102.18":
   version: 0.2102.18
   resolution: "@angular-devkit/architect@npm:0.2102.18"
   dependencies:
@@ -2106,7 +2106,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2102.19":
+"@angular-devkit/architect@npm:0.2102.19, @angular-devkit/architect@npm:>= 0.2100.0 < 0.2200.0":
   version: 0.2102.19
   resolution: "@angular-devkit/architect@npm:0.2102.19"
   dependencies:
@@ -2262,7 +2262,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:21.2.18, @angular-devkit/core@npm:>= 21.0.0 < 22.0.0, @angular-devkit/core@npm:~21.2.0":
+"@angular-devkit/core@npm:21.2.18":
   version: 21.2.18
   resolution: "@angular-devkit/core@npm:21.2.18"
   dependencies:
@@ -2281,7 +2281,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:21.2.19":
+"@angular-devkit/core@npm:21.2.19, @angular-devkit/core@npm:>= 21.0.0 < 22.0.0, @angular-devkit/core@npm:~21.2.0":
   version: 21.2.19
   resolution: "@angular-devkit/core@npm:21.2.19"
   dependencies:
@@ -2326,7 +2326,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:21.2.18, @angular-devkit/schematics@npm:>= 21.0.0 < 22.0.0, @angular-devkit/schematics@npm:~21.2.0":
+"@angular-devkit/schematics@npm:21.2.18":
   version: 21.2.18
   resolution: "@angular-devkit/schematics@npm:21.2.18"
   dependencies:
@@ -2339,7 +2339,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:21.2.19":
+"@angular-devkit/schematics@npm:21.2.19, @angular-devkit/schematics@npm:>= 21.0.0 < 22.0.0, @angular-devkit/schematics@npm:~21.2.0":
   version: 21.2.19
   resolution: "@angular-devkit/schematics@npm:21.2.19"
   dependencies:
@@ -10793,7 +10793,7 @@ __metadata:
     typedoc: "npm:~0.28.0"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.65.0"
-    typescript-json-schema: "npm:^0.67.0"
+    typescript-json-schema: "npm:^0.68.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
     "@angular-devkit/core": ^21.0.0
@@ -11957,7 +11957,7 @@ __metadata:
     type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.65.0"
-    typescript-json-schema: "npm:^0.67.0"
+    typescript-json-schema: "npm:^0.68.0"
     unionfs: "npm:~4.6.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0"
@@ -15100,7 +15100,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@schematics/angular@npm:21.2.19":
+"@schematics/angular@npm:21.2.19, @schematics/angular@npm:~21.2.0":
   version: 21.2.19
   resolution: "@schematics/angular@npm:21.2.19"
   dependencies:
@@ -15108,17 +15108,6 @@ __metadata:
     "@angular-devkit/schematics": "npm:21.2.19"
     jsonc-parser: "npm:3.3.1"
   checksum: 10/61f51ff6d580fd6ea658e335e5aa67bbda3ca4eff7f5a47357a6722c234152290e79b9b482d7c019786b4c6208ff8c73f1bb002bf01ede1dc6648b6e4b857467
-  languageName: node
-  linkType: hard
-
-"@schematics/angular@npm:~21.2.0":
-  version: 21.2.18
-  resolution: "@schematics/angular@npm:21.2.18"
-  dependencies:
-    "@angular-devkit/core": "npm:21.2.18"
-    "@angular-devkit/schematics": "npm:21.2.18"
-    jsonc-parser: "npm:3.3.1"
-  checksum: 10/774aed44f77f90379bcf886fbdaa9b7bfc26ad5e414bc2d7bf2ac99892f1ebb9ecd0f97d15f1d6acbb9a671cf2ab63941c21a9c634d4d0574559879a15d5937e
   languageName: node
   linkType: hard
 
@@ -18753,7 +18742,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn-walk@npm:^8.1.1, acorn-walk@npm:^8.2.0, acorn-walk@npm:^8.3.4":
+"acorn-walk@npm:^8.1.1, acorn-walk@npm:^8.2.0":
   version: 8.3.5
   resolution: "acorn-walk@npm:8.3.5"
   dependencies:
@@ -38271,9 +38260,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-json-schema@npm:^0.67.0":
-  version: 0.67.4
-  resolution: "typescript-json-schema@npm:0.67.4"
+"typescript-json-schema@npm:^0.68.0":
+  version: 0.68.0
+  resolution: "typescript-json-schema@npm:0.68.0"
   dependencies:
     "@types/json-schema": "npm:^7.0.15"
     "@types/node": "npm:^24.10.2"
@@ -38282,11 +38271,10 @@ __metadata:
     safe-stable-stringify: "npm:^2.5.0"
     ts-node: "npm:^10.9.2"
     typescript: "npm:~5.9.3"
-    vm2: "npm:^3.11.3"
     yargs: "npm:^18.0.0"
   bin:
     typescript-json-schema: bin/typescript-json-schema
-  checksum: 10/221b8e5efc589cf5784d64e5bf6eaf00f3fe19ef40008e7aaa24dd4c7c5a70c780980cb4824590a969e791606af55875e737d16b899aa296391d2eedbb54811f
+  checksum: 10/ebd68ee732cc278f59d204db7047f48c477a77218fe1281ddf0cc7bec799140b403fcd1d8164746f73ed8d9b08b76b95bfe03893bc270d6eae68a0f0f3365012
   languageName: node
   linkType: hard
 
@@ -39106,18 +39094,6 @@ __metadata:
   bin:
     vitest: ./vitest.mjs
   checksum: 10/64f9d1a0aae92c493c39822ecae8ec5b5a336fc27166f776d08c01ae79ef1ec5485a1826ef1451bb05df2edaae109894125c2ecceadaa56c17be2690f66f9758
-  languageName: node
-  linkType: hard
-
-"vm2@npm:~3.11.4":
-  version: 3.11.5
-  resolution: "vm2@npm:3.11.5"
-  dependencies:
-    acorn: "npm:^8.15.0"
-    acorn-walk: "npm:^8.3.4"
-  bin:
-    vm2: bin/vm2
-  checksum: 10/aaaea54b3c51e61bcefb38a1c67c2779efb73a83c1dd73e371652f704097ce71822df510e694a523aa8a3fc47b9ef394c1917b7457f30ef6c6fe62f757442dd4
   languageName: node
   linkType: hard
 
