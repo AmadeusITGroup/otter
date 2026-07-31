@@ -473,7 +473,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -535,7 +535,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -600,7 +600,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -665,7 +665,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -721,7 +721,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -784,7 +784,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -985,7 +985,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1101,7 +1101,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1181,7 +1181,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1259,7 +1259,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1340,7 +1340,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1417,7 +1417,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1474,7 +1474,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1539,7 +1539,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1629,7 +1629,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1697,7 +1697,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1778,7 +1778,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1854,7 +1854,7 @@ __metadata:
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1924,7 +1924,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -1997,7 +1997,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -2094,7 +2094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2102.18, @angular-devkit/architect@npm:>= 0.2100.0 < 0.2200.0":
+"@angular-devkit/architect@npm:0.2102.18":
   version: 0.2102.18
   resolution: "@angular-devkit/architect@npm:0.2102.18"
   dependencies:
@@ -2106,7 +2106,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2102.19":
+"@angular-devkit/architect@npm:0.2102.19, @angular-devkit/architect@npm:>= 0.2100.0 < 0.2200.0":
   version: 0.2102.19
   resolution: "@angular-devkit/architect@npm:0.2102.19"
   dependencies:
@@ -2262,7 +2262,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:21.2.18, @angular-devkit/core@npm:>= 21.0.0 < 22.0.0, @angular-devkit/core@npm:~21.2.0":
+"@angular-devkit/core@npm:21.2.18":
   version: 21.2.18
   resolution: "@angular-devkit/core@npm:21.2.18"
   dependencies:
@@ -2281,7 +2281,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:21.2.19":
+"@angular-devkit/core@npm:21.2.19, @angular-devkit/core@npm:>= 21.0.0 < 22.0.0, @angular-devkit/core@npm:~21.2.0":
   version: 21.2.19
   resolution: "@angular-devkit/core@npm:21.2.19"
   dependencies:
@@ -2326,7 +2326,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:21.2.18, @angular-devkit/schematics@npm:>= 21.0.0 < 22.0.0, @angular-devkit/schematics@npm:~21.2.0":
+"@angular-devkit/schematics@npm:21.2.18":
   version: 21.2.18
   resolution: "@angular-devkit/schematics@npm:21.2.18"
   dependencies:
@@ -2339,7 +2339,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:21.2.19":
+"@angular-devkit/schematics@npm:21.2.19, @angular-devkit/schematics@npm:>= 21.0.0 < 22.0.0, @angular-devkit/schematics@npm:~21.2.0":
   version: 21.2.19
   resolution: "@angular-devkit/schematics@npm:21.2.19"
   dependencies:
@@ -9242,7 +9242,7 @@ __metadata:
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -9312,7 +9312,7 @@ __metadata:
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -9389,7 +9389,7 @@ __metadata:
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -9476,7 +9476,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -9574,7 +9574,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -9663,7 +9663,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -9741,7 +9741,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -9803,7 +9803,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -9849,7 +9849,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -9949,7 +9949,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -10042,7 +10042,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -10198,7 +10198,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -10303,7 +10303,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -10402,7 +10402,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -10478,7 +10478,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -10560,7 +10560,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -10677,7 +10677,7 @@ __metadata:
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -10767,7 +10767,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -10882,7 +10882,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -11034,7 +11034,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -11149,7 +11149,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -11229,7 +11229,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -11365,7 +11365,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -11465,7 +11465,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -11541,7 +11541,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -11626,7 +11626,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -11681,7 +11681,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -11740,7 +11740,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -11824,7 +11824,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -11931,7 +11931,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -12056,7 +12056,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -12207,7 +12207,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -12287,7 +12287,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -12362,7 +12362,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -12426,7 +12426,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -12526,7 +12526,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -12662,7 +12662,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -12765,7 +12765,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -12868,7 +12868,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -12944,7 +12944,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -15100,7 +15100,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@schematics/angular@npm:21.2.19":
+"@schematics/angular@npm:21.2.19, @schematics/angular@npm:~21.2.0":
   version: 21.2.19
   resolution: "@schematics/angular@npm:21.2.19"
   dependencies:
@@ -15108,17 +15108,6 @@ __metadata:
     "@angular-devkit/schematics": "npm:21.2.19"
     jsonc-parser: "npm:3.3.1"
   checksum: 10/61f51ff6d580fd6ea658e335e5aa67bbda3ca4eff7f5a47357a6722c234152290e79b9b482d7c019786b4c6208ff8c73f1bb002bf01ede1dc6648b6e4b857467
-  languageName: node
-  linkType: hard
-
-"@schematics/angular@npm:~21.2.0":
-  version: 21.2.18
-  resolution: "@schematics/angular@npm:21.2.18"
-  dependencies:
-    "@angular-devkit/core": "npm:21.2.18"
-    "@angular-devkit/schematics": "npm:21.2.18"
-    jsonc-parser: "npm:3.3.1"
-  checksum: 10/774aed44f77f90379bcf886fbdaa9b7bfc26ad5e414bc2d7bf2ac99892f1ebb9ecd0f97d15f1d6acbb9a671cf2ab63941c21a9c634d4d0574559879a15d5937e
   languageName: node
   linkType: hard
 
@@ -19484,7 +19473,7 @@ __metadata:
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -23820,16 +23809,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:~29.15.0":
-  version: 29.15.4
-  resolution: "eslint-plugin-jest@npm:29.15.4"
+"eslint-plugin-jest@npm:~29.16.0":
+  version: 29.16.0
+  resolution: "eslint-plugin-jest@npm:29.16.0"
   dependencies:
     "@typescript-eslint/utils": "npm:^8.0.0"
   peerDependencies:
     "@typescript-eslint/eslint-plugin": ^8.0.0
     eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
     jest: "*"
-    typescript: ">=4.8.4 <7.0.0"
+    typescript: ">=4.8.4 <8.0.0"
   peerDependenciesMeta:
     "@typescript-eslint/eslint-plugin":
       optional: true
@@ -23837,7 +23826,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10/5b8e710828983fd1b1093fbe85248ebced7650ddc9d953cba8840cce89a43fd040be23848b47b26a68e2bebe9395e9acc3c64577f39a78c6b4dde0659636b764
+  checksum: 10/f57ddcfe950dde5792bee08a7dfe10e7a557c35a23a7e37f7c174e17271993b9310f180d253e3f4fbe31f205ffc1cff111131b47e24471601bef50493e4403a8
   languageName: node
   linkType: hard
 
@@ -25391,7 +25380,7 @@ __metadata:
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -30620,7 +30609,7 @@ __metadata:
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -31887,7 +31876,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:~4.4.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -34400,7 +34389,7 @@ __metadata:
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
@@ -40115,7 +40104,7 @@ __metadata:
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jest: "npm:~29.16.0"
     eslint-plugin-jsdoc: "npm:~61.7.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~62.0.0"
