@@ -2094,7 +2094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2102.18, @angular-devkit/architect@npm:>= 0.2100.0 < 0.2200.0":
+"@angular-devkit/architect@npm:0.2102.18":
   version: 0.2102.18
   resolution: "@angular-devkit/architect@npm:0.2102.18"
   dependencies:
@@ -2106,7 +2106,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2102.19":
+"@angular-devkit/architect@npm:0.2102.19, @angular-devkit/architect@npm:>= 0.2100.0 < 0.2200.0":
   version: 0.2102.19
   resolution: "@angular-devkit/architect@npm:0.2102.19"
   dependencies:
@@ -2262,7 +2262,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:21.2.18, @angular-devkit/core@npm:>= 21.0.0 < 22.0.0, @angular-devkit/core@npm:~21.2.0":
+"@angular-devkit/core@npm:21.2.18":
   version: 21.2.18
   resolution: "@angular-devkit/core@npm:21.2.18"
   dependencies:
@@ -2281,7 +2281,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:21.2.19":
+"@angular-devkit/core@npm:21.2.19, @angular-devkit/core@npm:>= 21.0.0 < 22.0.0, @angular-devkit/core@npm:~21.2.0":
   version: 21.2.19
   resolution: "@angular-devkit/core@npm:21.2.19"
   dependencies:
@@ -2326,7 +2326,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:21.2.18, @angular-devkit/schematics@npm:>= 21.0.0 < 22.0.0, @angular-devkit/schematics@npm:~21.2.0":
+"@angular-devkit/schematics@npm:21.2.18":
   version: 21.2.18
   resolution: "@angular-devkit/schematics@npm:21.2.18"
   dependencies:
@@ -2339,7 +2339,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:21.2.19":
+"@angular-devkit/schematics@npm:21.2.19, @angular-devkit/schematics@npm:>= 21.0.0 < 22.0.0, @angular-devkit/schematics@npm:~21.2.0":
   version: 21.2.19
   resolution: "@angular-devkit/schematics@npm:21.2.19"
   dependencies:
@@ -2685,14 +2685,14 @@ __metadata:
   linkType: hard
 
 "@angular/common@npm:~21.2.17":
-  version: 21.2.18
-  resolution: "@angular/common@npm:21.2.18"
+  version: 21.2.19
+  resolution: "@angular/common@npm:21.2.19"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/core": 21.2.18
+    "@angular/core": 21.2.19
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/0176ea706478bb7b735ddafb2560d6dd6a59076b4561b31de2f3f444f7fc0e66b8451094c80802355ff08ca3c6585885d16949f86b9229eb988178ec99146e5e
+  checksum: 10/e8278f12928c05649586f8d3039386b8cc4c52b308a3de90b3410ca765512aa22931beef14befed3918d8666430fd9e8387acf04f4fc18adc4c0b5f7be99a912
   languageName: node
   linkType: hard
 
@@ -15100,7 +15100,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@schematics/angular@npm:21.2.19":
+"@schematics/angular@npm:21.2.19, @schematics/angular@npm:~21.2.0":
   version: 21.2.19
   resolution: "@schematics/angular@npm:21.2.19"
   dependencies:
@@ -15108,17 +15108,6 @@ __metadata:
     "@angular-devkit/schematics": "npm:21.2.19"
     jsonc-parser: "npm:3.3.1"
   checksum: 10/61f51ff6d580fd6ea658e335e5aa67bbda3ca4eff7f5a47357a6722c234152290e79b9b482d7c019786b4c6208ff8c73f1bb002bf01ede1dc6648b6e4b857467
-  languageName: node
-  linkType: hard
-
-"@schematics/angular@npm:~21.2.0":
-  version: 21.2.18
-  resolution: "@schematics/angular@npm:21.2.18"
-  dependencies:
-    "@angular-devkit/core": "npm:21.2.18"
-    "@angular-devkit/schematics": "npm:21.2.18"
-    jsonc-parser: "npm:3.3.1"
-  checksum: 10/774aed44f77f90379bcf886fbdaa9b7bfc26ad5e414bc2d7bf2ac99892f1ebb9ecd0f97d15f1d6acbb9a671cf2ab63941c21a9c634d4d0574559879a15d5937e
   languageName: node
   linkType: hard
 
