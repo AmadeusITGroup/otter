@@ -41,13 +41,4 @@ export class HistoryConsumerService extends AbstractMessageConsumer<HistoryMessa
       history.go(message.payload.delta);
     }
   };
-
-  constructor() {
-    super();
-    /**
-     * Auto-starts the consumer on creation.
-     * @deprecated The constructor auto-starts the consumer for backwards compatibility. It will be removed in v15;
-     */
-    this.start();
-  }
 }

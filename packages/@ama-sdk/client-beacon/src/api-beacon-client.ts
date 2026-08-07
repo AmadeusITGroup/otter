@@ -12,7 +12,6 @@ import type {
 import {
   filterUndefinedValues,
   getPropertiesFromData,
-  prepareUrl,
   prepareUrlWithQueryParams,
   processFormData,
   serializePathParams,
@@ -123,11 +122,6 @@ export class ApiBeaconClient implements ApiClient {
       return serializePathParams(pathParams, pathParamSerialization);
     }
     return serializePathParams(pathParams, pathParamSerialization);
-  }
-
-  /** @inheritdoc */
-  public prepareUrl(url: string, queryParameters?: { [key: string]: string }): string {
-    return prepareUrl(url, queryParameters);
   }
 
   /** @inheritdoc */

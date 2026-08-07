@@ -45,13 +45,4 @@ export class ResizeConsumerService extends AbstractMessageConsumer<ResizeMessage
      */
     '1.0': (message: RoutedMessage<ResizeV1_0>) => this.newHeight.set({ height: message.payload.height, channelId: message.from })
   };
-
-  constructor() {
-    super();
-    /**
-     * Auto-starts the consumer on creation.
-     * @deprecated The constructor auto-starts the consumer for backwards compatibility. It will be removed in v15;
-     */
-    this.start();
-  }
 }

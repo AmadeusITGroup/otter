@@ -54,7 +54,8 @@ const devDependenciesToInstall = [
   'uuid',
   '@angular-devkit/build-angular',
   '@angular/core',
-  '@angular/common'
+  '@angular/common',
+  '@types/node'
 ];
 
 /**

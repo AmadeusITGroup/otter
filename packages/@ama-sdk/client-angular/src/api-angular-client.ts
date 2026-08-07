@@ -17,7 +17,6 @@ import {
   filterUndefinedValues,
   getPropertiesFromData,
   getResponseReviver,
-  prepareUrl,
   prepareUrlWithQueryParams,
   processFormData,
   RequestFailedError,
@@ -120,11 +119,6 @@ export class ApiAngularClient implements ApiClient {
       return serializePathParams(pathParams, pathParamSerialization);
     }
     return serializePathParams(pathParams, pathParamSerialization);
-  }
-
-  /** @inheritdoc */
-  public prepareUrl(url: string, queryParameters: { [key: string]: string | undefined } = {}) {
-    return prepareUrl(url, queryParameters);
   }
 
   /** @inheritdoc */

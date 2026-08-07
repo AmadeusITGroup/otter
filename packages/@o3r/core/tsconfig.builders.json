@@ -5,7 +5,8 @@
     "composite": true,
     "outDir": "./dist",
     "module": "CommonJS",
-    "moduleResolution": "node10",
+    "moduleResolution": "bundler",
+    "resolvePackageJsonExports": false,
     "rootDir": ".",
     "skipLibCheck": true, // Angular 21+ uses package exports incompatible with moduleResolution: node10
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"

@@ -125,7 +125,7 @@ following products on your development machine:
   * [GitHub's Guide to Installing
     Git](https://help.github.com/articles/set-up-git) is a good source of information.
 
-* [Node.js](http://nodejs.org), (version `>=18.0.0`)
+* [Node.js](http://nodejs.org), (version `>=22.22.3`)
   * This is used to run tests and generate distributable files. We strongly encourage to use an up-to-date LTS version of Node.js to ensure the support of all the Otter packages.
     Each package comes with a minimum Node.js version range defined in the `engine` property of its package.json file.
 

@@ -7,6 +7,8 @@
     "composite": true,
     "esModuleInterop": true
   },
-  "include": [],
+  "include": [
+    "testing/setup-jest.ts"
+  ],
   "exclude": ["**/*.e2e.spec.ts"]
 }

@@ -11,13 +11,10 @@
         "yarn"
       ],
       "postUpgradeTasks": {
-        // TODO: In v15, remove the {{else}}{{{depName}}} install part from the conditional commands to avoid redundant execution time.
-        // The else branch should be empty (or use 'true' or ';' as no-op). Renovate bots will need to update their allowed commands configuration
-        // to include an empty/no-op command. Details to be included in v15 migration guide.
         "commands": [
-          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user registry https:{{arg0}}{{else}}{{{depName}}} install{{/unless}}",
-          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user ignore-scripts true{{else}}{{{depName}}} install{{/unless}}",
-          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user {{arg0}}:_auth \"${{arg1}}\"{{else}}{{{depName}}} install{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user registry https:{{arg0}}{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user ignore-scripts true{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user {{arg0}}:_auth \"${{arg1}}\"{{/unless}}",
           "{{{depName}}} install"
         ],
         "executionMode": "branch",
