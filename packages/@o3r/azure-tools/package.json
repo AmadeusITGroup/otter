@@ -74,7 +74,7 @@
     "jest-junit": "~16.0.0",
     "jest-util": "~30.4.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~22.7.0",
+    "nx": "~22.7.7",
     "ts-jest": "~29.4.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "~8.65.0"
