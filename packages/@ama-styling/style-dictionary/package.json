@@ -113,7 +113,7 @@
     "jest-resolve": "~30.4.0",
     "jest-util": "~30.4.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~22.7.0",
+    "nx": "~22.7.7",
     "style-dictionary": "~5.4.0",
     "ts-jest": "~29.4.0",
     "type-fest": "^5.3.1",
