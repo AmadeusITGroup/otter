@@ -9,8 +9,7 @@
 - Version defined by `packageManager` field in root `package.json`
 
 ## Node Version
-
-- **Node Version:** 22.17.0+ or 24.0.0+ (use LTS versions)
+- **Node Version:** 22.22.3+ or 24.15.0+ or 26.0.0+ (use LTS versions)
 - Version constraint in `engines.node` field in root `package.json`
 
 ## Setup

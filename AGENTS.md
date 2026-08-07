@@ -20,7 +20,7 @@ yarn test           # Unit tests (mandatory before PR)
 ```
 
 **Package Manager:** Yarn 4.14.1 (Berry) with PnP - **NEVER use npm or pnpm**
-**Node Version:** 22.17.0+ or 24.0.0+
+**Node Version:** 22.22.3+ or 24.15.0+ or 26.0.0+
 
 ---
 
