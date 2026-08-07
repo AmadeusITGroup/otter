@@ -58,41 +58,6 @@
             "**/*.token.json"
           ],
           "description": "List of pattern to find files that define design tokens"
-        },
-        "otter.extract.styling.forbiddenWords": {
-          "type": "array",
-          "default": [
-            "override",
-            "function",
-            "mixin"
-          ],
-          "description": "Add forbidden words in selectors to avoid having them on variable generation."
-        },
-        "otter.extract.styling.prefix": {
-          "type": "string",
-          "default": "",
-          "description": "If not empty, will add a prefix to all the generated variables"
-        },
-        "otter.styling.variable.categories": {
-          "type": "array",
-          "default": [],
-          "items": {
-            "type": "string"
-          }
-        },
-        "otter.styling.variable.types": {
-          "type": "array",
-          "default": [
-            "color",
-            "string"
-          ],
-          "items": {
-            "type": "string"
-          }
-        },
-        "otter.styling.variable.details": {
-          "type": "boolean",
-          "default": true
         }
       }
     },
@@ -139,18 +104,6 @@
       {
         "command": "otter.generate.fixture",
         "title": "Otter: Generate fixture"
-      },
-      {
-        "command": "otter.extract.styling.variable",
-        "deprecated": "Rely on Design Token generation instead. Will be removed in v15",
-        "title": "Extract SCSS property to o3r.variable",
-        "category": "Otter"
-      },
-      {
-        "command": "otter.extract.styling.allVariable",
-        "deprecated": "Rely on Design Token generation instead. Will be removed in v15",
-        "title": "Extract all SCSS properties to o3r.variable",
-        "category": "Otter"
       },
       {
         "command": "otter.menu.generate.fixture",
@@ -283,14 +236,6 @@
         {
           "command": "otter.menu.generate.fixture",
           "when": "editorHasSelection && resourceFilename =~ /.html$/"
-        },
-        {
-          "command": "otter.extract.styling.variable",
-          "when": "resourceFilename =~ /.scss$/"
-        },
-        {
-          "command": "otter.extract.styling.allVariable",
-          "when": "resourceFilename =~ /.scss$/"
         },
         {
           "command": "otter.generate.localization-key-to-component"

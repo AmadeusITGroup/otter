@@ -1,7 +1,6 @@
 /* eslint-disable no-console -- only using the reference */
 import {
   getResponseReviver,
-  prepareUrl,
   prepareUrlWithQueryParams,
   ReviverType,
 } from '@ama-sdk/core';
@@ -69,13 +68,6 @@ describe('getResponseReviver - reviver as function', () => {
 });
 
 describe('Prepare URL', () => {
-  it('should correctly prepare url with query parameters of deprecated type', () => {
-    // primitive value
-    expect(prepareUrl('https://sampleUrl/samplePath/sampleOperation', { id: '5' })).toEqual('https://sampleUrl/samplePath/sampleOperation?id=5');
-    // array value
-    expect(prepareUrl('https://sampleUrl/samplePath/sampleOperation', { id: '3,4,5' })).toEqual('https://sampleUrl/samplePath/sampleOperation?id=3,4,5');
-  });
-
   it('should correctly prepare url with serialized query parameters', () => {
     // one parameter
     expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', { id: 'id=5' }))

@@ -10,23 +10,6 @@ import type {
 } from './reviver';
 
 /**
- * Prepares the url to be called
- * @param url Base url to be used
- * @param queryParameters Key value pair with the parameters. If the value is undefined, the key is dropped
- * @deprecated use {@link prepareUrlWithQueryParams} with query parameter serialization, will be removed in v15.
- */
-export function prepareUrl(url: string, queryParameters: { [key: string]: string | undefined } = {}) {
-  const queryPart = Object.keys(queryParameters)
-    .filter((name) => typeof queryParameters[name] !== 'undefined')
-    .map((name) => `${name}=${queryParameters[name]!}`)
-    .join('&');
-
-  const paramsPrefix = url.includes('?') ? '&' : '?';
-
-  return url + (queryPart ? paramsPrefix + queryPart : '');
-}
-
-/**
  * Prepares the url to be called with the query parameters
  * @param url Base url to be used
  * @param serializedQueryParams Key value pairs of query parameter names and their serialized values
