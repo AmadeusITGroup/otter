@@ -28,7 +28,9 @@
     },
     "build-components": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{projectRoot}/dist/components"],
+      "outputs": [
+        "{projectRoot}/dist/components"
+      ],
       "options": {
         "baseHref": "components",
         "outputPath": {
@@ -76,7 +78,9 @@
     },
     "build-panel": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{projectRoot}/dist/panel"],
+      "outputs": [
+        "{projectRoot}/dist/panel"
+      ],
       "options": {
         "baseHref": "panel",
         "outputPath": {
@@ -166,8 +170,98 @@
       "options": {
         "script": "publish-to-market"
       },
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     }
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@agnos-ui/angular-bootstrap",
+          "@agnos-ui/angular-headless",
+          "@agnos-ui/core-bootstrap",
+          "@amadeus-it-group/tansu",
+          "@angular-devkit/build-angular",
+          "@angular-devkit/core",
+          "@angular-devkit/schematics",
+          "@angular/animations",
+          "@angular/cli",
+          "@angular/common",
+          "@angular/compiler",
+          "@angular/compiler-cli",
+          "@angular/core",
+          "@angular/forms",
+          "@angular/localize",
+          "@angular/platform-browser",
+          "@angular/platform-browser-dynamic",
+          "@angular/router",
+          "@crxjs/vite-plugin",
+          "@design-factory/design-factory",
+          "@design-factory/styles",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@ng-bootstrap/ng-bootstrap",
+          "@ng-select/ng-select",
+          "@ngrx/entity",
+          "@ngrx/store",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@playwright/test",
+          "@popperjs/core",
+          "@schematics/angular",
+          "@standard-schema/spec",
+          "@stylistic/eslint-plugin",
+          "@types/chrome",
+          "@types/color",
+          "@types/jest",
+          "@types/tinycolor2",
+          "@typescript-eslint/parser",
+          "ag-grid-angular",
+          "ag-grid-community",
+          "angular-eslint",
+          "archiver",
+          "bootstrap",
+          "chokidar",
+          "chrome-webstore-upload",
+          "concurrently",
+          "cpy-cli",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "globby",
+          "jest",
+          "jest-environment-jsdom",
+          "jest-junit",
+          "jest-preset-angular",
+          "jest-util",
+          "jsdom",
+          "jsonc-eslint-parser",
+          "lighthouse",
+          "minimist",
+          "nx",
+          "playwright-lighthouse",
+          "rimraf",
+          "rxjs",
+          "tinycolor2",
+          "ts-jest",
+          "tsc-watch",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint",
+          "vite"
+        ]
+      }
+    ]
+  }
 }

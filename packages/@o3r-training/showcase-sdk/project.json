@@ -42,13 +42,73 @@
         "{projectRoot}/openapi.yml",
         "{projectRoot}/openapitools.json"
       ],
-      "outputs": ["{projectRoot}/dist/structure"],
-      "dependsOn": ["^build", "compile"]
+      "outputs": [
+        "{projectRoot}/dist/structure"
+      ],
+      "dependsOn": [
+        "^build",
+        "compile"
+      ]
     },
     "prepare-publish": {},
     "publish": {}
   },
   "tags": [
     "access:private"
-  ]
+  ],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular-devkit/core",
+          "@angular-devkit/schematics",
+          "@angular-devkit/schematics-cli",
+          "@angular/cli",
+          "@angular/compiler",
+          "@commitlint/cli",
+          "@commitlint/config-conventional",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@openapitools/openapi-generator-cli",
+          "@schematics/angular",
+          "@stylistic/eslint-plugin",
+          "@swc/cli",
+          "@swc/core",
+          "@swc/helpers",
+          "@types/jest",
+          "@types/node",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "chokidar",
+          "commit-and-tag-version",
+          "cpy-cli",
+          "eslint",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "globby",
+          "isomorphic-fetch",
+          "jest",
+          "jest-junit",
+          "jest-util",
+          "jsonc-eslint-parser",
+          "lint-staged",
+          "minimist",
+          "rimraf",
+          "ts-jest",
+          "tsc-watch",
+          "tslib",
+          "typedoc",
+          "typescript",
+          "typescript-eslint"
+        ]
+      }
+    ]
+  }
 }
