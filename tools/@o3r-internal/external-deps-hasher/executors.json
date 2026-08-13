@@ -1,0 +1,10 @@
+{
+  "executors": {
+    "jest": {
+      "implementation": "./jest-with-hasher.impl.mjs",
+      "schema": "./schema.json",
+      "hasher": "./external-deps.hasher.mjs",
+      "description": "PROTOTYPE — wraps @nx/jest:jest and attaches a custom hasher that scopes the cache to the project's actually-used external dependencies."
+    }
+  }
+}

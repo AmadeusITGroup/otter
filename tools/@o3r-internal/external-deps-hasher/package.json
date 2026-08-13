@@ -1,0 +1,11 @@
+{
+  "name": "@o3r-internal/external-deps-hasher",
+  "version": "0.0.0",
+  "private": true,
+  "description": "PROTOTYPE (Option B): local Nx executor that wraps @nx/jest:jest with a custom hasher scoping the cache to a project's actually-used external dependencies.",
+  "executors": "./executors.json",
+  "peerDependencies": {
+    "@nx/jest": "~22.7.0",
+    "nx": "~22.7.0"
+  }
+}
