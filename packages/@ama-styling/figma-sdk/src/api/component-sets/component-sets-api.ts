@@ -93,7 +93,7 @@ export class ComponentSetsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetComponentSet200Response>(url, options, ApiTypes.DEFAULT, ComponentSetsApi.apiName, undefined, 'getComponentSet');
     return ret;
@@ -145,7 +145,7 @@ export class ComponentSetsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetFileComponentSets200Response>(url, options, ApiTypes.DEFAULT, ComponentSetsApi.apiName, undefined, 'getFileComponentSets');
     return ret;
@@ -203,7 +203,7 @@ export class ComponentSetsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetTeamComponentSets200Response>(url, options, ApiTypes.DEFAULT, ComponentSetsApi.apiName, undefined, 'getTeamComponentSets');
     return ret;
