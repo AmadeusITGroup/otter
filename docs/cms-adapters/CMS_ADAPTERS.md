@@ -214,12 +214,6 @@ To achieve this, simply configure the following builder in your `angular.json` f
             "metadataPath": "./component.class.metadata.json" // Default value
           }
         },
-        "check-style-migration-metadata": {
-          "builder": "@o3r/styling:check-style-migration-metadata",
-          "options": {
-            "migrationDataPath": "./migration-scripts/MIGRATION-*.json" // Required
-          }
-        },
         "check-localization-migration-metadata": {
           "builder": "@o3r/localization:check-localization-migration-metadata",
           "options": {

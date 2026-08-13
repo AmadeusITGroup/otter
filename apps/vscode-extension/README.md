@@ -28,7 +28,6 @@ The following commands are currently available:
 | Otter: Add context to component           | Generate context architecture for the selected component                       | Right-click on component file in explorer        |
 | Otter: Add localization to component      | Generate localization architecture for the selected component                  | Right-click on component file in explorer        |
 | Otter: Add localization key to component  | Add new localization key with the necessary template modification              | Right-click when selecting code in template file |
-| Otter: Add theming to component           | Generate theming architecture for the selected component                       | Right-click on stye file in explorer             |
 | Otter: Add fixture to component           | Generate fixture architecture for the selected component                       | Right-click on component file in explorer        |
 | Otter: Add rules engine to component      | Generate rules engine architecture for the selected component                  | Right-click on component file in explorer        |
 | Otter: Add iframe to component            | Generate an iframe for the selected component                                  | Right-click on component file in explorer        |
@@ -38,8 +37,4 @@ All these commands are also available in the command panel.
 
 The ones which add feature to component are available in the command panel only if the active editor is the component file with some exceptions:
 
-- `Otter: Add theming to component` available when the style file is open
-- `Otter: Add localization key to component` avaibable when the template is open and a text is selected
-
-> [!TIP]
-> Check [extract styling documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/vscode-extension/EXTRACT_STYLING.md)
+- `Otter: Add localization key to component` available when the template is open and a text is selected
