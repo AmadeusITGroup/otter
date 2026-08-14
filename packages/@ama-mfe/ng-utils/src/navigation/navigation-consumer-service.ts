@@ -77,15 +77,6 @@ export class NavigationConsumerService extends AbstractMessageConsumer<Navigatio
     }
   };
 
-  constructor() {
-    super();
-    /**
-     * Auto-starts the consumer on creation.
-     * @deprecated The constructor auto-starts the consumer for backwards compatibility. It will be removed in v15;
-     */
-    this.start();
-  }
-
   /**
    * Parses a URL and returns an object containing the paths and query parameters.
    * @param url - The URL to parse.

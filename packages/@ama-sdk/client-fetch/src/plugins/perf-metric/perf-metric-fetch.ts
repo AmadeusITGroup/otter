@@ -2,26 +2,10 @@ import {
   PerformanceMetricService,
 } from '@ama-sdk/core';
 import type {
-  Mark as CoreMark,
-  PerformanceMetricOptions as CorePerformanceMetricOptions,
-} from '@ama-sdk/core';
-import type {
   FetchCall,
   FetchPlugin,
   FetchPluginContext,
 } from '../../fetch-plugin';
-
-/**
- * Performance metric mark associated to a call.
- * @deprecated use {@link CoreMark|Mark from `@ama-sdk/core`} instead. Will be removed in v15
- */
-export type Mark = CoreMark;
-
-/**
- * Options for the Performance Metric Plugin.
- * @deprecated use {@link CorePerformanceMetricOptions|PerformanceMetricOptions from `@ama-sdk/core`} instead. Will be removed in v15
- */
-export type PerformanceMetricOptions = CorePerformanceMetricOptions;
 
 /**
  * Performance metric plugin.

@@ -11,11 +11,11 @@ Otter can extract metadata from Angular applications for CMS integration:
 
 ## Framework Versions
 
-- Angular: ~21.2.4
-- TypeScript: ~5.9.2
+- Angular: ~22.0.4
+- TypeScript: ~6.0.3
 - RxJS: ^7.8.1
-- NgRx: ~21.1.0
-- Nx: ~22.7.0
+- NgRx: ~22.0.0-rc.0
+- Nx: ~23.1.0
 
 ## Showcase Application
 
