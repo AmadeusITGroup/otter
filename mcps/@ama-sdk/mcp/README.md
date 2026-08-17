@@ -22,7 +22,7 @@ Configure SDK packages directly in your `.vscode/mcp.json`:
   "servers": {
     "sdk-context": {
       "command": "npx",
-      "args": ["ama-sdk-mcp", "--packages", "@my-scope/my-sdk-package", "@other-scope/other-sdk"]
+      "args": ["-y", "-p", "@ama-sdk/mcp", "ama-sdk-mcp", "--packages", "@my-scope/my-sdk-package", "@other-scope/other-sdk"]
     }
   }
 }
