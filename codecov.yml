@@ -75,7 +75,6 @@ component_management:
       paths:
         - apps/chrome-devtools/**
         - apps/github-cascading-app/**
-        - apps/intellij-extension/**
         - apps/vscode-extension/**
         - apps/palette-generator/**
     - component_id: otter-github-actions
