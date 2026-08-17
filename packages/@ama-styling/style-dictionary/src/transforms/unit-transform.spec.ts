@@ -32,7 +32,7 @@ describe('unitTransform', () => {
       attributes: {
         o3rUnit: 'lol'
       }
-    } as any, {} as any, { usesDtcg: true });
+    } as any, {}, { usesDtcg: true });
 
     expect(result).toBe('2lol');
   });
@@ -44,7 +44,7 @@ describe('unitTransform', () => {
       attributes: {
         o3rUnit: 'lol'
       }
-    } as any, {} as any, { usesDtcg: false });
+    } as any, {}, { usesDtcg: false });
 
     expect(result).toBe('2lol');
   });
@@ -62,7 +62,7 @@ describe('unitTransform', () => {
       attributes: {
         o3rUnit: 'lol'
       }
-    } as any, {} as any, { usesDtcg: true });
+    } as any, {}, { usesDtcg: true });
 
     expect(result).toEqual({ field: { value: '1.3 lol', valueNoSpace: '1.3lol', valueNumber: 5, valueDot: '.5lol' } });
   });
@@ -78,7 +78,7 @@ describe('unitTransform', () => {
       attributes: {
         o3rUnit: 'lol'
       }
-    } as any, {} as any, { usesDtcg: true });
+    } as any, {}, { usesDtcg: true });
 
     expect(result).toEqual({ value: '1.3 lol', valueNoSpace: '1.3lol', valueNumber: 5, valueDot: '.5lol' });
   });
@@ -89,7 +89,7 @@ describe('unitTransform', () => {
       attributes: {
         o3rRatio: 5
       }
-    } as any, {} as any, { usesDtcg: true });
+    } as any, {}, { usesDtcg: true });
 
     expect(result).toBe('it\'s 1 value');
   });
@@ -100,7 +100,7 @@ describe('unitTransform', () => {
       attributes: {
         o3rUnit: ''
       }
-    } as any, {} as any, { usesDtcg: true });
+    } as any, {}, { usesDtcg: true });
 
     expect(result).toBe('2');
   });

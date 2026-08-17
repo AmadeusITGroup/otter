@@ -10,7 +10,7 @@ describe('PlaceholderRequest Store reducer', () => {
   });
 
   it('should by default return the initial state', () => {
-    const state = placeholderRequestReducer(placeholderRequestInitialState, { type: 'fake' } as any);
+    const state = placeholderRequestReducer(placeholderRequestInitialState, { type: 'fake' });
     expect(state).toEqual(placeholderRequestInitialState);
   });
 

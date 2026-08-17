@@ -30,7 +30,7 @@ export class CustomInfoReply<G = { [key: string]: any }, V extends { [key: strin
       transform: (data: V) => Object.assign(data || Object.assign({}, data), {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- explicit `any`
         customInfo: data && data.customInfo ? Object.assign(data.customInfo, this.customInfo) : this.customInfo
-      }) as (typeof data & { customInfo: any })
+      })
     };
   }
 }

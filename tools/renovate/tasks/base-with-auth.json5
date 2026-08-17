@@ -1,0 +1,59 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Usage: 'github>AmadeusITGroup/otter//tools/renovate/tasks/base-with-auth(//npm.my-company.example/api/npm/npm/, NPM_AUTH_BASE64)' - Trigger post install scripts when updating package manager (npm, Yarn 1, and Yarn Berry), with optional private registry authentication. When registry args are provided, configures authentication on the Renovate runner (npm config for npm/Yarn 1, yarn config for Yarn 2+), then runs the install. arg0: (optional) scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'). For npm/Yarn 1: used to derive 'https:{{arg0}}' for the registry URL and '{{arg0}}:_auth' for the auth entry. For Yarn 2+: used for npmRegistryServer and as the key for npmRegistries. arg1: (optional) name of the environment variable holding the base64-encoded token. For npm/Yarn 1: base64-encoded token (e.g. 'NPM_AUTH_BASE64'). For Yarn 2+: base64-encoded 'user:password' token; if using a bearer token, replace npmAuthIdent with npmAuthToken. Must be exposed to Renovate via customEnvVariables. When arg0/arg1 are empty, no authentication is configured. References: https://yarnpkg.com/configuration/yarnrc ; https://yarnpkg.com/cli/config/set ; https://docs.renovatebot.com/getting-started/private-packages",
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "packageManager"
+      ],
+      "matchPackageNames": [
+        "npm",
+        "yarn"
+      ],
+      "postUpgradeTasks": {
+        // TODO: In v15, remove the {{else}}{{{depName}}} install part from the conditional commands to avoid redundant execution time.
+        // The else branch should be empty (or use 'true' or ';' as no-op). Renovate bots will need to update their allowed commands configuration
+        // to include an empty/no-op command. Details to be included in v15 migration guide.
+        "commands": [
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user registry https:{{arg0}}{{else}}{{{depName}}} install{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user ignore-scripts true{{else}}{{{depName}}} install{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user {{arg0}}:_auth \"${{arg1}}\"{{else}}{{{depName}}} install{{/unless}}",
+          "{{{depName}}} install"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "packages/**/package.json",
+          "packages/**/package.json.template",
+          "package.json"
+        ]
+      },
+      "groupName": "Package manager",
+      "groupSlug": "package-manager"
+    },
+    {
+      "matchDepTypes": [
+        "packageManager"
+      ],
+      "matchPackageNames": [
+        "yarn"
+      ],
+      "matchCurrentVersion": ">=2.0.0",
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn config set -H npmRegistryServer \"https:{{arg0}}\"",
+          "yarn config set -H enableScripts false",
+          "yarn config set -H 'npmRegistries[\"{{arg0}}\"].npmAuthIdent' \"${{arg1}}\"",
+          "yarn install"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "packages/**/package.json",
+          "packages/**/package.json.template",
+          "package.json"
+        ]
+      },
+      "groupName": "Package manager",
+      "groupSlug": "package-manager"
+    }
+  ]
+}

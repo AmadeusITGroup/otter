@@ -13,7 +13,7 @@ describe('AssetPathOverride Store reducer', () => {
   const secondAssetPathOverride = { asset: 'assetPathOverride2', value: 'assetPathOverride2' };
 
   it('should by default return the initial state', () => {
-    state = assetPathOverrideReducer(assetPathOverrideInitialState, { type: 'fake' } as any);
+    state = assetPathOverrideReducer(assetPathOverrideInitialState, { type: 'fake' });
 
     expect(state).toEqual(assetPathOverrideInitialState);
   });

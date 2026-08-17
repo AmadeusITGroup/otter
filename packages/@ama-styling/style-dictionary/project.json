@@ -28,23 +28,14 @@
       }
     },
     "lint": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    },
     "test": {
-      "plugin": "@nx/vitest",
-      "executor": "@nx/vitest:test",
-      "inputs": [
-        {
-          "env": "RUNNER_OS"
-        },
-        "builders",
-        "schematics",
-        "source",
-        "tests"
-      ],
-      "outputs": [
-        "{projectRoot}/dist-test/junit.xml",
-        "{projectRoot}/coverage/cobertura-coverage.xml"
-      ],
-      "dependsOn": []
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
     },
     "test-int": {
       "options": {

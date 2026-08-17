@@ -399,8 +399,8 @@ describe('Rules engine service', () => {
     aNumberSubj.next(undefined);
     expect(consoleSpy).toHaveBeenCalledTimes(1);
     // Fake emit of new value from sNumber fact, should trigger error, but not the events$
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- test trigger of error
-    aNumberSubj.next(null as any);
+
+    aNumberSubj.next(null);
     expect(consoleSpy).toHaveBeenCalledTimes(2);
     // Fake emit of new value from sNumber fact, should not trigger error, and trigger events$
     aNumberSubj.next(4);

@@ -94,7 +94,7 @@ export async function encryptPayload(
     authenticationTag = aesOutput.slice(-authenticationTagLength / 8);
   } else {
     // AES will output a tag so we cast to avoid unnecessary runtime check
-    const aesOutput = await promisifyMsCrypto(window.msCrypto.subtle.encrypt(aesParams, key, payload)) as { ciphertext: ArrayBuffer; tag: ArrayBuffer };
+    const aesOutput = await promisifyMsCrypto(window.msCrypto.subtle.encrypt(aesParams, key, payload));
     ciphertext = aesOutput.ciphertext;
     authenticationTag = aesOutput.tag;
   }

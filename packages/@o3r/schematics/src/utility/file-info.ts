@@ -47,7 +47,7 @@ export function getModuleIndex(sourceFile: ts.SourceFile, sourceContent: string)
     const moduleMetadata = getDecoratorMetadata(sourceFile, decorator.name, '@angular/core');
     if (moduleMetadata[0]) {
       return {
-        ngModulesMetadata: moduleMetadata as ts.Node[],
+        ngModulesMetadata: moduleMetadata,
         moduleIndex: moduleMetadata[0].pos - (decorator.name.length + 1),
         isStandalone: decorator.isStandalone
       };

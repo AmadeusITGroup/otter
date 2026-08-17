@@ -23,7 +23,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
       }
     } as any;
     const runner = plugin.load(context);
-    const data = await runner.transform({ field: true } as any);
+    const data = await runner.transform({ field: true });
 
     expect(storage.getItem).toHaveBeenCalledWith('header key');
     expect(storage.setItem).toHaveBeenCalledWith('header key', expect.stringMatching(/^[a-f0-9]{16}$/));
@@ -59,7 +59,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
       }
     } as any;
     const runner = plugin.load(context);
-    const data = await runner.transform({ field: true } as any);
+    const data = await runner.transform({ field: true });
 
     expect(storage.getItem).toHaveBeenCalledWith('header key');
     expect(storage.setItem).toHaveBeenCalledWith('header key', expect.stringMatching(/^[a-f0-9]{16}$/));
@@ -95,7 +95,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
       }
     } as any;
     const runner = plugin.load(context);
-    const data = await runner.transform({} as any);
+    const data = await runner.transform({});
 
     expect(storage.getItem).toHaveBeenCalledWith('header key');
     expect(context.response.headers.get).toHaveBeenCalledWith('test header');
@@ -125,7 +125,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
       response: undefined
     } as any;
     const runner = plugin.load(context);
-    const data = await runner.transform({} as any);
+    const data = await runner.transform({});
 
     expect(storage.getItem).not.toHaveBeenCalled();
     expect(data).toEqual({});
@@ -185,7 +185,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
       }
     } as any;
     const runner = plugin.load(context);
-    const data = await runner.transform({ field: true } as any);
+    const data = await runner.transform({ field: true });
 
     expect(context.response.headers.get).toHaveBeenCalledWith('test header');
     expect(data).toEqual({ field: true });
@@ -213,7 +213,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
       }
     } as any;
     const runner = plugin.load(context);
-    const data = await runner.transform({ field: true } as any);
+    const data = await runner.transform({ field: true });
 
     expect(logger.warn).toHaveBeenCalled();
     expect(context.response.headers.get).toHaveBeenCalledWith('test header');
@@ -242,7 +242,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
       }
     } as any;
     const runner = plugin.load(context);
-    const data = await runner.transform({ field: true } as any);
+    const data = await runner.transform({ field: true });
 
     expect(logger.warn).toHaveBeenCalled();
     expect(context.response.headers.get).toHaveBeenCalledWith('test header');
@@ -270,7 +270,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
       }
     } as any;
     const runner = plugin.load(context);
-    const data = await runner.transform({ field: true, _fieldIdTest: {} } as any);
+    const data = await runner.transform({ field: true, _fieldIdTest: {} });
 
     expect(context.logger.warn).toHaveBeenCalledWith(expect.stringMatching(/^The field "_fieldIdTest" already exist/));
     expect(data).toEqual({

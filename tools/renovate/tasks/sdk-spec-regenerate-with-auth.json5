@@ -1,0 +1,27 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Usage: 'github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate-with-auth(yarn, @my-company/spec-package, //npm.my-company.example/api/npm/npm/, NPM_AUTH_BASE64)' - Trigger SDK regeneration for a specific package name, with optional private registry authentication. When registry args are provided, configures npm user-level config (~/.npmrc) on the Renovate runner so install and spec:upgrade can authenticate against a private registry. arg0: package manager (yarn, npm). arg1: full package name. arg2: (optional) scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'). arg3: (optional) name of the environment variable holding the base64-encoded token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables. When arg2/arg3 are empty, no authentication is configured. Only supported for npm and Yarn 1; for Yarn 2+, configure hostRules (see https://docs.renovatebot.com/getting-started/private-packages/#yarn-2).",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "{{arg1}}"
+      ],
+      "postUpgradeTasks": {
+        // TODO: In v15, remove the {{else}}{{arg0}} install part from the conditional commands to avoid redundant execution time.
+        // The else branch should be empty (or use 'true' or ';' as no-op). Renovate bots will need to update their allowed commands configuration
+        // to include an empty/no-op command. Details to be included in v15 migration guide.
+        "commands": [
+          "{{#unless (equals '{{arg2}}' '')}}npm config set --location=user registry https:{{arg2}}{{else}}{{arg0}} install{{/unless}}",
+          "{{#unless (equals '{{arg2}}' '')}}npm config set --location=user ignore-scripts true{{else}}{{arg0}} install{{/unless}}",
+          "{{#unless (equals '{{arg2}}' '')}}npm config set --location=user {{arg2}}:_auth \"${{arg3}}\"{{else}}{{arg0}} install{{/unless}}",
+          "{{arg0}} install",
+          "{{arg0}} run spec:upgrade"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "!**/.{npmrc,yarnrc*}"
+        ]
+      }
+    }
+  ]
+}

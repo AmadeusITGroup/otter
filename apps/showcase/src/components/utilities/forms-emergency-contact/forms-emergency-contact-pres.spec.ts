@@ -6,8 +6,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  mockTranslationModules,
-} from '@o3r/testing/localization';
+  provideLocalizationMock,
+} from '@o3r/testing/transloco';
 import {
   FormsEmergencyContactPres,
 } from './forms-emergency-contact-pres';
@@ -18,7 +18,8 @@ describe('FormsEmergencyContactPres', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsEmergencyContactPres, ...mockTranslationModules(), ReactiveFormsModule]
+      imports: [FormsEmergencyContactPres, ReactiveFormsModule],
+      providers: [provideLocalizationMock()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormsEmergencyContactPres);

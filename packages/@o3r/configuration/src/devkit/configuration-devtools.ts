@@ -134,7 +134,7 @@ export class OtterConfigurationDevtools {
         filter((entity): entity is ConfigurationModel => !!entity),
         map((entity) => {
           const { id, ...configuration } = entity;
-          return configuration as Configuration;
+          return configuration;
         })
       )
     );

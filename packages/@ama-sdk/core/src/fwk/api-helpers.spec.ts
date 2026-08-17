@@ -10,7 +10,7 @@ describe('getResponseReviver - revivers by status code', () => {
   const revivers: { [key: number]: ReviverType<any> | undefined } = {
     202: jest.fn(),
     201: jest.fn()
-  } as any;
+  };
 
   beforeEach(() => {
     jest.spyOn(console, 'error');

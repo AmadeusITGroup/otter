@@ -13,7 +13,7 @@ export interface PrimitiveReviverMapper<T = any> {
 
 const defaultConstruct = (data: any) => data;
 
-const isDate = (data: any) => data instanceof Date && !Number.isNaN(data as any);
+const isDate = (data: any) => data instanceof Date && !Number.isNaN(data);
 
 /**
  * Check if an object is not an array or a date

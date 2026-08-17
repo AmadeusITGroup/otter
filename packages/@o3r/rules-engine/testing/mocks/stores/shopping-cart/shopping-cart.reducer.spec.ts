@@ -18,7 +18,7 @@ describe('ShoppingCart Store reducer', () => {
   });
 
   it('should by default return the initial state', () => {
-    const state = shoppingCartReducer(shoppingCartInitialState, { type: 'fake' } as any);
+    const state = shoppingCartReducer(shoppingCartInitialState, { type: 'fake' });
     expect(state).toEqual(shoppingCartInitialState);
   });
 

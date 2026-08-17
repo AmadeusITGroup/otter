@@ -53,7 +53,7 @@ export class PullRequestService {
     this.logger.info(`Adding comment to thread ${thread.id}...`);
     const gitApi = await this.connection.getGitApi();
     return gitApi.createComment(
-      { content: comment } as Comment,
+      { content: comment },
       repoName,
       pullRequestId,
       thread.id,
@@ -84,7 +84,7 @@ export class PullRequestService {
         status,
         comments: [{ content: comment }],
         ...(threadIdentifier ? { properties: { threadIdentifier } } : {})
-      } as GitPullRequestCommentThread,
+      },
       repoName,
       pullRequestId,
       this.project

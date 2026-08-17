@@ -2,9 +2,6 @@ import {
   AsyncPipe,
 } from '@angular/common';
 import {
-  Provider,
-} from '@angular/core';
-import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
@@ -21,21 +18,20 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import {
-  TranslateCompiler,
-  TranslateFakeCompiler,
-} from '@ngx-translate/core';
-import {
   provideDynamicContent,
 } from '@o3r/dynamic-content';
-import {
-  LocalizationService,
-} from '@o3r/localization';
 import {
   RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
 import {
-  mockTranslationModules,
-} from '@o3r/testing/localization';
+  provideLocalizationMock,
+} from '@o3r/testing/transloco';
+import {
+  LocalizationService,
+} from '@o3r/transloco';
+import {
+  LocalizationRulesEngineActionHandler,
+} from '@o3r/transloco/rules-engine';
 import {
   provideMarkdown,
 } from 'ngx-markdown';
@@ -46,10 +42,6 @@ import {
 const localizationConfiguration = { language: 'en' };
 const mockTranslations = {
   en: {}
-};
-const mockTranslationsCompilerProvider: Provider = {
-  provide: TranslateCompiler,
-  useClass: TranslateFakeCompiler
 };
 
 describe('RulesEngine', () => {
@@ -69,13 +61,15 @@ describe('RulesEngine', () => {
         EffectsModule.forRoot(),
         RulesEngineRunnerModule.forRoot(),
         RouterModule.forRoot([]),
-        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
         AsyncPipe
       ],
       providers: [
+        LocalizationService,
+        LocalizationRulesEngineActionHandler,
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
         provideMarkdown(),
-        provideDynamicContent()
+        provideDynamicContent(),
+        provideLocalizationMock(localizationConfiguration, mockTranslations)
       ]
     });
     global.fetch = jest.fn(() =>

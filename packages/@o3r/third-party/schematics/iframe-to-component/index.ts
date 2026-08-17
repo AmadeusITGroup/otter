@@ -180,7 +180,7 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
                 }
                 return ts.visitEachChild(node, visit, ctx);
               };
-              return ts.visitNode(rootNode, visit) as ts.SourceFile;
+              return ts.visitNode(rootNode, visit);
             },
             fixStringLiterals
           ]);

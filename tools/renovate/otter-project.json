@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Group all otter dependencies and trigger ng update scripts with yarn",
+  "description": "Usage: 'github>AmadeusITGroup/otter//tools/renovate/otter-project' - Group all otter dependencies and trigger ng update scripts with yarn",
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/group/otter",
     "github>AmadeusITGroup/otter//tools/renovate/group/mfe",

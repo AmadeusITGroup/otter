@@ -92,7 +92,7 @@ program.action(async (inputs: string[] = []) => {
       .forEach((api) => api.output = path.resolve(process.cwd(), path.dirname(opts.apis.path), api.output));
 
     for (const api of apiConfigs) {
-      await buildSpecs({ ...buildConfig, ...api } as BuilderApiConfiguration,
+      await buildSpecs({ ...buildConfig, ...api },
         [
           ...inputs,
           {

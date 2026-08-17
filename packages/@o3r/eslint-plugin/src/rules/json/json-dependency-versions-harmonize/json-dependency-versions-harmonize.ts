@@ -122,8 +122,11 @@ export default createRule<[VersionsHarmonizeOptions, ...any], 'versionUpdate' | 
               .map((depGroup) => depGroup.value)
               .filter((depGroup): depGroup is AST.JSONObjectExpression => depGroup.type === 'JSONObjectExpression')
               .forEach((depGroup) => {
+                const isResolutionsField = options.alignResolutions && depGroup.parent.type === 'JSONProperty'
+                  && resolutionsFields.includes(depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name);
+
                 const report = (name: string, resolvedName: string, dep: AST.JSONProperty, range: string | undefined, bestRange: string | undefined) => {
-                  if (bestRange && bestRange !== range && !range?.startsWith('workspace:')) {
+                  if (bestRange && bestRange !== range && !range?.startsWith('workspace:') && (!isResolutionsField || !range?.startsWith('$'))) {
                     if (!options.alignPeerDependencies && depGroup.parent.type === 'JSONProperty' && range
                       && (depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name) === 'peerDependencies'
                       && semver.subset(bestRange, range, { includePrerelease: true })) {
@@ -152,9 +155,6 @@ export default createRule<[VersionsHarmonizeOptions, ...any], 'versionUpdate' | 
                 };
 
                 depGroup.properties.forEach((dependencyNode) => {
-                  const isResolutionsField = options.alignResolutions && depGroup.parent.type === 'JSONProperty'
-                    && resolutionsFields.includes(depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name);
-
                   const getNodeDetails = (dep: AST.JSONProperty): void => {
                     const name = dep.key.type === 'JSONLiteral' ? dep.key.value.toString() : dep.key.name;
                     const nameParts = name.split('/');

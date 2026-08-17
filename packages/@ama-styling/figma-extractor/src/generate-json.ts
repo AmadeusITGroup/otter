@@ -99,7 +99,7 @@ export const generateJsonFiles = async (options: GenerateJsonFile) => {
   if (isFigmaFileContext(options)) {
     versions = getFileVersions(apiClient, options);
   } else if (isFigmaProjectContext(options)) {
-    versions = getAllVersions(apiClient, options as FigmaProjectContext);
+    versions = getAllVersions(apiClient, options);
     options.fileKey = (await versions).at(0)?.fileKey;
 
     if (!isFigmaFileContext(options)) {

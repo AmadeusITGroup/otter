@@ -3,7 +3,6 @@ import {
 } from '@angular-devkit/schematics';
 import {
   setupSchematicsParamsForProject,
-  WorkspaceSchematics,
 } from '@o3r/schematics';
 import {
   defaultPresetRuleFactory,
@@ -31,7 +30,7 @@ export function cmsPreset(options: PresetOptions) {
   return {
     modules,
     rule: chain([
-      setupSchematicsParamsForProject({ '*:ng-add': { enableMetadataExtract: true } } as WorkspaceSchematics, options.projectName),
+      setupSchematicsParamsForProject({ '*:ng-add': { enableMetadataExtract: true } }, options.projectName),
       rule
     ])
   };

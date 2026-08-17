@@ -10,7 +10,6 @@ import {
   OTTER_NAME_PREFIX,
 } from '../constants.mjs';
 import type {
-  CssMetadata,
   CssVariable,
   DesignTokenMetadata,
 } from '../interfaces/metadata-interface.mjs';
@@ -95,7 +94,7 @@ export const metadataFormat: Format = {
         strValue: propertyFormatter(token)
       }))
       .filter(({ strValue }) => !!strValue)
-      .reduce((acc, { token, strValue }) => {
+      .reduce<{ variables: Record<string, CssVariable> }>((acc, { token, strValue }) => {
         const cssVariable: CssVariable = {
           name: token.name,
           description: token.$description || token.comment,
@@ -106,7 +105,7 @@ export const metadataFormat: Format = {
         };
         acc.variables[token.name] = cssVariable;
         return acc;
-      }, { variables: {} } as CssMetadata);
+      }, { variables: {} });
 
     return JSON.stringify(metadata, null, indentation?.length || 2).replaceAll(/[\n\r]+/g, lineSeparator);
   }

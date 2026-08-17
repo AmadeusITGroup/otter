@@ -34,15 +34,15 @@ import {
   O3rDynamicContentPipe,
 } from '@o3r/dynamic-content';
 import {
-  Localization,
-  LocalizationModule,
-  LocalizationService,
-  Translatable,
-} from '@o3r/localization';
-import {
   RulesEngineRunnerModule,
   RulesEngineRunnerService,
 } from '@o3r/rules-engine';
+import {
+  Localization,
+  LocalizationService,
+  O3rLocalizationTranslatePipe,
+  Translatable,
+} from '@o3r/transloco';
 import {
   TripFactsService,
 } from '../../../facts/trip/trip-facts-service';
@@ -70,9 +70,9 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     O3rDynamicContentPipe,
+    O3rLocalizationTranslatePipe,
     ReactiveFormsModule,
     RulesEngineRunnerModule,
-    LocalizationModule,
     DatePickerInputPres
   ]
 })
