@@ -45,7 +45,7 @@
     "postbuild": "patch-package-json-main"
   },
   "devDependencies": {
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~21.2.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@jest/environment": "~30.3.0",
     "@jest/transform": "~30.3.0",
