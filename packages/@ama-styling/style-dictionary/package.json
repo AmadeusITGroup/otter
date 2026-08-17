@@ -73,7 +73,7 @@
     }
   },
   "devDependencies": {
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~21.2.19",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~22.5.3",
