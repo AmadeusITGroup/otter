@@ -25,7 +25,7 @@
     }
   },
   "dependencies": {
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~21.2.19",
     "@schematics/angular": "~21.2.0",
     "minimist": "^1.2.6",
     "shell-quote": "^1.8.1",
