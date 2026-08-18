@@ -147,7 +147,7 @@
     "type-fest": "^5.3.1",
     "typescript": "~6.0.3",
     "typescript-eslint": "~8.65.0",
-    "typescript-json-schema": "^0.67.0"
+    "typescript-json-schema": "^0.68.0"
   },
   "engines": {
     "node": "^22.22.3 || ^24.15.0 || ^26.0.0"
