@@ -29,7 +29,7 @@
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
     "@angular-devkit/schematics-cli": "~21.2.0",
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~21.2.19",
     "@o3r/schematics": "workspace:*",
     "@openapitools/openapi-generator-cli": "~2.39.1",
     "@schematics/angular": "~21.2.0",
