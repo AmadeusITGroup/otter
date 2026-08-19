@@ -49,13 +49,13 @@ export class RuleKeyValuePresComponent implements OnChanges {
    * Current value of the object
    */
   @Input()
-  public value!: string;
+  public value!: any;
 
   /**
    * Previous value of the object
    */
   @Input()
-  public oldValue?: string;
+  public oldValue?: any;
 
   /**
    * Type of display:

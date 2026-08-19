@@ -14,6 +14,8 @@ export interface ComponentReplacementPresFixture extends ComponentFixtureProfile
   getDate: () => Promise<O3rElement | undefined>;
   /** Get Date input */
   getDateInput: () => Promise<O3rElement | undefined>;
+  /** Get Child Id */
+  getChildIdInput: () => Promise<O3rElement | undefined>;
 }
 
 export class ComponentReplacementPresFixtureComponent extends O3rComponentFixture implements ComponentReplacementPresFixture {
@@ -23,7 +25,12 @@ export class ComponentReplacementPresFixtureComponent extends O3rComponentFixtur
   }
 
   /** @inheritDoc */
+  public getChildIdInput() {
+    return this.query('#component-replacement-id');
+  }
+
+  /** @inheritDoc */
   public getDateInput() {
-    return this.query('#date-outbound');
+    return this.query('[x-data-testid="date-picker-input"]');
   }
 }

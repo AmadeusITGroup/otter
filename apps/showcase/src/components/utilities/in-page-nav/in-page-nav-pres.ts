@@ -3,11 +3,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   Directive,
+  effect,
   inject,
-  Input,
-  OnChanges,
+  input,
   OnDestroy,
-  SimpleChanges,
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
@@ -22,7 +21,7 @@ import {
 export interface InPageNavLink {
   id: string;
   label: string;
-  scrollTo: (e: MouseEvent) => void;
+  scrollTo: (e: Event) => void;
 }
 
 @Directive({
@@ -44,9 +43,9 @@ export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
 
   /**
    * Scroll to the h2 HTML element
-   * @param e mouse event
+   * @param e event
    */
-  public scrollTo(e: MouseEvent) {
+  public scrollTo(e: Event) {
     e.stopPropagation();
     e.preventDefault();
     this.nativeElement.scrollIntoView({
@@ -66,23 +65,24 @@ export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InPageNavPres implements OnChanges, OnDestroy {
+export class InPageNavPres implements OnDestroy {
   /** Id of the scroll spy */
-  @Input()
-  public id = 'in-page-nav';
+  public readonly id = input('in-page-nav');
 
   /** List of links */
-  @Input()
-  public links: readonly InPageNavLink[] = [];
+  public readonly links = input<readonly InPageNavLink[] | null>([]);
 
   private readonly scrollSpyService = inject(NgbScrollSpyService);
 
-  public ngOnChanges(simpleChanges: SimpleChanges) {
-    if ((simpleChanges.links.isFirstChange() || simpleChanges.links.currentValue !== simpleChanges.links.previousValue) && this.links) {
-      this.scrollSpyService.start({
-        fragments: this.links.map((link) => link.id)
-      });
-    }
+  constructor() {
+    effect(() => {
+      const links = this.links();
+      if (links?.length) {
+        this.scrollSpyService.start({
+          fragments: links.map((link) => link.id)
+        });
+      }
+    });
   }
 
   public ngOnDestroy() {

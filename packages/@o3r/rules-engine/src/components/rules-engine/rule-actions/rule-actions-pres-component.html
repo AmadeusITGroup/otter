@@ -1,5 +1,5 @@
 <div class="ruleset-panel-category-title">Output Actions</div>
-@if (actions?.length === 0 && runtimeOutputs.length === 0) {
+@if (actions?.length === 0 && runtimeOutputs?.length === 0) {
   <div class="ruleset-panel-category-body empty">
     No action
   </div>
@@ -80,7 +80,7 @@
         <div>
           <o3r-rule-key-value-pres
             [key]="runtimeOutput | o3rFallbackTo: 'Missing \'fact\''"
-            [value]="temporaryFacts[runtimeOutput] | o3rFallbackTo"
+            [value]="temporaryFacts?.[runtimeOutput] | o3rFallbackTo"
             [type]="'assignment'" />
         </div>
       </li>

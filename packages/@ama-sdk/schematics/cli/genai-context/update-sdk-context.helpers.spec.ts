@@ -1,4 +1,5 @@
 import type {
+  OpenAPIV2,
   OpenAPIV3,
 } from 'openapi-types';
 import {
@@ -76,6 +77,11 @@ describe('update-sdk-context.helpers', () => {
       expect(extractRefModel('#/components/schemas/Order')).toBe('Order');
     });
 
+    it('should extract model name from Swagger V2 #/definitions/ $ref', () => {
+      expect(extractRefModel('#/definitions/Pet')).toBe('Pet');
+      expect(extractRefModel('#/definitions/Order')).toBe('Order');
+    });
+
     it('should return null for undefined or invalid ref', () => {
       expect(extractRefModel(undefined)).toBeNull();
       expect(extractRefModel('')).toBeNull();
@@ -142,6 +148,46 @@ describe('update-sdk-context.helpers', () => {
 
       const models = extractModelsFromOperation(operation);
       expect(models).toHaveLength(0);
+    });
+
+    it('should extract models from Swagger V2 body parameter', () => {
+      const operation = {
+        parameters: [
+          { in: 'body', name: 'body', schema: { $ref: '#/definitions/Pet' } }
+        ],
+        responses: { 200: { description: 'OK' } }
+      } as unknown as OpenAPIV2.OperationObject;
+
+      const models = extractModelsFromOperation(operation);
+      expect(models).toContain('Pet');
+    });
+
+    it('should extract models from Swagger V2 response schema', () => {
+      const operation = {
+        responses: {
+          200: {
+            description: 'OK',
+            schema: { $ref: '#/definitions/Order' }
+          }
+        }
+      } as unknown as OpenAPIV2.OperationObject;
+
+      const models = extractModelsFromOperation(operation);
+      expect(models).toContain('Order');
+    });
+
+    it('should extract models from Swagger V2 array response schema', () => {
+      const operation = {
+        responses: {
+          200: {
+            description: 'OK',
+            schema: { type: 'array', items: { $ref: '#/definitions/Pet' } }
+          }
+        }
+      } as unknown as OpenAPIV2.OperationObject;
+
+      const models = extractModelsFromOperation(operation);
+      expect(models).toContain('Pet');
     });
   });
 

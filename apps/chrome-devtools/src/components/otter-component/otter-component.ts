@@ -88,10 +88,10 @@ export class OtterComponent implements OnChanges {
   public analytics: OtterLikeComponentInfo['analytics'];
 
   @Input()
-  public config: ConfigurationModel | undefined;
+  public config: ConfigurationModel | undefined | null;
 
   @Input()
-  public rulesetExecutions: RulesetExecutionDebug[] | undefined;
+  public rulesetExecutions: RulesetExecutionDebug[] | undefined | null;
 
   public activeId = 1;
 

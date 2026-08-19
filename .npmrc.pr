@@ -14,5 +14,3 @@ registry=https://pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter
 //pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/:username=${AZURE_USERNAME}
 //pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/:_password=${AZURE_AUTH_TOKEN}
 //pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/:email=${AZURE_EMAIL}
-
-always-auth=true

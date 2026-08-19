@@ -20,7 +20,7 @@ const environmentVariableName = 'OTTER_BUILD_NX_TARGETS';
 /** default build targets */
 const defaultBuildTargets = ['build'];
 /** build targets to build Open Api templates */
-const openApiTemplateBuildTargets = ['build-swagger'];
+const openApiTemplateBuildTargets = ['build-jar'];
 
 /** RegExp to retrieve JDK version */
 const jdkVersionRegExp = /openjdk\s([^\s]*)/;

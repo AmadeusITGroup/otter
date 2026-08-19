@@ -33,20 +33,20 @@ export class RuleActionsPresComponent {
    * List of all the output actions of a rules or ruleset execution
    */
   @Input()
-  public actions: AllBlock[] = [];
+  public actions: AllBlock[] | undefined | null;
 
   /**
    * The list of temporary facts used and/or modified within the rule or the ruleset.
    * They are scoped to the ruleset and their value is the one after the rule or ruleset execution.
    */
   @Input()
-  public temporaryFacts: Record<string, Facts> = {};
+  public temporaryFacts: Record<string, Facts> | undefined | null;
 
   /**
    * List of temporary facts that will be modified by the ruleset or the rule.
    */
   @Input()
-  public runtimeOutputs: string[] = [];
+  public runtimeOutputs: string[] | undefined | null;
 
   /**
    * Check if a given block is of type ActionBlock

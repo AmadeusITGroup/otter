@@ -1,3 +1,6 @@
+import {
+  MANIFEST_SCHEMA_FILE,
+} from '../constants.mjs';
 import type {
   Context,
 } from '../context.mjs';
@@ -43,7 +46,7 @@ export const generateOpenApiManifestSchema = async (options: GenerateOpenApiMani
     manifest: {
       $schema: 'http://json-schema.org/draft-07/schema#',
       title: 'OpenApi specification package manifest',
-      $id: '@ama-openapi/core/schemas/manifest.schema.json',
+      $id: MANIFEST_SCHEMA_FILE,
       type: 'object',
       properties: {
         models: {

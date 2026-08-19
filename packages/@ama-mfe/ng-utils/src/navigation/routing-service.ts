@@ -1,6 +1,7 @@
 import type {
   NavigationMessage,
   NavigationV1_0,
+  NavigationV1_1,
 } from '@ama-mfe/messages';
 import {
   NAVIGATION_MESSAGE_TYPE,
@@ -87,6 +88,14 @@ export class RoutingService implements MessageProducer<NavigationMessage>, Messa
     '1.0': async (message: RoutedMessage<any>) => {
       // Navigation has been triggered from the communication protocol request.
       await this.router.navigateByUrl(message.payload.url, { state: { triggeredByMessage: true } });
+    },
+    // eslint-disable-next-line @stylistic/quote-props -- keep quotes for consistency with '1.0'
+    '1.1': async (message: RoutedMessage<any>) => {
+      // Navigation has been triggered from the communication protocol request.
+      await this.router.navigateByUrl(message.payload.url, {
+        state: { triggeredByMessage: true },
+        replaceUrl: message.payload.extras?.replaceUrl
+      });
     }
   };
 
@@ -129,28 +138,37 @@ export class RoutingService implements MessageProducer<NavigationMessage>, Messa
         return !extras.skipLocationChange && !extras.state?.triggeredByMessage;
       }),
       map(({ urlAfterRedirects }) => {
-        const { channelId } = this.router.getCurrentNavigation()?.extras?.state || {};
+        const extras = this.router.getCurrentNavigation()?.extras || {};
+        const { channelId } = extras.state || {};
         const currentRouteRegExp = subRouteOnly && this.activatedRoute.routeConfig?.path && new RegExp('^' + this.activatedRoute.routeConfig.path.replace(/(?=\W)/g, '\\'), 'i');
-        return ({ url: currentRouteRegExp ? urlAfterRedirects.replace(currentRouteRegExp, '') : urlAfterRedirects, channelId });
+        return ({
+          url: currentRouteRegExp ? urlAfterRedirects.replace(currentRouteRegExp, '') : urlAfterRedirects,
+          channelId,
+          replaceUrl: extras.replaceUrl
+        });
       })
-    ).subscribe(({ url, channelId }) => {
-      const messageV10 = {
+    ).subscribe(({ url, channelId, replaceUrl }) => {
+      // Always emit the latest version we produce. The ConsumerManagerService dispatches to the
+      // highest compatible minor a consumer has declared, so v1.0-only peers still navigate
+      // correctly — they just ignore the optional extras.
+      const message: NavigationV1_1 = {
         type: 'navigation',
-        version: '1.0',
-        url
-      } satisfies NavigationV1_0;
+        version: '1.1',
+        url,
+        ...(replaceUrl ? { extras: { replaceUrl: true } } : {})
+      };
       // TODO: sendBest() is not implemented -- https://github.com/AmadeusITGroup/microfrontends/issues/11
+      // When multiple majors are supported, sendBest should receive the latest minor of each
+      // supported major and dispatch to peers according to their declared compatibility.
       if (isEmbedded(this.window)) {
-        this.messageService.send(messageV10);
+        this.messageService.send(message);
+      } else if (channelId === undefined) {
+        this.logger.warn('No channelId provided for navigation message');
       } else {
-        if (channelId === undefined) {
-          this.logger.warn('No channelId provided for navigation message');
-        } else {
-          try {
-            this.messageService.send(messageV10, { to: [channelId] });
-          } catch (error) {
-            this.logger.error('Error sending navigation message', error);
-          }
+        try {
+          this.messageService.send(message, { to: [channelId] });
+        } catch (error) {
+          this.logger.error('Error sending navigation message', error);
         }
       }
     });

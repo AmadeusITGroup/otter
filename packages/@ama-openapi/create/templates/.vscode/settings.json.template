@@ -1,4 +1,5 @@
 {
+  "chat.plugins.enabled": true,
   "editor.defaultFormatter": "Redocly.openapi-vs-code",
   "files.readonlyFromPermissions": true,
   "files.readonlyInclude": {

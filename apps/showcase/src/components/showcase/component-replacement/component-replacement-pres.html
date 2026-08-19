@@ -1,10 +1,16 @@
 <div class="card p-2 flex-row">
   <div class="w-50">
     <p>Gregorian date: <b id="component-replacement-date">{{dateFormControl.value}}</b></p>
+    <div class="input-group">
+      <label for="component-replacement-id">
+        Component ID:
+        <input class="form-control" type="text" [(ngModel)]="childId" id="component-replacement-id" />
+      </label>
+    </div>
   </div>
   <div class="w-50">
     @if (datePickerComponent(); as component) {
-      <ng-template c11n [component]="component" [inputs]="{id: 'date-outbound'}" [formControl]="dateFormControl" />
+      <ng-template c11n [component]="component" [inputs]="{id: childId}" [formControl]="dateFormControl" />
     }
   </div>
 </div>

@@ -14,7 +14,7 @@
           @if (editorOptions()) {
             <ngx-monaco-editor class="h-100 position-relative"
                                [options]="editorOptions()"
-                               [model]="model$ | async"
+                               [model]="(model$ | async)!"
                                (keydown)="onEditorKeyDown($event)"
                                (onInit)="newMonacoEditorCreated.next()"
                                formControlName="code" />

@@ -34,5 +34,16 @@ test.describe('Test component replacement page', () => {
       await dateInputField.setValue('5782-06-01');
       expect(await dateField.getText()).toBe('2022-2-2');
     });
+
+    await test.step('change child id', async () => {
+      const componentReplacementPresFixture = new ComponentReplacementPresFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
+      const idInputField = (await componentReplacementPresFixture.getChildIdInput())!;
+      const dateInputField = (await componentReplacementPresFixture.getDateInput())!;
+
+      expect(await dateInputField.getAttribute('id')).toBe('date-outbound');
+
+      await idInputField.setValue('new Value');
+      expect(await dateInputField.getAttribute('id')).toBe('new Value');
+    });
   });
 });

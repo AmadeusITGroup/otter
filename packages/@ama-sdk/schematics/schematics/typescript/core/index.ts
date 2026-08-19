@@ -6,21 +6,11 @@ import * as path from 'node:path';
 import {
   URL,
 } from 'node:url';
-import type {
-  PathObject,
-} from '@ama-sdk/core';
 import {
-  apply,
   chain,
-  MergeStrategy,
-  mergeWith,
-  move,
-  renameTemplateFiles,
   Rule,
   SchematicContext,
-  template,
   Tree,
-  url,
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
@@ -52,27 +42,11 @@ import {
   updateLocalRelativeRefs,
 } from './helpers/copy-referenced-files';
 import {
-  generateOperationFinderFromSingleFile,
-} from './helpers/path-extractor';
-import {
   NgGenerateTypescriptSDKCoreSchematicsSchema,
 } from './schema';
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];
 const OPEN_API_TOOLS_OPTIONS = ['generatorName', 'output', 'inputSpec', 'config', 'globalProperty'];
-
-const getRegexpTemplate = (regexp: RegExp) => `new RegExp('${regexp.toString().replace(/\/(.*)\//, '$1').replace(/\\\//g, '/')}')`;
-
-const getPathObjectTemplate = (pathObj: PathObject) => {
-  return `{
-      ${
-        (Object.keys(pathObj) as (keyof PathObject)[]).map((propName) => {
-          const value = (propName) === 'regexp' ? getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
-          return `${propName as string}: ${value}`;
-        }).join(',')
-      }
-    }`;
-};
 
 const getProperties = (propertyMap: Map<string, any>, properties: string) => {
   const propertiesArray = properties.split(',');
@@ -228,36 +202,6 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
       return tree;
     };
 
-    const generateOperationFinder = async (): Promise<PathObject[]> => {
-      let specification;
-      if (isJson) {
-        specification = tree.readJson(specDefaultPath);
-      } else {
-        const jsYaml = await import('js-yaml');
-        specification = jsYaml.load(tree.readText(specDefaultPath)) as any;
-      }
-      const extraction = generateOperationFinderFromSingleFile(specification);
-      return extraction || [];
-    };
-
-    /**
-     * rule to update readme and generate mandatory code source
-     */
-    const generateSource: Rule = async () => {
-      const pathObjects = await generateOperationFinder();
-      const swayOperationAdapter = `[${pathObjects.map((pathObj) => getPathObjectTemplate(pathObj)).join(',')}]`;
-
-      return mergeWith(apply(url('./templates'), [
-        template({
-          ...options,
-          swayOperationAdapter,
-          empty: ''
-        }),
-        move(targetPath),
-        renameTemplateFiles()
-      ]), MergeStrategy.Overwrite);
-    };
-
     /**
      * Update readme version
      */
@@ -308,7 +252,6 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
 
     return chain([
       clearGeneratedCode,
-      generateSource,
       updateSpecVersion,
       adaptDefaultFile,
       runGeneratorRule

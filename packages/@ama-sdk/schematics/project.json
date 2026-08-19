@@ -73,24 +73,6 @@
     "expose-templates": {
     },
     "lint": {},
-    "build-swagger": {
-      "executor": "nx:run-script",
-      "inputs": [
-        "base",
-        "{projectRoot}/schematics/**",
-        "!{projectRoot}/schematics/**/target/**"
-      ],
-      "outputs": [
-        "{projectRoot}/schematics/**/target/*.jar",
-        "{projectRoot}/dist/schematics/**/target/*.jar"
-      ],
-      "options": {
-        "script": "build:swagger"
-      },
-      "dependsOn": [
-        "build-builders"
-      ]
-    },
     "test": {},
     "test-int": {
       "options": {

@@ -310,7 +310,7 @@ export class ThemingPanelPres {
    * @param variableName
    * @param event
    */
-  public onColorChange(variableName: string, event: UIEvent) {
+  public onColorChange(variableName: string, event: Event) {
     this.changeColor(variableName, (event.target as HTMLInputElement).value);
   }
 
@@ -338,7 +338,7 @@ export class ThemingPanelPres {
    * @param paletteGroup
    * @param event
    */
-  public onPaletteChange(paletteGroup: VariableGroup, event: UIEvent) {
+  public onPaletteChange(paletteGroup: VariableGroup, event: Event) {
     const baseColor = (event.target as HTMLInputElement).value;
     const palette = getPaletteColors(baseColor);
     paletteGroup.variables.forEach((variable) => {
@@ -355,7 +355,7 @@ export class ThemingPanelPres {
    * @param palette
    * @param event
    */
-  public onPaletteReset(palette: VariableGroup, event: UIEvent) {
+  public onPaletteReset(palette: VariableGroup, event: Event) {
     // Needed to not open or close the accordion
     event.preventDefault();
     event.stopPropagation();

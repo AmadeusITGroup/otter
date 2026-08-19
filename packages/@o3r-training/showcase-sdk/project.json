@@ -22,6 +22,11 @@
         "^cli"
       ]
     },
+    "test": {
+      "options": {
+        "passWithNoTests": true
+      }
+    },
     "regen": {},
     "lint": {},
     "extract-folder-structure": {

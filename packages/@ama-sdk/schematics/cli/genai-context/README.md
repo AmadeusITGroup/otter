@@ -258,11 +258,11 @@ Alternatively, add custom scripts to your `package.json`:
 
 ## MCP Server Integration
 
-Once you've generated `SDK_CONTEXT.md` files for your SDKs, you can expose them to AI assistants using the [@ama-mcp/sdk package](https://github.com/AmadeusITGroup/otter/tree/main/packages/@ama-mcp/sdk).
+Once you've generated `SDK_CONTEXT.md` files for your SDKs, you can expose them to AI assistants using the [@ama-sdk/mcp package](https://github.com/AmadeusITGroup/otter/tree/main/mcps/@ama-sdk/mcp).
 
 
 ## Resources
 
 - [OpenAPI Specification](https://swagger.io/specification/)
 - [@ama-sdk/schematics Documentation](https://github.com/AmadeusITGroup/otter/tree/main/packages/@ama-sdk/schematics)
-- [@ama-mcp/sdk Documentation](https://github.com/AmadeusITGroup/otter/tree/main/packages/@ama-mcp/sdk)
+- [@ama-sdk/mcp Documentation](https://github.com/AmadeusITGroup/otter/tree/main/mcps/@ama-sdk/mcp)

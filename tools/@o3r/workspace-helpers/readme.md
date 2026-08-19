@@ -6,6 +6,10 @@ This package exposes a set of scripts to be used in the Otter Workspace to help 
 
 Find below the list of scripts and their descriptions:
 
+### [check-plugin-marketplace-sync](./scripts/check-plugin-marketplace-sync.mjs)
+
+Verifies that plugin marketplace configuration files are kept in sync. Compares paired files and throws an error if any pair has diverged.
+
 ### [create-monorepo-scope](./scripts/create-monorepo-scope.mjs)
 
 Create a new scope in the Otter monorepo.

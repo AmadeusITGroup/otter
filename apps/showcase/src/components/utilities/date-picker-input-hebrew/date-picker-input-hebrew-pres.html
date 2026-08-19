@@ -2,6 +2,7 @@
 <div class="input-group">
   <input [id]="id()"
         #dpin
+        x-data-testid="date-picker-input"
         class="form-control df-input-withicon"
         placeholder="YYYY-MM-DD"
         [ngModel]="selectedDate()"
@@ -21,6 +22,7 @@
             datepicker</span></button>
   </div>
 </div>
+<span>My ID is <b>{{id()}}</b>.</span>
 <ng-template #dpdt
              let-date
              let-data="data"

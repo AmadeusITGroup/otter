@@ -8,16 +8,18 @@
         </div>
       </as-split-area>
     }
-    @if (project()) {
-      <as-split-area [size]="instructions() ? 50 : 100">
-        <div class="h-100 overflow-hidden">
-          <code-editor-view
-            [project]="project()"
-            [editorMode]="editorMode()"
-            [displayTerminal]="displayTerminal()"
-          />
-        </div>
-      </as-split-area>
+    @if (project(); as projectValue) {
+      @if (editorMode(); as editorModeValue) {
+        <as-split-area [size]="instructions() ? 50 : 100">
+          <div class="h-100 overflow-hidden">
+            <code-editor-view
+              [project]="projectValue"
+              [editorMode]="editorModeValue"
+              [displayTerminal]="displayTerminal()"
+            />
+          </div>
+        </as-split-area>
+      }
     }
   </as-split>
 </div>

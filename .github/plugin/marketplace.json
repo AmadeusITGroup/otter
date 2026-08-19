@@ -1,0 +1,28 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
+  "name": "otter-marketplace",
+  "description": "Marketplace providing AI tools for working with Otter framework projects and Angular applications",
+  "owner": {
+    "name": "Otter team"
+  },
+  "plugins": [
+    {
+      "name": "otter",
+      "source": "./tools/llm/plugins/otter",
+      "tags": [
+        "otter",
+        "angular",
+        "playwright"
+      ]
+    },
+    {
+      "name": "ama-openapi",
+      "source": "./tools/llm/plugins/ama-openapi",
+      "tags": [
+        "ama-openapi",
+        "openapi",
+        "redocly"
+      ]
+    }
+  ]
+}

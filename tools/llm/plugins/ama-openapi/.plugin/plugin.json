@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "ama-openapi",
+  "description": "Skills for working with Amadeus OpenAPI specification projects - create projects, manage models, add dependencies, and configure field masks.",
+  "version": "1.0.0"
+}

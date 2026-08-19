@@ -1,0 +1,20 @@
+import type {
+  PathObject,
+} from '@ama-sdk/core';
+
+/* eslint-disable max-len */
+export const OPERATION_ADAPTER: PathObject[] = {{#trimComma}}[
+{{#operationAdapterPaths}}
+  {
+    path: '{{path}}',
+    urlPattern: '{{{urlPattern}}}',
+    regexp: new RegExp('{{{regexpPattern}}}'),
+    operations: {{#trimComma}}[
+{{#operations}}
+      {method: '{{method}}', operationId: '{{operationId}}'},
+{{/operations}}
+    ]{{/trimComma}}
+  },
+{{/operationAdapterPaths}}
+]{{/trimComma}};
+/* eslint-enable max-len */

@@ -180,6 +180,21 @@ export interface CustomMessageV1_0 extends Message {
 export type CustomMessageVersions = CustomMessageV1_0;
 ```
 
+#### Message version compatibility
+The `ConsumerManagerService` dispatches incoming messages with a semver-compatible fallback, applied uniformly to every
+message type in this package (navigation, theme, resize, user-activity, history, and custom messages).
+
+Within a major version, a consumer's highest declared minor ≤ the incoming minor, is used. This lets producers add
+optional fields in a new minor version (e.g. `v1.1`) without breaking consumers that only implement `v1.0` — the older
+handler runs and simply ignores the unknown fields.
+
+Majors are isolated — no cross-major fallback in either direction:
+- An incoming v2.x will never fall back to a v1.x handler (breaking changes are expected across majors).
+- A consumer declaring only v2.x will not match an incoming v1.x (the consumer is ahead of the producer).
+
+Both cross-major cases produce a `version_mismatch` error. Introducing a new major version therefore requires coordinated
+updates on both the producer and consumer sides.
+
 #### Consumer
 A consumer should implement the `MessageConsumer` interface and inject the `ConsumeManagerService` which handles the
 registration to the communication protocol.

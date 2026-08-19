@@ -146,52 +146,62 @@ export function extractRefModel(ref?: string): string | null {
   if (!ref) {
     return null;
   }
-  const match = ref.match(/#\/components\/schemas\/(\w+)/);
+  const match = ref.match(/#\/(?:components\/schemas|definitions)\/(\w+)/);
   return match ? match[1] : null;
 }
 
+/** Schema types that can be passed to extractModelsFromSchema */
+type ExtractableSchema = OpenAPIV2.SchemaObject | OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject | OpenAPIV3_1.SchemaObject | OpenAPIV3_1.ReferenceObject;
+
 /**
- * Extracts all referenced model names from an OpenAPI operation
+ * Extracts model name from a schema object (handles direct $ref and array items $ref)
+ * @param schema
+ */
+function extractModelsFromSchema(schema: ExtractableSchema | undefined): string[] {
+  if (!schema) {
+    return [];
+  }
+  const ref = '$ref' in schema
+    ? schema.$ref
+    : ('items' in schema && schema.items && '$ref' in schema.items
+      ? schema.items.$ref
+      : undefined);
+  const model = extractRefModel(ref);
+  return model ? [model] : [];
+}
+
+/**
+ * Extracts all referenced model names from an OpenAPI operation (supports both V2 and V3)
  * @param operation The OpenAPI operation to extract models from
  * @returns Array of model names
  */
-export function extractModelsFromOperation(operation: OpenAPIV3.OperationObject | OpenAPIV3_1.OperationObject): string[] {
+export function extractModelsFromOperation(operation: OpenAPIV2.OperationObject | OpenAPIV3.OperationObject | OpenAPIV3_1.OperationObject): string[] {
   const models: string[] = [];
 
-  const requestBody = operation.requestBody as OpenAPIV3.RequestBodyObject | undefined;
+  const requestBody = (operation as OpenAPIV3.OperationObject).requestBody as OpenAPIV3.RequestBodyObject | undefined;
   if (requestBody?.content) {
     Object.values(requestBody.content).forEach((mediaType) => {
-      const { schema } = mediaType;
-      if (schema && '$ref' in schema) {
-        const model = extractRefModel(schema.$ref);
-        if (model) {
-          models.push(model);
-        }
+      models.push(...extractModelsFromSchema(mediaType.schema));
+    });
+  }
+
+  if (operation.parameters) {
+    operation.parameters.forEach((param) => {
+      if (!('$ref' in param) && 'schema' in param) {
+        models.push(...extractModelsFromSchema(param.schema as ExtractableSchema | undefined));
       }
     });
   }
 
   if (operation.responses) {
     Object.values(operation.responses).forEach((responseOrRef) => {
-      const response = responseOrRef as OpenAPIV3.ResponseObject;
-      if (response.content) {
-        Object.values(response.content).forEach((mediaType) => {
-          const schema = mediaType.schema;
-          if (schema && '$ref' in schema) {
-            const model = extractRefModel(schema.$ref);
-            if (model) {
-              models.push(model);
-            }
-          } else if (schema && 'items' in schema) {
-            const items = schema.items;
-            if (items && '$ref' in items) {
-              const itemModel = extractRefModel(items.$ref);
-              if (itemModel) {
-                models.push(itemModel);
-              }
-            }
-          }
+      if ('content' in responseOrRef) {
+        Object.values((responseOrRef as OpenAPIV3.ResponseObject).content!).forEach((mediaType) => {
+          models.push(...extractModelsFromSchema(mediaType.schema));
         });
+      }
+      if ('schema' in responseOrRef) {
+        models.push(...extractModelsFromSchema((responseOrRef as OpenAPIV2.ResponseObject).schema));
       }
     });
   }
@@ -217,7 +227,6 @@ export function inferDomainFromPath(apiPath: string): string {
  */
 export function extractDomains(spec: OpenAPISpec, customDescriptions?: Record<string, string> | null): Map<string, Domain> {
   const domains = new Map<string, Domain>();
-  const isV3 = 'openapi' in spec;
 
   if (spec.tags) {
     spec.tags.forEach((tag) => {
@@ -263,9 +272,7 @@ export function extractDomains(spec: OpenAPISpec, customDescriptions?: Record<st
           path: apiPath
         });
 
-        if (isV3) {
-          extractModelsFromOperation(operation).forEach((model) => domain.models.add(model));
-        }
+        extractModelsFromOperation(operation).forEach((model) => domain.models.add(model));
       });
     });
   }

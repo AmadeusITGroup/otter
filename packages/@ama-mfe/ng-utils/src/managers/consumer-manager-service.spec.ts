@@ -203,4 +203,122 @@ describe('ConsumerManagerService', () => {
     expect(loggerServiceMock.error).toHaveBeenCalledWith('Error while consuming message', internalError);
     expect(errorHelpers.sendError).toHaveBeenCalledWith(messagePeerService, { reason: 'internal_error', source: message.payload });
   });
+
+  describe('semver-compatible dispatch', () => {
+    it('should fall back to the highest declared minor when the incoming minor is newer', async () => {
+      const handlerV10 = jest.fn();
+      const consumer: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '1.0': handlerV10 } };
+      service.register(consumer);
+      const message: RoutedMessage<VersionedMessage> = { payload: { type: 'base_message', version: '1.1' }, from: 'a', to: [] };
+      messagesSubjectMock.next(message);
+      await jest.runAllTimersAsync();
+      expect(handlerV10).toHaveBeenCalledWith(message);
+      expect(loggerServiceMock.warn).not.toHaveBeenCalled();
+    });
+
+    it('should prefer the exact minor when declared', async () => {
+      const handlerV10 = jest.fn();
+      const handlerV11 = jest.fn();
+      const consumer: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '1.0': handlerV10, 1.1: handlerV11 } };
+      service.register(consumer);
+      const message: RoutedMessage<VersionedMessage> = { payload: { type: 'base_message', version: '1.1' }, from: 'a', to: [] };
+      messagesSubjectMock.next(message);
+      await jest.runAllTimersAsync();
+      expect(handlerV11).toHaveBeenCalledWith(message);
+      expect(handlerV10).not.toHaveBeenCalled();
+    });
+
+    it('should pick the highest compatible minor lower than or equal to the incoming minor', async () => {
+      const handlerV10 = jest.fn();
+      const handlerV12 = jest.fn();
+      const handlerV15 = jest.fn();
+      const consumer: BasicMessageConsumer = {
+        type: 'base_message',
+        supportedVersions: { '1.0': handlerV10, 1.2: handlerV12, 1.5: handlerV15 }
+      };
+      service.register(consumer);
+      const message: RoutedMessage<VersionedMessage> = { payload: { type: 'base_message', version: '1.3' }, from: 'a', to: [] };
+      messagesSubjectMock.next(message);
+      await jest.runAllTimersAsync();
+      expect(handlerV12).toHaveBeenCalledWith(message);
+      expect(handlerV10).not.toHaveBeenCalled();
+      expect(handlerV15).not.toHaveBeenCalled();
+    });
+
+    it('should not cross major version boundaries when the consumer only declares an older major', async () => {
+      const handlerV10 = jest.fn();
+      const handlerV11 = jest.fn();
+      const consumer: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '1.0': handlerV10, 1.1: handlerV11 } };
+      service.register(consumer);
+      const message: RoutedMessage<VersionedMessage> = { payload: { type: 'base_message', version: '2.0' }, from: 'a', to: [] };
+      messagesSubjectMock.next(message);
+      await jest.runAllTimersAsync();
+      expect(handlerV10).not.toHaveBeenCalled();
+      expect(handlerV11).not.toHaveBeenCalled();
+      expect(loggerServiceMock.warn).toHaveBeenCalledWith('No consumer found for message version: 2.0');
+      expect(errorHelpers.sendError).toHaveBeenCalledWith(messagePeerService, { reason: 'version_mismatch', source: message.payload });
+    });
+
+    it('should not match a consumer that only declares a newer major than the incoming message', async () => {
+      const handlerV20 = jest.fn();
+      const consumer: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '2.0': handlerV20 } };
+      service.register(consumer);
+      const message: RoutedMessage<VersionedMessage> = { payload: { type: 'base_message', version: '1.5' }, from: 'a', to: [] };
+      messagesSubjectMock.next(message);
+      await jest.runAllTimersAsync();
+      expect(handlerV20).not.toHaveBeenCalled();
+      expect(loggerServiceMock.warn).toHaveBeenCalledWith('No consumer found for message version: 1.5');
+      expect(errorHelpers.sendError).toHaveBeenCalledWith(messagePeerService, { reason: 'version_mismatch', source: message.payload });
+    });
+
+    it('should dispatch within the matching major when the consumer declares multiple majors', async () => {
+      const handlerV10 = jest.fn();
+      const handlerV20 = jest.fn();
+      const consumer: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '1.0': handlerV10, '2.0': handlerV20 } };
+      service.register(consumer);
+      const message: RoutedMessage<VersionedMessage> = { payload: { type: 'base_message', version: '2.3' }, from: 'a', to: [] };
+      messagesSubjectMock.next(message);
+      await jest.runAllTimersAsync();
+      expect(handlerV20).toHaveBeenCalledWith(message);
+      expect(handlerV10).not.toHaveBeenCalled();
+    });
+
+    it('should not match a consumer declaring only a higher minor within the same major', async () => {
+      const handlerV11 = jest.fn();
+      const consumer: BasicMessageConsumer = { type: 'base_message', supportedVersions: { 1.1: handlerV11 } };
+      service.register(consumer);
+      const message: RoutedMessage<VersionedMessage> = { payload: { type: 'base_message', version: '1.0' }, from: 'a', to: [] };
+      messagesSubjectMock.next(message);
+      await jest.runAllTimersAsync();
+      expect(handlerV11).not.toHaveBeenCalled();
+      expect(errorHelpers.sendError).toHaveBeenCalledWith(messagePeerService, { reason: 'version_mismatch', source: message.payload });
+    });
+
+    it('should reject malformed incoming version strings', async () => {
+      const handlerV10 = jest.fn();
+      const consumer: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '1.0': handlerV10 } };
+      service.register(consumer);
+      const message: RoutedMessage<VersionedMessage> = { payload: { type: 'base_message', version: 'not-a-version' }, from: 'a', to: [] };
+      messagesSubjectMock.next(message);
+      await jest.runAllTimersAsync();
+      expect(handlerV10).not.toHaveBeenCalled();
+      expect(errorHelpers.sendError).toHaveBeenCalledWith(messagePeerService, { reason: 'version_mismatch', source: message.payload });
+    });
+
+    it('should resolve each consumer to its own best-matching minor when multiple consumers share a type', async () => {
+      const handlerAV10 = jest.fn();
+      const handlerBV10 = jest.fn();
+      const handlerBV11 = jest.fn();
+      const consumerA: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '1.0': handlerAV10 } };
+      const consumerB: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '1.0': handlerBV10, 1.1: handlerBV11 } };
+      service.register(consumerA);
+      service.register(consumerB);
+      const message: RoutedMessage<VersionedMessage> = { payload: { type: 'base_message', version: '1.1' }, from: 'a', to: [] };
+      messagesSubjectMock.next(message);
+      await jest.runAllTimersAsync();
+      expect(handlerAV10).toHaveBeenCalledWith(message);
+      expect(handlerBV11).toHaveBeenCalledWith(message);
+      expect(handlerBV10).not.toHaveBeenCalled();
+    });
+  });
 });

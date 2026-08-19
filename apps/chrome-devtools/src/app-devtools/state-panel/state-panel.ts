@@ -253,7 +253,7 @@ export class StatePanel {
    * Download a state file, add it to the state list and share it .
    * @param event
    */
-  public async onFileChange(event: InputEvent) {
+  public async onFileChange(event: Event) {
     try {
       const element = event.target as HTMLInputElement;
       let fileContent: string | undefined;

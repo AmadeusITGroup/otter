@@ -19,7 +19,7 @@ export interface Pet {
   /** List of Tags */
   tags?: Tag[];
   /** pet status in the store */
-  status?: StatusEnum;
+  status?: StatusEnum | null;
 }
 
 /** Array of StatusEnum items */

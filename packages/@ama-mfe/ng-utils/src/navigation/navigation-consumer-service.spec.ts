@@ -1,7 +1,8 @@
-import {
-  NavigationMessage,
+import type {
+  NavigationV1_0,
+  NavigationV1_1,
 } from '@ama-mfe/messages';
-import {
+import type {
   RoutedMessage,
 } from '@amadeus-it-group/microfrontends';
 import {
@@ -64,7 +65,7 @@ describe('Navigation Handler Service', () => {
 
   it('should call navigate when a supported message is received', () => {
     jest.spyOn(navHandlerService as any, 'navigate');
-    const navMessage: RoutedMessage<NavigationMessage> = {
+    const navMessage: RoutedMessage<NavigationV1_0> = {
       from: 'test',
       to: [],
       payload: {
@@ -80,7 +81,7 @@ describe('Navigation Handler Service', () => {
   // eslint-disable-next-line jest/no-done-callback -- use the callback function to finish the test
   it('should emit via the requestedUrl observable when a supported message is received', (done) => {
     jest.spyOn(navHandlerService as any, 'navigate');
-    const navMessage: RoutedMessage<NavigationMessage> = {
+    const navMessage: RoutedMessage<NavigationV1_0> = {
       from: 'test',
       to: [],
       payload: {
@@ -99,7 +100,7 @@ describe('Navigation Handler Service', () => {
 
   it('should call the router navigate when a supported message is received', () => {
     jest.spyOn(router, 'navigate');
-    const navMessage: RoutedMessage<NavigationMessage> = {
+    const navMessage: RoutedMessage<NavigationV1_0> = {
       from: 'test',
       to: [],
       payload: {
@@ -113,6 +114,45 @@ describe('Navigation Handler Service', () => {
       ['go-to', 'sub-path'],
       expect.objectContaining({
         relativeTo: { routeConfid: { path: 'child2' } }
+      }));
+  });
+
+  it('should forward the replaceUrl extra to the router navigate call when a v1.1 message is received', () => {
+    jest.spyOn(router, 'navigate');
+    const navMessage: RoutedMessage<NavigationV1_1> = {
+      from: 'test',
+      to: [],
+      payload: {
+        type: 'navigation',
+        url: '/go-to/sub-path',
+        version: '1.1',
+        extras: { replaceUrl: true }
+      }
+    };
+    navHandlerService.supportedVersions['1.1'](navMessage);
+    expect(router.navigate).toHaveBeenCalledWith(
+      ['go-to', 'sub-path'],
+      expect.objectContaining({
+        replaceUrl: true
+      }));
+  });
+
+  it('should handle a v1.1 message without extras', () => {
+    jest.spyOn(router, 'navigate');
+    const navMessage: RoutedMessage<NavigationV1_1> = {
+      from: 'test',
+      to: [],
+      payload: {
+        type: 'navigation',
+        url: '/go-to/sub-path',
+        version: '1.1'
+      }
+    };
+    navHandlerService.supportedVersions['1.1'](navMessage);
+    expect(router.navigate).toHaveBeenCalledWith(
+      ['go-to', 'sub-path'],
+      expect.objectContaining({
+        replaceUrl: undefined
       }));
   });
 });

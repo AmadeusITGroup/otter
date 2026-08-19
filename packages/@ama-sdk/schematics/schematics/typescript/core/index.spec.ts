@@ -18,6 +18,15 @@ import type {
   OpenApiToolsConfiguration,
 } from '@ama-sdk/schematics';
 
+jest.mock('node:module', () => {
+  return {
+    ...jest.requireActual('node:module'),
+    createRequire: jest.fn().mockReturnValue({
+      resolve: jest.fn().mockReturnValue(path.join(__dirname, '..', '..', '..', '..', 'openapi-codegen-typescript', 'target', 'typescriptFetch-openapi-generator.jar'))
+    })
+  };
+});
+
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
 describe('Typescript Core Generator', () => {
