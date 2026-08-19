@@ -46,7 +46,7 @@
     }
   },
   "devDependencies": {
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~21.2.19",
     "@babel/core": "~7.29.0",
     "@babel/preset-env": "~7.29.0",
     "@babel/preset-typescript": "~7.29.0",
