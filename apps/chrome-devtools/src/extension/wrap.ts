@@ -10,6 +10,7 @@ It listens for messages from the application and sends them to the background se
 */
 
 // Notify the page that the Otter Devtools extension is ready
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- necessary to satisfy the type of the message content
 window.postMessage({
   type: 'otter',
   to: 'app',
@@ -18,8 +19,8 @@ window.postMessage({
   }
 } as OtterMessage<ConnectContentMessage, typeof applicationMessageTarget>, '*');
 
-declare namespace globalThis {
-  let localMessageListener: ((this: Window, ev: MessageEvent<any>) => any) | undefined;
+declare global {
+  var localMessageListener: ((this: Window, ev: MessageEvent<any>) => any) | undefined;
 }
 
 // Remove previous listener (if the script is reloaded by a previous extension instance)

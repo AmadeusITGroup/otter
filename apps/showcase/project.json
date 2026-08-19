@@ -268,7 +268,7 @@
     },
     "test-e2e": {},
     "generate-translations": {
-      "executor": "@o3r/localization:localization",
+      "executor": "@o3r/transloco:localization",
       "inputs": [
         "{projectRoot}/src/assets/locales",
         "{projectRoot}/src/assets/locales/*",
@@ -308,7 +308,7 @@
       ]
     },
     "extract-translations": {
-      "executor": "@o3r/localization:extractor",
+      "executor": "@o3r/transloco:extractor",
       "inputs": [
         "source",
         "^builders"
@@ -340,7 +340,7 @@
       }
     },
     "i18n": {
-      "executor": "@o3r/localization:i18n",
+      "executor": "@o3r/transloco:i18n",
       "inputs": [
         "{projectRoot}/src/!(i18n)/**/*-localization.json",
         "^builders"

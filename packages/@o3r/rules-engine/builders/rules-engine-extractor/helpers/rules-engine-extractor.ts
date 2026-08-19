@@ -29,13 +29,10 @@ import {
   Action,
   allDefaultSupportedTypes,
   allSupportedTypes,
-  ArrayMetadataFact,
-  EnumMetadataFact,
   FactSupportedTypes,
   MetadataFact,
   MetadataOperator,
   MetadataOperatorSupportedTypes,
-  ObjectMetadataFact,
   OtherMetadataFact,
 } from './rules-engine-extractor-interfaces';
 
@@ -238,7 +235,7 @@ export class RulesEngineExtractor {
                   type: 'object',
                   name,
                   description
-                } as ObjectMetadataFact;
+                };
                 try {
                   const schema = await this.extractTypeRef(typeName, sourceFile);
                   if (schema === null) {
@@ -249,20 +246,20 @@ export class RulesEngineExtractor {
                     fact = {
                       ...fact,
                       schemaFile: path.join(schemaFolderRelativePath, schemaFile).replace(/\\/g, '/')
-                    } as ObjectMetadataFact;
+                    };
                   } else if (schema.type === 'array') {
                     fact = {
                       ...fact,
                       type: 'array',
                       items: schema.items as MetadataFact
-                    } as ArrayMetadataFact;
+                    };
                   } else if (schema.enum) {
                     fact = {
                       ...fact,
                       type: 'string',
                       // eslint-disable-next-line @typescript-eslint/no-base-to-string -- convert non-null values to string
                       enum: schema.enum?.filter((value): value is JSONSchema7Type => !!value).map((v) => v!.toString())
-                    } as EnumMetadataFact;
+                    };
                   } else {
                     fact = {
                       ...fact,

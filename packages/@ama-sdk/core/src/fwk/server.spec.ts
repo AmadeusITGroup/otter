@@ -17,7 +17,7 @@ describe('selectServerBasePath', () => {
       info: jest.fn(),
       warn: jest.fn(),
       error: jest.fn()
-    } as jest.Mocked<Logger>;
+    };
   });
 
   describe('when clientServerConfigurations has basePath', () => {

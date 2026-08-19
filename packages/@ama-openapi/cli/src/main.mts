@@ -106,7 +106,7 @@ const run = () => yargs(hideBin(process.argv))
         })
         .on('error', (error) => {
           logger?.error('Watcher error: ', error);
-          reject(error as Error);
+          reject(error instanceof Error ? error : new Error(String(error)));
         });
     });
   })

@@ -141,7 +141,7 @@ describe('ScalableDirective', () => {
     const channelId = 'test-channel';
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
 
-    newHeightFromChannelSignal.set({ channelId, height: undefined as unknown as number });
+    newHeightFromChannelSignal.set({ channelId, height: undefined });
     parentComponentFixture.componentInstance.scalableValue = channelId;
     parentComponentFixture.changeDetectorRef.markForCheck();
     parentComponentFixture.detectChanges();

@@ -19,7 +19,7 @@ import {
 } from '@o3r/forms';
 import {
   Localization,
-} from '@o3r/localization';
+} from '@o3r/transloco';
 import {
   LanguagePipe,
   MarkdownComponent,

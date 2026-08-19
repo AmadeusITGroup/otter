@@ -58,13 +58,13 @@ async function listRepos(octokit: Octokit, options: GetRepositoriesUsingLibraryO
   // Note: We can do only 10 searches per minute,
   // so we should found another solution if we have more than 10 scopes to look for.
   const search = (await Promise.allSettled(options.scopes
-    .map(async (scope) => {
+    .map(async (scope): Promise<Repository[]> => {
       const repos = (await octokit.paginate(octokit.search.code, { q: `@${scope}/ filename:package.json`, per_page: 100 }))
         // eslint-disable-next-line @typescript-eslint/naming-convention -- Naming convention from GitHub API
-        .map(({ repository: { name, full_name, fork, archived, default_branch } }) => ({ name, full_name, fork, archived, default_branch }))
+        .map(({ repository: { name, full_name, fork, archived, default_branch } }): Repository => ({ name, full_name, fork, archived, default_branch }))
         .filter((repo) => !repo.archived && !repo.fork);
       logger.info?.(`Found ${repos.length} repositories with references to @${scope} in package.json`);
-      return repos as Repository[];
+      return repos;
     })
   )).filter((result): result is PromiseFulfilledResult<Repository[]> => result.status === 'fulfilled')
     .flatMap((result) => result.value);

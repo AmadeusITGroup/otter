@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.build",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "build/.tsbuildinfo"
+  }
+}

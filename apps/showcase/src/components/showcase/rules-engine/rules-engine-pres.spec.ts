@@ -2,9 +2,6 @@ import {
   AsyncPipe,
 } from '@angular/common';
 import {
-  Provider,
-} from '@angular/core';
-import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
@@ -15,21 +12,17 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import {
-  TranslateCompiler,
-  TranslateFakeCompiler,
-} from '@ngx-translate/core';
-import {
   provideDynamicContent,
 } from '@o3r/dynamic-content';
-import {
-  LocalizationService,
-} from '@o3r/localization';
 import {
   RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
 import {
-  mockTranslationModules,
-} from '@o3r/testing/localization';
+  provideLocalizationMock,
+} from '@o3r/testing/transloco';
+import {
+  LocalizationService,
+} from '@o3r/transloco';
 import {
   RulesEnginePres,
 } from './rules-engine-pres';
@@ -48,10 +41,6 @@ const mockTranslations = {
 
   }
 };
-const mockTranslationsCompilerProvider: Provider = {
-  provide: TranslateCompiler,
-  useClass: TranslateFakeCompiler
-};
 describe('RulesEnginePres', () => {
   let component: RulesEnginePres;
   let fixture: ComponentFixture<RulesEnginePres>;
@@ -62,10 +51,13 @@ describe('RulesEnginePres', () => {
         StoreModule.forRoot({}),
         EffectsModule.forRoot([]),
         RulesEngineRunnerModule.forRoot(),
-        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
         AsyncPipe
       ],
-      providers: [provideDynamicContent()]
+      providers: [
+        LocalizationService,
+        provideDynamicContent(),
+        provideLocalizationMock(localizationConfiguration, mockTranslations)
+      ]
     });
     fixture = TestBed.createComponent(RulesEnginePres);
     component = fixture.componentInstance;

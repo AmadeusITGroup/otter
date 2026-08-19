@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "LocalizationSchema",
+  "description": "Schema of Localization file",
+  "type": "object",
+  "additionalProperties": false,
+  "patternProperties": {
+    "\\$schema": true,
+    "^[a-zA-Z0-9.-]+": {
+      "type": "object",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "description",
+            "defaultValue"
+          ],
+          "properties": {
+            "defaultValue": {
+              "type": "string",
+              "description": "Localization default value"
+            },
+            "description": {
+              "type": "string",
+              "description": "Localization Description"
+            },
+            "dictionary": {
+              "type": "boolean",
+              "description": "Determine if the item can have multiple extensions",
+              "const": false
+            },
+            "referenceData": {
+              "type": "boolean",
+              "description": "Determine if the value has to be overridden",
+              "default": false
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Tags used for filtering/categorizing"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "description",
+            "dictionary"
+          ],
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "Localization Description"
+            },
+            "dictionary": {
+              "type": "boolean",
+              "description": "Determine if the item can have multiple extensions",
+              "const": true
+            },
+            "referenceData": {
+              "type": "boolean",
+              "description": "Determine if the value has to be overridden",
+              "default": false
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Tags used for filtering/categorizing"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "description",
+            "$ref"
+          ],
+          "properties": {
+            "$ref": {
+              "type": "string",
+              "description": "Reference to other localization"
+            },
+            "description": {
+              "type": "string",
+              "description": "Localization Description"
+            },
+            "dictionary": {
+              "type": "boolean",
+              "description": "Determine if the item can have multiple extensions",
+              "default": false
+            },
+            "referenceData": {
+              "type": "boolean",
+              "description": "Determine if the value has to be overridden",
+              "default": false
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Tags used for filtering/categorizing"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

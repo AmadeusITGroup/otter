@@ -17,7 +17,7 @@ describe('FormErrorMessages Store reducer', () => {
   });
 
   it('should by default return the initial state', () => {
-    const state = formErrorMessagesReducer(formErrorMessagesInitialState, { type: 'fake' } as any);
+    const state = formErrorMessagesReducer(formErrorMessagesInitialState, { type: 'fake' });
 
     expect(state).toEqual(formErrorMessagesInitialState);
   });

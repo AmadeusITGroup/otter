@@ -18,7 +18,7 @@ describe('Rulesets Store reducer', () => {
   });
 
   it('should by default return the initial state', () => {
-    const state = rulesetsReducer(rulesetsInitialState, { type: 'fake' } as any);
+    const state = rulesetsReducer(rulesetsInitialState, { type: 'fake' });
 
     expect(state).toEqual(rulesetsInitialState);
   });

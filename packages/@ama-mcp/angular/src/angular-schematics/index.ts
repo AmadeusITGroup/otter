@@ -167,7 +167,7 @@ async function discoverSchematics(options: AngularSchematicOptions, logger: Logg
       logger.error?.(`Failed to retrieve options for schematic ${name}`, e);
       throw e;
     }
-    return { ...parseSchematicHelp(output), name } as SchematicsOutput[number];
+    return { ...parseSchematicHelp(output), name };
   })))
     .filter((r): r is PromiseFulfilledResult<SchematicsOutput[number]> => r.status === 'fulfilled')
     .map((r) => r.value);

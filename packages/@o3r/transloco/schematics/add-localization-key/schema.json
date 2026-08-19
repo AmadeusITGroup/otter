@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "NgAddLocalizationKeySchematicsSchema",
+  "title": "Add Otter Localization key to an existing component",
+  "description": "Add Otter Localization key to an existing component",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Path to the component"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process which includes EsLint and EditorConfig rules applying",
+      "default": false
+    },
+    "key": {
+      "type": "string",
+      "description": "Localization key without the component prefix"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the localization"
+    },
+    "value": {
+      "type": "string",
+      "description": "Default value of the localization",
+      "default": ""
+    },
+    "dictionary": {
+      "type": "boolean",
+      "description": "Is a dictionary key",
+      "default": false
+    },
+    "updateTemplate": {
+      "type": "boolean",
+      "description": "Update the template by replacing matching value by the localization key"
+    },
+    "keyToKebabCase": {
+      "type": "boolean",
+      "description": "Convert the key to kebab-case",
+      "default": false
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "path",
+    "key"
+  ]
+}

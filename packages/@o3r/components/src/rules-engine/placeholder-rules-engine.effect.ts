@@ -1,6 +1,7 @@
 import {
   inject,
   Injectable,
+  Injector,
 } from '@angular/core';
 import {
   Actions,
@@ -17,9 +18,6 @@ import {
   DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
-  LocalizationService,
-} from '@o3r/localization';
-import {
   RulesEngineRunnerService,
 } from '@o3r/rules-engine';
 import {
@@ -28,6 +26,7 @@ import {
 import {
   combineLatest,
   EMPTY,
+  from,
   Observable,
   of,
 } from 'rxjs';
@@ -37,6 +36,9 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import type {
+  PlaceholderLocalizationService,
+} from './placeholder-interfaces';
 import {
   cancelPlaceholderRequest,
   failPlaceholderRequestEntity,
@@ -56,7 +58,16 @@ export class PlaceholderTemplateResponseEffect {
   private readonly store = inject<Store<PlaceholderRequestStore>>(Store);
   private readonly rulesEngineService = inject(RulesEngineRunnerService, { optional: true });
   private readonly dynamicContentService = inject(DynamicContentService, { optional: true });
-  private readonly translationService = inject(LocalizationService, { optional: true });
+  private readonly injector = inject(Injector);
+  // Prefer `@o3r/transloco`, fall back to `@o3r/localization`; both are optional peer dependencies.
+  // TODO: use `injectAsync` to resolve the optional `LocalizationService` token once migrated to ng22
+  // TODO: remove the dynamic-import fallback and inject the `LocalizationService` from the single supported translation package in v16
+  private readonly translationService: Promise<PlaceholderLocalizationService | undefined> = import('@o3r/transloco')
+    .then((mod) => this.injector.get(mod.LocalizationService, null) as PlaceholderLocalizationService | null)
+    .catch(() => null)
+    .then((service) => service ?? import('@o3r/localization')
+      .then((mod) => (this.injector.get(mod.LocalizationService, null) as PlaceholderLocalizationService | null) ?? undefined)
+      .catch(() => undefined));
 
   /**
    * Set the PlaceholderRequest entity with the reply content, dispatch failPlaceholderRequestEntity if it catches a failure
@@ -152,11 +163,13 @@ export class PlaceholderTemplateResponseEffect {
                 return acc;
               }, {});
               replacements$.push(
-                this.translationService
-                  ? this.translationService.translate(vars[varName].value, linkedParams).pipe(
-                    map((value) => (value ? { ejsVar, value } : null))
-                  )
-                  : of(null)
+                from(this.translationService).pipe(
+                  switchMap((translationService) => translationService
+                    ? translationService.translate(vars[varName].value, linkedParams).pipe(
+                      map((value) => (value ? { ejsVar, value } : null))
+                    )
+                    : of(null))
+                )
               );
               break;
             }

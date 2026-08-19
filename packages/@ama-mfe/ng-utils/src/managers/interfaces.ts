@@ -42,9 +42,9 @@ export interface MessageConsumer<T extends VersionedMessage = VersionedMessage> 
   };
 
   /** Prepare the registration of the consumer */
-  start(): void;
+  start(): void | Promise<void>;
   /** Unregister the consumer */
-  stop(): void;
+  stop(): void | Promise<void>;
 }
 
 /**

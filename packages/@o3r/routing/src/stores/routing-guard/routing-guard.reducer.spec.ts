@@ -15,7 +15,7 @@ describe('RoutingGuard Store reducer', () => {
   });
 
   it('should by default return the initial state', () => {
-    const state = routingGuardReducer(routingGuardInitialState, { type: 'fake' } as any);
+    const state = routingGuardReducer(routingGuardInitialState, { type: 'fake' });
 
     expect(state).toEqual(routingGuardInitialState);
   });

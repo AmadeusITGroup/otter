@@ -25,6 +25,6 @@ export class NodePackageLinkTask implements TaskConfigurationGenerator<NodePacka
         packageName: `link ${this.packageName!}`,
         packageManager: getPackageManager()
       }
-    } as TaskConfiguration<NodePackageTaskOptions>;
+    };
   }
 }

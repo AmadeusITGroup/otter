@@ -20,6 +20,7 @@
     "src/core/playwright/**/*.ts",
     "src/kassette/**/*.ts",
     "src/localization/**/*.ts",
+    "src/transloco/**/*.ts",
     "src/mocks/**/*.ts",
     "src/store/**/*.ts",
     "src/tools/**/*.ts",

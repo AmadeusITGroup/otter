@@ -58,7 +58,9 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     { code: JSON.stringify({ peerDependencies: { myOtherDep: '^4.0.0' } }), filename: packageToLint, options: [{ alignPeerDependencies: true }] },
     { code: JSON.stringify({ peerDependencies: { myThirdDep: '^2.0.0' } }), filename: packageToLint, options: [{ alignPeerDependencies: false }] },
     { code: JSON.stringify({ resolutions: { 'test/sub/myDep': '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
+    { code: JSON.stringify({ resolutions: { 'test/sub/myDep': '$myDep' } }), filename: packageToLint, options: [{ alignResolutions: true }] },
     { code: JSON.stringify({ overrides: { test: { myDep: '1.0.0' } } }), filename: packageToLint, options: [{ alignResolutions: false }] },
+    { code: JSON.stringify({ overrides: { myDep: '$myDep' } }), filename: packageToLint, options: [{ alignResolutions: true }] },
     { code: JSON.stringify({ overrides: { myDep: '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
     { code: JSON.stringify({ engines: { node: '<20' } }), filename: packageToLint, options: [{ alignEngines: false }] },
     { code: JSON.stringify({ engines: { node: '>21.1' } }), filename: packageToLint, options: [{ alignEngines: true }] }
@@ -282,6 +284,30 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
                 version: '^21.0.0'
               },
               output: JSON.stringify({ engines: { node: '^21.0.0' } })
+            }
+          ]
+        }
+      ]
+    },
+    {
+      filename: packageToLint,
+      output: JSON.stringify({ devDependencies: { myDep: '^2.0.0' } }),
+      code: JSON.stringify({ devDependencies: { myDep: '$myDep' } }),
+      errors: [
+        {
+          messageId: 'error',
+          data: {
+            depName: 'myDep',
+            packageJsonFile: path.join(fakeFolder, 'local', 'package.json'),
+            version: '^2.0.0'
+          },
+          suggestions: [
+            {
+              messageId: 'versionUpdate',
+              data: {
+                version: '^2.0.0'
+              },
+              output: JSON.stringify({ devDependencies: { myDep: '^2.0.0' } })
             }
           ]
         }
