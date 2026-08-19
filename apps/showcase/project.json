@@ -131,12 +131,11 @@
       },
       "configurations": {
         "production": {
-          "optimization": false,
           "budgets": [
             {
               "type": "initial",
               "maximumWarning": "2.5mb",
-              "maximumError": "5.5mb"
+              "maximumError": "3.2mb"
             },
             {
               "type": "anyComponentStyle",

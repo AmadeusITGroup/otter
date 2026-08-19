@@ -38,7 +38,14 @@
         "index": "apps/chrome-devtools/src/app-components.html",
         "browser": "apps/chrome-devtools/src/app-components.main.ts",
         "tsConfig": "apps/chrome-devtools/tsconfig.build.components.json",
-        "optimization": false,
+        "optimization": {
+          "scripts": true,
+          "styles": {
+            "minify": true,
+            "inlineCritical": false
+          },
+          "fonts": true
+        },
         "polyfills": [
           "@angular/localize/init"
         ],
@@ -86,7 +93,14 @@
         "index": "apps/chrome-devtools/src/app-devtools.html",
         "browser": "apps/chrome-devtools/src/app-devtools.main.ts",
         "tsConfig": "apps/chrome-devtools/tsconfig.build.devtools.json",
-        "optimization": false,
+        "optimization": {
+          "scripts": true,
+          "styles": {
+            "minify": true,
+            "inlineCritical": false
+          },
+          "fonts": true
+        },
         "polyfills": [
           "@angular/localize/init"
         ],
