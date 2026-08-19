@@ -109,7 +109,7 @@
     "@design-factory/design-factory": "~22.0.0",
     "@design-factory/styles": "~22.0.0",
     "@ng-bootstrap/ng-bootstrap": "~21.0.0",
-    "@ng-select/ng-select": "~23.2.0",
+    "@ng-select/ng-select": "~23.11.0",
     "@ngrx/entity": "22.0.0-rc.0",
     "@ngrx/store": "22.0.0-rc.0",
     "@o3r/application": "workspace:~",
