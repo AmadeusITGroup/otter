@@ -104,7 +104,7 @@ export class CommentReactionsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<DeleteComment200Response>(url, options, ApiTypes.DEFAULT, CommentReactionsApi.apiName, undefined, 'deleteCommentReaction');
     return ret;
@@ -161,7 +161,7 @@ export class CommentReactionsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetCommentReactions200Response>(url, options, ApiTypes.DEFAULT, CommentReactionsApi.apiName, undefined, 'getCommentReactions');
     return ret;
@@ -218,7 +218,7 @@ export class CommentReactionsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<DeleteComment200Response>(url, options, ApiTypes.DEFAULT, CommentReactionsApi.apiName, undefined, 'postCommentReaction');
     return ret;
