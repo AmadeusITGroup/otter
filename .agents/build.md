@@ -57,6 +57,16 @@ yarn create:scope <scope-name>
 yarn ng g library @<scope-name>/<library-name>
 ```
 
+## Debugging Postinstall Scripts
+
+If a postinstall (build) script fails silently or you need to see its output, enable inline builds in `.yarnrc.yml`:
+
+```yaml
+enableInlineBuilds: true
+```
+
+This makes Yarn display postinstall script output directly in the console instead of hiding it behind a log file path. Useful when diagnosing build script failures during `yarn install`.
+
 ## Schematics and Builders
 
 Many packages include Angular schematics and builders:
