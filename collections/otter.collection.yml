@@ -44,6 +44,15 @@ items:
       - playwright
       - e2e
       - testing
+  - path: tools/llm/plugins/otter/skills/rxjs-vs-signals/SKILL.md
+    kind: skill
+    title: RxJS vs Angular Signals
+    description: Choose between Angular Signals and RxJS Observables based on use case, with Otter-specific guidance for configuration, store, and rules engine
+    tags:
+      - signals
+      - rxjs
+      - observables
+      - reactive
   - path: tools/llm/plugins/otter/agents/otter-migration.agent.md
     kind: agent
     title: Otter Migration
