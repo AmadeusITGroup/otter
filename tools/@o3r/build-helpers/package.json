@@ -36,14 +36,14 @@
     "typescript": "^6.0.0"
   },
   "devDependencies": {
-    "@angular/cli": "~22.0.4",
+    "@angular/cli": "~22.1.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~23.1.0",
     "@o3r/eslint-plugin": "workspace:~",
     "@stylistic/eslint-plugin": "~5.10.0",
     "@types/node": "~24.13.0",
     "@typescript-eslint/parser": "~8.65.0",
-    "angular-eslint": "~22.0.0",
+    "angular-eslint": "~22.1.0",
     "eslint": "~9.39.0",
     "eslint-import-resolver-node": "~0.4.0",
     "eslint-import-resolver-typescript": "~4.4.0",
