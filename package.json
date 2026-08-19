@@ -352,5 +352,5 @@
     "apps/*",
     "mcps/@*/*"
   ],
-  "packageManager": "yarn@4.17.0"
+  "packageManager": "yarn@4.18.0"
 }
