@@ -90,7 +90,7 @@
   "devDependencies": {
     "@ama-sdk/core": "workspace:~",
     "@angular-devkit/schematics-cli": "~21.2.0",
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~21.2.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~22.7.0",
     "@nx/jest": "~22.7.0",

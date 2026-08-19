@@ -58,7 +58,7 @@
     "@ama-sdk/client-fetch": "workspace:~",
     "@ama-sdk/core": "workspace:~",
     "@angular-devkit/schematics": "~21.2.0",
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~21.2.19",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~22.7.0",
