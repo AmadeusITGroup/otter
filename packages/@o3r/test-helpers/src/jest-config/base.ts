@@ -104,7 +104,11 @@ export const getOtterJestBaseConfig = (rootDir: string, options: OtterJestBaseCo
       ...options?.config?.testEnvironmentOptions
     },
     workerIdleMemoryLimit: '700MB',
-    cacheDirectory: join(workspaceRoot, '.cache', 'jest')
+    cacheDirectory: join(workspaceRoot, '.cache', 'jest'),
+    transformIgnorePatterns: [
+      '/node_modules/(?!(magic-string)/)',
+      ...(options?.config?.transformIgnorePatterns || [])
+    ]
   };
 };
 
