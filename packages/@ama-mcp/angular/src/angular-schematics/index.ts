@@ -13,7 +13,7 @@ import {
 } from '@ama-mcp/core';
 import type {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
 import {
   z,
 } from 'zod';
@@ -203,12 +203,12 @@ export function registerAngularSchematicsTool(server: McpServer, options: Angula
         readOnlyHint: true,
         openWorldHint: false
       },
-      inputSchema: {
+      inputSchema: z.object({
         schematic: z.string().optional().describe('Specific schematic name')
-      },
-      outputSchema: {
+      }),
+      outputSchema: z.object({
         schematics: schematicsOutputSchema
-      }
+      })
     },
     async (inputs) => {
       const { schematics } = await discovery;

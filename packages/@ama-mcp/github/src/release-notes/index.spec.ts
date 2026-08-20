@@ -1,34 +1,40 @@
-const paginate = jest.fn().mockImplementation(() => {
-  return [
-    { tag_name: 'v1.1.0', body: 'Content of the release note for v1.1.0' },
-    { tag_name: 'v1.1.1', body: 'Content of the release note for v1.1.1' },
-    { tag_name: 'v1.2.0', body: 'Content of the release note for v1.2.0' },
-    { tag_name: 'v2.0.0-next.1', body: 'Content of the release note for v2.0.0-next.1' }
-  ];
-});
-
-jest.mock('@octokit/rest', () => {
-  return {
-    Octokit: jest.fn().mockImplementation(() => ({
-      paginate,
-      repos: {
-        listReleases: jest.fn()
-      }
-    }))
-  };
-});
-
-/* eslint-disable import/first -- important to be after the mock */
-
 import {
   setUpClientAndServerForTesting,
 } from '@ama-mcp/core';
 import {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import {
   registerReleaseNotes,
 } from './index';
+
+const { paginate } = vi.hoisted(() => ({
+  paginate: vi.fn().mockImplementation(() => {
+    return [
+      { tag_name: 'v1.1.0', body: 'Content of the release note for v1.1.0' },
+      { tag_name: 'v1.1.1', body: 'Content of the release note for v1.1.1' },
+      { tag_name: 'v1.2.0', body: 'Content of the release note for v1.2.0' },
+      { tag_name: 'v2.0.0-next.1', body: 'Content of the release note for v2.0.0-next.1' }
+    ];
+  })
+}));
+
+vi.mock('@octokit/rest', () => ({
+  Octokit: class {
+    public paginate = paginate;
+
+    public repos = {
+      listReleases: vi.fn()
+    };
+  }
+}));
 
 const setUpClientAndServer = async () => {
   const mcpServer = new McpServer({
@@ -85,6 +91,6 @@ describe('Release notes', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 });
