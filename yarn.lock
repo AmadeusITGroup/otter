@@ -4530,11 +4530,11 @@ __metadata:
   linkType: hard
 
 "@capacitor/core@npm:^8.0.0":
-  version: 8.4.1
-  resolution: "@capacitor/core@npm:8.4.1"
+  version: 8.5.0
+  resolution: "@capacitor/core@npm:8.5.0"
   dependencies:
     tslib: "npm:^2.1.0"
-  checksum: 10/2d872d9aca9b85508982b7a316102a0d79dc2c367d3afa44d57ecbe65985b9ce315557c528d1395c8e59b29aec4b759a66cacef0479a5d265ce33d3d5edd081f
+  checksum: 10/2d8016127da7ecf0659e6874549d2106f44d70ad10141e05dc6849774a448a587cca88e3aa22d6ff79baf8323aff83dc5577b85d24917b98dee62481186e82f5
   languageName: node
   linkType: hard
 
