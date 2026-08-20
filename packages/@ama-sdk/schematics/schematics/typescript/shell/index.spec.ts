@@ -117,6 +117,14 @@ describe('Typescript Shell Generator', () => {
     expect(name).toEqual('@test-scope/test-sdk');
   });
 
+  it.each([
+    ['yarn', () => yarnTree],
+    ['npm', () => npmTree]
+  ])('should generate the type-fest dependency for %s', (_packageManager, getTree) => {
+    const { devDependencies } = getTree().readJson('/package.json') as PackageJson;
+    expect(devDependencies?.['type-fest']).toBe('~5.3.1');
+  });
+
   it('should use yarn as default package manager', () => {
     expect(yarnTree.readContent('/package.json')).toContain('yarn exec');
     expect(yarnTree.readContent('/package.json')).not.toContain('npm exec');
