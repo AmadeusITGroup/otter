@@ -1,0 +1,40 @@
+{
+  "name": "ama-styling-mcp",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "mcps/@ama-styling/mcp/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compile"
+      }
+    },
+    "vitest": {
+      "plugin": "@nx/vitest"
+    },
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
+    "lint": {},
+    "prepare-publish": {},
+    "publish": {}
+  },
+  "tags": []
+}
