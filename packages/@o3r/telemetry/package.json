@@ -50,7 +50,7 @@
     "@angular-devkit/architect": "0.2102.13",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
-    "@angular/cli": "~21.2.0",
+    "@angular/cli": "~21.2.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~22.7.0",
     "@nx/jest": "~22.7.0",
