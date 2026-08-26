@@ -22,6 +22,7 @@ import {
 } from '@angular/platform-browser/animations';
 import {
   provideRouter,
+  withExperimentalAutoCleanupInjectors,
   withHashLocation,
   withInMemoryScrolling,
 } from '@angular/router';
@@ -98,6 +99,9 @@ import {
 import {
   appRoutes,
 } from './app.routes';
+import {
+  provideAppWebMcpTools,
+} from './app.webmcp';
 
 const runtimeChecks = {
   strictActionImmutability: false,
@@ -147,7 +151,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       appRoutes,
       withHashLocation(),
-      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+      withExperimentalAutoCleanupInjectors()
     ),
     provideStore({}, { runtimeChecks }),
     provideEffects(),
@@ -189,6 +194,7 @@ export const appConfig: ApplicationConfig = {
     { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } },
     provideLocalization(localizationConfigurationFactory),
     provideLocalizationDevtools(),
-    provideTranslocoMessageformat()
+    provideTranslocoMessageformat(),
+    provideAppWebMcpTools()
   ]
 };
