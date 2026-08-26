@@ -12,9 +12,9 @@
       ],
       "postUpgradeTasks": {
         "commands": [
-          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user registry https:{{arg0}}{{/unless}}",
-          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user ignore-scripts true{{/unless}}",
-          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user {{arg0}}:_auth \"${{arg1}}\"{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user registry https:{{arg0}}{{else}}:{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user ignore-scripts true{{else}}:{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user {{arg0}}:_auth \"${{arg1}}\"{{else}}:{{/unless}}",
           "{{{depName}}} install"
         ],
         "executionMode": "branch",
