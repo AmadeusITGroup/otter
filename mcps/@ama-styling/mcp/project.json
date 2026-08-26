@@ -1,8 +1,8 @@
 {
-  "name": "ama-sdk-mcp",
+  "name": "ama-styling-mcp",
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "mcps/@ama-sdk/mcp/src",
+  "sourceRoot": "mcps/@ama-styling/mcp/src",
   "prefix": "o3r",
   "targets": {
     "build": {
@@ -14,8 +14,7 @@
         "script": "postbuild"
       },
       "dependsOn": [
-        "compile",
-        "expose-resources"
+        "compile"
       ]
     },
     "compile": {
@@ -24,7 +23,6 @@
         "script": "compile"
       }
     },
-    "expose-resources": {},
     "vitest": {
       "plugin": "@nx/vitest"
     },
