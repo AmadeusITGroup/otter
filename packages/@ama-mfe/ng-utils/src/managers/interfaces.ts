@@ -33,6 +33,7 @@ export interface MessageConsumer<T extends VersionedMessage = VersionedMessage> 
 
   /** The message type which will be handled */
   type: T['type'];
+
   /** The map of functions which will be executed for each supported version */
   supportedVersions: {
     /**
@@ -52,7 +53,7 @@ export interface MessageConsumer<T extends VersionedMessage = VersionedMessage> 
  */
 export interface MessageProducer<T extends VersionedMessage = VersionedMessage> {
   /** The types of the produced message */
-  types: T['type'] | T['type'][];
+  types: T['type'] | readonly T['type'][];
 
   /**
    * The producer should handle an error in case that it has produced a message which cannot be consumed by other peers

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "migration-v14_5": {
+      "version": "14.5.0-alpha.0",
+      "description": "Updates of @ama-mfe/ng-utils to v14.5.*: drops the AbstractMessageConsumer auto-start pattern and rewires consumers to start explicitly from the application configuration.",
+      "factory": "./schematics/ng-update/v14-5/index#updateV14_5"
+    }
+  }
+}

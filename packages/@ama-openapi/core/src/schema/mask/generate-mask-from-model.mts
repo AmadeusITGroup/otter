@@ -39,7 +39,9 @@ export const generateMaskSchemaModelAt = async (modelPath: string, ctx: MaskCont
 
   modelPath = modelPath.replaceAll(sep, '/');
   if (ctx.filePath) {
-    modelPath = posix.resolve(dirname(ctx.filePath).replaceAll(sep, '/'), modelPath);
+    modelPath = modelPath.startsWith('#/')
+      ? `${ctx.filePath}${modelPath}`.replaceAll(sep, '/')
+      : posix.resolve(dirname(ctx.filePath).replaceAll(sep, '/'), modelPath);
   }
 
   if (ctx.parsedFiles?.includes(modelPath)) {

@@ -41,3 +41,15 @@ export function getDefaultClientEndpointStartOptions(): PeerConnectionOptions {
 export function isEmbedded(windowParam: Window = window) {
   return windowParam.top !== windowParam.self;
 }
+
+/**
+ * Generate a string id suitable for correlating asynchronous request/reply messages across the micro-frontend bus.
+ * Uses `crypto.randomUUID` when the runtime supports it, otherwise falls back to a timestamp + random suffix.
+ * @param prefix Optional prefix used by the fallback path to make ids easier to identify in logs (ignored when `crypto.randomUUID` is available).
+ */
+export function generateCorrelationId(prefix = 'corr'): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}

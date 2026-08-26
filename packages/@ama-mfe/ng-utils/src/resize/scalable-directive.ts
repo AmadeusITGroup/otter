@@ -31,7 +31,8 @@ import {
  *
  * The available height is calculated by:
  * 1. Finding the nearest scrollable parent container and using its `clientHeight`
- * 2. Falling back to viewport calculation: `window.innerHeight - element's top position`
+ * 2. Falling back to viewport calculation: `viewport height - element's top position` (the viewport height is read from
+ *    `window.visualViewport` when available, as `window.innerHeight` is rounded and would overestimate the space)
  *
  * The element's min-height is updated whenever:
  * - A resize message is received from the matching channel (using `scalable` or `connect` input as channel ID)
@@ -104,6 +105,19 @@ export class ScalableDirective {
   }
 
   /**
+   * Get the viewport height without the rounding applied by `window.innerHeight`.
+   *
+   * `window.innerHeight` is an integer, rounded from the actual viewport height (e.g. `677.6px` is reported as `678`),
+   * which would lead to a min-height slightly bigger than the available space and therefore to an unwanted scrollbar.
+   * `visualViewport.height` exposes the sub-pixel value; it is scaled back by `visualViewport.scale` to stay on the
+   * layout viewport scale when the page is pinch-zoomed.
+   */
+  private getViewportHeight(): number {
+    const visualViewport = window.visualViewport;
+    return visualViewport ? visualViewport.height * visualViewport.scale : window.innerHeight;
+  }
+
+  /**
    * Calculate the available height from the scrollable container.
    */
   private calculateAvailableHeight(): number | undefined {
@@ -111,9 +125,9 @@ export class ScalableDirective {
       return this.container.clientHeight || undefined;
     }
 
-    // Fallback: use viewport
+    // Fallback: use viewport, floored to avoid exceeding the actual available space because of sub-pixel positions
     const rect = this.elem.nativeElement.getBoundingClientRect();
-    const availableHeight = window.innerHeight - rect.top;
+    const availableHeight = Math.floor(this.getViewportHeight() - rect.top);
     return availableHeight > 0 ? availableHeight : undefined;
   }
 

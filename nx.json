@@ -111,13 +111,6 @@
       "cli-only",
       "source"
     ],
-    "structure-only": [
-      "{projectRoot}/dist/structure/**/*"
-    ],
-    "structure": [
-      "structure-only",
-      "source"
-    ],
     "middlewares": [
       "base",
       "{projectRoot}/middlewares/**/*",

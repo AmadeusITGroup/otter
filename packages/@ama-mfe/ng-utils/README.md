@@ -8,6 +8,7 @@ interaction between host and embedded applications.
 Key features include:
 - [Connect](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/connect/): Connect to the communication protocol and send messages to registered applications.
 - [Navigation](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/navigation/): Handles navigation messages between the host and embedded applications. Embedded applications can use `RoutingService` to sync their internal routing with the host application. The host application can use `NavigationConsumerService` to get notifications about navigation events in the embedded applications.
+- [Navigation Exit](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/navigation/navigation-exit/): Negotiates navigation when an embedded module holds unsaved work. Modules report their block state, and either side asks for confirmation before navigation proceeds.
 - [Theme](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/theme/): Allows the application of unified CSS variables and styles across embedded modules, ensuring a cohesive
 look and feel.
 - [Resize](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/resize/): Dynamically adjusts the iframe dimensions to fit the content of the embedded application, enhancing the
@@ -156,6 +157,7 @@ There is no standardization on the name of the methods used to trigger a message
 #### Services provided in @ama-mfe/ng-utils
 You will find more information for each service in their respective `README.md`:
 - [Navigation](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/navigation/README.md)
+- [Navigation Exit](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/navigation/navigation-exit/README.md)
 - [Resize](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/resize/README.md)
 - [Theme](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/theme/README.md)
 - [User Activity](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/user-activity/README.md)
@@ -244,6 +246,40 @@ export class CustomConsumerService implements MessageConsumer<CustomMessageVersi
   }
 }
 ```
+
+##### Using `AbstractMessageConsumer`
+As a shortcut, custom consumers can extend `AbstractMessageConsumer`, which already injects the `ConsumerManagerService`,
+provides default `start`/`stop` implementations, and unregisters automatically when the host injection context is destroyed.
+
+The consumer is **not** started automatically: define it without a constructor and let the application start it
+explicitly (typically via `provideAppInitializer`), exactly like the other consumers above.
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class CustomConsumerService extends AbstractMessageConsumer<CustomMessageVersions> {
+  public readonly type = 'custom';
+  public readonly supportedVersions = {
+    '1.0': (message: RoutedMessage<CustomMessageV1_0>) => { /* ... */ }
+  };
+}
+```
+
+```typescript
+// app.config.ts
+import {inject, provideAppInitializer} from '@angular/core';
+import {CustomConsumerService} from './custom-consumer.service';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideAppInitializer(() => { inject(CustomConsumerService).start(); })
+  ]
+};
+```
+
+> **Note:** consumers shipped by `@ama-mfe/ng-utils` (e.g. `NavigationConsumerService`, `ThemeConsumerService`,
+> `HistoryConsumerService`, `ResizeConsumerService`) still auto-start from their constructor for backwards
+> compatibility, but this is **deprecated** and will be removed in v15. Start them explicitly from your
+> application configuration instead. The `migration-v14_5` schematic wires the `start()` calls for you on `ng update`.
 
 #### Producer
 A producer should implement the `MessageProducer` interface and inject the `ProducerManagerService` which handles the
@@ -366,3 +402,9 @@ To avoid this, the `@ama-mfe/ng-utils` will forbid the application running in th
 The User Activity Tracking feature allows a host application (shell) to monitor user interactions across embedded micro-frontends. This is useful for implementing session timeout functionality, analytics, or any feature that needs to know when users are actively interacting with the application.
 
 For detailed documentation, configuration options, and examples, see the [User Activity README](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/user-activity/README.md).
+
+### Navigation Exit
+
+The Navigation Exit feature negotiates navigation when an embedded module holds unfinished work (e.g. a dirty form). Both shell- and module-initiated navigations are covered, with the shell owning the confirmation UI and modules running any cleanup the shell asks for before the navigation proceeds.
+
+For the full message contract, services, guards, flows, and integration steps, see the [Navigation Exit README](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-mfe/ng-utils/src/navigation/navigation-exit/README.md).

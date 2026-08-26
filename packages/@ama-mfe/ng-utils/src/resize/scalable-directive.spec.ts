@@ -269,6 +269,39 @@ describe('ScalableDirective - Window Resize Handling', () => {
     expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'min-height', '1100px');
     rendererSpy.mockClear();
   });
+
+  it('should use the sub-pixel viewport height from visualViewport instead of the rounded window.innerHeight', () => {
+    const mockRect = { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0, x: 0, y: 0, toJSON: () => ({}) };
+    jest.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
+
+    // window.innerHeight rounds 677.6 to 678, which would overestimate the available space
+    Object.defineProperty(window, 'innerHeight', { value: 678, configurable: true });
+    Object.defineProperty(window, 'visualViewport', { value: { height: 677.6, scale: 1 }, configurable: true });
+
+    window.dispatchEvent(new Event('resize'));
+    parentComponentFixture.detectChanges();
+    TestBed.tick();
+
+    expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'min-height', '677px');
+    expect(rendererSpy).not.toHaveBeenCalledWith(directiveEl.nativeElement, 'min-height', '678px');
+    rendererSpy.mockClear();
+  });
+
+  it('should floor the available height when the element top is a sub-pixel value', () => {
+    const mockRect = { top: 100.4, bottom: 0, left: 0, right: 0, width: 0, height: 0, x: 0, y: 0, toJSON: () => ({}) };
+    jest.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
+
+    Object.defineProperty(window, 'innerHeight', { value: 900, configurable: true });
+    Object.defineProperty(window, 'visualViewport', { value: undefined, configurable: true });
+
+    window.dispatchEvent(new Event('resize'));
+    parentComponentFixture.detectChanges();
+    TestBed.tick();
+
+    // 900 - 100.4 = 799.6 -> 799
+    expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'min-height', '799px');
+    rendererSpy.mockClear();
+  });
 });
 
 describe('ScalableDirective - Mixed Height Sources', () => {

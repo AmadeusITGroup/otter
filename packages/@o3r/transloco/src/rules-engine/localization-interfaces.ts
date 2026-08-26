@@ -3,7 +3,7 @@ import type {
 } from '@o3r/core';
 
 /** Action type to update localization via the rules engine */
-export const RULES_ENGINE_LOCALIZATION_UPDATE_ACTION_TYPE = 'UPDATE_LOCALIZATION';
+export const RULES_ENGINE_LOCALIZATION_UPDATE_ACTION_TYPE = 'UPDATE_LOCALISATION';
 
 /**
  * Content of action that updates localization
