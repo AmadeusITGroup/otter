@@ -8,9 +8,9 @@
       ],
       "postUpgradeTasks": {
         "commands": [
-          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user registry https:{{arg1}}{{/unless}}",
-          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user ignore-scripts true{{/unless}}",
-          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user {{arg1}}:_auth \"${{arg2}}\"{{/unless}}",
+          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user registry https:{{arg1}}{{else}}:{{/unless}}",
+          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user ignore-scripts true{{else}}:{{/unless}}",
+          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user {{arg1}}:_auth \"${{arg2}}\"{{else}}:{{/unless}}",
           "{{arg0}} install",
           "{{arg0}} exec schematics @ama-sdk/schematics:migrate {{#if (equals '{{arg0}}' 'npm')}}-- {{/if}}--from={{{currentVersion}}} --to={{{newVersion}}}",
           "{{arg0}} run spec:upgrade"
