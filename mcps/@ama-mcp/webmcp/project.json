@@ -1,0 +1,29 @@
+{
+  "name": "ama-mcp-webmcp",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "mcps/@ama-mcp/webmcp/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compile"
+      }
+    },
+    "lint": {}
+  },
+  "tags": []
+}
