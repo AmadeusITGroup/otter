@@ -24,21 +24,8 @@ export interface WebMcpBridgeOptions {
   reconnectInterval?: number;
 }
 
-/** Minimal local typing for the WebMCP browser API surface used by this provider. */
-interface ModelContextTool {
-  name: string;
-  description: string;
-  inputSchema: string | Record<string, unknown>;
-}
-
-interface ModelContext extends EventTarget {
-  getTools(): Promise<ModelContextTool[]>;
-  executeTool(tool: ModelContextTool, args: string): Promise<string>;
-}
-
-interface DocumentWithModelContext extends Document {
-  modelContext: ModelContext;
-}
+/** Tool info type returned by `document.modelContext.getTools()`, declared by `@mcp-b/webmcp-types`. */
+type ModelContextToolInfo = Awaited<ReturnType<Document['modelContext']['getTools']>>[number];
 
 /**
  * Provides the WebMCP bridge for **local development and testing with AI coding agents**.
@@ -87,11 +74,14 @@ export function provideExperimentalWebMcpBridge(options?: WebMcpBridgeOptions): 
       return;
     }
 
-    const modelContext = (document as DocumentWithModelContext).modelContext;
+    const modelContext = document.modelContext;
 
     let ws: WebSocket | null = null;
     let reconnectTimer: ReturnType<typeof setTimeout> | null = null;
     let destroyed = false;
+    // Cached tool references from the last getTools() call, kept in sync via toolchange events.
+    // Used to look up the tool object for executeTool() without an extra async getTools() round-trip on each call.
+    let cachedTools: ModelContextToolInfo[] = [];
 
     destroyRef.onDestroy(() => {
       destroyed = true;
@@ -103,19 +93,16 @@ export function provideExperimentalWebMcpBridge(options?: WebMcpBridgeOptions): 
       }
     });
 
-    const getTools = async () => {
+    const refreshAndRegisterTools = async (socket: WebSocket) => {
       const tools = await modelContext.getTools();
-      return tools.map((tool) => ({
+      cachedTools = tools;
+      const serializedTools = tools.map((tool) => ({
         name: tool.name,
         description: tool.description,
         inputSchema: typeof tool.inputSchema === 'string' ? JSON.parse(tool.inputSchema) as Record<string, unknown> : tool.inputSchema
       }));
-    };
-
-    const registerTools = async (socket: WebSocket) => {
-      const tools = await getTools();
-      console.log(`[WebMCP Bridge] Sending ${String(tools.length)} tools to relay:`, tools.map((t) => t.name));
-      socket.send(JSON.stringify({ type: 'tools/register', tools }));
+      console.log(`[WebMCP Bridge] Sending ${String(serializedTools.length)} tools to relay:`, serializedTools.map((t) => t.name));
+      socket.send(JSON.stringify({ type: 'tools/register', tools: serializedTools }));
     };
 
     const connect = () => {
@@ -127,7 +114,7 @@ export function provideExperimentalWebMcpBridge(options?: WebMcpBridgeOptions): 
 
       ws.addEventListener('open', () => {
         console.log('[WebMCP Bridge] Connected to relay');
-        void registerTools(ws!);
+        void refreshAndRegisterTools(ws!);
       });
 
       ws.addEventListener('message', (event: MessageEvent) => {
@@ -139,26 +126,22 @@ export function provideExperimentalWebMcpBridge(options?: WebMcpBridgeOptions): 
         }
 
         if (message.type === 'tools/call') {
-          void modelContext.getTools().then((tools) => {
-            const tool = tools.find((t) => t.name === message.name);
-            if (!tool) {
+          const tool = cachedTools.find((t) => t.name === message.name);
+          if (!tool) {
+            ws?.send(JSON.stringify({
+              type: 'tools/call/response',
+              id: message.id,
+              result: { content: [{ type: 'text', text: `Tool "${message.name}" not found` }], isError: true }
+            }));
+            return;
+          }
+          void modelContext.executeTool(tool, JSON.stringify(message.arguments ?? {})).then(
+            (result) => {
               ws?.send(JSON.stringify({
                 type: 'tools/call/response',
                 id: message.id,
-                result: { content: [{ type: 'text', text: `Tool "${message.name}" not found` }], isError: true }
+                result: { content: [{ type: 'text', text: result ?? 'null' }] }
               }));
-              return;
-            }
-            return modelContext.executeTool(tool, JSON.stringify(message.arguments ?? {}));
-          }).then(
-            (result) => {
-              if (result !== undefined) {
-                ws?.send(JSON.stringify({
-                  type: 'tools/call/response',
-                  id: message.id,
-                  result: { content: [{ type: 'text', text: result ?? 'null' }] }
-                }));
-              }
             },
             (error: unknown) => {
               ws?.send(JSON.stringify({
@@ -186,7 +169,7 @@ export function provideExperimentalWebMcpBridge(options?: WebMcpBridgeOptions): 
       // Listen to toolchange events and re-register tools with the relay
       const onToolChange = () => {
         if (ws?.readyState === WebSocket.OPEN) {
-          void registerTools(ws);
+          void refreshAndRegisterTools(ws);
         }
       };
 
