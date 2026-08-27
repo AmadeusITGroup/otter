@@ -22,6 +22,7 @@ import {
 } from '@angular/platform-browser/animations';
 import {
   provideRouter,
+  withExperimentalAutoCleanupInjectors,
   withHashLocation,
   withInMemoryScrolling,
 } from '@angular/router';
@@ -53,6 +54,9 @@ import {
   OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
   provideConfigurationDevtools,
 } from '@o3r/configuration';
+import {
+  provideExperimentalWebMcpBridge,
+} from '@o3r/core';
 import {
   provideDynamicContent,
 } from '@o3r/dynamic-content';
@@ -98,6 +102,9 @@ import {
 import {
   appRoutes,
 } from './app.routes';
+import {
+  provideAppWebMcpTools,
+} from './app.webmcp';
 
 const runtimeChecks = {
   strictActionImmutability: false,
@@ -147,7 +154,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       appRoutes,
       withHashLocation(),
-      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+      withExperimentalAutoCleanupInjectors()
     ),
     provideStore({}, { runtimeChecks }),
     provideEffects(),
@@ -189,6 +197,8 @@ export const appConfig: ApplicationConfig = {
     { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } },
     provideLocalization(localizationConfigurationFactory),
     provideLocalizationDevtools(),
-    provideTranslocoMessageformat()
+    provideTranslocoMessageformat(),
+    provideExperimentalWebMcpBridge(),
+    provideAppWebMcpTools()
   ]
 };
