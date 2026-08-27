@@ -40,6 +40,9 @@
       "dom",
       "dom.iterable"
     ],
+    "types": [
+      "@mcp-b/webmcp-types"
+    ],
     "skipLibCheck": true /* because of @webcontainer/api 1.4.0 */
   },
   "angularCompilerOptions": {

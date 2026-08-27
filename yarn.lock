@@ -11738,6 +11738,7 @@ __metadata:
     "@jsverse/transloco": "npm:~8.3.0"
     "@jsverse/transloco-messageformat": "npm:~8.3.0"
     "@jsverse/utils": "npm:1.0.0-beta.6"
+    "@mcp-b/webmcp-types": "npm:~4.0.0"
     "@ng-bootstrap/ng-bootstrap": "npm:~21.0.0"
     "@ng-select/ng-select": "npm:~23.11.0"
     "@ngrx/effects": "npm:22.0.0-rc.0"

@@ -118,6 +118,7 @@
     "@angular/cli": "~22.0.4",
     "@angular/compiler-cli": "~22.0.4",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
+    "@mcp-b/webmcp-types": "~4.0.0",
     "@nx/eslint-plugin": "~23.1.0",
     "@o3r-training/training-sdk": "workspace:~",
     "@o3r/build-helpers": "workspace:~",
