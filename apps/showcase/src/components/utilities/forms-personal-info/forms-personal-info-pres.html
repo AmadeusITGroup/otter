@@ -1,42 +1,42 @@
 <div class="p-3">
   <h3 class="row card-text mt-auto ms-1 h5">Personal Information</h3>
-  <form [formGroup]="form">
+  <form>
     <div class="row mb-3">
       <div class="input-group">
         <label class="input-group-text w-50" for="name">Name</label>
-        <input class="form-control" formControlName="name" [id]="'name'">
+        <input class="form-control" [formField]="formTree.name" [id]="'name'">
       </div>
-      @if (form.controls.name.touched && form.controls.name.dirty) {
+      @if (formTree.name().touched() && formTree.name().dirty()) {
         <ng-container>
           <div class="row mb-3">
-            @if (form.controls.name.errors?.required) {
+            @if (formTree.name().getError('required')) {
               <div class="text-danger">{{translations.required | o3rTranslate}}</div>
             }
-            @if (form.controls.name.errors?.maxlength) {
-              <div class="text-danger">{{translations.maxLength | o3rTranslate: {maxLength: form.controls.name.errors?.maxlength.requiredLength} }}</div>
+            @if (formTree.name().getError('maxLength'); as maxLengthError) {
+              <div class="text-danger">{{translations.maxLength | o3rTranslate: {maxLength: maxLengthError['maxLength']} }}</div>
             }
           </div>
         </ng-container>
       }
     </div>
     <div class="row mb-3">
-      <o3r-date-picker-input-pres [label]="'Date of birth'" [id]="'dateOfBirth'" formControlName="dateOfBirth" />
+      <o3r-date-picker-input-pres [label]="'Date of birth'" [id]="'dateOfBirth'" [formField]="formTree.dateOfBirth" />
     </div>
     <div class="row mb-3">
-      @if (form.controls.dateOfBirth.errors?.date) {
+      @if (formTree.dateOfBirth().getError('date')) {
         <div class="text-danger">{{translations.date | o3rTranslate}}</div>
       }
-      @if (form.controls.dateOfBirth.errors?.max) {
-        <div class="text-danger">{{translations.max | o3rTranslate: {max: form.controls.dateOfBirth.errors?.max.max} }}</div>
+      @if (formTree.dateOfBirth().getError('max'); as maxError) {
+        <div class="text-danger">{{translations.max | o3rTranslate: {max: maxError['max']} }}</div>
       }
-      @for (customError of form.controls.dateOfBirth.errors?.customErrors; track customError.translationKey) {
-        <div class="text-danger">{{customError.translationKey | o3rTranslate: customError.translationParams}}</div>
+      @for (error of getCustomErrors(formTree.dateOfBirth); track $index) {
+        <div class="text-danger">{{error.translationKey | o3rTranslate: error.translationParams}}</div>
       }
     </div>
   </form>
   <div class="row mb-3">
-    @if(form.errors) {
-      <div class="text-danger">Global validator: {{form.errors | json}}</div>
+    @if (formTree().errors().length > 0) {
+      <div class="text-danger">Global validator: {{formTree().errors() | json}}</div>
     }
   </div>
   <div class="m-auto pb-3">

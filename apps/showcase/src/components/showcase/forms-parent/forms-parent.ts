@@ -5,12 +5,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  signal,
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  ReactiveFormsModule,
-  UntypedFormControl,
-} from '@angular/forms';
+  apply,
+  form,
+  FormField,
+  maxLength,
+  validate,
+} from '@angular/forms/signals';
 import {
   O3rComponent,
 } from '@o3r/core';
@@ -28,6 +32,12 @@ import {
   FormsEmergencyContactPres,
   FormsPersonalInfoPres,
 } from '../../utilities';
+import {
+  emergencyContactSchema,
+} from '../../utilities/forms-emergency-contact/forms-emergency-contact-pres';
+import {
+  personalInfoSchema,
+} from '../../utilities/forms-personal-info/forms-personal-info-pres';
 import {
   EmergencyContact,
   PersonalInfo,
@@ -47,7 +57,7 @@ import {
   imports: [
     FormsEmergencyContactPres,
     FormsPersonalInfoPres,
-    ReactiveFormsModule,
+    FormField,
     LanguagePipe,
     MarkdownComponent
   ],
@@ -62,15 +72,49 @@ export class FormsParent {
   @Localization('./forms-parent-localization.json')
   public translations: FormsParentTranslation = translations;
 
-  /** The personal info form object model */
-  public personalInfo: PersonalInfo = { name: '', dateOfBirth: this.formatDate(Date.now()) };
-  /** The emergency contact form object model */
-  public emergencyContact: EmergencyContact = { name: '', phone: '', email: '' };
+  /** The combined model for both sub-forms */
+  public parentModel = signal({
+    personalInfo: { name: '', dateOfBirth: formatDate(Date.now(), 'yyyy-MM-dd', 'en-GB') },
+    emergencyContact: { name: '', phone: '', email: '' }
+  });
 
-  /** The form control object bind to the personal info component */
-  public personalInfoFormControl: UntypedFormControl = new UntypedFormControl(this.personalInfo);
-  /** The form control object bind to the emergency contact component */
-  public emergencyContactFormControl: UntypedFormControl = new UntypedFormControl(this.emergencyContact);
+  /** The signal form tree binding to the model, with child schemas applied for parent-level validation */
+  public parentForm = form(this.parentModel, (p) => {
+    // Apply the reusable schemas from the child components so that
+    // the parent's field tree reflects the children's validation state.
+    apply(p.personalInfo, personalInfoSchema);
+    apply(p.emergencyContact, emergencyContactSchema);
+
+    // Additional parent-level validation for personalInfo
+    maxLength(p.personalInfo.name, 5);
+
+    // Custom validator: forbidden name on personal info (global)
+    validate(p.personalInfo, ({ value }) => {
+      const v = value();
+      if (v.name === this.forbiddenName) {
+        return { kind: 'forbiddenName', message: translations.globalForbiddenName };
+      }
+      return undefined;
+    });
+
+    // Custom validator: date must not be in the future
+    validate(p.personalInfo.dateOfBirth, ({ value }) => {
+      const dateStr = formatDate(value(), 'yyyy-MM-dd', 'en-GB');
+      if (dateStr && dateStr > formatDate(Date.now(), 'yyyy-MM-dd', 'en-GB')) {
+        return { kind: 'dateInFuture', message: translations.dateInThePast };
+      }
+      return undefined;
+    });
+
+    // Custom validator: forbidden name on emergency contact (global)
+    validate(p.emergencyContact, ({ value }) => {
+      const v = value();
+      if (v.name === this.forbiddenName) {
+        return { kind: 'forbiddenName', message: translations.globalForbiddenName };
+      }
+      return undefined;
+    });
+  });
 
   public submittedFormValue = '';
 
@@ -80,7 +124,7 @@ export class FormsParent {
 
   private readonly forbiddenName = 'Test';
 
-  /** Form validators for personal info */
+  /** Form validators for personal info (passed to child for internal display) */
   public personalInfoValidators: CustomFormValidation<PersonalInfo> = {
     global: formsParentValidatorGlobal(this.forbiddenName, translations.globalForbiddenName, translations.globalForbiddenNameLong, { name: this.forbiddenName }),
     fields: {
@@ -88,71 +132,50 @@ export class FormsParent {
     }
   };
 
-  /** Form validators for emergency contact */
+  /** Form validators for emergency contact (passed to child for internal display) */
   public emergencyContactValidators: CustomFormValidation<EmergencyContact> = {
     global: formsParentValidatorGlobal(this.forbiddenName, translations.globalForbiddenName, translations.globalForbiddenNameLong, { name: this.forbiddenName })
   };
 
-  private formatDate(dateTime: number) {
-    return formatDate(dateTime, 'yyyy-MM-dd', 'en-GB');
-  }
-
-  /** This will store the function to make the personal info form as dirty and touched */
-  public _markPersonalInfoInteraction: () => void = () => {};
-  /** This will store the function to make the emergency contact form as dirty and touched */
-  public _markEmergencyContactInteraction: () => void = () => {};
-
-  /**
-   * Register the function to be called to mark the personal info form as touched and dirty
-   * @param fn
-   */
-  public registerPersonalInfoInteraction(fn: () => void) {
-    this._markPersonalInfoInteraction = fn;
-  }
-
-  /**
-   * Register the function to be called to mark the personal emergency contact form as touched and dirty
-   * @param fn
-   */
-  public registerEmergencyContactInteraction(fn: () => void) {
-    this._markEmergencyContactInteraction = fn;
-  }
-
   /** submit function */
   public submitAction() {
     if (this.firstSubmit) {
-      this._markPersonalInfoInteraction();
-      this._markEmergencyContactInteraction();
+      this.parentForm.personalInfo().markAsTouched();
+      this.parentForm.personalInfo().markAsDirty();
+      this.parentForm.emergencyContact().markAsTouched();
+      this.parentForm.emergencyContact().markAsDirty();
       this.firstSubmit = false;
       this.firstPersonalInfoFormSubmit = false;
       this.firstEmergencyContactFormSubmit = false;
     }
     this.submitPersonalInfoForm();
     this.submitEmergencyContactForm();
-    this.submittedFormValue = JSON.stringify(this.personalInfoFormControl.value) + '\n' + JSON.stringify(this.emergencyContactFormControl.value);
+    this.submittedFormValue = JSON.stringify(this.parentModel().personalInfo) + '\n' + JSON.stringify(this.parentModel().emergencyContact);
   }
 
-  /** Submit emergency contact form */
+  /** Submit personal info form */
   public submitPersonalInfoForm() {
     if (this.firstPersonalInfoFormSubmit) {
-      this._markPersonalInfoInteraction();
+      this.parentForm.personalInfo().markAsTouched();
+      this.parentForm.personalInfo().markAsDirty();
       this.firstPersonalInfoFormSubmit = false;
     }
-    const isValid = !this.personalInfoFormControl.errors;
+    const isValid = !this.parentForm.personalInfo().invalid();
     if (isValid) {
-      this.submittedFormValue = JSON.stringify(this.personalInfoFormControl.value);
+      this.submittedFormValue = JSON.stringify(this.parentModel().personalInfo);
     }
   }
 
   /** Submit emergency contact form */
   public submitEmergencyContactForm() {
     if (this.firstEmergencyContactFormSubmit) {
-      this._markEmergencyContactInteraction();
+      this.parentForm.emergencyContact().markAsTouched();
+      this.parentForm.emergencyContact().markAsDirty();
       this.firstEmergencyContactFormSubmit = false;
     }
-    const isValid = !this.emergencyContactFormControl.errors;
+    const isValid = !this.parentForm.emergencyContact().invalid();
     if (isValid) {
-      this.submittedFormValue = JSON.stringify(this.emergencyContactFormControl.value);
+      this.submittedFormValue = JSON.stringify(this.parentModel().emergencyContact);
     }
   }
 }
