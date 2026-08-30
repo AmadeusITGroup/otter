@@ -7,7 +7,10 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": ["build-builders", "compile"]
+      "dependsOn": [
+        "build-builders",
+        "compile"
+      ]
     },
     "compile": {
       "executor": "nx:run-script",
@@ -23,5 +26,52 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular-devkit/schematics",
+          "@angular/cli",
+          "@compodoc/compodoc",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@nx/js",
+          "@stylistic/eslint-plugin",
+          "@types/jest",
+          "@types/node",
+          "@types/semver",
+          "@types/yargs",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "cpy-cli",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "jest",
+          "jest-environment-jsdom",
+          "jest-junit",
+          "jsonc-eslint-parser",
+          "nx",
+          "semver",
+          "ts-jest",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint",
+          "yargs"
+        ]
+      }
+    ]
+  }
 }
