@@ -7,7 +7,7 @@
   "peerDependencies": {
     "@ama-mfe/messages": "workspace:~",
     "@amadeus-it-group/microfrontends": "0.0.11",
-    "@amadeus-it-group/microfrontends-angular": "0.0.11",
+    "@amadeus-it-group/microfrontends-angular": "0.0.10",
     "@angular-devkit/core": "^21.0.0",
     "@angular-devkit/schematics": "^21.0.0",
     "@angular/common": "^21.0.0",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@amadeus-it-group/microfrontends": "0.0.11",
-    "@amadeus-it-group/microfrontends-angular": "0.0.11",
+    "@amadeus-it-group/microfrontends-angular": "0.0.10",
     "@o3r/logger": "workspace:~",
     "@o3r/schematics": "workspace:~",
     "tslib": "^2.6.2"
@@ -33,30 +33,30 @@
     "postbuild": "patch-package-json-exports",
     "prepare:compile": "cp-package-json",
     "build": "yarn nx build ama-mfe-ng-utils",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' 'migration.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "devDependencies": {
     "@ama-mfe/messages": "workspace:~",
-    "@angular-devkit/architect": "0.2102.16",
-    "@angular-devkit/build-angular": "~21.2.0",
-    "@angular-devkit/core": "~21.2.0",
-    "@angular-devkit/schematics": "~21.2.0",
-    "@angular/cli": "~21.2.0",
-    "@angular/common": "~21.2.17",
-    "@angular/compiler": "~21.2.17",
-    "@angular/compiler-cli": "~21.2.17",
-    "@angular/core": "~21.2.17",
-    "@angular/platform-browser": "~21.2.17",
-    "@angular/platform-browser-dynamic": "~21.2.17",
-    "@angular/router": "~21.2.17",
+    "@angular-devkit/architect": "0.2102.21",
+    "@angular-devkit/build-angular": "~21.2.19",
+    "@angular-devkit/core": "~21.2.19",
+    "@angular-devkit/schematics": "~21.2.19",
+    "@angular/cli": "~21.2.19",
+    "@angular/common": "~21.2.19",
+    "@angular/compiler": "~21.2.19",
+    "@angular/compiler-cli": "~21.2.19",
+    "@angular/core": "~21.2.19",
+    "@angular/platform-browser": "~21.2.19",
+    "@angular/platform-browser-dynamic": "~21.2.19",
+    "@angular/router": "~21.2.19",
     "@compodoc/compodoc": "^1.1.32",
     "@jest/environment-jsdom-abstract": "~30.4.0",
     "@o3r/build-helpers": "workspace:~",
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
-    "@schematics/angular": "~21.2.0",
+    "@schematics/angular": "~21.2.19",
     "@types/jest": "~30.0.0",
     "@types/jsdom": "^27.0.0",
     "@types/node": "~24.13.0",
@@ -93,9 +93,6 @@
     "communication protocol"
   ],
   "schematics": "./collection.json",
-  "ng-update": {
-    "migrations": "./migration.json"
-  },
   "peerDependenciesMeta": {
     "@ama-mfe/messages": {
       "optional": true

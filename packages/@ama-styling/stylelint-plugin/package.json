@@ -46,10 +46,10 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/core": "~21.2.0",
-    "@angular-devkit/schematics": "~21.2.0",
-    "@angular/cli": "~21.2.0",
-    "@angular/compiler": "~21.2.17",
+    "@angular-devkit/core": "~21.2.19",
+    "@angular-devkit/schematics": "~21.2.19",
+    "@angular/cli": "~21.2.19",
+    "@angular/compiler": "~21.2.19",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~22.7.0",
@@ -59,7 +59,7 @@
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
-    "@schematics/angular": "~21.2.0",
+    "@schematics/angular": "~21.2.19",
     "@stylistic/eslint-plugin": "~5.10.0",
     "@types/css-tree": "~2.3.0",
     "@types/jest": "~30.0.0",

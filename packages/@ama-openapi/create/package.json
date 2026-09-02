@@ -46,8 +46,8 @@
     "yargs": "~18.0.0"
   },
   "devDependencies": {
-    "@angular-devkit/schematics": "~21.2.0",
-    "@angular/cli": "~21.2.0",
+    "@angular-devkit/schematics": "~21.2.19",
+    "@angular/cli": "~21.2.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~22.7.0",
     "@nx/eslint-plugin": "~22.7.0",
@@ -57,7 +57,7 @@
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
-    "@schematics/angular": "~21.2.0",
+    "@schematics/angular": "~21.2.19",
     "@stylistic/eslint-plugin": "~5.10.0",
     "@types/ejs": "^3.1.2",
     "@types/jest": "~30.0.0",
