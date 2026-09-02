@@ -1468,6 +1468,7 @@ __metadata:
     zod: "npm:~4.4.0"
   bin:
     ama-sdk-mcp: ./dist/src/cli.js
+    ama-sdk-mcp-start: ./dist/src/cli.js
   languageName: unknown
   linkType: soft
 

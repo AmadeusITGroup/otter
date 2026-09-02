@@ -21,7 +21,9 @@ The issue creation template requires:
 - NodeJS version
 - a fix suggestion, if possible
 
-If you already have a fix for the problem don't hesitate to [open a pull request](#creating-a-pull-request). Each pull request should be assigned to an issue, so please create the issue and link it to the PR.
+Already have a fix? Feel free to [open a pull request](#creating-a-pull-request).
+Every pull request must be linked to an issue, so create the issue first and reference it in your PR.
+
 
 ## Creating a pull request
 
