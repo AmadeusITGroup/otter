@@ -14,7 +14,7 @@ import {
 import type {
   CliWrapper,
 } from '@o3r/telemetry';
-import * as minimist from 'minimist';
+import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
 const { help, quiet } = argv;

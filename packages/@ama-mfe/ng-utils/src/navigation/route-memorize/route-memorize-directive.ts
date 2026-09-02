@@ -25,29 +25,29 @@ export class RouteMemorizeDirective {
    * Whether to memorize the route.
    * Default is true.
    */
-  public memorizeRoute = input<boolean | undefined | ''>(true);
+  public readonly memorizeRoute = input<boolean | undefined | ''>(true);
 
   /**
    * The ID used to memorize the route.
    */
-  public memorizeRouteId = input<string>();
+  public readonly memorizeRouteId = input<string>();
 
   /**
    * The maximum age for memorizing the route.
    * Default is 0.
    */
-  public memorizeMaxAge = input<number>(0);
+  public readonly memorizeMaxAge = input<number>(0);
 
   /**
    * The maximum age for memorizing the route, used as a fallback.
    * Default is 0.
    */
-  public memorizeRouteMaxAge = input<number>(0);
+  public readonly memorizeRouteMaxAge = input<number>(0);
 
   /**
    * The connection ID for the iframe where the actual directive is applied.
    */
-  public connect = input<string>();
+  public readonly connect = input<string>();
 
   private readonly maxAge = computed(() => {
     return this.memorizeMaxAge() || this.memorizeRouteMaxAge();

@@ -10,12 +10,6 @@ import {
   initializeChatParticipant,
 } from './chat';
 import {
-  extractAllToVariable,
-} from './commands/extract/styling/extract-all-to-variable-command';
-import {
-  extractToVariable,
-} from './commands/extract/styling/extract-to-variable-command';
-import {
   generateComponentGenerateCommand,
 } from './commands/generate/component-command';
 import {
@@ -27,7 +21,6 @@ import {
   generateAddLocalizationKeyToComponentCommand,
   generateAddLocalizationToComponentCommand,
   generateAddRulesEngineToComponentCommand,
-  generateAddThemingToComponentCommand,
   generateConvertComponentCommand,
 } from './commands/generate/enrich-component';
 import {
@@ -53,10 +46,6 @@ import {
   configurationCompletionTriggerChar,
 } from './intellisense/configuration';
 import {
-  stylingCompletionItemProvider,
-  stylingCompletionTriggerChar,
-} from './intellisense/styling';
-import {
   mcpConfig,
 } from './mcp';
 import {
@@ -80,7 +69,6 @@ export function activate(context: ExtensionContext) {
     o3rChatParticipant,
     lm.registerMcpServerDefinitionProvider('o3rMCPServerProvider', mcpConfig(didChangeEmitter, channel)),
     languages.registerCompletionItemProvider(['javascript', 'typescript'], configurationCompletionItemProvider({ channel }), configurationCompletionTriggerChar),
-    languages.registerCompletionItemProvider(['scss'], stylingCompletionItemProvider(), stylingCompletionTriggerChar),
     commands.registerCommand('otter.generate.component', generateComponentGenerateCommand(context)),
     commands.registerCommand('otter.generate.service', generateServiceGenerateCommand(context)),
     commands.registerCommand('otter.generate.store', generateStoreGenerateCommand(context)),
@@ -94,16 +82,13 @@ export function activate(context: ExtensionContext) {
     commands.registerCommand('otter.generate.localization-key-to-component', generateAddLocalizationKeyToComponentCommand),
     commands.registerCommand('otter.generate.localization-to-component', generateAddLocalizationToComponentCommand),
     commands.registerCommand('otter.generate.rules-engine-to-component', generateAddRulesEngineToComponentCommand),
-    commands.registerCommand('otter.generate.theming-to-component', generateAddThemingToComponentCommand),
     commands.registerCommand('otter.menu.generate.component', wrapCommandWhenExplorerContext(context, generateComponentGenerateCommand)),
     commands.registerCommand('otter.menu.generate.service', wrapCommandWhenExplorerContext(context, generateServiceGenerateCommand)),
     commands.registerCommand('otter.menu.generate.store', wrapCommandWhenExplorerContext(context, generateStoreGenerateCommand)),
     commands.registerCommand('otter.menu.generate.module', wrapCommandWhenExplorerContext(context, generateModuleGenerateCommand)),
     commands.registerCommand('otter.generate.fixture', generateFixtureGenerateCommand(context)),
     commands.registerCommand('otter.menu.generate.fixture', generateFixtureGenerateCommand(context)),
-    commands.registerCommand('otter.add.module', generateModuleAddCommand(context)),
-    commands.registerTextEditorCommand('otter.extract.styling.variable', extractToVariable(context)),
-    commands.registerTextEditorCommand('otter.extract.styling.allVariable', extractAllToVariable(context))
+    commands.registerCommand('otter.add.module', generateModuleAddCommand(context))
   );
 }
 

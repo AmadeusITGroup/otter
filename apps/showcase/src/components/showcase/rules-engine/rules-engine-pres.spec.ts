@@ -1,21 +1,18 @@
 import {
-  AsyncPipe,
-} from '@angular/common';
-import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
 import {
-  EffectsModule,
+  provideEffects,
 } from '@ngrx/effects';
 import {
-  StoreModule,
+  provideStore,
 } from '@ngrx/store';
 import {
   provideDynamicContent,
 } from '@o3r/dynamic-content';
 import {
-  RulesEngineRunnerModule,
+  provideRulesEngineRunner,
 } from '@o3r/rules-engine';
 import {
   provideLocalizationMock,
@@ -47,13 +44,12 @@ describe('RulesEnginePres', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        RulesEnginePres,
-        StoreModule.forRoot({}),
-        EffectsModule.forRoot([]),
-        RulesEngineRunnerModule.forRoot(),
-        AsyncPipe
+        RulesEnginePres
       ],
       providers: [
+        provideStore(),
+        provideEffects(),
+        provideRulesEngineRunner(),
         LocalizationService,
         provideDynamicContent(),
         provideLocalizationMock(localizationConfiguration, mockTranslations)

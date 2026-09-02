@@ -133,11 +133,11 @@ export class Training implements OnInit {
   );
 
   /** Path to the training assets */
-  public trainingPath = input('');
+  public readonly trainingPath = input('');
   /** Title of the training */
-  public title = input('');
+  public readonly title = input('');
   /** Feedback form link for this specific training */
-  public feedbackFormLink = input('');
+  public readonly feedbackFormLink = input('');
 
   private readonly dynamicContentService = inject(DynamicContentService);
   private readonly loggerService = inject(LoggerService);

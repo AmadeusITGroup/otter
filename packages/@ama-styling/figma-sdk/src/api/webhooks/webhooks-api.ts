@@ -106,7 +106,7 @@ export class WebhooksApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<WebhookV2>(url, options, ApiTypes.DEFAULT, WebhooksApi.apiName, undefined, 'deleteWebhook');
     return ret;
@@ -158,7 +158,7 @@ export class WebhooksApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetTeamWebhooks200Response>(url, options, ApiTypes.DEFAULT, WebhooksApi.apiName, undefined, 'getTeamWebhooks');
     return ret;
@@ -210,7 +210,7 @@ export class WebhooksApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<WebhookV2>(url, options, ApiTypes.DEFAULT, WebhooksApi.apiName, undefined, 'getWebhook');
     return ret;
@@ -262,7 +262,7 @@ export class WebhooksApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetWebhookRequests200Response>(url, options, ApiTypes.DEFAULT, WebhooksApi.apiName, undefined, 'getWebhookRequests');
     return ret;
@@ -309,7 +309,7 @@ export class WebhooksApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<WebhookV2>(url, options, ApiTypes.DEFAULT, WebhooksApi.apiName, undefined, 'postWebhook');
     return ret;
@@ -366,7 +366,7 @@ export class WebhooksApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<WebhookV2>(url, options, ApiTypes.DEFAULT, WebhooksApi.apiName, undefined, 'putWebhook');
     return ret;

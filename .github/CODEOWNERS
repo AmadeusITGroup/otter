@@ -19,6 +19,3 @@
 /packages/@o3r/extractors/schemas/ @AmadeusITGroup/otter_cms
 /packages/@o3r/rules-engine/schemas/ @AmadeusITGroup/otter_cms
 
-# Default reviewers for Intellij extension
-/apps/intellij-extension/ @OxyFlax
-/apps/intellij-extension/build.gradle.kts @AmadeusITGroup/otter_admins

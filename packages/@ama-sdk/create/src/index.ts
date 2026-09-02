@@ -19,7 +19,7 @@ import {
 import type {
   CliWrapper,
 } from '@o3r/telemetry';
-import * as minimist from 'minimist';
+import minimist from 'minimist';
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
 const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.json'), '../bin/schematics.js');

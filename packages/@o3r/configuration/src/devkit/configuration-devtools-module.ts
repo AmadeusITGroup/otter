@@ -1,4 +1,6 @@
 import {
+  EnvironmentProviders,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
@@ -7,6 +9,7 @@ import {
 } from '@ngrx/store';
 import {
   ConfigurationStoreModule,
+  provideConfigurationStore,
 } from '../stores/index';
 import {
   OtterConfigurationDevtools,
@@ -25,6 +28,9 @@ import {
   OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
 } from './configuration-devtools-token';
 
+/**
+ * @deprecated Will be removed in v16. Use {@link provideConfigurationDevtools} instead.
+ */
 @NgModule({
   imports: [
     StoreModule,
@@ -53,4 +59,18 @@ export class ConfigurationDevtoolsModule {
       ]
     };
   }
+}
+
+/**
+ * Provide configuration devtools functionality.
+ * @param options Configuration devtools options
+ */
+export function provideConfigurationDevtools(options?: Partial<ConfigurationDevtoolsServiceOptions>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideConfigurationStore(),
+    { provide: OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, useValue: { ...OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, ...options } },
+    ConfigurationDevtoolsMessageService,
+    ConfigurationDevtoolsConsoleService,
+    OtterConfigurationDevtools
+  ]);
 }

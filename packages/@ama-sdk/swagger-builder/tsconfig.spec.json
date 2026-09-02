@@ -1,5 +1,8 @@
 {
   "extends": "../../../tsconfig.jest",
+  "compilerOptions": {
+    "rootDir": "."
+  },
   "include": [
     "./tests/**/*.spec.ts",
     "./src/**/*.spec.ts"

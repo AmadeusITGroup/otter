@@ -11,7 +11,7 @@ import {
 import type {
   CliWrapper,
 } from '@o3r/telemetry';
-import * as minimist from 'minimist';
+import minimist from 'minimist';
 import {
   generateSdkContext,
 } from './genai-context/update-sdk-context.cjs';

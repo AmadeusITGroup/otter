@@ -85,7 +85,7 @@ export class ActivityLogsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetActivityLogs200Response>(url, options, ApiTypes.DEFAULT, ActivityLogsApi.apiName, undefined, 'getActivityLogs');
     return ret;

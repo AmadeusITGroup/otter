@@ -6,10 +6,11 @@
     "types": ["node", "jest"],
     "composite": true,
     "esModuleInterop": true,
+    "noEmitHelpers": false,
     "isolatedModules": true,
     "emitDecoratorMetadata": false,
     "module": "commonjs",
-    "moduleResolution": "node"
+    "moduleResolution": "bundler"
   },
   "include": [],
   "exclude": ["**/*.e2e.spec.ts"]

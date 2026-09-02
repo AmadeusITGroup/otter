@@ -1,4 +1,7 @@
 import {
+  AsyncPipe,
+} from '@angular/common';
+import {
   Component,
   DestroyRef,
   inject,
@@ -10,6 +13,7 @@ import {
 import {
   NavigationEnd,
   Router,
+  RouterOutlet,
 } from '@angular/router';
 import {
   NgbOffcanvas,
@@ -26,6 +30,10 @@ import {
   shareReplay,
 } from 'rxjs';
 import {
+  ScrollBackTopPres,
+  SidenavPres,
+} from '../components/utilities';
+import {
   SideNavLinksGroup,
 } from '../components/utilities/sidenav';
 
@@ -34,7 +42,7 @@ import {
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
-  standalone: false
+  imports: [AsyncPipe, RouterOutlet, SidenavPres, ScrollBackTopPres]
 })
 export class App {
   public title = 'showcase';

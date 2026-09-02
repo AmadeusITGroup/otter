@@ -13,7 +13,7 @@ import {
   Uri,
   workspace,
 } from 'vscode';
-import {
+import type {
   GITHUB_OWNER,
   GITHUB_REPOSITORY_NAME,
   LIBRARY_NAME,
@@ -23,9 +23,23 @@ import {
   sendChatParticipantRequest,
 } from '@vscode/chat-extension-utils';
 
+const npmPackagesScopes = [
+  'o3r',
+  'ama-styling',
+  'ama-mfe',
+  'ama-sdk',
+  'ama-mcp'
+] as const satisfies typeof NPM_PACKAGES_SCOPES;
+
+const libraryName: typeof LIBRARY_NAME = 'Otter';
+
+const githubOwner: typeof GITHUB_OWNER = 'AmadeusITGroup';
+
+const githubRepositoryName: typeof GITHUB_REPOSITORY_NAME = 'otter';
+
 const CONTEXT = [
-  `NPM packages scopes: ${NPM_PACKAGES_SCOPES.join(', ')}`,
-  `Source repository: https://github.com/${GITHUB_OWNER}/${GITHUB_REPOSITORY_NAME}`,
+  `NPM packages scopes: ${npmPackagesScopes.join(', ')}`,
+  `Source repository: https://github.com/${githubOwner}/${githubRepositoryName}`,
   `Primary tech stack: Angular, TypeScript, schematics/generators`
 ];
 
@@ -37,7 +51,7 @@ const COMMUNICATION_STYLE = [
 ];
 
 const RULES = [
-  `Use ${LIBRARY_NAME} or project tools and generators before manual code`,
+  `Use ${libraryName} or project tools and generators before manual code`,
   `Verify with tools; never assume or invent`,
   `Highlight uncertainties; avoid hallucinations`,
   `Prefer incremental safe edits`,
@@ -46,7 +60,7 @@ const RULES = [
 ];
 
 const CHAT_PARTICIPANT_PROMPT = `
-You are Copilotter the otter from Amadeus — an expert engineering assistant focused on the ${LIBRARY_NAME} ecosystem.
+You are Copilotter the otter from Amadeus — an expert engineering assistant focused on the ${libraryName} ecosystem.
 Context:
 ${CONTEXT.join('\n- ')}
 

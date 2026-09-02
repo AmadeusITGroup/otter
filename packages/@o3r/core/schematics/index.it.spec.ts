@@ -27,27 +27,22 @@ describe('new otter application', () => {
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:store-entity-async', '--store-name', 'test-entity-async', '--model-name', 'Bound', '--model-id-prop-name', 'id', ...appNameOptions] },
       execAppOptions
     );
-    await addImportToAppModule(applicationPath, 'TestEntityAsyncStoreModule', 'src/store/test-entity-async');
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:store-entity-sync', '--store-name', 'test-entity-sync', '--model-name', 'Bound', '--model-id-prop-name', 'id', ...appNameOptions] },
       execAppOptions
     );
-    await addImportToAppModule(applicationPath, 'TestEntitySyncStoreModule', 'src/store/test-entity-sync');
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:store-simple-async', '--store-name', 'test-simple-async', '--model-name', 'Bound', ...appNameOptions] },
       execAppOptions
     );
-    await addImportToAppModule(applicationPath, 'TestSimpleAsyncStoreModule', 'src/store/test-simple-async');
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:store-simple-sync', '--store-name', 'test-simple-sync', ...appNameOptions] },
       execAppOptions
     );
-    await addImportToAppModule(applicationPath, 'TestSimpleSyncStoreModule', 'src/store/test-simple-sync');
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:service', 'test-service', '--feature-name', 'base', ...appNameOptions] },
       execAppOptions
     );
-    await addImportToAppModule(applicationPath, 'TestServiceBaseModule', 'src/services/test-service');
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:page', 'test-page', ...appNameOptions] },
       execAppOptions

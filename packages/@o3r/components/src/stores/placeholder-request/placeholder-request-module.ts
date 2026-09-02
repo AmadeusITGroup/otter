@@ -1,11 +1,14 @@
 import {
+  EnvironmentProviders,
   InjectionToken,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
+  provideState,
   StoreModule,
 } from '@ngrx/store';
 import {
@@ -24,6 +27,9 @@ export function getDefaultplaceholderRequestReducer() {
   return placeholderRequestReducer;
 }
 
+/**
+ * @deprecated Will be removed in v16. Use {@link providePlaceholderRequestStore} instead.
+ */
 @NgModule({
   imports: [
     StoreModule.forFeature(PLACEHOLDER_REQUEST_STORE_NAME, PLACEHOLDER_REQUEST_REDUCER_TOKEN)
@@ -41,4 +47,14 @@ export class PlaceholderRequestStoreModule {
       ]
     };
   }
+}
+
+/**
+ * Provide PlaceholderRequest feature store.
+ * @param reducerFactory Optional factory to override the default reducer.
+ */
+export function providePlaceholderRequestStore(reducerFactory?: () => ActionReducer<PlaceholderRequestState, Action>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideState(PLACEHOLDER_REQUEST_STORE_NAME, reducerFactory ? reducerFactory() : placeholderRequestReducer)
+  ]);
 }

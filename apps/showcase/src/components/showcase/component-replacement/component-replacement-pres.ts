@@ -53,7 +53,7 @@ export class ComponentReplacementPres implements DynamicConfigurableWithSignal<C
   private readonly c11nService = inject(C11nService);
 
   /** Input configuration to override the default configuration of the component*/
-  public config = input<Partial<ComponentReplacementPresConfig>>();
+  public readonly config = input<Partial<ComponentReplacementPresConfig>>();
 
   /** Id of the child component */
   protected childId = 'date-outbound';

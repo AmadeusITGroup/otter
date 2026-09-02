@@ -23,7 +23,9 @@ export type ApiClassType<T extends Api = Api> = (new (client: ApiClient) => T) &
  */
 export const INITIAL_APIS_TOKEN = new InjectionToken<(Api | ApiClassType)[]>('Initial APIs token');
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ApiFactoryService {
   private readonly apiManager = inject<ApiManager>(API_TOKEN);
 

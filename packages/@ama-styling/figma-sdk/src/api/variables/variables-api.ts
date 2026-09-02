@@ -90,7 +90,7 @@ export class VariablesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLocalVariables200Response>(url, options, ApiTypes.DEFAULT, VariablesApi.apiName, undefined, 'getLocalVariables');
     return ret;
@@ -142,7 +142,7 @@ export class VariablesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetPublishedVariables200Response>(url, options, ApiTypes.DEFAULT, VariablesApi.apiName, undefined, 'getPublishedVariables');
     return ret;
@@ -199,7 +199,7 @@ export class VariablesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<PostVariables200Response>(url, options, ApiTypes.DEFAULT, VariablesApi.apiName, undefined, 'postVariables');
     return ret;

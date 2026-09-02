@@ -2,7 +2,7 @@
 import {
   env,
 } from 'node:process';
-import * as yargs from 'yargs';
+import yargs from 'yargs';
 import {
   hideBin,
 } from 'yargs/helpers';

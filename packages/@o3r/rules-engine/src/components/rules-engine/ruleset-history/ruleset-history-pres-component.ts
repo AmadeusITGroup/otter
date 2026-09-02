@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
-  Input,
+  input,
   ViewEncapsulation,
 } from '@angular/core';
 import type {
@@ -67,11 +67,9 @@ export class RulesetHistoryPresComponent {
    */
   public expansionStatus: { [key: string]: { [subpanel: string]: boolean } } = {};
 
-  @Input()
-  public rulesetExecutions?: RulesetExecutionDebug[] | null = [];
+  public rulesetExecutions = input<RulesetExecutionDebug[] | null | undefined>([]);
 
-  @Input()
-  public executionDurationFormat = '1.3-3';
+  public executionDurationFormat = input('1.3-3');
 
   /**
    * Toggle a ruleset subpanel

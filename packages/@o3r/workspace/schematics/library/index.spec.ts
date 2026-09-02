@@ -56,10 +56,10 @@ describe('New module generator', () => {
     expect(tree.exists('/packages-test/my-new-module/tsconfig.json')).toBe(true);
     expect(tree.readJson('/packages-test/my-new-module/tsconfig.lib.prod.json')).toStrictEqual({ extends: '../../tsconfig.base.json' });
     expect(tree.exists('/packages-test/my-new-module/project.json')).toBe(false);
-    expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/my-new-module/src/public-api');
-    expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).not.toContain('packages-test/my-new-module/dist');
+    expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).toContain('./packages-test/my-new-module/src/public-api');
+    expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).not.toContain('./packages-test/my-new-module/dist');
     expect(tree.exists('/tsconfig.build.json')).toBe(true);
-    expect(JSON.parse(tree.readContent('/tsconfig.build.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/my-new-module/dist');
+    expect(JSON.parse(tree.readContent('/tsconfig.build.json')).compilerOptions.paths['@my/new-module']).toContain('./packages-test/my-new-module/dist');
     expect(tree.exists('/packages-test/my-new-module/testing/setup-jest.ts')).toBe(false);
     expect(JSON.parse(tree.readContent('/packages-test/my-new-module/package.json')).scripts.test).toContain('ng test my-new-module');
     expect(tree.exists('/packages-test/my-new-module/jest.config.js')).toBe(false);
