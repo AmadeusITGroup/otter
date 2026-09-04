@@ -50,7 +50,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin": "~5.10.0",
     "@types/node": "~24.13.0",
-    "@typescript-eslint/parser": "~8.67.0",
+    "@typescript-eslint/parser": "~8.68.0",
     "@vitest/coverage-istanbul": "^4.0.18",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
@@ -66,7 +66,7 @@
     "globals": "^16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "~8.67.0",
+    "typescript-eslint": "~8.68.0",
     "vitest": "~4.1.0",
     "zod": "~4.4.0"
   },
