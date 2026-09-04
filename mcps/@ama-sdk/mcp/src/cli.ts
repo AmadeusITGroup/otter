@@ -43,19 +43,20 @@ const run = async (): Promise<void> => {
    */
   const program = new Command();
   program
-    .name('ama-sdk-mcp')
+    .name('ama-sdk-mcp-start')
+    .alias('ama-sdk-mcp') // @deprecated alias, kept for backward compatibility, will be removed in v15
     .description('SDK Context MCP Server\n\nExposes SDK_CONTEXT.md from installed packages to AI assistants.')
     .option('-p, --packages <packages...>', 'List of SDK package names to expose (required if not configured in package.json)')
     .addHelpText('after', `
 Examples:
-  ama-sdk-mcp --packages @my-scope/my-sdk @other-scope/other-sdk
+  ama-sdk-mcp-start --packages @my-scope/my-sdk @other-scope/other-sdk
 
 VS Code mcp.json example:
   {
     "servers": {
       "sdk-context": {
         "command": "npx",
-        "args": ["ama-sdk-mcp", "--packages", "@my-scope/my-sdk", "@other-scope/other-sdk"]
+        "args": ["-y", "-p", "@ama-sdk/mcp", "ama-sdk-mcp-start", "--packages", "@my-scope/my-sdk", "@other-scope/other-sdk"]
       }
     }
   }`);
