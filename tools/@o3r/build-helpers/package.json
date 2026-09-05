@@ -42,7 +42,7 @@
     "@o3r/eslint-plugin": "workspace:~",
     "@stylistic/eslint-plugin": "~5.10.0",
     "@types/node": "~24.13.0",
-    "@typescript-eslint/parser": "~8.67.0",
+    "@typescript-eslint/parser": "~8.68.0",
     "angular-eslint": "~22.0.0",
     "eslint": "~9.39.0",
     "eslint-import-resolver-node": "~0.4.0",
@@ -58,6 +58,6 @@
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~23.1.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "~8.67.0"
+    "typescript-eslint": "~8.68.0"
   }
 }
