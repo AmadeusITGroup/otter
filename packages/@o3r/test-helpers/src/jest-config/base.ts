@@ -30,6 +30,24 @@ export const getTsJestBaseConfig = (options?: TsJestTransformerOptions): TsJestT
   stringifyContentPathRegex: '\\.html$'
 });
 
+/**
+ * Create a ts-jest CJS preset with ESM (.mjs) file support.
+ * Use this instead of `createDefaultPreset(getTsJestBaseConfig())` from `ts-jest` to correctly
+ * handle ESM-only dependencies (e.g. magic-string) in a CJS Jest environment.
+ * @param options ts-jest transformer options
+ */
+export const getDefaultTsJestCjsPreset = (options?: TsJestTransformerOptions): JestConfigWithTsJest => {
+  const tsJestOptions = getTsJestBaseConfig(options);
+  return {
+    transform: {
+      '^.+\\.m?[jt]sx?$': ['ts-jest', tsJestOptions]
+    },
+    transformIgnorePatterns: [
+      'node_modules/(?!(.*\\.mjs$))'
+    ]
+  };
+};
+
 type OtterJestBaseConfigOptions = {
   baseTsconfig?: string;
   config?: JestConfigWithTsJest;
