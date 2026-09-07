@@ -19,5 +19,14 @@
     "publish": {},
     "prepare-publish": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "cpy-cli"
+        ]
+      }
+    ]
+  }
 }

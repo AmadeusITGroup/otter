@@ -7,7 +7,9 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/package.json"],
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
       "options": {
         "script": "postbuild"
       },
@@ -35,7 +37,9 @@
       "options": {
         "script": "build:esm2020"
       },
-      "outputs": ["{projectRoot}/dist/src"]
+      "outputs": [
+        "{projectRoot}/dist/src"
+      ]
     },
     "lint": {},
     "test": {},
@@ -44,5 +48,56 @@
     "prepare-build-builders": {},
     "build-builders": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular-devkit/core",
+          "@angular-devkit/schematics",
+          "@angular/cli",
+          "@angular/common",
+          "@angular/core",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@schematics/angular",
+          "@stylistic/eslint-plugin",
+          "@swc/cli",
+          "@swc/core",
+          "@swc/helpers",
+          "@types/jest",
+          "@types/node",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "cpy-cli",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "isomorphic-fetch",
+          "jest",
+          "jest-junit",
+          "jest-util",
+          "jsonc-eslint-parser",
+          "minimist",
+          "rimraf",
+          "rxjs",
+          "semver",
+          "ts-jest",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint",
+          "uuid"
+        ]
+      }
+    ]
+  }
 }

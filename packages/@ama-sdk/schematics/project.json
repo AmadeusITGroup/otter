@@ -7,7 +7,9 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/package.json"],
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
       "options": {
         "script": "postbuild"
       },
@@ -62,8 +64,7 @@
         "expose-templates"
       ]
     },
-    "expose-templates": {
-    },
+    "expose-templates": {},
     "lint": {},
     "test": {},
     "test-int": {
@@ -74,5 +75,66 @@
     "prepare-publish": {},
     "publish": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular-devkit/core",
+          "@angular-devkit/schematics",
+          "@angular-devkit/schematics-cli",
+          "@angular/cli",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@openapitools/openapi-generator-cli",
+          "@schematics/angular",
+          "@stylistic/eslint-plugin",
+          "@types/ejs",
+          "@types/jest",
+          "@types/js-yaml",
+          "@types/minimist",
+          "@types/node",
+          "@types/semver",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "chokidar",
+          "commit-and-tag-version",
+          "cpy-cli",
+          "ejs",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "globby",
+          "isomorphic-fetch",
+          "jest",
+          "jest-junit",
+          "jest-util",
+          "js-yaml",
+          "jsonc-eslint-parser",
+          "mem-fs",
+          "minimatch",
+          "minimist",
+          "npm-run-all2",
+          "nx",
+          "openapi-types",
+          "rxjs",
+          "semver",
+          "ts-jest",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint"
+        ]
+      }
+    ]
+  }
 }
