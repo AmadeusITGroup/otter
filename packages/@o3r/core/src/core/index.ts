@@ -4,3 +4,4 @@ export * from './devkit/index';
 export * from './interfaces/index';
 export * from './metadata/index';
 export * from './rules-engine/index';
+export * from './webmcp/index';

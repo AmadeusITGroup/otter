@@ -2,7 +2,10 @@
   "extends": "../../../tsconfig.jest",
   "compilerOptions": {
     "outDir": "test",
-    "rootDir": "."
+    "rootDir": ".",
+    "types": [
+      "@mcp-b/webmcp-types"
+    ]
   },
   "include": [
     "./builders/**/*.spec.ts",

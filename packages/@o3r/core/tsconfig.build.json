@@ -2,7 +2,10 @@
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "types": [
+      "@mcp-b/webmcp-types"
+    ]
   },
   "include": [
     "src/**/*.ts"
