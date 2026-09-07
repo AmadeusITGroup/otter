@@ -84,7 +84,7 @@ Detailed documentation is split into context-specific files in `.agents/` to red
 - Angular: ~22.0.4
 - TypeScript: ~6.0.3
 - RxJS: ^7.8.1
-- NgRx: ~22.0.0-rc.0
+- NgRx: ~22.0.0
 - Nx: ~23.1.0
 
 ---
