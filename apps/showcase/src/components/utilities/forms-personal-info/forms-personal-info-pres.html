@@ -13,7 +13,7 @@
               <div class="text-danger">{{translations.required | o3rTranslate}}</div>
             }
             @if (form.controls.name.errors?.maxlength) {
-              <div class="text-danger">{{translations.maxLength | o3rTranslate: {maxLength: form.controls.name.errors?.maxlength.requiredLength} }}</div>
+              <div class="text-danger">{{translations.maxLength | o3rTranslate: {maxLength: form.controls.name.errors.maxlength.requiredLength} }}</div>
             }
           </div>
         </ng-container>
@@ -27,7 +27,7 @@
         <div class="text-danger">{{translations.date | o3rTranslate}}</div>
       }
       @if (form.controls.dateOfBirth.errors?.max) {
-        <div class="text-danger">{{translations.max | o3rTranslate: {max: form.controls.dateOfBirth.errors?.max.max} }}</div>
+        <div class="text-danger">{{translations.max | o3rTranslate: {max: form.controls.dateOfBirth.errors.max.max} }}</div>
       }
       @for (customError of form.controls.dateOfBirth.errors?.customErrors; track customError.translationKey) {
         <div class="text-danger">{{customError.translationKey | o3rTranslate: customError.translationParams}}</div>
