@@ -180,6 +180,7 @@
     "jest": "~30.5.0",
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~16.2.0",
+    "@types/jsdom": "~30.0.0",
     "jsdom": "~27.4.0",
     "jest-util": "~30.5.0",
     "jsonc-eslint-parser": "~2.4.0",
