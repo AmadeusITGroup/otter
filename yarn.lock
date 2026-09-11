@@ -914,7 +914,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:~4.4.0"
     globals: "npm:^16.0.0"
     globby: "npm:~16.2.0"
-    js-yaml: "npm:^4.3.1"
+    js-yaml: "npm:^5.2.2"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.57.0"
     nx: "npm:~23.1.0"
@@ -1529,7 +1529,7 @@ __metadata:
     jest: "npm:~30.4.0"
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.4.0"
-    js-yaml: "npm:^4.3.1"
+    js-yaml: "npm:^5.2.2"
     jsonc-eslint-parser: "npm:~2.4.0"
     mem-fs: "npm:^4.0.0"
     minimatch: "npm:~10.2.0"
@@ -1618,7 +1618,7 @@ __metadata:
     jest: "npm:~30.4.0"
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.4.0"
-    js-yaml: "npm:^4.3.1"
+    js-yaml: "npm:^5.2.2"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.5.0"
     openapi-types: "npm:^12.0.0"
@@ -10585,7 +10585,7 @@ __metadata:
     jest-environment-jsdom: "npm:~30.4.0"
     jest-preset-angular: "npm:~16.2.0"
     jest-util: "npm:~30.4.0"
-    js-yaml: "npm:^4.3.1"
+    js-yaml: "npm:^5.2.2"
     jsdom: "npm:~27.4.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.4.0"
@@ -11278,7 +11278,7 @@ __metadata:
     jest: "npm:~30.4.0"
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.4.0"
-    js-yaml: "npm:^4.3.1"
+    js-yaml: "npm:^5.2.2"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~23.1.0"
     rxjs: "npm:^7.8.1"
@@ -27884,7 +27884,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^4.1.0, js-yaml@npm:^4.1.1, js-yaml@npm:^4.3.0, js-yaml@npm:^4.3.1, js-yaml@npm:^4.3.2":
+"js-yaml@npm:^4.1.0, js-yaml@npm:^4.1.1, js-yaml@npm:^4.3.0, js-yaml@npm:^4.3.2":
   version: 4.3.2
   resolution: "js-yaml@npm:4.3.2"
   dependencies:
@@ -27892,6 +27892,17 @@ __metadata:
   bin:
     js-yaml: bin/js-yaml.js
   checksum: 10/05c44b9c73e4901d92703b155e76518df64bf01ac62e4c036b47de4b391e19b72e32656e8954d51b436307f08cc9d0c0d4ec617d061cf2f65fffee9f3114bee7
+  languageName: node
+  linkType: hard
+
+"js-yaml@npm:^5.2.2":
+  version: 5.2.2
+  resolution: "js-yaml@npm:5.2.2"
+  dependencies:
+    argparse: "npm:^2.0.1"
+  bin:
+    js-yaml: bin/js-yaml.mjs
+  checksum: 10/2b4c2933af12c97e1c4894a4f27fe9b06dab70a64a96bb50624b4429bef6bf11008bde20d868bce52a36784473314efc30078ba6025b58cf7537961e23b1ae9c
   languageName: node
   linkType: hard
 
