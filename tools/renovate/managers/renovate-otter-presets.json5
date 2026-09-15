@@ -10,7 +10,8 @@
         "^\\.renovaterc$"
       ],
       "matchStrings": [
-        "\"github>AmadeusITGroup/otter//.*#v(?<currentValue>[^\" \\n\\(]+)"
+        // Both quote styles are accepted, as JSON5 configurations may use single-quoted strings
+        "['\"]github>AmadeusITGroup/otter//.*#v(?<currentValue>[^'\" \\n\\(]+)"
       ],
 
       "datasourceTemplate": "npm",

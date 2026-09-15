@@ -1,0 +1,25 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      // Renovate's `npm` manager only extracts the dependency blocks it knows about (`dependencies`,
+      // `devDependencies`, `peerDependencies`, `optionalDependencies`, `resolutions`, `overrides`, `engines`,
+      // `volta`, `packageManager`), so the Otter specific `generatorDependencies` block is never upgraded.
+      // The `@o3r/json-dependency-versions-harmonize` ESLint rule does check this block, so a stale entry
+      // ends up failing the lint of any Otter project relying on Renovate to keep its versions aligned.
+      "description": "Upgrade npm package versions in the Otter `generatorDependencies` block of package.json files",
+      "customType": "regex",
+      "fileMatch": [
+        "(^|/)package\\.json$"
+      ],
+      "matchStringsStrategy": "recursive",
+      "matchStrings": [
+        "\"generatorDependencies\"\\s*:\\s*\\{[^}]*\\}",
+        "\"(?<depName>[^\"]+)\"\\s*:\\s*\"(?<currentValue>[^\"]+)\""
+      ],
+      "datasourceTemplate": "npm",
+      "versioningTemplate": "npm",
+      "depTypeTemplate": "generatorDependencies"
+    }
+  ]
+}

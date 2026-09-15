@@ -126,7 +126,37 @@ If the target requires a higher `@angular/core` major than the one currently ins
 3a. **Research**: Fetch the Otter migration guide for the target version:
   - GitHub releases: `https://github.com/AmadeusITGroup/otter/releases`
   - CHANGELOG: `https://github.com/AmadeusITGroup/otter/blob/main/CHANGELOG.md`
-  - Migration guide (if present): `https://github.com/AmadeusITGroup/otter/blob/main/docs/migration/<version>.md`
+  - Migration guides index: `https://github.com/AmadeusITGroup/otter/blob/main/migration-guides/README.md`
+  - Migration guides directory: `https://github.com/AmadeusITGroup/otter/tree/main/migration-guides`
+
+  **Locating the guides.** Guides live in `migration-guides/`, named after the `<major>.<minor>` version line rather than the full version.
+  A patch release is therefore covered by the guide of its minor line.
+  Both majors and minors may have a guide, and a version line may legitimately have none — a missing file is not an error.
+  List the directory instead of guessing filenames, so unreleased and newly added guides are picked up.
+
+  Two files may exist per version line:
+  - `<major>.<minor>.agent.md` — the machine-oriented guide, holding detection commands, file globs, and edits. **Read it when present as the source of truth for what to change.**
+  - `<major>.<minor>.md` — the human-oriented guide. Read it for intent and rationale, and as the only source when no `.agent.md` exists.
+
+  **Which guides to read.** Read the guide of every version line strictly greater than the current version and less than or equal to the target, not only the target's own line.
+  Each guide documents only its own line and does not restate the steps of the lines in between.
+
+  **Prerelease targets.** Otter publishes prerelease tags (`-prerelease.*`, `-rc.*`, the `next` dist-tag) for a version line before it is released as stable.
+  The guide for that line is committed to `main` during development, so it exists before the release.
+  When the target is a prerelease:
+  1. Place the target on the version timeline to know which lines to cover:
+      ```
+      npm show @o3r/core version              # latest stable
+      npm show @o3r/core@next version         # current prerelease, if any
+      npm show @o3r/core versions --json      # full list
+      ```
+  2. **Read the guide of the target's own line from `main`**, even though that version is not released, because it documents the breaking changes of the version being installed.
+  3. **Also read the guides of the already-released lines between the current version and the target.** A prerelease guide does not include the steps of the stable lines that precede it.
+  4. Treat the guide of an unreleased line as **subject to change**: re-read it if the target moves to a different prerelease.
+      Report in the final summary which guides covered unreleased lines.
+  5. If the workspace being migrated is a clone of `AmadeusITGroup/otter` itself, or vendors the guides, read `migration-guides/` from disk instead of fetching.
+      The local copy matches the checked-out ref.
+
   Note all required schematic commands (`ng add`, `ng update`, custom schematics), but do not run them yet.
 
 3b. **Bump @o3r, @ama-mfe, @ama-sdk deps** across every workspace `package.json`:
@@ -404,3 +434,6 @@ Provide a migration summary table:
 If any SDK workspace was regenerated, add a line per SDK stating the workspace path, the script or command used (`spec:regen` vs. `spec:upgrade` vs. direct generator call), the `--generator-key`, and whether the API surface changed. If a generated SDK was detected but **not** regenerated, say so explicitly and explain why.
 
 List every `overrides` / `resolutions` entry added with the reason, and include the pre-migration commit SHA recorded during planning so the user has an explicit rollback anchor.
+
+List the migration guides that were applied, stating for each whether the `.agent.md` or the human variant was used.
+If the target was a prerelease, explicitly flag which guides covered an unreleased version line, since their content may still change before the stable release.
