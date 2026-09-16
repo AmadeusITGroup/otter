@@ -132,6 +132,7 @@
     "@stylistic/eslint-plugin": "~5.10.0",
     "@types/bootstrap": "^5.2.10",
     "@types/jest": "~30.0.0",
+    "@types/jsdom": "~30.0.0",
     "@types/node": "~24.13.0",
     "@typescript-eslint/parser": "~8.67.0",
     "@webcontainer/api": "~1.6.0",
