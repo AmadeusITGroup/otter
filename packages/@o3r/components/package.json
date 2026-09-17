@@ -150,7 +150,7 @@
     "@angular/animations": "~22.0.4",
     "@angular/cdk": "~22.0.0",
     "@angular/cli": "~22.0.4",
-    "@angular/common": "~22.0.4",
+    "@angular/common": "~22.1.0",
     "@angular/compiler": "~22.0.4",
     "@angular/compiler-cli": "~22.0.4",
     "@angular/core": "~22.0.4",
