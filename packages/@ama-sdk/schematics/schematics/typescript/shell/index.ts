@@ -124,7 +124,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
 
       const yarnrc = tree.exists(workspaceRootYarnRcPath)
         ? load(tree.readText(workspaceRootYarnRcPath))
-        : (load(tree.exists(standaloneYarnRcPath) ? tree.readText(standaloneYarnRcPath) : '') || {}) as any;
+        : (tree.exists(standaloneYarnRcPath) ? (load(tree.readText(standaloneYarnRcPath)) || {}) : {}) as any;
       yarnrc.nodeLinker ||= 'pnp';
       yarnrc.packageExtensions ||= {};
       yarnrc.packageExtensions['@ama-sdk/schematics@*'] = {
