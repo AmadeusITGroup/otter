@@ -4636,11 +4636,11 @@ __metadata:
   linkType: hard
 
 "@capacitor/core@npm:^8.0.0":
-  version: 8.5.1
-  resolution: "@capacitor/core@npm:8.5.1"
+  version: 8.5.2
+  resolution: "@capacitor/core@npm:8.5.2"
   dependencies:
     tslib: "npm:^2.1.0"
-  checksum: 10/f2e2cedc77ed698e0ab9b3beb4ca829cdee0485f82df4954569d306e48b466006e435f8e4de60db940bd947752711ab6fc961e277da56de75aba6e542a66b7d8
+  checksum: 10/dac28d2be1375f64d553523fdee8c73cc31add8c4766ee97cdf17b333037e895866914615d140cc583ca4f2e72eb6e357af5bbc14f3534d6bca84f84c98e6ab2
   languageName: node
   linkType: hard
 
@@ -8252,68 +8252,68 @@ __metadata:
   linkType: hard
 
 "@ngrx/effects@npm:~22.0.0":
-  version: 22.0.0
-  resolution: "@ngrx/effects@npm:22.0.0"
+  version: 22.0.1
+  resolution: "@ngrx/effects@npm:22.0.1"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^22.0.0
-    "@ngrx/store": 22.0.0
+    "@ngrx/store": 22.0.1
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/722a6ff44db27e2333ca1bcbdab8d7220c9ac8c918ec0d487c9fd1c53413739c8fae2c165fded35a217dc7e30786242502908eab848c6b97f00d19e413f5e2e2
+  checksum: 10/77c3f6916518cfbaf9738bcae4745e6e46206a9da69fc34b3d6a87555c5b26729e267bdc48083ff37b5cf24b8f2ecbce5ee36d15c24a47087e7ead872da86586
   languageName: node
   linkType: hard
 
 "@ngrx/entity@npm:~22.0.0":
-  version: 22.0.0
-  resolution: "@ngrx/entity@npm:22.0.0"
+  version: 22.0.1
+  resolution: "@ngrx/entity@npm:22.0.1"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^22.0.0
-    "@ngrx/store": 22.0.0
+    "@ngrx/store": 22.0.1
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/0c96c22f804d956bcd2dec2b12fbb583a848c96463204b72d3a936c5afa3307373af772e21bd77c19880b659524e98e87b821e94e4a107eff40a3e60cab365da
+  checksum: 10/00d0329959f46c828b6a07f5d418456aad67fac85d18317ec93d92c80a2990661d3593605d33eef9fe4c35a0e5256596819867abfbdf0242a11ca858a5094383
   languageName: node
   linkType: hard
 
 "@ngrx/router-store@npm:~22.0.0":
-  version: 22.0.0
-  resolution: "@ngrx/router-store@npm:22.0.0"
+  version: 22.0.1
+  resolution: "@ngrx/router-store@npm:22.0.1"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/common": ^22.0.0
     "@angular/core": ^22.0.0
     "@angular/router": ^22.0.0
-    "@ngrx/store": 22.0.0
+    "@ngrx/store": 22.0.1
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/0681a073ef61a3087f2efefd453908a037042d14e2ee6a46556560d73482ce35d302f3e61dd6b04862c441c2abc709e42142b1663d8124f1324f4a3cbd63dd9f
+  checksum: 10/5c8a36f429bd68b36c45a414d082501a64272025e249e950eb70bd24a5c7f5a22dee044e60efe4ade2658a24bab21643cbb03a967329ba3c0cdb3346ca146cc9
   languageName: node
   linkType: hard
 
 "@ngrx/store-devtools@npm:~22.0.0":
-  version: 22.0.0
-  resolution: "@ngrx/store-devtools@npm:22.0.0"
+  version: 22.0.1
+  resolution: "@ngrx/store-devtools@npm:22.0.1"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^22.0.0
-    "@ngrx/store": 22.0.0
+    "@ngrx/store": 22.0.1
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/0cab040998ccfcb6f93d9ee2401259db5601af1d2c6de0c5545a1eb2b852c08082a1c5781a7bb9b0a02c484dd033ba50b9a252fb41c18e916a66156fdce0510b
+  checksum: 10/86288ac15decf3b8321608ce18d2fdc8bb2e1107e9d594c7f484df9a87613a7565b5629265604e6537ab035b6b54adb7b3d8e436167762e9f45abae557adb6c0
   languageName: node
   linkType: hard
 
 "@ngrx/store@npm:~22.0.0":
-  version: 22.0.0
-  resolution: "@ngrx/store@npm:22.0.0"
+  version: 22.0.1
+  resolution: "@ngrx/store@npm:22.0.1"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^22.0.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/1049aced592558453b9c6bcb1333156d60a31b77337629d9ed98d12bed754e5f852ce2882a676d3c00e2ad467c81d6a11b2f01efbdd5aede9d09334a15941a17
+  checksum: 10/91d80912b2cd44ec84e9626dacb6665ff19e80cf6777c749634be46797c8ad35e2adfdc74332d58ee96a03c7ef9465378627dd701311fc7a06437070529e0f0c
   languageName: node
   linkType: hard
 
@@ -16304,11 +16304,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:~24.13.0":
-  version: 24.13.3
-  resolution: "@types/node@npm:24.13.3"
+  version: 24.13.4
+  resolution: "@types/node@npm:24.13.4"
   dependencies:
     undici-types: "npm:~7.18.0"
-  checksum: 10/cfa6ed1e16c4624d1e83b09aeb72a2f50a7e17d837bf5a1259a52e346f33a693afd289402d3b6118ce3abea7aff35f2a4f13a0284b96bc5807a50f0e22e1ec77
+  checksum: 10/e0f13f5b40384287df3d8be1b68ecc0a43b030330343d60d2e6a191890f10c2e1bfe37a1274b7a105a1576c455373d6c508fb99e0528ffc02726ebed156c4d00
   languageName: node
   linkType: hard
 
