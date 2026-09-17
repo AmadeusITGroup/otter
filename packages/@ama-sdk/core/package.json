@@ -77,7 +77,7 @@
     "@angular-devkit/schematics": "~22.0.4",
     "@angular/cli": "~22.0.4",
     "@angular/common": "~22.0.4",
-    "@angular/core": "~22.0.4",
+    "@angular/core": "~22.1.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~23.1.0",
     "@nx/jest": "~23.1.0",
