@@ -34,7 +34,7 @@
     "@angular-devkit/core": "~22.0.4",
     "@angular-devkit/schematics": "~22.0.4",
     "@angular/cli": "~22.0.4",
-    "@angular/compiler": "~22.0.4",
+    "@angular/compiler": "~22.1.0",
     "@angular/compiler-cli": "~22.0.4",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~23.1.0",
