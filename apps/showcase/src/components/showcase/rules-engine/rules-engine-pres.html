@@ -9,8 +9,8 @@
         <div class="row card-title flex-fill d-flex align-items-center m-auto">
           <h2
             class="bg-body-tertiary text-secondary border border-light-subtle border-3 bubble py-3 px-5 position-relative w-auto m-auto">
-            @if (form.value.destination) {
-              {{ translations.welcomeWithCityName | o3rTranslate: {cityName: (translations.cityName + '.' + form.value.destination) | o3rTranslate} }}
+            @if (model().destination) {
+              {{ translations.welcomeWithCityName | o3rTranslate: {cityName: (translations.cityName + '.' + model().destination) | o3rTranslate} }}
             } @else {
               {{ translations.welcome | o3rTranslate }}
             }
@@ -19,12 +19,12 @@
           </h2>
         </div>
         <h3 class="row card-text mt-auto ms-1 h5">{{ translations.question | o3rTranslate }}</h3>
-        <form class="row g-2" [formGroup]="form">
+        <form class="row g-2">
           <div class="col-12 col-xl-6" [class.col-xl-12]="configSignal().shouldProposeRoundTrip">
             <div class="input-group">
               <label class="input-group-text w-50"
                      for="destination">{{ translations.destinationLabel | o3rTranslate }}</label>
-              <select class="form-select" id="destination" formControlName="destination">
+              <select class="form-select" id="destination" [formField]="formTree.destination">
                 <option disabled selected value>{{ translations.destinationPlaceholder | o3rTranslate }}</option>
                 @for (destination of configSignal().destinations; track destination.cityCode) {
                   <option [disabled]="!destination.available" [value]="destination.cityCode">
@@ -37,12 +37,12 @@
           <div class="col-12 col-xl-6">
             <o3r-date-picker-input-pres [id]="'date-outbound'"
                                         [label]="translations.departureLabel | o3rTranslate"
-                                        formControlName="outboundDate" />
+                                        [formField]="formTree.outboundDate" />
           </div>
           @if (configSignal().shouldProposeRoundTrip) {
             <div class="col-12 col-xl-6">
               <o3r-date-picker-input-pres [id]="'date-inbound'" [label]="translations.returnLabel | o3rTranslate"
-                                          formControlName="inboundDate" />
+                                          [formField]="formTree.inboundDate" />
             </div>
           }
         </form>
