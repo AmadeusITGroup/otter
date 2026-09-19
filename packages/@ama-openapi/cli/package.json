@@ -35,7 +35,7 @@
     "@ama-openapi/core": "workspace:~",
     "@o3r/telemetry": "workspace:~",
     "tslib": "^2.6.2",
-    "yargs": "~18.0.0"
+    "yargs": "~18.1.0"
   },
   "peerDependencies": {
     "chokidar": "^4.0.0 || ^5.0.0"
