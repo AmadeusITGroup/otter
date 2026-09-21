@@ -26,6 +26,12 @@ You can use the extractor via the CLI to extract a folder from your file system:
 ```shell
 o3r-extract-folder-structure --files \".\path-to-source-folder\" -o webcontainer-folder-structure.js
 ```
+
+To extract a workspace outside the current directory while omitting generated content:
+```shell
+o3r-extract-folder-structure --root ../path-to-workspace --files . --exclude .git,node_modules,dist,.nx -o webcontainer-folder-structure.json
+```
+
 You can also use the `getFilesTree` function with the `WebContainer` file system to serialize its tree:
 ```typescript
 const serializedFiles = await getFilesTree([{
@@ -39,8 +45,9 @@ const serializedFiles = await getFilesTree([{
 | Option                                  | Alias | Value Type | Default Value | Description                                                  |
 |-----------------------------------------|:-----:|------------|---------------|--------------------------------------------------------------|
 | `--files <files>` <br> **(Required)**   |       | `string`   |               | List of files and folder to extract in addition to the path  |
-| `--outout <output>` <br> **(Required)** | `-o`  | `string`   |               | Output file path                                             |
+| `--output <output>` <br> **(Required)** | `-o`  | `string`   |               | Output file path                                             |
 | `--root <root>`                         | `-r`  | `string`   |               | Root of the extraction                                       |
+| `--exclude <entries>`                   | `-e`  | `string`   |               | Comma-separated files and directories to exclude recursively |
 
 ## Description
 
