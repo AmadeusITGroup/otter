@@ -148,5 +148,5 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./tools/github-actions/setup
-      - uses: AmadeusITGroup/ai-primitives-hub/github-actions/validate-collections@0fe208277748b0786640fb214f5705768526542d # v0.0.42
+      - uses: AmadeusITGroup/ai-primitives-hub/github-actions/validate-collections@9a7c4131bd6e6a9f676fadd65262572371146894 # v0.0.43
       - run: node tools/@o3r/workspace-helpers/scripts/check-plugin-marketplace-sync.mjs
