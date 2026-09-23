@@ -121,6 +121,17 @@
       "matchStrings": [
         "\"openApiSupportedVersion\": \"~(?<currentValue>[^\"]+)\""
       ]
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "npm",
+      "fileMatch": [
+        "tools/llm/plugins/otter/\\.mcp\\.json$",
+        "collections/otter\\.collection\\.yml$"
+      ],
+      "matchStrings": [
+        "(?<depName>@[\\w-]+/[\\w-]+)@(?<currentValue>[~^]?[\\d.]+[\\w.-]*)"
+      ]
     }
   ],
   "github-actions": {

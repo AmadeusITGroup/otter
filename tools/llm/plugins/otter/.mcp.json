@@ -5,7 +5,7 @@
       "args": [
         "-y",
         "-p",
-        "@o3r/mcp@^14.0.0",
+        "@o3r/mcp@^15.0.0",
         "o3r-mcp-start"
       ]
     },
@@ -13,7 +13,7 @@
       "command": "npx",
       "args": [
         "-y",
-        "@angular/cli@^21.0.0",
+        "@angular/cli@^22.0.0",
         "mcp"
       ]
     },
@@ -21,7 +21,7 @@
       "command": "npx",
       "args": [
         "-y",
-        "@playwright/mcp@~0.0.70"
+        "@playwright/mcp@~0.0.79"
       ]
     }
   }
