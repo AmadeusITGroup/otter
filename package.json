@@ -281,7 +281,7 @@
     "lint-staged": "^16.0.0",
     "marked": "~17.0.0",
     "minimist": "^1.2.6",
-    "monaco-editor": "~0.55.0",
+    "monaco-editor": "~0.56.0",
     "ng-packagr": "~22.1.0",
     "ngx-markdown": "~22.0.0",
     "ngx-monaco-editor-v2": "~22.0.0",

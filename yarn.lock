@@ -11617,7 +11617,7 @@ __metadata:
     lint-staged: "npm:^16.0.0"
     marked: "npm:~17.0.0"
     minimist: "npm:^1.2.6"
-    monaco-editor: "npm:~0.55.0"
+    monaco-editor: "npm:~0.56.0"
     ng-packagr: "npm:~22.1.0"
     ngx-markdown: "npm:~22.0.0"
     ngx-monaco-editor-v2: "npm:~22.0.0"
@@ -12784,7 +12784,7 @@ __metadata:
     lighthouse: "npm:~13.3.0"
     marked: "npm:~17.0.0"
     minimist: "npm:^1.2.6"
-    monaco-editor: "npm:~0.55.0"
+    monaco-editor: "npm:~0.56.0"
     ngx-markdown: "npm:~22.0.0"
     ngx-monaco-editor-v2: "npm:~22.0.0"
     ngx-monaco-tree: "npm:~20.1.0"
@@ -23477,15 +23477,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:3.2.7":
-  version: 3.2.7
-  resolution: "dompurify@npm:3.2.7"
+"dompurify@npm:3.4.8":
+  version: 3.4.8
+  resolution: "dompurify@npm:3.4.8"
   dependencies:
     "@types/trusted-types": "npm:^2.0.7"
   dependenciesMeta:
     "@types/trusted-types":
       optional: true
-  checksum: 10/51b7866fb834ee62d6c415f41ece5ce11db7b463f60a822932a1f832573a40b98be7715550298690e7647988fbe086db1098bda9b10548b3166fc975eb9bd849
+  checksum: 10/d661322889a8938bfb99ee27853e9e78661949398e803f344865fd94f8378a494efadd329faea0b16e8085efae1bfeed5f5df372909c3a2be3e583686a0a48fa
   languageName: node
   linkType: hard
 
@@ -31147,13 +31147,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:~0.55.0":
-  version: 0.55.1
-  resolution: "monaco-editor@npm:0.55.1"
+"monaco-editor@npm:~0.56.0":
+  version: 0.56.0
+  resolution: "monaco-editor@npm:0.56.0"
   dependencies:
-    dompurify: "npm:3.2.7"
+    dompurify: "npm:3.4.8"
     marked: "npm:14.0.0"
-  checksum: 10/73836b612a923342001b8cbb459aad0de486c94672fb7cf9d28bdafed9f3b7523d5aba510d9f8e7d24476a5aacf0d3a5c0cdc520ed4764f6f89f8cf5ba8d9329
+  checksum: 10/18a9d532259d758cc4a0740e4b3460a95a4b6b41eba6d29f5247b69e89a6085bd484ed0e95835d3a3155b3f2deb0108e22e94e1c0bf3e72591bb9e1609d4bde0
   languageName: node
   linkType: hard
 
