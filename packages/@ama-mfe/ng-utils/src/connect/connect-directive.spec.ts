@@ -1,3 +1,6 @@
+import type {
+  Mocked,
+} from 'vitest';
 import {
   Message,
 } from '@amadeus-it-group/microfrontends';
@@ -43,25 +46,25 @@ describe('ConnectDirective', () => {
   let domSanitizer: DomSanitizer;
   let messagePeerServiceMock: Pick<MessagePeerService<Message>, 'disconnect' | 'listen'>;
   let messagePeerService: MessagePeerService<Message>;
-  let loggerServiceMock: jest.Mocked<LoggerService>;
-  let listenHandler: jest.Mocked<() => {}>;
-  let stopHandshakeListening: jest.Mocked<() => {}>;
+  let loggerServiceMock: Mocked<LoggerService>;
+  let listenHandler: Mocked<() => {}>;
+  let stopHandshakeListening: Mocked<() => {}>;
 
   beforeEach(() => {
-    listenHandler = jest.fn();
-    stopHandshakeListening = jest.fn();
+    listenHandler = vi.fn();
+    stopHandshakeListening = vi.fn();
     messagePeerServiceMock = {
-      disconnect: jest.fn(),
-      listen: jest.fn().mockImplementation(() => {
+      disconnect: vi.fn(),
+      listen: vi.fn().mockImplementation(() => {
         listenHandler();
         return stopHandshakeListening;
       })
     };
 
     loggerServiceMock = {
-      warn: jest.fn(),
-      error: jest.fn()
-    } as unknown as jest.Mocked<LoggerService>;
+      warn: vi.fn(),
+      error: vi.fn()
+    } as unknown as Mocked<LoggerService>;
 
     parentComponentFixture = TestBed.configureTestingModule({
       imports: [ParentComponent, ConnectDirective],

@@ -1,32 +1,49 @@
-const mockSpawnSync = jest.fn();
-jest.mock('node:child_process', () => ({
+const {
+  mockSpawnSync,
+  mockExistsSync,
+  mockMkdirSync,
+  mockReadFileSync,
+  mockRmSync,
+} = vi.hoisted(() => ({
+  mockSpawnSync: vi.fn(),
+  mockExistsSync: vi.fn(),
+  mockMkdirSync: vi.fn(),
+  mockReadFileSync: vi.fn(),
+  mockRmSync: vi.fn()
+}));
+vi.mock('node:child_process', () => ({
+  default: { spawnSync: mockSpawnSync },
   spawnSync: mockSpawnSync
 }));
 
-const mockExistsSync = jest.fn();
-const mockMkdirSync = jest.fn();
-const mockReadFileSync = jest.fn();
-const mockRmSync = jest.fn();
-jest.mock('node:fs', () => ({
+vi.mock('node:fs', () => ({
+  default: {
+    existsSync: mockExistsSync,
+    mkdirSync: mockMkdirSync,
+    readFileSync: mockReadFileSync,
+    rmSync: mockRmSync
+  },
   existsSync: mockExistsSync,
   mkdirSync: mockMkdirSync,
   readFileSync: mockReadFileSync,
   rmSync: mockRmSync
 }));
 
-jest.mock('node:os', () => ({
+vi.mock('node:os', () => ({
+  default: { tmpdir: () => '/tmp' },
   tmpdir: () => '/tmp'
 }));
 
-jest.mock('node:crypto', () => ({
+vi.mock('node:crypto', () => ({
+  default: { randomBytes: () => ({ toString: () => 'abcdef' }) },
   randomBytes: () => ({ toString: () => 'abcdef' })
 }));
 
-// eslint-disable-next-line import/first -- needed for `jest.mock`
+// eslint-disable-next-line import/first -- needed for `vi.mock`
 import type {
   SpawnSyncReturns,
 } from 'node:child_process';
-// eslint-disable-next-line import/first -- needed for `jest.mock`
+// eslint-disable-next-line import/first -- needed for `vi.mock`
 import {
   getFilesFromRegistry,
 } from './npm-file-extractor-helper';
@@ -52,7 +69,7 @@ const mockSpawnError = (): SpawnSyncReturns<string> => ({
 
 describe('getFilesFromRegistry', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should sort versions in descending order and pick the latest', async () => {

@@ -16,10 +16,18 @@
       },
       "dependsOn": ["prepare", "^build"]
     },
-    "test": {},
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
     "lint": {},
     "prepare-publish": {},
-    "publish": {}
+    "publish": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    }
   },
   "tags": []
 }

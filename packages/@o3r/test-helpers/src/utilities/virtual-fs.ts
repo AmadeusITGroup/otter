@@ -27,8 +27,10 @@ export function useVirtualFileSystem(shouldReadFromDisk = true) {
   for (const prop of FS_STATIC_PROPERTIES) {
     fileSystem[prop] = actualFileSystem[prop];
   }
-  jest.mock('node:fs', () => fileSystem);
-  jest.mock('node:fs/promises', () => fileSystem.promises);
+  const mockedFileSystem = Object.assign(fileSystem, { default: fileSystem });
+  const mockedPromises = Object.assign(fileSystem.promises, { default: fileSystem.promises });
+  jest.mock('node:fs', () => mockedFileSystem);
+  jest.mock('node:fs/promises', () => mockedPromises);
 
   return virtualFileSystem;
 }

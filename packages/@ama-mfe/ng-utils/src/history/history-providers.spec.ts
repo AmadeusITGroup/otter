@@ -21,7 +21,7 @@ import {
 describe('provideDisableHistoryWrites()', () => {
   let dom: JSDOM;
   const messageServiceMock = {
-    send: jest.fn()
+    send: vi.fn()
   } as const satisfies Partial<MessagePeerService<HistoryMessage>>;
   let originalHistory: typeof window.history;
 
@@ -57,7 +57,7 @@ describe('provideDisableHistoryWrites()', () => {
   });
 
   it('should replaceState instead of pushState', () => {
-    const replaceStateSpy = jest.spyOn(history, 'replaceState');
+    const replaceStateSpy = vi.spyOn(history, 'replaceState');
     history.pushState({ data: 1 }, '', 'url');
     expect(replaceStateSpy).toHaveBeenCalledWith({ data: 1 }, '', 'url');
   });

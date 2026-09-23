@@ -1,3 +1,6 @@
+import type {
+  Mock,
+} from 'vitest';
 import {
   Locator,
   ResolveOptions,
@@ -10,15 +13,15 @@ import {
   CustomNpmSemverResolver,
 } from './custom-npm-semver-resolver';
 
-jest.mock('@yarnpkg/plugin-npm', () => {
-  const actual = jest.requireActual('@yarnpkg/plugin-npm');
+vi.mock('@yarnpkg/plugin-npm', async () => {
+  const actual = await vi.importActual<typeof import('@yarnpkg/plugin-npm')>('@yarnpkg/plugin-npm');
   return {
     ...actual,
     npmHttpUtils: {
-      getPackageMetadata: jest.fn()
+      getPackageMetadata: vi.fn()
     },
     NpmSemverFetcher: {
-      isConventionalTarballUrl: jest.fn().mockReturnValue(true)
+      isConventionalTarballUrl: vi.fn().mockReturnValue(true)
     }
   };
 });
@@ -28,7 +31,7 @@ describe('CustomNpmSemverResolver', () => {
 
   beforeEach(() => {
     resolver = new CustomNpmSemverResolver();
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should return candidates sorted in descending order', async () => {
@@ -37,7 +40,7 @@ describe('CustomNpmSemverResolver', () => {
       'npm:^1.0.0'
     );
 
-    (npmHttpUtils.getPackageMetadata as jest.Mock).mockResolvedValue({
+    (npmHttpUtils.getPackageMetadata as Mock).mockResolvedValue({
       versions: {
         '1.0.0': { dist: { tarball: 'https://registry.npmjs.org/test-pkg/-/test-pkg-1.0.0.tgz' } },
         '1.2.0': { dist: { tarball: 'https://registry.npmjs.org/test-pkg/-/test-pkg-1.2.0.tgz' } },
@@ -66,7 +69,7 @@ describe('CustomNpmSemverResolver', () => {
       'npm:>=1.0.0-alpha.0'
     );
 
-    (npmHttpUtils.getPackageMetadata as jest.Mock).mockResolvedValue({
+    (npmHttpUtils.getPackageMetadata as Mock).mockResolvedValue({
       versions: {
         '1.0.0-alpha.1': { dist: { tarball: 'https://registry.npmjs.org/test-pkg/-/test-pkg-1.0.0-alpha.1.tgz' } },
         '1.0.0-alpha.2': { dist: { tarball: 'https://registry.npmjs.org/test-pkg/-/test-pkg-1.0.0-alpha.2.tgz' } },
@@ -91,7 +94,7 @@ describe('CustomNpmSemverResolver', () => {
       'npm:^1.0.0'
     );
 
-    (npmHttpUtils.getPackageMetadata as jest.Mock).mockResolvedValue({
+    (npmHttpUtils.getPackageMetadata as Mock).mockResolvedValue({
       versions: {
         '1.0.0': { deprecated: 'old', dist: { tarball: 'https://registry.npmjs.org/test-pkg/-/test-pkg-1.0.0.tgz' } },
         '1.1.0': { dist: { tarball: 'https://registry.npmjs.org/test-pkg/-/test-pkg-1.1.0.tgz' } }

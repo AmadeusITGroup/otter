@@ -1,3 +1,6 @@
+import type {
+  Mocked,
+} from 'vitest';
 import {
   USER_ACTIVITY_MESSAGE_TYPE,
 } from '@ama-mfe/messages';
@@ -26,19 +29,19 @@ import type {
 
 let afterNextRenderCallback: (() => void) | null = null;
 
-jest.mock('../managers', () => ({
-  ...jest.requireActual('../managers'),
-  registerProducer: jest.fn()
+vi.mock('../managers', async () => ({
+  ...await vi.importActual<typeof import('../managers')>('../managers'),
+  registerProducer: vi.fn()
 }));
 
 // Mock afterNextRender at module level
-jest.mock('@angular/core', () => {
+vi.mock('@angular/core', async () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- mocking the module
-  const actual = jest.requireActual('@angular/core');
+  const actual = await vi.importActual<typeof import('@angular/core')>('@angular/core');
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return -- mocking the module
   return {
     ...actual,
-    afterNextRender: jest.fn((callback: () => void) => {
+    afterNextRender: vi.fn((callback: () => void) => {
       afterNextRenderCallback = callback;
     })
   };
@@ -46,26 +49,26 @@ jest.mock('@angular/core', () => {
 
 describe('ActivityProducerService', () => {
   let service: ActivityProducerService;
-  let connectionServiceMock: jest.Mocked<ConnectionService<any>>;
-  let loggerServiceMock: jest.Mocked<LoggerService>;
+  let connectionServiceMock: Mocked<ConnectionService<any>>;
+  let loggerServiceMock: Mocked<LoggerService>;
 
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     afterNextRenderCallback = null;
 
     connectionServiceMock = {
-      send: jest.fn(),
+      send: vi.fn(),
       id: 'test-module',
       knownPeers: new Map([
         ['host-app', [{ type: USER_ACTIVITY_MESSAGE_TYPE, version: '1.0' }]],
         ['test-module', [{ type: USER_ACTIVITY_MESSAGE_TYPE, version: '1.0' }]]
       ])
-    } as unknown as jest.Mocked<ConnectionService<any>>;
+    } as unknown as Mocked<ConnectionService<any>>;
 
     loggerServiceMock = {
-      warn: jest.fn(),
-      error: jest.fn()
-    } as unknown as jest.Mocked<LoggerService>;
+      warn: vi.fn(),
+      error: vi.fn()
+    } as unknown as Mocked<LoggerService>;
 
     TestBed.configureTestingModule({
       providers: [
@@ -79,8 +82,8 @@ describe('ActivityProducerService', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
-    jest.useRealTimers();
+    vi.clearAllMocks();
+    vi.useRealTimers();
     // Clean up any event listeners
     service?.stop();
   });
@@ -107,7 +110,7 @@ describe('ActivityProducerService', () => {
       ], parentInjector);
 
       const childService = childInjector.get(ActivityProducerService);
-      const stopSpy = jest.spyOn(childService, 'stop');
+      const stopSpy = vi.spyOn(childService, 'stop');
 
       childInjector.destroy();
 
@@ -145,18 +148,18 @@ describe('ActivityProducerService', () => {
 
       // First event should send
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Second event should not send (default throttle is 1000ms)
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // After default throttle window passes, it should send again
-      jest.advanceTimersByTime(1000);
+      vi.advanceTimersByTime(1000);
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(2);
     });
 
@@ -177,7 +180,7 @@ describe('ActivityProducerService', () => {
     });
 
     it('should add event listeners when afterNextRender callback executes', () => {
-      const addEventListenerSpy = jest.spyOn(document, 'addEventListener');
+      const addEventListenerSpy = vi.spyOn(document, 'addEventListener');
 
       service.start(config);
       afterNextRenderCallback?.();
@@ -201,7 +204,7 @@ describe('ActivityProducerService', () => {
     };
 
     it('should remove all event listeners', () => {
-      const removeEventListenerSpy = jest.spyOn(document, 'removeEventListener');
+      const removeEventListenerSpy = vi.spyOn(document, 'removeEventListener');
 
       service.start(config);
       afterNextRenderCallback?.();
@@ -224,7 +227,7 @@ describe('ActivityProducerService', () => {
 
     it('should send message on click event', () => {
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -240,7 +243,7 @@ describe('ActivityProducerService', () => {
 
     it('should update localActivity signal on activity', () => {
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       const activity = service.localActivity();
       expect(activity).toBeDefined();
@@ -252,29 +255,29 @@ describe('ActivityProducerService', () => {
     it('should throttle messages', () => {
       // First event should send
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Second event within throttle window should not send
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(50);
+      vi.advanceTimersByTime(50);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Event after throttle window should send
-      jest.advanceTimersByTime(100);
+      vi.advanceTimersByTime(100);
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(2);
     });
 
     it('should always update localActivity signal even when throttled', () => {
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
       const firstTimestamp = service.localActivity()?.timestamp;
 
-      jest.advanceTimersByTime(50);
+      vi.advanceTimersByTime(50);
       document.dispatchEvent(new Event('keydown'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       // localActivity should be updated even though message was throttled
       expect(service.localActivity()?.eventType).toBe('keydown');
@@ -283,7 +286,7 @@ describe('ActivityProducerService', () => {
 
     it('should handle keydown events', () => {
       document.dispatchEvent(new Event('keydown'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -297,14 +300,14 @@ describe('ActivityProducerService', () => {
       const repeatedKeydownEvent = new KeyboardEvent('keydown', { repeat: true });
 
       document.dispatchEvent(repeatedKeydownEvent);
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).not.toHaveBeenCalled();
     });
 
     it('should handle scroll events with throttling', () => {
       document.dispatchEvent(new Event('scroll'));
-      jest.advanceTimersByTime(300); // Wait for throttle interval (default 300ms)
+      vi.advanceTimersByTime(300); // Wait for throttle interval (default 300ms)
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -317,29 +320,29 @@ describe('ActivityProducerService', () => {
     it('should throttle high-frequency scroll events', () => {
       // First scroll event should send immediately
       document.dispatchEvent(new Event('scroll'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Second scroll within throttle window (300ms) should not send
       document.dispatchEvent(new Event('scroll'));
-      jest.advanceTimersByTime(100);
+      vi.advanceTimersByTime(100);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Third scroll still within throttle window should not send
       document.dispatchEvent(new Event('scroll'));
-      jest.advanceTimersByTime(100);
+      vi.advanceTimersByTime(100);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // After throttle window passes, next scroll should send
-      jest.advanceTimersByTime(200); // Total 400ms since first event
+      vi.advanceTimersByTime(200); // Total 400ms since first event
       document.dispatchEvent(new Event('scroll'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(2);
     });
 
     it('should handle touchstart events', () => {
       document.dispatchEvent(new Event('touchstart'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -351,7 +354,7 @@ describe('ActivityProducerService', () => {
 
     it('should handle focus events', () => {
       document.dispatchEvent(new Event('focus'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -368,7 +371,7 @@ describe('ActivityProducerService', () => {
       });
 
       document.dispatchEvent(new Event('visibilitychange'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -382,12 +385,12 @@ describe('ActivityProducerService', () => {
   describe('peer filtering', () => {
     it('should not send message when no peers have registered for user activity', () => {
       const localConnectionMock = {
-        send: jest.fn(),
+        send: vi.fn(),
         id: 'test-module',
         knownPeers: new Map([
           ['test-module', [{ type: 'other_message', version: '1.0' }]]
         ])
-      } as unknown as jest.Mocked<ConnectionService<any>>;
+      } as unknown as Mocked<ConnectionService<any>>;
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
@@ -402,7 +405,7 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(localConnectionMock.send).not.toHaveBeenCalled();
       localService.stop();
@@ -410,12 +413,12 @@ describe('ActivityProducerService', () => {
 
     it('should not send message when only self has registered for user activity', () => {
       const localConnectionMock = {
-        send: jest.fn(),
+        send: vi.fn(),
         id: 'test-module',
         knownPeers: new Map([
           ['test-module', [{ type: USER_ACTIVITY_MESSAGE_TYPE, version: '1.0' }]]
         ])
-      } as unknown as jest.Mocked<ConnectionService<any>>;
+      } as unknown as Mocked<ConnectionService<any>>;
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
@@ -430,7 +433,7 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(localConnectionMock.send).not.toHaveBeenCalled();
       localService.stop();
@@ -438,14 +441,14 @@ describe('ActivityProducerService', () => {
 
     it('should send to multiple peers that have registered for user activity', () => {
       const localConnectionMock = {
-        send: jest.fn(),
+        send: vi.fn(),
         id: 'test-module',
         knownPeers: new Map([
           ['host-app', [{ type: USER_ACTIVITY_MESSAGE_TYPE, version: '1.0' }]],
           ['other-module', [{ type: USER_ACTIVITY_MESSAGE_TYPE, version: '1.0' }]],
           ['test-module', [{ type: USER_ACTIVITY_MESSAGE_TYPE, version: '1.0' }]]
         ])
-      } as unknown as jest.Mocked<ConnectionService<any>>;
+      } as unknown as Mocked<ConnectionService<any>>;
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
@@ -460,7 +463,7 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(localConnectionMock.send).toHaveBeenCalled();
       const callArgs = localConnectionMock.send.mock.calls[0][1] as { to: string[] };
@@ -482,7 +485,7 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).not.toHaveBeenCalled();
     });
@@ -497,13 +500,13 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalled();
     });
 
     it('should pass event to shouldBroadcast filter', () => {
-      const shouldBroadcastMock = jest.fn().mockReturnValue(true);
+      const shouldBroadcastMock = vi.fn().mockReturnValue(true);
       const config: ActivityProducerConfig = {
         throttleMs: 100,
         shouldBroadcast: shouldBroadcastMock
@@ -514,13 +517,13 @@ describe('ActivityProducerService', () => {
 
       const clickEvent = new Event('click');
       document.dispatchEvent(clickEvent);
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(shouldBroadcastMock).toHaveBeenCalledWith(expect.any(Event));
     });
 
     it('should throttle shouldBroadcast calls for high-frequency events to avoid performance issues', () => {
-      const shouldBroadcastMock = jest.fn().mockReturnValue(true);
+      const shouldBroadcastMock = vi.fn().mockReturnValue(true);
       const config: ActivityProducerConfig = {
         throttleMs: 100,
         highFrequencyThrottleMs: 300,
@@ -533,22 +536,22 @@ describe('ActivityProducerService', () => {
       // Dispatch many scroll events rapidly (high-frequency event)
       for (let i = 0; i < 10; i++) {
         document.dispatchEvent(new Event('scroll'));
-        jest.advanceTimersByTime(10); // 10ms between each event
+        vi.advanceTimersByTime(10); // 10ms between each event
       }
 
       // shouldBroadcast should only be called once due to throttling (300ms throttle, 100ms total time)
       expect(shouldBroadcastMock).toHaveBeenCalledTimes(1);
 
       // After throttle window passes, next scroll should call shouldBroadcast again
-      jest.advanceTimersByTime(300);
+      vi.advanceTimersByTime(300);
       document.dispatchEvent(new Event('scroll'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       expect(shouldBroadcastMock).toHaveBeenCalledTimes(2);
     });
 
     it('should call shouldBroadcast on every non-high-frequency event', () => {
-      const shouldBroadcastMock = jest.fn().mockReturnValue(true);
+      const shouldBroadcastMock = vi.fn().mockReturnValue(true);
       const config: ActivityProducerConfig = {
         throttleMs: 1000,
         shouldBroadcast: shouldBroadcastMock
@@ -559,11 +562,11 @@ describe('ActivityProducerService', () => {
 
       // Dispatch multiple click events (not a high-frequency event)
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(10);
+      vi.advanceTimersByTime(10);
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(10);
+      vi.advanceTimersByTime(10);
       document.dispatchEvent(new Event('click'));
-      jest.advanceTimersByTime(0);
+      vi.advanceTimersByTime(0);
 
       // shouldBroadcast should be called for each click event
       expect(shouldBroadcastMock).toHaveBeenCalledTimes(3);

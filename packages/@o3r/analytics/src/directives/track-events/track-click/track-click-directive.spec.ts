@@ -1,3 +1,6 @@
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   Component,
   DebugElement,
@@ -45,7 +48,7 @@ describe('Track click directive:', () => {
   let fixture: ComponentFixture<TestComponent>;
   let component: TestComponent;
   let buttonElement: DebugElement;
-  let addEventSpy: jest.SpyInstance;
+  let addEventSpy: MockInstance;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -56,7 +59,7 @@ describe('Track click directive:', () => {
     component = fixture.componentInstance;
     buttonElement = fixture.debugElement.query(By.css('button'));
     trackService = fixture.debugElement.injector.get(EventTrackService);
-    addEventSpy = jest.spyOn(trackService, 'addUiEvent');
+    addEventSpy = vi.spyOn(trackService, 'addUiEvent');
   });
 
   it('should capture 2 events when the tracking mode is active', () => {

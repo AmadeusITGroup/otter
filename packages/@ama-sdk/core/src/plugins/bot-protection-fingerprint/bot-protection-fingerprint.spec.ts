@@ -11,6 +11,9 @@ import {
 
 declare let global: any;
 
+beforeEach(() => vi.useFakeTimers());
+afterEach(() => vi.useRealTimers());
+
 describe('BotProtectionFingerprint', () => {
   describe('Retrievers', () => {
     describe('impervaProtectionRetrieverFactory', () => {
@@ -37,7 +40,7 @@ describe('BotProtectionFingerprint', () => {
       };
 
       beforeEach(() => {
-        consoleMock = jest.spyOn(console, 'error').mockImplementation();
+        consoleMock = vi.spyOn(console, 'error').mockImplementation();
         windowBackup = global.window;
 
         global.window = {} as any;
@@ -52,7 +55,7 @@ describe('BotProtectionFingerprint', () => {
 
       it('Should return undefined and log if no Protection object is received.', async () => {
         const promise = retriever();
-        await jest.runAllTimersAsync();
+        await vi.runAllTimersAsync();
         expect(await promise).toBeUndefined();
         // eslint-disable-next-line no-console -- console.error is not called here
         expect(console.error).toHaveBeenCalledTimes(1);
@@ -62,7 +65,7 @@ describe('BotProtectionFingerprint', () => {
         registerEvent(protectionResolve, 100);
 
         const promise = retriever();
-        await jest.runAllTimersAsync();
+        await vi.runAllTimersAsync();
         expect(await promise).toBeUndefined();
         // eslint-disable-next-line no-console -- console.error is not called here
         expect(console.error).toHaveBeenCalledTimes(1);
@@ -71,7 +74,7 @@ describe('BotProtectionFingerprint', () => {
       it('Should return undefined and log if token promise rejected.', async () => {
         registerEvent(protectionReject);
         const promise = retriever();
-        await jest.runAllTimersAsync();
+        await vi.runAllTimersAsync();
         expect(await promise).toBeUndefined();
         // eslint-disable-next-line no-console -- console.error is not called here
         expect(console.error).toHaveBeenCalledTimes(1);
@@ -81,13 +84,13 @@ describe('BotProtectionFingerprint', () => {
         registerEvent(protectionResolve, 25);
 
         const promise = retriever();
-        await jest.runAllTimersAsync();
+        await vi.runAllTimersAsync();
         expect(await promise).toBe(tokenValue);
 
         tokenValue = 'newToken';
 
         const newPromise = retriever();
-        await jest.runAllTimersAsync();
+        await vi.runAllTimersAsync();
         expect(await newPromise).toBe(tokenValue);
         // eslint-disable-next-line no-console -- console.error is not called here
         expect(console.error).not.toHaveBeenCalled();
@@ -132,7 +135,7 @@ describe('BotProtectionFingerprint', () => {
         basePath: 'toto',
         headers: new Headers()
       };
-      fingerprintRetriever = jest.fn().mockImplementation(() => mockedFingerprint);
+      fingerprintRetriever = vi.fn().mockImplementation(() => mockedFingerprint);
     });
 
     it('Should add the fingerprint header if a fingerprint is found.', async () => {
@@ -176,7 +179,7 @@ describe('BotProtectionFingerprint', () => {
       }).load();
 
       const newRequestPromise = plugin.transform(mockedRequest);
-      await jest.advanceTimersByTimeAsync(1000);
+      await vi.advanceTimersByTimeAsync(1000);
       const newRequest = await newRequestPromise;
 
       expect(newRequest.headers.has(destinationHeaderName)).toBeFalsy();
@@ -196,9 +199,9 @@ describe('BotProtectionFingerprint', () => {
       setTimeout(() => mockedFingerprint = 'fingerprint', 350);
 
       const newRequestPromise = plugin.transform(mockedRequest);
-      await jest.advanceTimersByTimeAsync(350);
+      await vi.advanceTimersByTimeAsync(350);
       mockedFingerprint = 'fingerprint';
-      await jest.runAllTimersAsync();
+      await vi.runAllTimersAsync();
       const newRequest = await newRequestPromise;
 
       expect(newRequest.headers.get(destinationHeaderName)).toBe(mockedFingerprint);
@@ -217,13 +220,13 @@ describe('BotProtectionFingerprint', () => {
       }).load();
 
       let promise = plugin.transform(mockedRequest);
-      await jest.runAllTimersAsync();
+      await vi.runAllTimersAsync();
       await promise;
 
       expect(fingerprintRetriever).toHaveBeenCalledTimes(5);
 
       promise = plugin.transform(mockedRequest);
-      await jest.runAllTimersAsync();
+      await vi.runAllTimersAsync();
       await promise;
 
       expect(fingerprintRetriever).toHaveBeenCalledTimes(10);
@@ -241,13 +244,13 @@ describe('BotProtectionFingerprint', () => {
       }).load();
 
       let promise = plugin.transform(mockedRequest);
-      await jest.runAllTimersAsync();
+      await vi.runAllTimersAsync();
       await promise;
 
       expect(fingerprintRetriever).toHaveBeenCalledTimes(5);
 
       promise = plugin.transform(mockedRequest);
-      await jest.runAllTimersAsync();
+      await vi.runAllTimersAsync();
       await promise;
 
       expect(fingerprintRetriever).toHaveBeenCalledTimes(6);

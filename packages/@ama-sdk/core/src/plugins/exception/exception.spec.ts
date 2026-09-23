@@ -10,7 +10,7 @@ import {
 } from './exception-reply';
 
 describe('Exception Reply Plugin', () => {
-  const reviver = jest.fn();
+  const reviver = vi.fn();
   const contextError = {
     apiName: 'api',
     operationId: 'ope'

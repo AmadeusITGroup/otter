@@ -7,7 +7,7 @@ import {
 
 describe('generateColorStyles', () => {
   test('should generate the correct color', async () => {
-    const getFileMock = jest.fn().mockResolvedValue({
+    const getFileMock = vi.fn().mockResolvedValue({
       nodes: {
         styleNode1: {
           document: {
@@ -39,18 +39,22 @@ describe('generateColorStyles', () => {
         }
       }
     });
-    const formatVariables = jest.fn().mockReturnValue('#color');
-    const getAngleWithScreenYAxis = jest.fn().mockReturnValue(0);
-    const getVariablesFormatter = jest.fn().mockReturnValue(formatVariables);
-    const filesApiMock = jest.fn().mockReturnValue({ getFileNodes: getFileMock });
+    const formatVariables = vi.fn().mockReturnValue('#color');
+    const getAngleWithScreenYAxis = vi.fn().mockReturnValue(0);
+    const getVariablesFormatter = vi.fn().mockReturnValue(formatVariables);
+    const filesApiMock = vi.fn(class {
+      constructor() {
+        return { getFileNodes: getFileMock };
+      }
+    });
 
-    jest.mock('@ama-styling/figma-sdk', () => ({
+    vi.doMock('@ama-styling/figma-sdk', () => ({
       FilesApi: filesApiMock
     }));
-    jest.mock('../../helpers/variable-formatter', () => ({
+    vi.doMock('../../helpers/variable-formatter', () => ({
       getVariablesFormatter
     }));
-    jest.mock('../../helpers/vector', () => ({
+    vi.doMock('../../helpers/vector', () => ({
       getAngleWithScreenYAxis
     }));
 
@@ -68,7 +72,7 @@ describe('generateColorStyles', () => {
         } as any
       }
     } as any as GetFile200Response;
-    const { generateColorStyles } = require('./generate-color') as { generateColorStyles: typeof TypeGenerateColorStyles };
+    const { generateColorStyles } = (await import('./generate-color')) as { generateColorStyles: typeof TypeGenerateColorStyles };
 
     const styles = await generateColorStyles(testApi, Promise.resolve(fakeFile), {} as any, opts);
     expect(filesApiMock).toHaveBeenCalled();

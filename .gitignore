@@ -95,3 +95,7 @@ coverage
 .github/instructions/nx.instructions.md
 
 .verdaccio/conf/htpasswd
+
+# AI-DLC
+/.kiro
+/aidlc

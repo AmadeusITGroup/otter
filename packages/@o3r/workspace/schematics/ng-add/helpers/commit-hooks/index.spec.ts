@@ -39,14 +39,6 @@ describe('getCommitHookInitTask', () => {
 describe('generateCommitLintConfig', () => {
   const initialTree = new UnitTestTree(Tree.empty());
   const apply = jest.fn();
-  jest.mock('@angular-devkit/schematics', () => ({
-    apply,
-    getTemplateFolder: jest.fn(),
-    template: jest.fn(),
-    renameTemplateFiles: jest.fn(),
-    url: jest.fn(),
-    mergeWith: jest.fn().mockReturnValue(initialTree)
-  }));
 
   test('should generate template', () => {
     expect(() => generateCommitLintConfig()(initialTree, {} as any)).not.toThrow();

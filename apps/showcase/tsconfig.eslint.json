@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.base",
   "include": [
     "eslint*.config.mjs",
-    "jest.config.js",
+    "vitest.config.ts",
     "scripts/**/*",
     "testing/mocks/**/*",
     "e2e-playwright/**/*.ts"

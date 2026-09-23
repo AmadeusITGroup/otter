@@ -28,16 +28,16 @@ describe('Revivers :', () => {
   });
 
   it('should reviveArray propagate the options', () => {
-    const reviver = jest.fn();
-    const options: any = { logger: jest.fn() };
+    const reviver = vi.fn();
+    const options: any = { logger: vi.fn() };
     reviveArray([1], null, reviver, options);
 
     expect(reviver).toHaveBeenCalledWith(1, null, options);
   });
 
   it('should reviveDictionarizedArray propagate the options', () => {
-    const reviver = jest.fn();
-    const options: any = { logger: jest.fn() };
+    const reviver = vi.fn();
+    const options: any = { logger: vi.fn() };
     const dictionary = { key: 'test' };
     reviveDictionarizedArray(['key'], dictionary, reviver, options);
 
@@ -45,8 +45,8 @@ describe('Revivers :', () => {
   });
 
   it('should reviveMap propagate the options', () => {
-    const reviver = jest.fn();
-    const options: any = { logger: jest.fn() };
+    const reviver = vi.fn();
+    const options: any = { logger: vi.fn() };
     const dictionary = { key: 'test' };
     reviveMap(['key'], dictionary, reviver, options);
 

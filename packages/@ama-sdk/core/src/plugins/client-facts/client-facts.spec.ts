@@ -23,6 +23,9 @@ const jwtFactsEncoder = createJwtFactsEncoder();
 
 const defaultHeader = 'ama-client-facts';
 
+beforeEach(() => vi.useFakeTimers());
+afterEach(() => vi.useRealTimers());
+
 describe('Client Facts request plugin', () => {
   let options: RequestOptions;
   let specificOptions: RequestOptions;
@@ -146,7 +149,7 @@ describe('Client Facts request plugin', () => {
     });
 
     const promise = plugin.load().transform(specificOptions);
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
     const newSpecificOptions = await promise;
 
     expect(newSpecificOptions.headers.has(defaultHeader)).toBeTruthy();

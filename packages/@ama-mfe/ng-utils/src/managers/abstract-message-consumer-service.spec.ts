@@ -1,4 +1,7 @@
 import type {
+  Mocked,
+} from 'vitest';
+import type {
   RoutedMessage,
   VersionedMessage,
 } from '@amadeus-it-group/microfrontends';
@@ -68,20 +71,20 @@ class NoAutoStartHostComponent {
 }
 
 describe('AbstractMessageConsumer', () => {
-  let consumerManagerServiceMock: jest.Mocked<ConsumerManagerService>;
-  let loggerServiceMock: jest.Mocked<LoggerService>;
+  let consumerManagerServiceMock: Mocked<ConsumerManagerService>;
+  let loggerServiceMock: Mocked<LoggerService>;
   let fixture: ComponentFixture<TestHostComponent>;
 
   beforeEach(() => {
     consumerManagerServiceMock = {
-      register: jest.fn(),
-      unregister: jest.fn()
-    } as unknown as jest.Mocked<ConsumerManagerService>;
+      register: vi.fn(),
+      unregister: vi.fn()
+    } as unknown as Mocked<ConsumerManagerService>;
 
     loggerServiceMock = {
-      warn: jest.fn(),
-      error: jest.fn()
-    } as unknown as jest.Mocked<LoggerService>;
+      warn: vi.fn(),
+      error: vi.fn()
+    } as unknown as Mocked<LoggerService>;
 
     TestBed.configureTestingModule({
       imports: [TestHostComponent, NoAutoStartHostComponent],

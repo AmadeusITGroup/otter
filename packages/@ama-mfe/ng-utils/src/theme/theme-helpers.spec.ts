@@ -9,14 +9,14 @@ import {
 describe('theme helpers', () => {
   beforeAll(() => {
     // Mock fetch for getStyle
-    global.fetch = jest.fn().mockImplementation(() =>
+    global.fetch = vi.fn().mockImplementation(() =>
       Promise.resolve({
         ok: true,
         text: () => Promise.resolve('mocked css content')
       })
     );
 
-    global.Request = jest.fn();
+    global.Request = vi.fn();
 
     class CSSStyleSheetMock {
       public cssRules: { cssText: string }[] = [];
@@ -36,16 +36,16 @@ describe('theme helpers', () => {
     });
 
     it('should return empty string on fetch failure', async () => {
-      jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.reject(new Error('fetch failed')));
+      vi.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.reject(new Error('fetch failed')));
       const cssPath = 'mockPath';
       const cssContent = await getStyle(cssPath);
       expect(cssContent).toBe('');
     });
 
     it('should catch and log a warning in case of fetch failure', async () => {
-      jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.reject(new Error('fetch failed')));
+      vi.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.reject(new Error('fetch failed')));
       const cssPath = 'mockPath';
-      const warnMock = jest.fn();
+      const warnMock = vi.fn();
       const cssContent = await getStyle(cssPath, { logger: { warn: warnMock } as any });
       expect(cssContent).toBe('');
       expect(warnMock).toHaveBeenCalledWith('Failed to download style from: mockPath with error: Error: fetch failed');
@@ -88,7 +88,7 @@ describe('theme helpers', () => {
     });
 
     it('should compute the css url to call', async () => {
-      const getStyleSpy = jest.spyOn(global, 'Request');
+      const getStyleSpy = vi.spyOn(global, 'Request');
       await applyInitialTheme();
       expect(getStyleSpy).toHaveBeenCalledWith('mockTheme-theme.css');
       getStyleSpy.mockReset();
@@ -96,7 +96,7 @@ describe('theme helpers', () => {
 
     it('should do nothing if no query param', async () => {
       window.history.pushState({}, 'No query param', '/');
-      const getStyleSpy = jest.spyOn(global, 'Request');
+      const getStyleSpy = vi.spyOn(global, 'Request');
       await applyInitialTheme();
       expect(getStyleSpy).not.toHaveBeenCalled();
       getStyleSpy.mockReset();
@@ -104,7 +104,7 @@ describe('theme helpers', () => {
 
     it('should do nothing if no theme query param', async () => {
       window.history.pushState({}, 'No theme query param', '/param=mock-theme.css');
-      const getStyleSpy = jest.spyOn(global, 'Request');
+      const getStyleSpy = vi.spyOn(global, 'Request');
       await applyInitialTheme();
       expect(getStyleSpy).not.toHaveBeenCalled();
       getStyleSpy.mockReset();
@@ -112,14 +112,14 @@ describe('theme helpers', () => {
 
     it('should not change the css url if it s well formatted', async () => {
       window.history.pushState({}, 'Theme Url already formatted', '/?theme=mock-theme.css');
-      const getStyleSpy = jest.spyOn(global, 'Request');
+      const getStyleSpy = vi.spyOn(global, 'Request');
       await applyInitialTheme();
       expect(getStyleSpy).toHaveBeenCalledWith('mock-theme.css');
       getStyleSpy.mockReset();
     });
 
     it('should handle referrer URL for theme application', async () => {
-      const getStyleSpy = jest.spyOn(global, 'Request');
+      const getStyleSpy = vi.spyOn(global, 'Request');
       Object.defineProperty(document, 'referrer', {
         value: 'http://example.com',
         writable: true

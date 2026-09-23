@@ -1,3 +1,6 @@
+import type {
+  Mock,
+} from 'vitest';
 import {
   ComponentFixture,
   TestBed,
@@ -31,8 +34,8 @@ describe('Placeholder', () => {
 
   beforeEach(async () => {
     mockScrollSpyService = {
-      start: jest.fn(),
-      stop: jest.fn()
+      start: vi.fn(),
+      stop: vi.fn()
     };
     await TestBed.configureTestingModule({
       imports: [
@@ -48,13 +51,13 @@ describe('Placeholder', () => {
       ]
     }).compileComponents();
 
-    global.fetch = jest.fn(() =>
+    global.fetch = vi.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve({
           rulesets: []
         })
       })
-    ) as jest.Mock;
+    ) as Mock;
 
     fixture = TestBed.createComponent(Placeholder);
     component = fixture.componentInstance;

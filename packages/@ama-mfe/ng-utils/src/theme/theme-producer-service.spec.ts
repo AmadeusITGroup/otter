@@ -1,3 +1,6 @@
+import type {
+  Mocked,
+} from 'vitest';
 import {
   ThemeMessage,
 } from '@ama-mfe/messages';
@@ -25,14 +28,14 @@ describe('ThemeProducerService', () => {
   let themeService: ThemeProducerService;
   let producerManagerService: ProducerManagerService;
   let messageService: MessagePeerService<ThemeMessage>;
-  let loggerServiceMock: jest.Mocked<LoggerService>;
+  let loggerServiceMock: Mocked<LoggerService>;
   let mockWindow: { location: { href: string; toString?: () => string } };
 
   const css = 'body { background-color: black; }';
 
   beforeAll(() => {
-    jest.spyOn(themeHelpers, 'getStyle').mockImplementation(() => Promise.resolve(css));
-    jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => {});
+    vi.spyOn(themeHelpers, 'getStyle').mockImplementation(() => Promise.resolve(css));
+    vi.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => {});
 
     mockWindow = {
       location: {
@@ -46,17 +49,17 @@ describe('ThemeProducerService', () => {
 
   beforeEach(() => {
     const producerManagerServiceMock = {
-      register: jest.fn(),
-      unregister: jest.fn()
+      register: vi.fn(),
+      unregister: vi.fn()
     };
     const messageServiceMock = {
-      send: jest.fn()
+      send: vi.fn()
     };
 
     loggerServiceMock = {
-      warn: jest.fn(),
-      error: jest.fn()
-    } as unknown as jest.Mocked<LoggerService>;
+      warn: vi.fn(),
+      error: vi.fn()
+    } as unknown as Mocked<LoggerService>;
 
     TestBed.configureTestingModule({
       providers: [
@@ -94,7 +97,7 @@ describe('ThemeProducerService', () => {
 
   it('should handle errors and revert to previous theme', () => {
     const errorMessage: ErrorContent<ThemeMessage> = { reason: 'unknown_type', source: { type: 'theme', version: '1.0', name: '', css: '' } };
-    jest.spyOn(themeService, 'revertToPreviousTheme');
+    vi.spyOn(themeService, 'revertToPreviousTheme');
     themeService.handleError(errorMessage);
     expect(themeService.revertToPreviousTheme).toHaveBeenCalled();
     expect(loggerServiceMock.error).toHaveBeenCalledWith('Error in theme service message', errorMessage);
@@ -134,7 +137,7 @@ describe('ThemeProducerService', () => {
   it('should call applyTheme when theme is changed', async () => {
     TestBed.tick();
     expect(themeHelpers.applyTheme).toHaveBeenCalledWith(css);
-    jest.spyOn(themeHelpers, 'getStyle').mockImplementation(() => Promise.resolve('newCss'));
+    vi.spyOn(themeHelpers, 'getStyle').mockImplementation(() => Promise.resolve('newCss'));
     await themeService.changeTheme('light');
     TestBed.tick();
     expect(themeHelpers.applyTheme).toHaveBeenCalledWith('newCss');

@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.jest",
+  "extends": "../../../tsconfig.test",
   "compilerOptions": {
     "lib": ["ES2024"],
     "composite": true,

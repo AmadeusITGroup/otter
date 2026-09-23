@@ -1,3 +1,6 @@
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   getTestBed,
   TestBed,
@@ -58,7 +61,7 @@ const staticConfig: CustomConfig[] = [{
 describe('ConfigurationBaseService', () => {
   let service: ConfigurationBaseService;
   let mockStore: MockStore<ConfigurationStore>;
-  let mockDispatch: jest.SpyInstance;
+  let mockDispatch: MockInstance;
 
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
@@ -74,7 +77,7 @@ describe('ConfigurationBaseService', () => {
 
     service = TestBed.inject(ConfigurationBaseService);
     mockStore = TestBed.inject(MockStore);
-    mockDispatch = jest.spyOn(mockStore, 'dispatch');
+    mockDispatch = vi.spyOn(mockStore, 'dispatch');
   });
 
   it('should add globalconfig config', () => {
@@ -96,7 +99,7 @@ describe('ConfigurationBaseService', () => {
   });
 
   it('should get the configuration from body tag', () => {
-    const spy = jest.spyOn(service, 'computeConfiguration');
+    const spy = vi.spyOn(service, 'computeConfiguration');
     const configTag = 'staticconfig';
     document.body.dataset[configTag] = JSON.stringify(staticConfig);
     service.getConfigFromBodyTag(configTag);
@@ -123,7 +126,7 @@ describe('ConfigurationBaseService', () => {
       id: configId,
       prop: 'value1'
     };
-    const spy = jest.fn();
+    const spy = vi.fn();
     let subscription: Subscription;
 
     beforeEach(() => {

@@ -7,7 +7,7 @@ import {
 
 describe('generateGridStyles', () => {
   test('should generate the correct grid', async () => {
-    const getFileMock = jest.fn().mockResolvedValue({
+    const getFileMock = vi.fn().mockResolvedValue({
       nodes: {
         styleNode1: {
           document: {
@@ -25,18 +25,22 @@ describe('generateGridStyles', () => {
         }
       }
     });
-    const formatVariables = jest.fn().mockImplementation((value: string) => value);
-    const getVariablesFormatter = jest.fn().mockReturnValue(formatVariables);
-    const filesApiMock = jest.fn().mockReturnValue({ getFileNodes: getFileMock });
-    const getRgbaColorHex = jest.fn().mockReturnValue('#test');
+    const formatVariables = vi.fn().mockImplementation((value: string) => value);
+    const getVariablesFormatter = vi.fn().mockReturnValue(formatVariables);
+    const filesApiMock = vi.fn(class {
+      constructor() {
+        return { getFileNodes: getFileMock };
+      }
+    });
+    const getRgbaColorHex = vi.fn().mockReturnValue('#test');
 
-    jest.mock('@ama-styling/figma-sdk', () => ({
+    vi.doMock('@ama-styling/figma-sdk', () => ({
       FilesApi: filesApiMock
     }));
-    jest.mock('../../helpers/variable-formatter', () => ({
+    vi.doMock('../../helpers/variable-formatter', () => ({
       getVariablesFormatter
     }));
-    jest.mock('../../helpers/color-hex-helpers', () => ({
+    vi.doMock('../../helpers/color-hex-helpers', () => ({
       getRgbaColorHex
     }));
 
@@ -54,7 +58,7 @@ describe('generateGridStyles', () => {
         } as any
       }
     } as any as GetFile200Response;
-    const { generateTextStyles } = require('./generate-text') as { generateTextStyles: typeof TypeGenerateTextStyles };
+    const { generateTextStyles } = (await import('./generate-text')) as { generateTextStyles: typeof TypeGenerateTextStyles };
 
     const styles = await generateTextStyles(testApi, Promise.resolve(fakeFile), {} as any, opts);
     expect(filesApiMock).toHaveBeenCalled();

@@ -23,9 +23,10 @@
       ]
     },
     "test": {
-      "options": {
-        "passWithNoTests": true
-      }
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
     },
     "regen": {},
     "lint": {},
@@ -46,7 +47,10 @@
       "dependsOn": ["^build", "compile"]
     },
     "prepare-publish": {},
-    "publish": {}
+    "publish": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    }
   },
   "tags": [
     "access:private"

@@ -32,6 +32,15 @@
       ],
       "outputs": ["{projectRoot}/dist/structure"],
       "dependsOn": ["^build", "compile"]
+    },
+    "vitest": {
+      "plugin": "@nx/vitest"
+    },
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
     }
   },
   "tags": []

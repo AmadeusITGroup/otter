@@ -65,14 +65,22 @@
     "expose-templates": {
     },
     "lint": {},
-    "test": {},
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
     "test-int": {
       "options": {
         "passWithNoTests": true
       }
     },
     "prepare-publish": {},
-    "publish": {}
+    "publish": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    }
   },
   "tags": []
 }

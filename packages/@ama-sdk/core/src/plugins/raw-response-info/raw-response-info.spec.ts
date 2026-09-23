@@ -6,7 +6,7 @@ import {
 } from './raw-response-info-reply';
 
 describe('Raw response info Reply plugin', () => {
-  const reviver = jest.fn();
+  const reviver = vi.fn();
 
   it('should add response object', async () => {
     const plugin = new RawResponseInfoReply();

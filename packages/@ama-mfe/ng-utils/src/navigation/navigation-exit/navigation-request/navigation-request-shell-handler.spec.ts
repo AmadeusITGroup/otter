@@ -1,3 +1,6 @@
+import type {
+  Mock,
+} from 'vitest';
 import {
   TestBed,
 } from '@angular/core/testing';
@@ -16,12 +19,12 @@ import {
 } from './navigation-request-shell-handler';
 
 describe('createNavigationRequestShellHandler', () => {
-  let confirmation: { confirm: jest.Mock };
-  let blockConsumer: { clear: jest.Mock };
+  let confirmation: { confirm: Mock };
+  let blockConsumer: { clear: Mock };
 
   beforeEach(() => {
-    confirmation = { confirm: jest.fn() };
-    blockConsumer = { clear: jest.fn() };
+    confirmation = { confirm: vi.fn() };
+    blockConsumer = { clear: vi.fn() };
     TestBed.configureTestingModule({
       providers: [
         { provide: NavigationBlockConfirmationService, useValue: confirmation },
@@ -50,8 +53,8 @@ describe('provideNavigationRequestShellHandler', () => {
   it('should wire NAVIGATION_REQUEST_HANDLER to the shell handler factory', () => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: NavigationBlockConfirmationService, useValue: { confirm: jest.fn() } },
-        { provide: NavigationBlockStateConsumerService, useValue: { clear: jest.fn() } },
+        { provide: NavigationBlockConfirmationService, useValue: { confirm: vi.fn() } },
+        { provide: NavigationBlockStateConsumerService, useValue: { clear: vi.fn() } },
         provideNavigationRequestShellHandler()
       ]
     });

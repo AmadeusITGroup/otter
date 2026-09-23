@@ -7,7 +7,9 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/package.json"],
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
       "options": {
         "script": "postbuild",
         "tsConfig": "{projectRoot}/tsconfig.build.json"
@@ -27,12 +29,21 @@
     "prepare-build-builders": {},
     "build-schematics": {
       "executor": "nx:run-script",
-      "dependsOn": ["^build", "compile", "prepare-build-builders"],
+      "dependsOn": [
+        "^build",
+        "compile",
+        "prepare-build-builders"
+      ],
       "options": {
         "script": "build:schematics"
       },
-      "inputs": ["schematics", "^source"],
-      "outputs": ["{projectRoot}/dist/schematics"]
+      "inputs": [
+        "schematics",
+        "^source"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/schematics"
+      ]
     },
     "build-utils": {
       "executor": "nx:run-script",
@@ -53,11 +64,20 @@
       ]
     },
     "lint": {},
-    "test": {},
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
     "test-int": {},
+    "test-schematics": {},
     "prepare-publish": {},
     "publish": {},
-    "documentation": {}
+    "documentation": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    }
   },
   "tags": []
 }

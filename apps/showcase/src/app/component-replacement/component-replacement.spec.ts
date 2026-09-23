@@ -28,8 +28,8 @@ describe('ComponentReplacement', () => {
 
   beforeEach(async () => {
     mockScrollSpyService = {
-      start: jest.fn(),
-      stop: jest.fn()
+      start: vi.fn(),
+      stop: vi.fn()
     };
     await TestBed.configureTestingModule({
       imports: [

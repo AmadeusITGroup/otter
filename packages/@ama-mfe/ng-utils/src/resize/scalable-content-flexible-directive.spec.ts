@@ -43,10 +43,10 @@ class ScrollBehaviorTestComponent {
   public contentHeight = 400; // Initial content height smaller than container
 }
 
-global.ResizeObserver = jest.fn().mockImplementation(() => ({
-  observe: jest.fn(),
-  disconnect: jest.fn(),
-  unobserve: jest.fn()
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  disconnect: vi.fn(),
+  unobserve: vi.fn()
 }));
 
 /**
@@ -64,6 +64,9 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
  * 3. Directive updates iframe min-height to container height (500px)
  * 4. Result: Single scroll - only inside the iframe (iframe now fits container)
  */
+beforeEach(() => vi.useFakeTimers());
+afterEach(() => vi.useRealTimers());
+
 describe('ScalableDirective - Scroll Behavior', () => {
   let fixture: ComponentFixture<ScrollBehaviorTestComponent>;
   let iframeWrapper: DebugElement;
@@ -73,7 +76,7 @@ describe('ScalableDirective - Scroll Behavior', () => {
   beforeEach(() => {
     newHeightFromChannelSignal = signal<{ channelId: string; height: number } | undefined>(undefined);
     const resizeHandlerServiceMock = {
-      start: jest.fn(),
+      start: vi.fn(),
       newHeightFromChannel: newHeightFromChannelSignal
     };
 
@@ -95,7 +98,7 @@ describe('ScalableDirective - Scroll Behavior', () => {
   describe('Content Growth - Channel Message Updates Min-Height', () => {
     it('should set iframe min-height equal to content height received from channel', () => {
       const renderer = iframeWrapper.injector.get(Renderer2);
-      const rendererSpy = jest.spyOn(renderer, 'setStyle');
+      const rendererSpy = vi.spyOn(renderer, 'setStyle');
 
       // Simulate iframe content growing to 800px and sending resize message
       newHeightFromChannelSignal.set({ height: 800, channelId: 'test-channel' });
@@ -106,7 +109,7 @@ describe('ScalableDirective - Scroll Behavior', () => {
 
     it('should update min-height when content continues to grow', () => {
       const renderer = iframeWrapper.injector.get(Renderer2);
-      const rendererSpy = jest.spyOn(renderer, 'setStyle');
+      const rendererSpy = vi.spyOn(renderer, 'setStyle');
 
       // First content growth
       newHeightFromChannelSignal.set({ height: 800, channelId: 'test-channel' });
@@ -123,7 +126,7 @@ describe('ScalableDirective - Scroll Behavior', () => {
   describe('Window Shrink - Preventing Double Scroll', () => {
     it('should update min-height to container height when window shrinks, preventing double scroll', () => {
       const renderer = iframeWrapper.injector.get(Renderer2);
-      const rendererSpy = jest.spyOn(renderer, 'setStyle');
+      const rendererSpy = vi.spyOn(renderer, 'setStyle');
 
       // Step 1: Iframe content grows to 1200px (larger than container's 600px)
       newHeightFromChannelSignal.set({ height: 1200, channelId: 'test-channel' });
@@ -152,7 +155,7 @@ describe('ScalableDirective - Scroll Behavior', () => {
 
     it('should allow only iframe scroll when min-height matches container after resize', () => {
       const renderer = iframeWrapper.injector.get(Renderer2);
-      const rendererSpy = jest.spyOn(renderer, 'setStyle');
+      const rendererSpy = vi.spyOn(renderer, 'setStyle');
       const iframeContentHeight = 1000; // Content that will scroll inside iframe
 
       // Setup: Content is 1000px, container is 600px initially
@@ -186,7 +189,7 @@ describe('ScalableDirective - Scroll Behavior', () => {
   describe('Dynamic Content and Resize Interaction', () => {
     it('should handle alternating content growth and window resize', () => {
       const renderer = iframeWrapper.injector.get(Renderer2);
-      const rendererSpy = jest.spyOn(renderer, 'setStyle');
+      const rendererSpy = vi.spyOn(renderer, 'setStyle');
 
       // Initial state: container 600px, content 400px
 
@@ -201,7 +204,7 @@ describe('ScalableDirective - Scroll Behavior', () => {
         configurable: true
       });
       rendererSpy.mockClear();
-      jest.runAllTimers();
+      vi.runAllTimers();
       window.dispatchEvent(new Event('resize'));
       fixture.detectChanges();
       expect(rendererSpy).toHaveBeenCalledWith(iframeWrapper.nativeElement, 'min-height', '400px');
@@ -218,7 +221,7 @@ describe('ScalableDirective - Scroll Behavior', () => {
         configurable: true
       });
       rendererSpy.mockClear();
-      jest.runAllTimers();
+      vi.runAllTimers();
       window.dispatchEvent(new Event('resize'));
       fixture.detectChanges();
       expect(rendererSpy).toHaveBeenCalledWith(iframeWrapper.nativeElement, 'min-height', '800px');

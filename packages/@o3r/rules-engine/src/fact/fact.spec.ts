@@ -15,6 +15,9 @@ class FakeFactsService extends FactsService<any> {
   }
 }
 
+beforeEach(() => vi.useFakeTimers());
+afterEach(() => vi.useRealTimers());
+
 describe('Rules engine fact', () => {
   let mockEngine: RulesEngineRunnerService;
   let factsService: FactsService<any>;
@@ -22,7 +25,7 @@ describe('Rules engine fact', () => {
 
   beforeEach(() => {
     mockEngine = {
-      upsertFacts: jest.fn()
+      upsertFacts: vi.fn()
     } as any as RulesEngineRunnerService;
     subjectFact = new BehaviorSubject<string>('test3');
     const facts = {
@@ -41,7 +44,7 @@ describe('Rules engine fact', () => {
 
   it('should register the facts', async () => {
     factsService.register();
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
 
     expect(mockEngine.upsertFacts).toHaveBeenCalledTimes(1);
     expect(factsService.isRegistered).toBe(true);
@@ -49,9 +52,9 @@ describe('Rules engine fact', () => {
 
   it('should update the value of a fact', async () => {
     factsService.register();
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
     subjectFact.next('test4');
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
 
     expect(mockEngine.upsertFacts).toHaveBeenCalledTimes(1);
     expect(factsService.isRegistered).toBe(true);

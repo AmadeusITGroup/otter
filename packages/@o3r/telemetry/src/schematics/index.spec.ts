@@ -1,3 +1,6 @@
+import type {
+  Mock,
+} from 'vitest';
 import {
   callRule,
   Rule,
@@ -12,31 +15,31 @@ import {
   SchematicWrapper,
 } from './index';
 
-jest.mock('../environment/index', () => {
-  const original = jest.requireActual('../environment/index');
+vi.mock('../environment/index', async () => {
+  const original = await vi.importActual<typeof import('../environment/index')>('../environment/index');
   return {
     ...original,
-    getEnvironmentInfo: jest.fn(() => ({ env: 'env' }))
+    getEnvironmentInfo: vi.fn(() => ({ env: 'env' }))
   };
 });
 
-jest.mock('node:perf_hooks', () => {
-  const original = jest.requireActual('node:perf_hooks');
+vi.mock('node:perf_hooks', async () => {
+  const original = await vi.importActual<typeof import('node:perf_hooks')>('node:perf_hooks');
   return {
     ...original,
     performance: {
       ...original.performance,
-      now: jest.fn().mockReturnValue(0)
+      now: vi.fn().mockReturnValue(0)
     }
   };
 });
 
 let context: SchematicContext;
-let debug: jest.Mock;
+let debug: Mock;
 
 describe('createSchematicWithMetricsIfInstalled', () => {
   beforeEach(() => {
-    debug = jest.fn();
+    debug = vi.fn();
     context = {
       schematic: {
         description: {
@@ -54,9 +57,9 @@ describe('createSchematicWithMetricsIfInstalled', () => {
   });
 
   it('should call the original schematic with the options and log data', async () => {
-    const rule = jest.fn((tree: Tree) => tree);
+    const rule = vi.fn((tree: Tree) => tree);
 
-    const originalSchematic = jest.fn((_opts: any): Rule => rule);
+    const originalSchematic = vi.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithMetrics(originalSchematic);
     const options = {
       example: 'test'
@@ -74,9 +77,9 @@ describe('createSchematicWithMetricsIfInstalled', () => {
   });
 
   it('should works if we chain schematic wrapper', async () => {
-    const rule = jest.fn((tree: Tree) => tree);
+    const rule = vi.fn((tree: Tree) => tree);
 
-    const originalSchematic = jest.fn((_opts: any): Rule => rule);
+    const originalSchematic = vi.fn((_opts: any): Rule => rule);
     const noopSchematicWrapper: SchematicWrapper = (schematicFn) => (opts) => schematicFn(opts);
     const schematic = noopSchematicWrapper(createSchematicWithMetrics(originalSchematic));
     const options = {
@@ -96,11 +99,11 @@ describe('createSchematicWithMetricsIfInstalled', () => {
 
   it('should throw the original error and log the error in the data', async () => {
     const error = new Error('error example');
-    const rule = jest.fn(() => {
+    const rule = vi.fn(() => {
       throw error;
     });
 
-    const originalSchematic = jest.fn((_opts: any): Rule => rule);
+    const originalSchematic = vi.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithMetrics(originalSchematic);
     const options = {
       example: 'test'
@@ -114,9 +117,9 @@ describe('createSchematicWithMetricsIfInstalled', () => {
   });
 
   it('should throw if the rule is a rejected Promise', async () => {
-    const rule = jest.fn(() => Promise.reject(new Error('rejected')));
+    const rule = vi.fn(() => Promise.reject(new Error('rejected')));
 
-    const originalSchematic = jest.fn((_opts: any): Rule => rule);
+    const originalSchematic = vi.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithMetrics(originalSchematic);
     const options = {
       example: 'test'

@@ -1,3 +1,6 @@
+import type {
+  Mock,
+} from 'vitest';
 import {
   MESSAGE_PEER_CONFIG,
   MESSAGE_PEER_CONNECT_OPTIONS,
@@ -23,36 +26,36 @@ import {
   ConnectionService,
 } from './connect-resources';
 
-jest.mock('@angular/core', () => {
-  const actual = jest.requireActual('@angular/core');
+vi.mock('@angular/core', async () => {
+  const actual = await vi.importActual<typeof import('@angular/core')>('@angular/core');
   return {
     ...actual,
-    makeEnvironmentProviders: jest.fn(actual.makeEnvironmentProviders)
+    makeEnvironmentProviders: vi.fn(actual.makeEnvironmentProviders)
   };
 });
 
-jest.mock('../host-info/host-info', () => ({
-  getHostInfo: jest.fn(),
-  persistHostInfo: jest.fn()
+vi.mock('../host-info/host-info', async () => ({
+  getHostInfo: vi.fn(),
+  persistHostInfo: vi.fn()
 }));
-jest.mock('../utils', () => ({
-  ...jest.requireActual('../utils'),
-  isEmbedded: jest.fn()
+vi.mock('../utils', async () => ({
+  ...await vi.importActual<typeof import('../utils')>('../utils'),
+  isEmbedded: vi.fn()
 }));
 
-jest.mock('../history/history-providers', () => ({
-  provideHistoryOverrides: jest.fn()
+vi.mock('../history/history-providers', async () => ({
+  provideHistoryOverrides: vi.fn()
 }));
 
 describe('provideConnection', () => {
-  const mockLogger = { error: jest.fn(), log: jest.fn(), warn: jest.fn() };
+  const mockLogger = { error: vi.fn(), log: vi.fn(), warn: vi.fn() };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should return empty providers and log error if no ID is provided', () => {
-    (getHostInfo as jest.Mock).mockReturnValue({ moduleApplicationId: undefined });
+    (getHostInfo as Mock).mockReturnValue({ moduleApplicationId: undefined });
 
     provideConnection({ logger: mockLogger });
 
@@ -61,8 +64,8 @@ describe('provideConnection', () => {
   });
 
   it('should use moduleApplicationId from getHostInfo if available', () => {
-    (isEmbedded as jest.Mock).mockReturnValue(true);
-    (getHostInfo as jest.Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
+    (isEmbedded as Mock).mockReturnValue(true);
+    (getHostInfo as Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
 
     provideConnection();
 
@@ -75,7 +78,7 @@ describe('provideConnection', () => {
   });
 
   it('should use connectionConfigOptions.id if moduleApplicationId is not available', () => {
-    (getHostInfo as jest.Mock).mockReturnValue({ moduleApplicationId: undefined });
+    (getHostInfo as Mock).mockReturnValue({ moduleApplicationId: undefined });
     provideConnection({ id: 'my-module-id-from-param' });
     expect(makeEnvironmentProviders).toHaveBeenCalledWith(
       expect.arrayContaining([
@@ -86,7 +89,7 @@ describe('provideConnection', () => {
   });
 
   it('should merge known messages with custom ones correctly', () => {
-    (getHostInfo as jest.Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
+    (getHostInfo as Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
     const customMessage = { type: 'CUSTOM_MESSAGE' };
     provideConnection({ knownMessages: [customMessage] });
     expect(makeEnvironmentProviders).toHaveBeenCalledWith(
@@ -100,7 +103,7 @@ describe('provideConnection', () => {
   });
 
   it('should provide correct services and dependencies', () => {
-    (getHostInfo as jest.Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
+    (getHostInfo as Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
 
     provideConnection();
 
@@ -120,16 +123,16 @@ describe('provideConnection', () => {
   });
 
   it('should not patch browser history in a non-embedded application', () => {
-    (getHostInfo as jest.Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
-    (isEmbedded as jest.Mock).mockReturnValue(false);
+    (getHostInfo as Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
+    (isEmbedded as Mock).mockReturnValue(false);
 
     provideConnection();
     expect(provideHistoryOverrides).not.toHaveBeenCalled();
   });
 
   it('should patch browser history in an embedded application', () => {
-    (getHostInfo as jest.Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
-    (isEmbedded as jest.Mock).mockReturnValue(true);
+    (getHostInfo as Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
+    (isEmbedded as Mock).mockReturnValue(true);
 
     provideConnection();
     expect(provideHistoryOverrides).toHaveBeenCalled();

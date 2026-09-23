@@ -150,7 +150,12 @@
       ]
     },
     "lint": {},
-    "test": {},
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
     "test-e2e": {},
     "build-manifest": {
       "executor": "nx:run-script",
@@ -181,6 +186,9 @@
         "script": "publish-to-market"
       },
       "dependsOn": ["^build"]
+    },
+    "vitest": {
+      "plugin": "@nx/vitest"
     }
   },
   "tags": []

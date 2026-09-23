@@ -1,13 +1,16 @@
+import type {
+  Mock,
+} from 'vitest';
 import {
   PerformanceMetricPlugin,
 } from './perf-metric-fetch';
 
 let perfPlugin: PerformanceMetricPlugin;
 describe('PerformanceMetricPlugin', () => {
-  let onMarkOpen!: jest.Mock;
+  let onMarkOpen!: Mock;
 
   beforeEach(() => {
-    onMarkOpen = jest.fn();
+    onMarkOpen = vi.fn();
     perfPlugin = new PerformanceMetricPlugin({ onMarkOpen });
   });
 

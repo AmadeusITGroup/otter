@@ -5,9 +5,9 @@ import type {
 
 describe('generateManifest', () => {
   test('should generate the manifest file content for color and text', async () => {
-    const getCollectionFileName = jest.fn().mockReturnValue('test');
-    const getStyleFileName = jest.fn().mockImplementation((prefix: string) => `${prefix}.file`);
-    jest.mock('../helpers/file-names', () => ({
+    const getCollectionFileName = vi.fn().mockReturnValue('test');
+    const getStyleFileName = vi.fn().mockImplementation((prefix: string) => `${prefix}.file`);
+    vi.doMock('../helpers/file-names', () => ({
       getCollectionFileName,
       getStyleFileName
     }));
@@ -37,7 +37,7 @@ describe('generateManifest', () => {
     };
 
     const opts = { fileKey: 'test-file' };
-    const { generateManifest } = require('./generate-manifest');
+    const { generateManifest } = (await import('./generate-manifest'));
     const result = await generateManifest({ variableCollections } as any, Promise.resolve(fakeFile), opts);
     expect(getStyleFileName).toHaveBeenCalledWith('TEXT');
     expect(getStyleFileName).toHaveBeenCalledWith('FILL');

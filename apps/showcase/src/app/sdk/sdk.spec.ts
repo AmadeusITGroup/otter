@@ -34,8 +34,8 @@ describe('Sdk', () => {
 
   beforeEach(() => {
     mockScrollSpyService = {
-      start: jest.fn(),
-      stop: jest.fn()
+      start: vi.fn(),
+      stop: vi.fn()
     };
 
     TestBed.configureTestingModule({

@@ -1,3 +1,6 @@
+import type {
+  Mock,
+} from 'vitest';
 import {
   NAVIGATION_BLOCK_STATE_MESSAGE_TYPE,
   type NavigationBlockStateV1_0,
@@ -16,15 +19,15 @@ import {
 } from './navigation-block-state-consumer.service';
 
 describe('NavigationBlockStateConsumerService', () => {
-  let consumerManager: { register: jest.Mock; unregister: jest.Mock };
+  let consumerManager: { register: Mock; unregister: Mock };
   let service: NavigationBlockStateConsumerService;
 
   beforeEach(() => {
-    consumerManager = { register: jest.fn(), unregister: jest.fn() };
+    consumerManager = { register: vi.fn(), unregister: vi.fn() };
     TestBed.configureTestingModule({
       providers: [
         { provide: ConsumerManagerService, useValue: consumerManager },
-        { provide: LoggerService, useValue: { warn: jest.fn(), error: jest.fn() } },
+        { provide: LoggerService, useValue: { warn: vi.fn(), error: vi.fn() } },
         NavigationBlockStateConsumerService
       ]
     });

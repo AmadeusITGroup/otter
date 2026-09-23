@@ -247,7 +247,12 @@
         "^build-builders"
       ]
     },
-    "test": {},
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
     "generate-theme": {
       "executor": "nx:run-commands",
       "outputs": [
@@ -399,6 +404,9 @@
       "options": {
         "script": "copy-training-assets"
       }
+    },
+    "vitest": {
+      "plugin": "@nx/vitest"
     }
   }
 }

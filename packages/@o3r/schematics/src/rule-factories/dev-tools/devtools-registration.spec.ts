@@ -11,7 +11,7 @@ import {
 
 const projectName = 'projectName';
 const mainFilePath = 'main.ts';
-const fakeContext = { logger: { debug: jest.fn() } } as any;
+const fakeContext = { logger: { debug: vi.fn() } } as any;
 
 describe('Devtools Registration', () => {
   let initialTree: Tree;

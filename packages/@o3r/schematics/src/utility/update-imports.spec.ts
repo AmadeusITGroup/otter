@@ -11,11 +11,11 @@ import {
 
 describe('updateImportsInFile', () => {
   const logger = {
-    debug: jest.fn(),
-    info: jest.fn(),
-    log: jest.fn(),
-    warn: jest.fn(),
-    error: jest.fn()
+    debug: vi.fn(),
+    info: vi.fn(),
+    log: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn()
   } as any as logging.Logger;
 
   it('should replace imports in a file', () => {

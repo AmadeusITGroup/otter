@@ -10,9 +10,13 @@ import {
   useVirtualFileSystem,
 } from '@o3r/test-helpers';
 
+import {
+  copyReferencedFiles,
+  updateLocalRelativeRefs,
+} from './copy-referenced-files';
+
 describe('Specs processing', () => {
   const virtualFileSystem = useVirtualFileSystem();
-  const { copyReferencedFiles, updateLocalRelativeRefs } = require('./copy-referenced-files');
 
   const specsMocksPath = join(__dirname, '../../../../testing/mocks');
   const specFilePath = '../models/split-spec/split-spec.yaml';

@@ -1,19 +1,23 @@
-/* eslint-disable import/first -- needed for jest.mock */
-jest.mock('../environment/index', () => {
-  const original = jest.requireActual('../environment/index');
+/* eslint-disable import/first, import/order -- module mocks must be registered before importing the tested module */
+import type {
+  Mock,
+} from 'vitest';
+
+vi.mock('../environment/index', async () => {
+  const original = await vi.importActual<typeof import('../environment/index')>('../environment/index');
   return {
     ...original,
-    getEnvironmentInfo: jest.fn(() => ({ env: 'env' }))
+    getEnvironmentInfo: vi.fn(() => ({ env: 'env' }))
   };
 });
 
-jest.mock('node:perf_hooks', () => {
-  const original = jest.requireActual('node:perf_hooks');
+vi.mock('node:perf_hooks', async () => {
+  const original = await vi.importActual<typeof import('node:perf_hooks')>('node:perf_hooks');
   return {
     ...original,
     performance: {
       ...original.performance,
-      now: jest.fn().mockReturnValue(0)
+      now: vi.fn().mockReturnValue(0)
     }
   };
 });
@@ -24,14 +28,18 @@ import {
 
 const expectedOutput = { success: true };
 const options = { example: 'test' };
+const originalArgv = [...process.argv];
+const originalEnv = { ...process.env };
 
 describe('CLI with metrics', () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
+    process.argv = [...originalArgv];
+    process.env = { ...originalEnv };
   });
 
   it('should run the original builder with the same options', async () => {
-    const originalCliFn = jest.fn(() => expectedOutput);
+    const originalCliFn = vi.fn(() => expectedOutput);
     const cliFn = createCliWithMetrics(originalCliFn, 'cli-test');
     const output = await cliFn(options);
     expect(output).toEqual(expect.objectContaining(expectedOutput));
@@ -41,7 +49,7 @@ describe('CLI with metrics', () => {
 
   it('should throw the same error as the original one', async () => {
     const error = new Error('error example');
-    const originalCliFn = jest.fn(() => {
+    const originalCliFn = vi.fn(() => {
       throw error;
     });
     const cliFn = createCliWithMetrics(originalCliFn, 'cli-test');
@@ -51,22 +59,22 @@ describe('CLI with metrics', () => {
   });
 
   it('should throw if the builder function is a rejected Promise', async () => {
-    const originalCliFn = jest.fn(() => Promise.reject(new Error('rejected')));
+    const originalCliFn = vi.fn(() => Promise.reject(new Error('rejected')));
     const cliFn = createCliWithMetrics(originalCliFn, 'cli-test');
     await expect(() => cliFn(options)).rejects.toThrow();
   });
 
   describe('sendData', () => {
     let cliFn: ReturnType<typeof createCliWithMetrics>;
-    let originalCliFn: jest.Mock;
-    let sendDataMock: jest.Mock;
+    let originalCliFn: Mock;
+    let sendDataMock: Mock;
 
     beforeEach(() => {
-      originalCliFn = jest.fn(() => expectedOutput);
-      sendDataMock = jest.fn(() => Promise.resolve());
+      originalCliFn = vi.fn(() => expectedOutput);
+      sendDataMock = vi.fn(() => Promise.resolve());
       cliFn = createCliWithMetrics(originalCliFn, 'cli-test', { sendData: sendDataMock });
 
-      jest.replaceProperty(process, 'env', { ...process.env, O3R_METRICS: 'true' });
+      process.env = { ...process.env, O3R_METRICS: 'true' };
     });
 
     it('should call sendData with the options given by argument', async () => {
@@ -74,7 +82,7 @@ describe('CLI with metrics', () => {
         preParsedParam: 'value'
       };
       cliFn = createCliWithMetrics(originalCliFn, 'cli-test', { sendData: sendDataMock, preParsedOptions });
-      jest.replaceProperty(process, 'argv', ['', '', 'param1', '--param2', 'value2', '--param3']);
+      process.argv = ['', '', 'param1', '--param2', 'value2', '--param3'];
       await cliFn(options);
 
       expect(sendDataMock).toHaveBeenCalled();
@@ -87,7 +95,7 @@ describe('CLI with metrics', () => {
     });
 
     it('should call sendData with the data parsed by minimist', async () => {
-      jest.replaceProperty(process, 'argv', ['', '', 'param1', '--param2', 'value2', '--param3']);
+      process.argv = ['', '', 'param1', '--param2', 'value2', '--param3'];
       await cliFn(options);
 
       expect(sendDataMock).toHaveBeenCalled();
@@ -104,13 +112,13 @@ describe('CLI with metrics', () => {
     });
 
     it('should not call sendData because called with --no-o3r-metrics', async () => {
-      jest.replaceProperty(process, 'argv', ['', '', '--param1', 'value1', '--param2', '--no-o3r-metrics']);
+      process.argv = ['', '', '--param1', 'value1', '--param2', '--no-o3r-metrics'];
       await cliFn(options);
       expect(sendDataMock).not.toHaveBeenCalled();
     });
 
     it('should not call sendData because called with --no-o3rMetrics', async () => {
-      jest.replaceProperty(process, 'argv', ['', '', '--param1', 'value1', '--param2', '--no-o3rMetrics']);
+      process.argv = ['', '', '--param1', 'value1', '--param2', '--no-o3rMetrics'];
       await cliFn(options);
       expect(sendDataMock).not.toHaveBeenCalled();
     });

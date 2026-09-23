@@ -22,7 +22,7 @@ describe('Localization DevTools console', () => {
   let service: LocalizationDevtoolsConsoleService;
 
   beforeEach(async () => {
-    jest.spyOn(console, 'info').mockImplementation();
+    vi.spyOn(console, 'info').mockImplementation();
     await TestBed.configureTestingModule({
       providers: [
         provideTransloco({

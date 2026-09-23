@@ -1,12 +1,15 @@
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   MCPLogger,
 } from './index';
 
-let stderrWriteSpy: jest.SpyInstance;
+let stderrWriteSpy: MockInstance;
 
 describe('MCPLogger', () => {
   beforeEach(() => {
-    stderrWriteSpy = jest.spyOn(process.stderr, 'write');
+    stderrWriteSpy = vi.spyOn(process.stderr, 'write');
   });
 
   it('should log messages at or above the set level', () => {
@@ -87,6 +90,6 @@ describe('MCPLogger', () => {
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 });

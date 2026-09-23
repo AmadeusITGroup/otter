@@ -1,4 +1,7 @@
 import type {
+  Mock,
+} from 'vitest';
+import type {
   ApiClient,
 } from '@ama-sdk/core';
 import {
@@ -22,10 +25,10 @@ class TestApi {
 
 describe('ApiFactoryService', () => {
   let service: ApiFactoryService;
-  let getConfiguration: jest.Mock;
+  let getConfiguration: Mock;
 
   beforeEach(() => {
-    getConfiguration = jest.fn();
+    getConfiguration = vi.fn();
     const apiManager = {
       getConfiguration
     } as unknown as ApiManager;

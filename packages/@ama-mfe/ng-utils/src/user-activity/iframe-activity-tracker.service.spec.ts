@@ -1,3 +1,6 @@
+import type {
+  Mock,
+} from 'vitest';
 import {
   TestBed,
 } from '@angular/core/testing';
@@ -10,7 +13,7 @@ import {
 
 describe('IframeActivityTrackerService', () => {
   let service: IframeActivityTrackerService;
-  let onActivityMock: jest.Mock;
+  let onActivityMock: Mock;
 
   // Use a short poll interval for tests
   const TEST_POLL_INTERVAL = 100;
@@ -33,8 +36,8 @@ describe('IframeActivityTrackerService', () => {
   };
 
   beforeEach(() => {
-    jest.useFakeTimers();
-    onActivityMock = jest.fn();
+    vi.useFakeTimers();
+    onActivityMock = vi.fn();
 
     TestBed.configureTestingModule({
       providers: [IframeActivityTrackerService]
@@ -48,8 +51,8 @@ describe('IframeActivityTrackerService', () => {
 
   afterEach(() => {
     service.stop();
-    jest.clearAllMocks();
-    jest.useRealTimers();
+    vi.clearAllMocks();
+    vi.useRealTimers();
     // Clean up any iframes added during tests
     document.querySelectorAll('iframe').forEach((iframe) => iframe.remove());
   });
@@ -71,11 +74,11 @@ describe('IframeActivityTrackerService', () => {
       service.start({ onActivity: onActivityMock, pollIntervalMs: TEST_POLL_INTERVAL, activityIntervalMs: TEST_ACTIVITY_INTERVAL });
 
       // First poll detects focus and emits immediately
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
 
       // Activity interval emits again
-      jest.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
+      vi.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(2);
     });
 
@@ -95,7 +98,7 @@ describe('IframeActivityTrackerService', () => {
       });
 
       // Poll at 500ms detects focus
-      jest.advanceTimersByTime(500);
+      vi.advanceTimersByTime(500);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
     });
 
@@ -111,14 +114,14 @@ describe('IframeActivityTrackerService', () => {
       });
 
       // Poll detects focus
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
 
       // Activity interval at 2000ms
-      jest.advanceTimersByTime(2000);
+      vi.advanceTimersByTime(2000);
       expect(onActivityMock).toHaveBeenCalledTimes(2);
 
-      jest.advanceTimersByTime(2000);
+      vi.advanceTimersByTime(2000);
       expect(onActivityMock).toHaveBeenCalledTimes(3);
     });
   });
@@ -140,12 +143,12 @@ describe('IframeActivityTrackerService', () => {
       });
 
       // Poll detects focus and emits
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
 
       service.stop();
 
-      jest.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(5000);
       // Should still be 1 - no more calls after stop
       expect(onActivityMock).toHaveBeenCalledTimes(1);
     });
@@ -156,13 +159,13 @@ describe('IframeActivityTrackerService', () => {
       setActiveElementToIframe(iframe);
 
       service.start({ onActivity: onActivityMock, pollIntervalMs: TEST_POLL_INTERVAL, activityIntervalMs: TEST_ACTIVITY_INTERVAL });
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
 
       service.stop();
 
       service.start({ onActivity: onActivityMock, pollIntervalMs: TEST_POLL_INTERVAL, activityIntervalMs: TEST_ACTIVITY_INTERVAL });
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(2);
     });
   });
@@ -176,14 +179,14 @@ describe('IframeActivityTrackerService', () => {
       service.start({ onActivity: onActivityMock, pollIntervalMs: TEST_POLL_INTERVAL, activityIntervalMs: TEST_ACTIVITY_INTERVAL });
 
       // First poll detects focus and emits immediately
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
 
       // Activity interval emits again
-      jest.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
+      vi.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(2);
 
-      jest.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
+      vi.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(3);
     });
 
@@ -191,7 +194,7 @@ describe('IframeActivityTrackerService', () => {
       service.start({ onActivity: onActivityMock, pollIntervalMs: TEST_POLL_INTERVAL, activityIntervalMs: TEST_ACTIVITY_INTERVAL });
 
       // activeElement is body, not iframe
-      jest.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(3000);
       expect(onActivityMock).not.toHaveBeenCalled();
     });
 
@@ -203,20 +206,20 @@ describe('IframeActivityTrackerService', () => {
       service.start({ onActivity: onActivityMock, pollIntervalMs: TEST_POLL_INTERVAL, activityIntervalMs: TEST_ACTIVITY_INTERVAL });
 
       // Poll detects focus
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
 
       // Activity interval
-      jest.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
+      vi.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(2);
 
       // Focus leaves iframe
       setActiveElementToBody();
 
       // Next poll detects focus loss and stops activity interval
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
 
-      jest.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
+      vi.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
       // Should still be 2 - no more calls after focus left
       expect(onActivityMock).toHaveBeenCalledTimes(2);
     });
@@ -229,21 +232,21 @@ describe('IframeActivityTrackerService', () => {
       service.start({ onActivity: onActivityMock, pollIntervalMs: TEST_POLL_INTERVAL, activityIntervalMs: TEST_ACTIVITY_INTERVAL });
 
       // Poll detects focus
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
 
       // Focus leaves iframe
       setActiveElementToBody();
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL); // Poll detects loss
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL); // Poll detects loss
       expect(onActivityMock).toHaveBeenCalledTimes(1);
 
       // Focus returns to iframe
       setActiveElementToIframe(iframe);
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL); // Poll detects focus again, emits immediately
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL); // Poll detects focus again, emits immediately
       expect(onActivityMock).toHaveBeenCalledTimes(2);
 
       // Activity interval continues
-      jest.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
+      vi.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(3);
     });
 
@@ -251,7 +254,7 @@ describe('IframeActivityTrackerService', () => {
       service.start({ onActivity: onActivityMock, pollIntervalMs: TEST_POLL_INTERVAL, activityIntervalMs: TEST_ACTIVITY_INTERVAL });
 
       // No iframe focus on start
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).not.toHaveBeenCalled();
 
       // Create a new iframe after start and focus it
@@ -260,7 +263,7 @@ describe('IframeActivityTrackerService', () => {
       setActiveElementToIframe(dynamicIframe);
 
       // Next poll detects focus
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
     });
   });
@@ -297,7 +300,7 @@ describe('IframeActivityTrackerService', () => {
       service.start({ onActivity: onActivityMock, pollIntervalMs: TEST_POLL_INTERVAL, activityIntervalMs: TEST_ACTIVITY_INTERVAL });
 
       // Even with iframe focused, no activity should be emitted when hidden
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL * 10);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL * 10);
       expect(onActivityMock).not.toHaveBeenCalled();
     });
 
@@ -309,18 +312,18 @@ describe('IframeActivityTrackerService', () => {
       service.start({ onActivity: onActivityMock, pollIntervalMs: TEST_POLL_INTERVAL, activityIntervalMs: TEST_ACTIVITY_INTERVAL });
 
       // Poll detects focus and emits
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
 
       // Activity interval emits
-      jest.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
+      vi.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(2);
 
       // Tab becomes hidden
       setDocumentVisibility('hidden');
 
       // No more activity should be emitted
-      jest.advanceTimersByTime(TEST_ACTIVITY_INTERVAL * 5);
+      vi.advanceTimersByTime(TEST_ACTIVITY_INTERVAL * 5);
       expect(onActivityMock).toHaveBeenCalledTimes(2);
     });
 
@@ -332,23 +335,23 @@ describe('IframeActivityTrackerService', () => {
       service.start({ onActivity: onActivityMock, pollIntervalMs: TEST_POLL_INTERVAL, activityIntervalMs: TEST_ACTIVITY_INTERVAL });
 
       // Poll detects focus and emits
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
 
       // Tab becomes hidden
       setDocumentVisibility('hidden');
-      jest.advanceTimersByTime(TEST_ACTIVITY_INTERVAL * 2);
+      vi.advanceTimersByTime(TEST_ACTIVITY_INTERVAL * 2);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
 
       // Tab becomes visible again
       setDocumentVisibility('visible');
 
       // Polling resumes and detects iframe focus
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(2);
 
       // Activity interval continues
-      jest.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
+      vi.advanceTimersByTime(TEST_ACTIVITY_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(3);
     });
 
@@ -366,7 +369,7 @@ describe('IframeActivityTrackerService', () => {
 
       // Focus iframe while hidden
       setActiveElementToIframe(iframe);
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL * 5);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL * 5);
 
       // No activity emitted while hidden
       expect(onActivityMock).not.toHaveBeenCalled();
@@ -375,7 +378,7 @@ describe('IframeActivityTrackerService', () => {
       setDocumentVisibility('visible');
 
       // Now polling starts and detects iframe focus
-      jest.advanceTimersByTime(TEST_POLL_INTERVAL);
+      vi.advanceTimersByTime(TEST_POLL_INTERVAL);
       expect(onActivityMock).toHaveBeenCalledTimes(1);
     });
   });

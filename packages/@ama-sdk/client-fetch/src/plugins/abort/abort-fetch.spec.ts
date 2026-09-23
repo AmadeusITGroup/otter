@@ -4,7 +4,7 @@ import {
 
 describe('Abort Plugin', () => {
   it('should trigger the callback', async () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const plugin = new AbortFetch(fn);
 
     const runner = plugin.load({} as any);
@@ -16,10 +16,10 @@ describe('Abort Plugin', () => {
   it('should trigger abort signal if true', async () => {
     const defaultContext = {
       controller: {
-        abort: jest.fn()
+        abort: vi.fn()
       }
     };
-    const fn = jest.fn().mockResolvedValue(true);
+    const fn = vi.fn().mockResolvedValue(true);
     const plugin = new AbortFetch(fn);
 
     const runner = plugin.load(defaultContext as any);
@@ -31,10 +31,10 @@ describe('Abort Plugin', () => {
   it('should not trigger abort signal if false', async () => {
     const defaultContext = {
       controller: {
-        abort: jest.fn()
+        abort: vi.fn()
       }
     };
-    const fn = jest.fn().mockResolvedValue(false);
+    const fn = vi.fn().mockResolvedValue(false);
     const plugin = new AbortFetch(fn);
 
     const runner = plugin.load(defaultContext as any);
