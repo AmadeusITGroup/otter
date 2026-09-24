@@ -1,7 +1,7 @@
 <div ngbDropdown class="d-inline-block w-100">
-  <button type="button" class="btn btn-outline-primary otter-dropdown w-100" [class.selected]="!!selectedOtter()" [id]="id()" ngbDropdownToggle>
-    @if (selectedOtter()) {
-      <div class="w-100"><img alt="Otter image" [src]="baseUrl+selectedOtter()" width="34" height="34" /></div>
+  <button type="button" class="btn btn-outline-primary otter-dropdown w-100" [class.selected]="!!value()" [id]="id()" ngbDropdownToggle>
+    @if (value()) {
+      <div class="w-100"><img alt="Otter image" [src]="baseUrl+value()" width="34" height="34" /></div>
     } @else {
       <span>Pick an icon</span>
     }

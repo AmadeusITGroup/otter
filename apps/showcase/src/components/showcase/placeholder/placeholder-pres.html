@@ -15,11 +15,11 @@
           </o3r-placeholder>
         </div>
         <h3 class="row card-text mt-auto ms-1 h5">Where do you want to go?</h3>
-        <form class="row g-2" [formGroup]="form">
+        <form class="row g-2">
           <div class="col-12 col-xl-6">
             <div class="input-group">
               <label class="input-group-text w-50" for="destination">Destination</label>
-              <select class="form-select" id="destination" formControlName="destination">
+              <select class="form-select" id="destination" [formField]="formTree.destination">
                 <option disabled selected value> -- select a destination -- </option>
                 <option value="London">London</option>
                 <option value="Paris">Paris</option>
@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="col-12 col-xl-6">
-              <o3r-date-picker-input-pres [id]="'date-outbound'" [label]="'Departure'" formControlName="outboundDate" />
+              <o3r-date-picker-input-pres [id]="'date-outbound'" [label]="'Departure'" [formField]="formTree.outboundDate" />
           </div>
         </form>
       </div>
