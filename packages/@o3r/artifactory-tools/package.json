@@ -42,8 +42,8 @@
     }
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "2.6.0",
-    "@analogjs/vitest-angular": "2.6.0",
+    "@analogjs/vite-plugin-angular": "~2.6.0",
+    "@analogjs/vitest-angular": "~2.6.0",
     "@angular-devkit/core": "~22.1.0",
     "@angular-devkit/schematics": "~22.1.0",
     "@angular/cli": "~22.1.0",
@@ -83,7 +83,7 @@
     "jest-util": "~30.4.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~23.1.0",
-    "ora": "9.4.0",
+    "ora": "~9.4.0",
     "ts-jest": "~29.4.0",
     "typescript": "~6.0.3",
     "typescript-eslint": "~8.70.0",

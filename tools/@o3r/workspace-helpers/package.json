@@ -28,18 +28,18 @@
   "dependencies": {
     "globals": "^16.0.0",
     "globby": "^14.0.0",
-    "jsonc-parser": "3.3.1",
+    "jsonc-parser": "~3.3.1",
     "minimist": "^1.2.6",
     "semver": "^7.5.2",
-    "tsx": "4.21.0",
+    "tsx": "~4.21.0",
     "vitest": "~4.1.0"
   },
   "peerDependencies": {
     "typescript": "^6.0.0"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "2.6.0",
-    "@analogjs/vitest-angular": "2.6.0",
+    "@analogjs/vite-plugin-angular": "~2.6.0",
+    "@analogjs/vitest-angular": "~2.6.0",
     "@nx/eslint-plugin": "~23.1.0",
     "@nx/vitest": "~23.1.0",
     "@o3r/eslint-plugin": "workspace:~",
@@ -63,7 +63,6 @@
     "globals": "^16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~23.1.0",
-    "ora": "9.4.0",
     "typescript": "~6.0.3",
     "vitest": "~4.1.0"
   }

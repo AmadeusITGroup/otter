@@ -40,8 +40,8 @@
   },
   "devDependencies": {
     "@ama-mcp/core": "workspace:^",
-    "@analogjs/vite-plugin-angular": "2.6.0",
-    "@analogjs/vitest-angular": "2.6.0",
+    "@analogjs/vite-plugin-angular": "~2.6.0",
+    "@analogjs/vitest-angular": "~2.6.0",
     "@angular-devkit/schematics": "~22.1.0",
     "@angular/cli": "~22.1.0",
     "@angular/common": "~22.1.0",
@@ -78,7 +78,6 @@
     "globals": "^16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~23.1.0",
-    "ora": "9.4.0",
     "rxjs": "^7.8.1",
     "type-fest": "^5.3.1",
     "typescript": "~6.0.3",

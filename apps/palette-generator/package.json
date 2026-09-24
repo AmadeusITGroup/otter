@@ -18,8 +18,8 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "2.6.0",
-    "@analogjs/vitest-angular": "2.6.0",
+    "@analogjs/vite-plugin-angular": "~2.6.0",
+    "@analogjs/vitest-angular": "~2.6.0",
     "@angular/cli": "~22.1.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@figma/eslint-plugin-figma-plugins": "^1.0.0",
@@ -58,7 +58,6 @@
     "jest-junit": "~16.0.0",
     "jest-util": "~30.4.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "ora": "9.4.0",
     "style-loader": "^4.0.0",
     "ts-jest": "~29.4.0",
     "ts-loader": "^9.5.2",
