@@ -7,6 +7,9 @@ import {
   RulesEngine,
 } from './engine';
 
+beforeEach(() => vi.useFakeTimers());
+afterEach(() => vi.useRealTimers());
+
 describe('Rx Rule Engine', () => {
   let engine: RulesEngine;
 
@@ -44,7 +47,7 @@ describe('Rx Rule Engine', () => {
       expect(factValue$).toBeDefined();
 
       const promise = firstValueFrom(factValue$);
-      await jest.advanceTimersByTimeAsync(500);
+      await vi.advanceTimersByTimeAsync(500);
 
       await expect(promise).resolves.toBe(undefined);
     });

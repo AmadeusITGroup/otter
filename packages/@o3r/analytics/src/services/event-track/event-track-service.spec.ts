@@ -1,3 +1,6 @@
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   getTestBed,
   TestBed,
@@ -50,6 +53,9 @@ function fireLoadEvent() {
   }, 0));
 }
 
+beforeEach(() => vi.useFakeTimers());
+afterEach(() => vi.useRealTimers());
+
 describe('Performance metrics', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
@@ -66,13 +72,13 @@ describe('Performance metrics', () => {
     }).compileComponents();
     service = TestBed.inject(EventTrackService);
     const promise = fireLoadEvent();
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
     return promise;
   });
 
   it('should get good values for the timing', async () => {
     const promise = service.getTiming();
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
     const timing = await promise;
 
     expect(timing.startTime).toBeLessThanOrEqual(timing.endTime);
@@ -89,7 +95,7 @@ describe('Performance metrics', () => {
 
   it('end a custom mark event should do nothing if the event does not exist', async () => {
     service.startCustomMark('testMarkInitial');
-    await jest.advanceTimersByTimeAsync(10);
+    await vi.advanceTimersByTimeAsync(10);
     const customMarkEnded = service.endCustomMark(10);
     expect(customMarkEnded).toBeFalsy();
   });
@@ -194,10 +200,10 @@ describe('Performance metrics - service configuration activation', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
-  let spyOnConstructor: jest.SpyInstance;
+  let spyOnConstructor: MockInstance;
 
   beforeEach(() => {
-    spyOnConstructor = jest.spyOn(EventTrackService.prototype, 'markFirstLoad').mockImplementation();
+    spyOnConstructor = vi.spyOn(EventTrackService.prototype, 'markFirstLoad').mockImplementation();
     TestBed.configureTestingModule({
       providers: [
         { provide: Router, useClass: MockRouter },
@@ -216,7 +222,7 @@ describe('Performance metrics - page loaded event', () => {
     teardown: { destroyAfterEach: false }
   }));
   let service: EventTrackService;
-  let spyOnMarkFirstLoad: jest.SpyInstance;
+  let spyOnMarkFirstLoad: MockInstance;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -229,9 +235,9 @@ describe('Performance metrics - page loaded event', () => {
       timing: {}
     });
     service = TestBed.inject(EventTrackService);
-    spyOnMarkFirstLoad = jest.spyOn(service, 'markFirstLoad').mockImplementation();
+    spyOnMarkFirstLoad = vi.spyOn(service, 'markFirstLoad').mockImplementation();
     const promise = fireLoadEvent();
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
     return promise;
   });
 
@@ -245,7 +251,7 @@ describe('Performance metrics - missed page loaded event', () => {
     teardown: { destroyAfterEach: false }
   }));
   let service: EventTrackService;
-  let spyOnMarkFirstLoad: jest.SpyInstance;
+  let spyOnMarkFirstLoad: MockInstance;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -255,17 +261,17 @@ describe('Performance metrics - missed page loaded event', () => {
       ]
     }).compileComponents();
     Object.assign(window.performance, {
-      getEntriesByType: jest.fn().mockReturnValue([{ entryType: 'navigation', duration: 100 }]),
+      getEntriesByType: vi.fn().mockReturnValue([{ entryType: 'navigation', duration: 100 }]),
       timing: {}
     });
     service = TestBed.inject(EventTrackService);
-    spyOnMarkFirstLoad = jest.spyOn(service, 'markFirstLoad').mockImplementation();
-    await jest.runAllTimersAsync();
+    spyOnMarkFirstLoad = vi.spyOn(service, 'markFirstLoad').mockImplementation();
+    await vi.runAllTimersAsync();
   });
 
   afterEach(() => {
     Object.assign(window.performance, {
-      getEntriesByType: jest.fn().mockReturnValue([]),
+      getEntriesByType: vi.fn().mockReturnValue([]),
       timing: {}
     });
   });

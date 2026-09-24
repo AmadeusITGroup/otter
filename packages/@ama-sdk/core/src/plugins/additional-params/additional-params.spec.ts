@@ -10,8 +10,8 @@ import {
 } from './additional-params-sync-request';
 
 describe('Additional Params Request Plugin', () => {
-  const additionalGetParams = jest.fn().mockReturnValue({ test: 'ok' });
-  const additionalBody = jest.fn().mockReturnValue('newBody');
+  const additionalGetParams = vi.fn().mockReturnValue({ test: 'ok' });
+  const additionalBody = vi.fn().mockReturnValue('newBody');
 
   const defaultGetParams = { defaultTest: 'ok' };
   const defaultBody = 'default';
@@ -58,7 +58,7 @@ describe('Additional Params Request Plugin', () => {
   });
 
   it('should not serialize additional query params if param serialization is not enabled', async () => {
-    jest.spyOn(console, 'log');
+    vi.spyOn(console, 'log');
     const plugin = new AdditionalParamsRequest({ queryParams: { test: { value: 'ok', explode: false, style: 'form' } } });
     const runner = plugin.load();
 
@@ -101,8 +101,8 @@ describe('Additional Params Request Plugin', () => {
 });
 
 describe('Additional Params Request Sync Plugin', () => {
-  const additionalGetParams = jest.fn().mockReturnValue({ test: 'ok' });
-  const additionalBody = jest.fn().mockReturnValue('newBody');
+  const additionalGetParams = vi.fn().mockReturnValue({ test: 'ok' });
+  const additionalBody = vi.fn().mockReturnValue('newBody');
 
   const defaultGetParams = { defaultTest: 'ok' };
   const defaultBody = 'default';
@@ -149,7 +149,7 @@ describe('Additional Params Request Sync Plugin', () => {
   });
 
   it('should not serialize additional query params if param serialization is not enabled', () => {
-    jest.spyOn(console, 'log');
+    vi.spyOn(console, 'log');
     const plugin = new AdditionalParamsSyncRequest({ queryParams: { test: { value: 'ok', explode: false, style: 'form' } } });
     const runner = plugin.load();
 

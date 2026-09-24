@@ -20,10 +20,10 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 `;
 
-jest.mock('./editor-config-helpers', () => ({
+vi.mock('./editor-config-helpers', () => ({
   __esModule: true,
-  editorConfigParse: jest.fn().mockResolvedValue({}),
-  editorConfigResolve: jest.fn().mockResolvedValue({
+  editorConfigParse: vi.fn().mockResolvedValue({}),
+  editorConfigResolve: vi.fn().mockResolvedValue({
     endOfLine: 'lf',
     indentStyle: 'space',
     insertFinalNewline: true,
@@ -33,13 +33,13 @@ jest.mock('./editor-config-helpers', () => ({
 
 describe('applyEditorConfig', () => {
   beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.clearAllMocks();
+    vi.restoreAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should insert final new line', async () => {
     const tree = new UnitTestTree(Tree.empty());
-    const context: any = { logger: { warn: jest.fn(), debug: jest.fn() } };
+    const context: any = { logger: { warn: vi.fn(), debug: vi.fn() } };
     tree.create('/.editorconfig', mockEditorconfig);
     tree.create('/test.json', JSON.stringify({ test: true }, null, 2));
     tree.create('/test2.ts', 'my content');
@@ -51,7 +51,7 @@ describe('applyEditorConfig', () => {
 
   test('should trim lines', async () => {
     const tree = new UnitTestTree(Tree.empty());
-    const context: any = { logger: { warn: jest.fn(), debug: jest.fn() } };
+    const context: any = { logger: { warn: vi.fn(), debug: vi.fn() } };
     tree.create('/.editorconfig', mockEditorconfig);
     tree.create('/test.ts', 'first line  \n second line');
     await applyEditorConfig()(tree, context);
@@ -62,7 +62,7 @@ describe('applyEditorConfig', () => {
 
   test('should convert crlf to lf', async () => {
     const tree = new UnitTestTree(Tree.empty());
-    const context: any = { logger: { warn: jest.fn(), debug: jest.fn() } };
+    const context: any = { logger: { warn: vi.fn(), debug: vi.fn() } };
     tree.create('/.editorconfig', mockEditorconfig);
     tree.create('/test.ts', 'first line  \r\n second line');
     await applyEditorConfig()(tree, context);
@@ -73,7 +73,7 @@ describe('applyEditorConfig', () => {
 
   test('should not update if not change', async () => {
     const tree = new UnitTestTree(Tree.empty());
-    const context: any = { logger: { warn: jest.fn(), debug: jest.fn() } };
+    const context: any = { logger: { warn: vi.fn(), debug: vi.fn() } };
     tree.create('/.editorconfig', 'root: true\n');
     tree.create('/test.ts', 'first line\nsecond line\n');
     await applyEditorConfig(['ts'])(tree, context);
@@ -83,7 +83,7 @@ describe('applyEditorConfig', () => {
 
   test('should not update if not part of extensions list', async () => {
     const tree = new UnitTestTree(Tree.empty());
-    const context: any = { logger: { warn: jest.fn(), debug: jest.fn() } };
+    const context: any = { logger: { warn: vi.fn(), debug: vi.fn() } };
     tree.create('/.editorconfig', mockEditorconfig);
     tree.create('/test.ts', 'first line \n second line');
     await applyEditorConfig(['json'])(tree, context);
@@ -93,7 +93,7 @@ describe('applyEditorConfig', () => {
 
   test('should exit if no configuration', async () => {
     const tree = new UnitTestTree(Tree.empty());
-    const context: any = { logger: { warn: jest.fn() } };
+    const context: any = { logger: { warn: vi.fn() } };
     tree.create('/test.json', JSON.stringify({ test: true }, null, 2));
     await applyEditorConfig()(tree, context);
 

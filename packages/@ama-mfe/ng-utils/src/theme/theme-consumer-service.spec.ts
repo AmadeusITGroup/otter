@@ -1,3 +1,6 @@
+import type {
+  Mocked,
+} from 'vitest';
 import {
   THEME_MESSAGE_TYPE,
   ThemeMessage,
@@ -26,20 +29,20 @@ describe('ThemeConsumerService', () => {
   let themeHandlerService: ThemeConsumerService;
   let consumerManagerService: ConsumerManagerService;
   let sanitizer: DomSanitizer;
-  let loggerServiceMock: jest.Mocked<LoggerService>;
-  const applyThemeSpy = jest.spyOn(themeHelpers, 'applyTheme');
-  const downloadApplicationThemeCssSpy = jest.spyOn(themeHelpers, 'downloadApplicationThemeCss');
+  let loggerServiceMock: Mocked<LoggerService>;
+  const applyThemeSpy = vi.spyOn(themeHelpers, 'applyTheme');
+  const downloadApplicationThemeCssSpy = vi.spyOn(themeHelpers, 'downloadApplicationThemeCss');
 
   beforeEach(() => {
     const consumerManagerServiceMock = {
-      register: jest.fn(),
-      unregister: jest.fn()
+      register: vi.fn(),
+      unregister: vi.fn()
     };
 
     loggerServiceMock = {
-      warn: jest.fn(),
-      error: jest.fn()
-    } as unknown as jest.Mocked<LoggerService>;
+      warn: vi.fn(),
+      error: vi.fn()
+    } as unknown as Mocked<LoggerService>;
 
     TestBed.configureTestingModule({
       providers: [
@@ -60,19 +63,19 @@ describe('ThemeConsumerService', () => {
   });
 
   it('should register itself when start is called', () => {
-    jest.spyOn(consumerManagerService, 'register');
+    vi.spyOn(consumerManagerService, 'register');
     themeHandlerService.start();
     expect(consumerManagerService.register).toHaveBeenCalledWith(themeHandlerService);
   });
 
   it('should unregister itself when stop is called', () => {
-    jest.spyOn(consumerManagerService, 'unregister');
+    vi.spyOn(consumerManagerService, 'unregister');
     themeHandlerService.stop();
     expect(consumerManagerService.unregister).toHaveBeenCalledWith(themeHandlerService);
   });
 
   it('should apply theme when a supported message is received', async () => {
-    jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
+    vi.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
     const themeMessage: RoutedMessage<ThemeMessage> = {
       from: 'test',
       to: [],
@@ -88,8 +91,8 @@ describe('ThemeConsumerService', () => {
   });
 
   it('should apply theme and retrieve local CSS when a supported message is received', async () => {
-    jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
-    jest.spyOn(themeHelpers, 'downloadApplicationThemeCss').mockResolvedValue('test css');
+    vi.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
+    vi.spyOn(themeHelpers, 'downloadApplicationThemeCss').mockResolvedValue('test css');
     const themeMessage: RoutedMessage<ThemeMessage> = {
       from: 'test',
       to: [],
@@ -107,8 +110,8 @@ describe('ThemeConsumerService', () => {
   });
 
   it('should apply theme and warn when not local file', async () => {
-    jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
-    jest.spyOn(themeHelpers, 'downloadApplicationThemeCss').mockRejectedValue('no local css');
+    vi.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
+    vi.spyOn(themeHelpers, 'downloadApplicationThemeCss').mockRejectedValue('no local css');
 
     const themeMessage: RoutedMessage<ThemeMessage> = {
       from: 'test',
@@ -128,7 +131,7 @@ describe('ThemeConsumerService', () => {
   });
 
   it('should apply theme when an empty string is received', async () => {
-    jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
+    vi.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
     const themeMessage: RoutedMessage<ThemeMessage> = {
       from: 'test',
       to: [],
@@ -144,8 +147,8 @@ describe('ThemeConsumerService', () => {
   });
 
   it('should not apply theme when received style fails the sanitization', async () => {
-    jest.spyOn(sanitizer, 'sanitize').mockImplementation(() => null);
-    jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
+    vi.spyOn(sanitizer, 'sanitize').mockImplementation(() => null);
+    vi.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
     const themeMessage: RoutedMessage<ThemeMessage> = {
       from: 'test',
       to: [],

@@ -2,6 +2,9 @@ import {
   WaitForFetch,
 } from './wait-for-fetch';
 
+beforeEach(() => vi.useFakeTimers());
+afterEach(() => vi.useRealTimers());
+
 describe('Wait For Fetch Plugin', () => {
   const defaultContext: any = {};
 
@@ -10,7 +13,7 @@ describe('Wait For Fetch Plugin', () => {
 
     const runner = plugin.load(defaultContext);
     const canStart = runner.canStart();
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
 
     expect(await canStart).toBe(false);
   });
@@ -34,7 +37,7 @@ describe('Wait For Fetch Plugin', () => {
   });
 
   it('should call the callback function on success', async () => {
-    const callback = jest.fn();
+    const callback = vi.fn();
     const plugin = new WaitForFetch(() => ({ result: true }), 100, callback);
 
     const runner = plugin.load(defaultContext);
@@ -46,7 +49,7 @@ describe('Wait For Fetch Plugin', () => {
   });
 
   it('should call the callback function with the correct data', async () => {
-    const callback = jest.fn();
+    const callback = vi.fn();
     const plugin = new WaitForFetch(() => ({ result: true, data: 'test' }), 100, callback);
 
     const runner = plugin.load(defaultContext);
@@ -59,7 +62,7 @@ describe('Wait For Fetch Plugin', () => {
   });
 
   it('should call the callback function on failure', async () => {
-    const callback = jest.fn();
+    const callback = vi.fn();
     const plugin = new WaitForFetch(() => ({ result: true }), 100, callback);
 
     const runner = plugin.load(defaultContext);

@@ -40,6 +40,8 @@
   },
   "devDependencies": {
     "@ama-mcp/core": "workspace:^",
+    "@analogjs/vite-plugin-angular": "~2.6.0",
+    "@analogjs/vitest-angular": "~2.6.0",
     "@angular-devkit/schematics": "~22.1.0",
     "@angular/cli": "~22.1.0",
     "@angular/common": "~22.1.0",

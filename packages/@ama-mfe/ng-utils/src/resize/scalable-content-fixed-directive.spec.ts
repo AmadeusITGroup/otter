@@ -42,10 +42,10 @@ class BodyFullHeightTestComponent {
   public contentHeight = 400;
 }
 
-global.ResizeObserver = jest.fn().mockImplementation(() => ({
-  observe: jest.fn(),
-  disconnect: jest.fn(),
-  unobserve: jest.fn()
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  disconnect: vi.fn(),
+  unobserve: vi.fn()
 }));
 
 /**
@@ -61,7 +61,7 @@ describe('ScalableDirective - Body Full Height', () => {
   beforeEach(() => {
     newHeightFromChannelSignal = signal<{ channelId: string; height: number } | undefined>(undefined);
     const resizeHandlerServiceMock = {
-      start: jest.fn(),
+      start: vi.fn(),
       newHeightFromChannel: newHeightFromChannelSignal
     };
 
@@ -82,7 +82,7 @@ describe('ScalableDirective - Body Full Height', () => {
 
   it('should set min-height from channel message', () => {
     const renderer = iframeElement.injector.get(Renderer2);
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
 
     newHeightFromChannelSignal.set({ height: 600, channelId: 'test-channel' });
     fixture.detectChanges();
@@ -92,7 +92,7 @@ describe('ScalableDirective - Body Full Height', () => {
 
   it('should not update min-height when content changes but body height stays 100%', () => {
     const renderer = iframeElement.injector.get(Renderer2);
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
 
     newHeightFromChannelSignal.set({ height: 600, channelId: 'test-channel' });
     fixture.detectChanges();

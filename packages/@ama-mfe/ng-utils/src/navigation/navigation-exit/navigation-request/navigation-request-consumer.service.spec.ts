@@ -1,3 +1,6 @@
+import type {
+  Mock,
+} from 'vitest';
 import {
   NAVIGATION_REQUEST_MESSAGE_TYPE,
   type NavigationRequestV1_0,
@@ -23,10 +26,10 @@ import {
 } from './navigation-request-manager.service';
 
 describe('NavigationRequestConsumerService', () => {
-  let consumerManager: { register: jest.Mock; unregister: jest.Mock };
-  let producer: { sendDecision: jest.Mock };
-  let logger: { error: jest.Mock };
-  let handler: { handle: jest.Mock<ReturnType<NavigationRequestHandler['handle']>, Parameters<NavigationRequestHandler['handle']>> };
+  let consumerManager: { register: Mock; unregister: Mock };
+  let producer: { sendDecision: Mock };
+  let logger: { error: Mock };
+  let handler: { handle: Mock<NavigationRequestHandler['handle']> };
 
   const buildMessage = (overrides: Partial<NavigationRequestV1_0> = {}) => ({
     from: 'booking',
@@ -55,10 +58,10 @@ describe('NavigationRequestConsumerService', () => {
   };
 
   beforeEach(() => {
-    consumerManager = { register: jest.fn(), unregister: jest.fn() };
-    producer = { sendDecision: jest.fn() };
-    logger = { error: jest.fn() };
-    handler = { handle: jest.fn() as jest.Mock<ReturnType<NavigationRequestHandler['handle']>, Parameters<NavigationRequestHandler['handle']>> };
+    consumerManager = { register: vi.fn(), unregister: vi.fn() };
+    producer = { sendDecision: vi.fn() };
+    logger = { error: vi.fn() };
+    handler = { handle: vi.fn() as Mock<NavigationRequestHandler['handle']> };
   });
 
   it('should declare the navigation-request type', () => {

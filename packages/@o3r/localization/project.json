@@ -7,7 +7,10 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": ["build-builders", "compile"],
+      "dependsOn": [
+        "build-builders",
+        "compile"
+      ],
       "options": {
         "tsConfig": "{projectRoot}/tsconfig.build.json"
       }
@@ -27,11 +30,20 @@
     "prepare-build-builders": {},
     "build-builders": {},
     "lint": {},
-    "test": {},
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
     "test-int": {},
+    "test-schematics": {},
     "prepare-publish": {},
     "publish": {},
-    "documentation": {}
+    "documentation": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    }
   },
   "tags": []
 }

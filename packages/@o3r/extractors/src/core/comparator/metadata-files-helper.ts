@@ -20,10 +20,9 @@ import type {
  * @param cwd working directory
  */
 export async function getFilesFromRegistry(packageRef: string, filePaths: string[], packageManager: SupportedPackageManagers, cwd = process.cwd()): Promise<{ [key: string]: string }> {
-  const npmFileExtractor = await import(packageManager === 'npm'
-    ? './package-managers-extractors/npm-file-extractor-helper'
-    : './package-managers-extractors/yarn2-file-extractor-helper'
-  );
+  const npmFileExtractor = packageManager === 'npm'
+    ? await import('./package-managers-extractors/npm-file-extractor-helper')
+    : await import('./package-managers-extractors/yarn2-file-extractor-helper');
   return npmFileExtractor.getFilesFromRegistry(packageRef, filePaths, cwd);
 }
 

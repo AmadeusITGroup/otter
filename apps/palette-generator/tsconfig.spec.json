@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.jest",
+  "extends": "../../tsconfig.test",
   "compilerOptions": {
     "esModuleInterop": true,
     "incremental": true,

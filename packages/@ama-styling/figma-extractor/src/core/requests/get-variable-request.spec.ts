@@ -1,17 +1,21 @@
 describe('getVariables', () => {
   test('should retrieve the correct variable list', async () => {
-    const getLocalVariablesMock = jest.fn().mockResolvedValue({
+    const getLocalVariablesMock = vi.fn().mockResolvedValue({
       meta: 'test'
     });
-    const variablesApiMock = jest.fn().mockReturnValue({ getLocalVariables: getLocalVariablesMock });
+    const variablesApiMock = vi.fn(class {
+      constructor() {
+        return { getLocalVariables: getLocalVariablesMock };
+      }
+    });
 
-    jest.mock('@ama-styling/figma-sdk', () => ({
+    vi.doMock('@ama-styling/figma-sdk', () => ({
       VariablesApi: variablesApiMock
     }));
 
     const testApi: any = {};
     const opts = { fileKey: 'test-file' };
-    const { getVariables } = require('./get-variable-request');
+    const { getVariables } = (await import('./get-variable-request'));
     const result = await getVariables(testApi, opts);
     expect(variablesApiMock).toHaveBeenCalled();
     expect(getLocalVariablesMock).toHaveBeenCalledWith({ file_key: opts.fileKey });

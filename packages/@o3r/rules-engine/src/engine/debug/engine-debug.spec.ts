@@ -1,3 +1,6 @@
+import type {
+  Mock,
+} from 'vitest';
 import {
   BehaviorSubject,
   firstValueFrom,
@@ -30,16 +33,16 @@ import {
 
 class MockPerformanceObserver {
   public static readonly supportedEntryTypes: string[] = ['mark', 'measure'];
-  public observe = jest.fn();
-  public disconnect = jest.fn();
-  public takeRecords = jest.fn();
+  public observe = vi.fn();
+  public disconnect = vi.fn();
+  public takeRecords = vi.fn();
   public constructor() {}
 }
 
 describe('Rules engine debug', () => {
   let rulesEngine: RulesEngine;
-  let mark: jest.Mock<any, any>;
-  let measure: jest.Mock<any, any>;
+  let mark: Mock;
+  let measure: Mock;
   let marks: string[];
   let isMobileDevice$: Subject<boolean>;
   let pageUrl$: Subject<string | undefined>;
@@ -59,8 +62,8 @@ describe('Rules engine debug', () => {
     ];
 
     marks = [];
-    mark = jest.fn().mockImplementation((name: string) => marks.push(name));
-    measure = jest.fn().mockImplementation((name: string) => marks.push(name));
+    mark = vi.fn().mockImplementation((name: string) => marks.push(name));
+    measure = vi.fn().mockImplementation((name: string) => marks.push(name));
     global.PerformanceObserver = MockPerformanceObserver;
     const engineDebugger = new EngineDebugger();
     const options: RulesEngineOptions = {

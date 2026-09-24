@@ -1,1 +1,5 @@
-export { default } from '../../../vitest.config';
+import baseConfig from '../../../vitest.config';
+
+export default {
+  ...baseConfig
+};

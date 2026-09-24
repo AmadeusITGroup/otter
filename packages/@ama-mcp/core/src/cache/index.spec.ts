@@ -1,10 +1,19 @@
-const NOW = new Date();
-const TWO_DAYS_AGO = new Date(NOW.getTime() - (2 * 24 * 60 * 60 * 1000));
-const writeFileMock = jest.fn();
+const {
+  NOW,
+  TWO_DAYS_AGO,
+  writeFileMock,
+} = vi.hoisted(() => {
+  const now = new Date();
+  return {
+    NOW: now,
+    TWO_DAYS_AGO: new Date(now.getTime() - (2 * 24 * 60 * 60 * 1000)),
+    writeFileMock: vi.fn()
+  };
+});
 
-jest.mock('node:fs/promises', () => ({
-  mkdir: jest.fn(),
-  readFile: jest.fn().mockImplementation((path: string) => {
+vi.mock('node:fs/promises', () => ({
+  mkdir: vi.fn(),
+  readFile: vi.fn().mockImplementation((path: string) => {
     if (path.endsWith('non-existent-path/test-cache.json')) {
       return Promise.reject(new Error('File not found'));
     }

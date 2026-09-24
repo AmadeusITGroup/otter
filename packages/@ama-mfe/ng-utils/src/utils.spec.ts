@@ -4,7 +4,7 @@ import {
 
 describe('generateCorrelationId', () => {
   it('uses crypto.randomUUID when available', () => {
-    const spy = jest.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-4000-8000-000000000000');
+    const spy = vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-4000-8000-000000000000');
     expect(generateCorrelationId('nav-req')).toBe('00000000-0000-4000-8000-000000000000');
     spy.mockRestore();
   });

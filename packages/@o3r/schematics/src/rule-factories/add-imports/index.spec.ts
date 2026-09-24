@@ -12,7 +12,7 @@ import {
 
 describe('addImportsRule', () => {
   let tree: Tree;
-  const warn = jest.fn();
+  const warn = vi.fn();
   const fileName = 'index.ts';
   const context = { logger: { warn } } as any as SchematicContext;
 

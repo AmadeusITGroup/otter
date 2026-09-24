@@ -3,14 +3,22 @@ import {
   type Version,
 } from '@ama-styling/figma-sdk';
 
-jest.mock('@ama-styling/figma-sdk', () => ({
-  FilesApi: jest.fn(),
-  ProjectsApi: jest.fn()
+const {
+  filesApiMock,
+  projectsApiMock,
+} = vi.hoisted(() => ({
+  filesApiMock: vi.fn(),
+  projectsApiMock: vi.fn()
+}));
+
+vi.mock('@ama-styling/figma-sdk', () => ({
+  FilesApi: filesApiMock,
+  ProjectsApi: projectsApiMock
 }));
 
 describe('getFileVersions', () => {
   test('should correctly retrieve the versions', async () => {
-    const getFileVersionsMock = jest.fn().mockResolvedValue({
+    const getFileVersionsMock = vi.fn().mockResolvedValue({
       versions: [
         {
           label: 'invalidNumber'
@@ -30,10 +38,14 @@ describe('getFileVersions', () => {
       ] satisfies Partial<Version>[]
     });
 
-    require('@ama-styling/figma-sdk').FilesApi.mockReturnValue({ getFileVersions: getFileVersionsMock });
+    filesApiMock.mockImplementation(class {
+      constructor() {
+        return { getFileVersions: getFileVersionsMock };
+      }
+    });
     const testApi: any = {};
 
-    const { getFileVersions } = require('./get-versions-request');
+    const { getFileVersions } = (await import('./get-versions-request'));
     const versions = await getFileVersions(testApi, { fileKey: 'testFile', versionRange: '<2.0.0-0 || >2.2.0-0' });
 
     expect(versions).toHaveLength(3);
@@ -46,7 +58,7 @@ describe('getFileVersions', () => {
 
 describe('getAvailableMajorVersions', () => {
   test('should correctly retrieve project major versions', async () => {
-    const getProjectFilesMock = jest.fn().mockResolvedValue({
+    const getProjectFilesMock = vi.fn().mockResolvedValue({
       files: [
         {
           name: 'invalid file name'
@@ -71,10 +83,14 @@ describe('getAvailableMajorVersions', () => {
         }
       ] satisfies Partial<GetProjectFiles200ResponseFilesInner>[]
     });
-    require('@ama-styling/figma-sdk').ProjectsApi.mockReturnValue({ getProjectFiles: getProjectFilesMock });
+    projectsApiMock.mockImplementation(class {
+      constructor() {
+        return { getProjectFiles: getProjectFilesMock };
+      }
+    });
     const testApi: any = {};
 
-    const { getAvailableMajorVersions } = require('./get-versions-request');
+    const { getAvailableMajorVersions } = (await import('./get-versions-request'));
     const versions = await getAvailableMajorVersions(
       testApi,
       {
@@ -96,7 +112,7 @@ describe('getAvailableMajorVersions', () => {
 
 describe('getAllVersions', () => {
   test('should correctly retrieve all versions', async () => {
-    const getProjectFilesMock = jest.fn().mockResolvedValue({
+    const getProjectFilesMock = vi.fn().mockResolvedValue({
       files: [
         {
           name: 'invalid file name'
@@ -125,7 +141,7 @@ describe('getAllVersions', () => {
         }
       ] satisfies Partial<GetProjectFiles200ResponseFilesInner>[]
     });
-    const getFileVersionsMock = jest.fn().mockResolvedValue({
+    const getFileVersionsMock = vi.fn().mockResolvedValue({
       versions: [
         {
           label: 'invalidNumber'
@@ -148,13 +164,20 @@ describe('getAllVersions', () => {
       ] satisfies Partial<Version>[]
     });
 
-    const { ProjectsApi, FilesApi } = require('@ama-styling/figma-sdk');
-    ProjectsApi.mockReturnValue({ getProjectFiles: getProjectFilesMock });
-    FilesApi.mockReturnValue({ getFileVersions: getFileVersionsMock });
+    projectsApiMock.mockImplementation(class {
+      constructor() {
+        return { getProjectFiles: getProjectFilesMock };
+      }
+    });
+    filesApiMock.mockImplementation(class {
+      constructor() {
+        return { getFileVersions: getFileVersionsMock };
+      }
+    });
 
     const testApi: any = {};
 
-    const { getAllVersions } = require('./get-versions-request');
+    const { getAllVersions } = (await import('./get-versions-request'));
     const versions = await getAllVersions(
       testApi,
       {

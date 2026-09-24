@@ -7,7 +7,7 @@ import {
 
 describe('generateEffectStyles', () => {
   test('should generate the correct effect', async () => {
-    const getFileMock = jest.fn().mockResolvedValue({
+    const getFileMock = vi.fn().mockResolvedValue({
       nodes: {
         styleNode2: {
           document: {
@@ -40,14 +40,18 @@ describe('generateEffectStyles', () => {
         }
       }
     });
-    const formatVariables = jest.fn().mockImplementation((value: string) => value);
-    const getVariablesFormatter = jest.fn().mockReturnValue(formatVariables);
-    const filesApiMock = jest.fn().mockReturnValue({ getFileNodes: getFileMock });
+    const formatVariables = vi.fn().mockImplementation((value: string) => value);
+    const getVariablesFormatter = vi.fn().mockReturnValue(formatVariables);
+    const filesApiMock = vi.fn(class {
+      constructor() {
+        return { getFileNodes: getFileMock };
+      }
+    });
 
-    jest.mock('@ama-styling/figma-sdk', () => ({
+    vi.doMock('@ama-styling/figma-sdk', () => ({
       FilesApi: filesApiMock
     }));
-    jest.mock('../../helpers/variable-formatter', () => ({
+    vi.doMock('../../helpers/variable-formatter', () => ({
       getVariablesFormatter
     }));
 
@@ -65,7 +69,7 @@ describe('generateEffectStyles', () => {
         } as any
       }
     } as any as GetFile200Response;
-    const { generateEffectStyles } = require('./generate-effect') as { generateEffectStyles: typeof TypeGenerateEffectStyles };
+    const { generateEffectStyles } = (await import('./generate-effect')) as { generateEffectStyles: typeof TypeGenerateEffectStyles };
 
     const styles = await generateEffectStyles(testApi, Promise.resolve(fakeFile), {} as any, opts);
     expect(filesApiMock).toHaveBeenCalled();

@@ -1,16 +1,16 @@
 export class XtermTerminalMock {
-  public loadAddon = jest.fn(() => Promise.resolve());
-  public open = jest.fn();
-  public clear = jest.fn();
-  public kill = jest.fn();
-  public getWriter = jest.fn();
-  public dispose = jest.fn();
-  public onWriteParsed = () => ({
-    dispose: jest.fn()
+  loadAddon = vi.fn(() => Promise.resolve());
+  open = vi.fn();
+  clear = vi.fn();
+  kill = vi.fn();
+  getWriter = vi.fn();
+  dispose = vi.fn();
+  onWriteParsed = () => ({
+    dispose: vi.fn()
   });
 }
 
-jest.mock('@xterm/xterm',
+vi.mock('@xterm/xterm',
   () => ({ Terminal: XtermTerminalMock }), {
     virtual: true
   });

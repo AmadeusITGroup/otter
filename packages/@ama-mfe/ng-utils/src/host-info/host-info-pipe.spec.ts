@@ -25,7 +25,7 @@ describe('HostInfoPipe', () => {
     TestBed.configureTestingModule({
       providers: [
         HostInfoPipe,
-        { provide: DomSanitizer, useValue: { sanitize: jest.fn(() => 'sanitizedUrl'), bypassSecurityTrustResourceUrl: jest.fn((url: string) => url) } }
+        { provide: DomSanitizer, useValue: { sanitize: vi.fn(() => 'sanitizedUrl'), bypassSecurityTrustResourceUrl: vi.fn((url: string) => url) } }
       ]
     });
 
@@ -48,7 +48,7 @@ describe('HostInfoPipe', () => {
   it('should handle SafeResourceUrl input', () => {
     const url = 'http://safe-url/';
     const safeUrl: SafeResourceUrl = { mock: url };
-    jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
+    vi.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
 
     const result = pipe.transform(safeUrl, { hostId: '' });
 

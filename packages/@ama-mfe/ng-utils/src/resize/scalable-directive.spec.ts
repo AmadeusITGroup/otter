@@ -1,3 +1,6 @@
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -20,10 +23,10 @@ import {
   ScalableDirective,
 } from './scalable-directive';
 
-global.ResizeObserver = jest.fn().mockImplementation(() => ({
-  observe: jest.fn(),
-  disconnect: jest.fn(),
-  unobserve: jest.fn()
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  disconnect: vi.fn(),
+  unobserve: vi.fn()
 }));
 
 @Component({
@@ -36,6 +39,9 @@ class TestComponent {
   public scalableValue = signal<string | undefined>('testScalableId');
 }
 
+beforeEach(() => vi.useFakeTimers());
+afterEach(() => vi.useRealTimers());
+
 describe('ScalableDirective', () => {
   let parentComponentFixture: ComponentFixture<TestComponent>;
   let directiveEl: DebugElement;
@@ -47,7 +53,7 @@ describe('ScalableDirective', () => {
   beforeEach(() => {
     newHeightFromChannelSignal = signal<{ channelId: string; height: number } | undefined>({ height: 200, channelId: 'testScalableId' });
     const resizeHandlerServiceMock = {
-      start: jest.fn(),
+      start: vi.fn(),
       newHeightFromChannel: newHeightFromChannelSignal
     };
 
@@ -78,7 +84,7 @@ describe('ScalableDirective', () => {
   it('should set the min-height style on the element with the channelId from scalable input', () => {
     const channelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set({ height: 300, channelId });
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue.set(channelId);
     parentComponentFixture.detectChanges();
     TestBed.flushEffects();
@@ -89,7 +95,7 @@ describe('ScalableDirective', () => {
   it('should set the min-height style on the element with the channelId from connect input', () => {
     const channelId = 'connect-channel-id';
     newHeightFromChannelSignal.set({ height: 400, channelId });
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue.set(undefined);
     parentComponentFixture.componentInstance.connect.set(channelId);
     parentComponentFixture.detectChanges();
@@ -102,7 +108,7 @@ describe('ScalableDirective', () => {
     const connectChannelId = 'connect-channel-id';
     const scalableChannelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set({ height: 400, channelId: scalableChannelId });
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue.set(scalableChannelId);
     parentComponentFixture.componentInstance.connect.set(connectChannelId);
     parentComponentFixture.detectChanges();
@@ -115,7 +121,7 @@ describe('ScalableDirective', () => {
     const connectChannelId = 'connect-channel-id';
     const scalableChannelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set({ height: 400, channelId: scalableChannelId });
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue.set('not-matching-channel-id');
     parentComponentFixture.componentInstance.connect.set(connectChannelId);
     parentComponentFixture.detectChanges();
@@ -128,7 +134,7 @@ describe('ScalableDirective', () => {
   it('should not set the min-height style on the element when newHeightFromChannel is not available', () => {
     const channelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set(undefined);
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue.set(channelId);
     parentComponentFixture.detectChanges();
     expect(rendererSpy).not.toHaveBeenCalled();
@@ -137,7 +143,7 @@ describe('ScalableDirective', () => {
 
   it('should not set min-height from channel when height is undefined', () => {
     const channelId = 'test-channel';
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
 
     newHeightFromChannelSignal.set({ channelId, height: undefined });
     parentComponentFixture.componentInstance.scalableValue.set(channelId);
@@ -150,7 +156,7 @@ describe('ScalableDirective', () => {
 
   it('should not set min-height from channel when height is zero (falsy)', () => {
     const channelId = 'test-channel';
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
 
     newHeightFromChannelSignal.set({ channelId, height: 0 });
     parentComponentFixture.componentInstance.scalableValue.set(channelId);
@@ -165,7 +171,7 @@ describe('ScalableDirective', () => {
     const connectChannelId = 'connect-channel-id';
     const scalableChannelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set({ height: 1000, channelId: scalableChannelId });
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue.set(scalableChannelId);
     parentComponentFixture.componentInstance.connect.set(connectChannelId);
     parentComponentFixture.detectChanges();
@@ -187,7 +193,7 @@ describe('ScalableDirective', () => {
     const connectChannelId = 'connect-channel-id';
     const scalableChannelId = 'scalable-channel-id';
     newHeightFromChannelSignal.set({ height: 1000, channelId: scalableChannelId });
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue.set(scalableChannelId);
     parentComponentFixture.componentInstance.connect.set(connectChannelId);
     parentComponentFixture.detectChanges();
@@ -217,13 +223,13 @@ describe('ScalableDirective - Window Resize Handling', () => {
   let parentComponentFixture: ComponentFixture<TestComponent>;
   let directiveEl: DebugElement;
   let renderer: Renderer2;
-  let rendererSpy: jest.SpyInstance;
+  let rendererSpy: MockInstance;
 
   beforeEach(() => {
     // Start with initial height of 300px
     const resizeHandlerServiceMock = {
-      start: jest.fn(),
-      newHeightFromChannel: jest.fn().mockReturnValue({ channelId, height: 300 })
+      start: vi.fn(),
+      newHeightFromChannel: vi.fn().mockReturnValue({ channelId, height: 300 })
     };
 
     TestBed.configureTestingModule({
@@ -238,7 +244,7 @@ describe('ScalableDirective - Window Resize Handling', () => {
     parentComponentFixture.componentInstance.scalableValue.set(channelId);
     directiveEl = parentComponentFixture.debugElement.query(By.directive(ScalableDirective));
     renderer = directiveEl.injector.get(Renderer2);
-    rendererSpy = jest.spyOn(renderer, 'setStyle');
+    rendererSpy = vi.spyOn(renderer, 'setStyle');
 
     parentComponentFixture.detectChanges();
   });
@@ -249,7 +255,7 @@ describe('ScalableDirective - Window Resize Handling', () => {
 
     // Mock getBoundingClientRect to simulate element position and calculate new available height
     const mockRect = { top: 100, bottom: 0, left: 0, right: 0, width: 0, height: 0, x: 0, y: 0, toJSON: () => ({}) };
-    jest.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
+    vi.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
 
     // Change window.innerHeight to simulate resize (default is 768, new available height = 1200 - 100 = 1100)
     Object.defineProperty(window, 'innerHeight', { value: 1200, configurable: true });
@@ -268,7 +274,7 @@ describe('ScalableDirective - Window Resize Handling', () => {
 
   it('should use the sub-pixel viewport height from visualViewport instead of the rounded window.innerHeight', () => {
     const mockRect = { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0, x: 0, y: 0, toJSON: () => ({}) };
-    jest.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
+    vi.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
 
     // window.innerHeight rounds 677.6 to 678, which would overestimate the available space
     Object.defineProperty(window, 'innerHeight', { value: 678, configurable: true });
@@ -285,7 +291,7 @@ describe('ScalableDirective - Window Resize Handling', () => {
 
   it('should floor the available height when the element top is a sub-pixel value', () => {
     const mockRect = { top: 100.4, bottom: 0, left: 0, right: 0, width: 0, height: 0, x: 0, y: 0, toJSON: () => ({}) };
-    jest.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
+    vi.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
 
     Object.defineProperty(window, 'innerHeight', { value: 900, configurable: true });
     Object.defineProperty(window, 'visualViewport', { value: undefined, configurable: true });
@@ -305,13 +311,13 @@ describe('ScalableDirective - Mixed Height Sources', () => {
   let parentComponentFixture: ComponentFixture<TestComponent>;
   let directiveEl: DebugElement;
   let renderer: Renderer2;
-  let rendererSpy: jest.SpyInstance;
+  let rendererSpy: MockInstance;
   let newHeightFromChannelSignal: WritableSignal<{ channelId: string; height: number } | undefined>;
 
   beforeEach(() => {
     newHeightFromChannelSignal = signal<{ channelId: string; height: number } | undefined>({ height: 800, channelId });
     const resizeHandlerServiceMock = {
-      start: jest.fn(),
+      start: vi.fn(),
       newHeightFromChannel: newHeightFromChannelSignal
     };
 
@@ -327,7 +333,7 @@ describe('ScalableDirective - Mixed Height Sources', () => {
     parentComponentFixture.componentInstance.scalableValue.set(channelId);
     directiveEl = parentComponentFixture.debugElement.query(By.directive(ScalableDirective));
     renderer = directiveEl.injector.get(Renderer2);
-    rendererSpy = jest.spyOn(renderer, 'setStyle');
+    rendererSpy = vi.spyOn(renderer, 'setStyle');
 
     parentComponentFixture.detectChanges();
   });
@@ -339,9 +345,9 @@ describe('ScalableDirective - Mixed Height Sources', () => {
 
     // Simulate window resize
     const mockRect = { top: 50, bottom: 0, left: 0, right: 0, width: 0, height: 0, x: 0, y: 0, toJSON: () => ({}) };
-    jest.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
+    vi.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
     Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
-    jest.runAllTimers();
+    vi.runAllTimers();
     window.dispatchEvent(new Event('resize'));
     parentComponentFixture.detectChanges();
 
@@ -361,7 +367,7 @@ describe('ScalableDirective - Mixed Height Sources', () => {
 
     // Another window resize with different dimensions
     Object.defineProperty(window, 'innerHeight', { value: 1000, configurable: true });
-    jest.runAllTimers();
+    vi.runAllTimers();
     window.dispatchEvent(new Event('resize'));
     parentComponentFixture.detectChanges();
 
@@ -392,7 +398,7 @@ describe('ScalableDirective with Scrollable Parent', () => {
   beforeEach(() => {
     const scrollableParentSignal = signal<{ channelId: string; height: number } | undefined>(undefined);
     const resizeHandlerServiceMock = {
-      start: jest.fn(),
+      start: vi.fn(),
       newHeightFromChannel: scrollableParentSignal
     };
 
@@ -417,7 +423,7 @@ describe('ScalableDirective with Scrollable Parent', () => {
   it('should calculate available height from scrollable parent clientHeight', () => {
     const scrollableParent = fixture.debugElement.query(By.css('.scrollable-parent'));
     const renderer = directiveEl.injector.get(Renderer2);
-    const rendererSpy = jest.spyOn(renderer, 'setStyle');
+    const rendererSpy = vi.spyOn(renderer, 'setStyle');
 
     // Mock the scrollable parent's clientHeight to 400px
     Object.defineProperty(scrollableParent.nativeElement, 'clientHeight', {
@@ -430,7 +436,7 @@ describe('ScalableDirective with Scrollable Parent', () => {
 
     // Mock element position - if viewport fallback were used, height would be (innerHeight - top) = 768 - 100 = 668px
     const mockRect = { top: 100, bottom: 0, left: 0, right: 0, width: 0, height: 0, x: 0, y: 0, toJSON: () => ({}) };
-    jest.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
+    vi.spyOn(directiveEl.nativeElement, 'getBoundingClientRect').mockReturnValue(mockRect);
 
     // Trigger a resize event to recalculate available height
     window.dispatchEvent(new Event('resize'));

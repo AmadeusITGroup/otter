@@ -25,8 +25,8 @@ import {
 
 const serviceMock: InterfaceOf<DynamicContentService> = {
   basePath: '',
-  getContentPathStream: jest.fn().mockReturnValue(of('fakeContentPath')),
-  getMediaPathStream: jest.fn().mockReturnValue(of('fakeMediaPath'))
+  getContentPathStream: vi.fn().mockReturnValue(of('fakeContentPath')),
+  getMediaPathStream: vi.fn().mockReturnValue(of('fakeMediaPath'))
 };
 
 @Component({

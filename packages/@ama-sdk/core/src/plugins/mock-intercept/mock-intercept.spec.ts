@@ -15,10 +15,10 @@ import {
 const testMock: Mock<any> = {
   mockData: {}
 };
-const getMockSpy = jest.fn().mockReturnValue(testMock);
-const getLatestMockSpy = jest.fn().mockReturnValue(testMock);
-const retrieveOperationIdSpy = jest.fn().mockReturnValue(Promise.resolve('testOperation'));
-const initializeSpy = jest.fn().mockReturnValue(Promise.resolve());
+const getMockSpy = vi.fn().mockReturnValue(testMock);
+const getLatestMockSpy = vi.fn().mockReturnValue(testMock);
+const retrieveOperationIdSpy = vi.fn().mockReturnValue(Promise.resolve('testOperation'));
+const initializeSpy = vi.fn().mockReturnValue(Promise.resolve());
 const testMockAdapter: MockAdapter = {
   getMock: getMockSpy,
   getLatestMock: getLatestMockSpy,
@@ -27,7 +27,7 @@ const testMockAdapter: MockAdapter = {
 };
 
 describe('Mock intercept', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => vi.clearAllMocks());
 
   describe('request plugin', () => {
     it('should do nothing if disabled is true', async () => {

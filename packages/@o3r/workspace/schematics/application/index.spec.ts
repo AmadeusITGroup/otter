@@ -17,7 +17,7 @@ jest.mock('@o3r/schematics', () => ({
 }));
 
 jest.mock('@angular-devkit/schematics', () => {
-  const originalModule = jest.requireActual('@angular-devkit/schematics');
+  const originalModule = jest.requireActual<typeof import('@angular-devkit/schematics')>('@angular-devkit/schematics');
   return {
     ...originalModule,
     externalSchematic: jest.fn().mockImplementation(() => (tree: Tree) => tree),

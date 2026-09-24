@@ -1,3 +1,6 @@
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   getTestBed,
   TestBed,
@@ -96,9 +99,9 @@ describe('Rules engine service', () => {
   let foieGrasPriceFact$: Observable<string | undefined>;
   let cartFact$: Observable<ShoppingCart | null>;
   let isMobileDevice$: BehaviorSubject<boolean | undefined>;
-  let evaluateRuleFirstRulesetSpy: jest.SpyInstance;
-  let evaluateRuleSecondRulesetSpy: jest.SpyInstance;
-  let consoleSpy: jest.SpyInstance;
+  let evaluateRuleFirstRulesetSpy: MockInstance;
+  let evaluateRuleSecondRulesetSpy: MockInstance;
+  let consoleSpy: MockInstance;
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
@@ -108,11 +111,11 @@ describe('Rules engine service', () => {
   });
 
   beforeEach(() => {
-    consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+    consoleSpy = vi.spyOn(console, 'error').mockImplementation();
     Object.defineProperty(window, 'performance', {
       value: {
-        mark: jest.fn(),
-        measure: jest.fn()
+        mark: vi.fn(),
+        measure: vi.fn()
       }
     });
 
@@ -148,7 +151,7 @@ describe('Rules engine service', () => {
       distinctUntilChanged()
     );
     isMobileDevice$ = new BehaviorSubject<boolean | undefined>(false);
-    jest.spyOn(console, 'warn').mockImplementation();
+    vi.spyOn(console, 'warn').mockImplementation();
   });
 
   it('Should support Block with no condition', async () => {
@@ -209,8 +212,8 @@ describe('Rules engine service', () => {
     ]);
 
     store.dispatch(setRulesetsEntities({ entities: jsonTwoRulesetTwoRulesNoContext.ruleSets }));
-    evaluateRuleFirstRulesetSpy = jest.spyOn((service.engine as any).rulesetMapSubject.value['e5th46e84-5e4th-54eth65seth46se8th4'], 'evaluateRule' as any);
-    evaluateRuleSecondRulesetSpy = jest.spyOn((service.engine as any).rulesetMapSubject.value['e5th46e84-5e4th-54eth65seth46se8th1'], 'evaluateRule' as any);
+    evaluateRuleFirstRulesetSpy = vi.spyOn((service.engine as any).rulesetMapSubject.value['e5th46e84-5e4th-54eth65seth46se8th4'], 'evaluateRule' as any);
+    evaluateRuleSecondRulesetSpy = vi.spyOn((service.engine as any).rulesetMapSubject.value['e5th46e84-5e4th-54eth65seth46se8th1'], 'evaluateRule' as any);
     const actions = await firstValueFrom(service.events$);
     expect(actions.length).toBe(2);
     isMobileDevice$.next(true);
@@ -324,7 +327,7 @@ describe('Rules engine service', () => {
       id: 'isMobileDevice',
       value$: of(true)
     }]);
-    const nextFn = jest.fn();
+    const nextFn = vi.fn();
     store.dispatch(setRulesetsEntities({ entities: jsonTwoRulesetsBothOnDemand.rulesets }));
     const sub = service.events$.subscribe({
       next: (value) => nextFn(value)
@@ -386,7 +389,7 @@ describe('Rules engine service', () => {
 
   it('should skip the entire ruleset if undefined fact encountered', async () => {
     const aNumberSubj = new BehaviorSubject<number | undefined>(undefined);
-    // const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+    // const consoleSpy = vi.spyOn(console, 'error').mockImplementation();
     service.engine.upsertFacts<any>([{
       id: 'aNumber',
       value$: aNumberSubj
@@ -422,7 +425,7 @@ describe('Rules engine service', () => {
       value$: foieGrasPrice.asObservable()
     }]);
     store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetTwoRulesAnyAndAll.ruleSets }));
-    const evaluateConditionSpy = jest.spyOn((service.engine as any).rulesetMapSubject.value['e5th46e84-5e4th-54eth65seth46se8th8'], 'evaluateCondition' as any);
+    const evaluateConditionSpy = vi.spyOn((service.engine as any).rulesetMapSubject.value['e5th46e84-5e4th-54eth65seth46se8th8'], 'evaluateCondition' as any);
     foieGrasPrice.next(undefined);
     await firstValueFrom(service.events$);
     expect(evaluateConditionSpy.mock.calls.length).toBe(4);

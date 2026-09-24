@@ -34,6 +34,8 @@
     "zod": "~4.4.0"
   },
   "devDependencies": {
+    "@analogjs/vite-plugin-angular": "~2.6.0",
+    "@analogjs/vitest-angular": "~2.6.0",
     "@angular-devkit/architect": "0.2201.8",
     "@angular-devkit/schematics": "~22.1.0",
     "@angular/cli": "~22.1.0",

@@ -32,8 +32,14 @@
     "prepare-build-builders": {},
     "build-builders": {},
     "lint": {},
-    "test": {},
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
     "test-int": {},
+    "test-schematics": {},
     "prepare-publish": {
       "options": {
         "commands": [
@@ -43,7 +49,10 @@
       }
     },
     "publish": {},
-    "documentation": {}
+    "documentation": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    }
   },
   "tags": []
 }

@@ -26,7 +26,12 @@
       "outputs": ["{projectRoot}/dist/src/extension.js"]
     },
     "lint": {},
-    "test": {},
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
     "prepare-publish": {
       "options": {
         "commands": [
@@ -41,6 +46,9 @@
         "command": "npm install && npx @vscode/vsce publish",
         "cwd": "apps/vscode-extension/dist"
       }
+    },
+    "vitest": {
+      "plugin": "@nx/vitest"
     }
   },
   "tags": []

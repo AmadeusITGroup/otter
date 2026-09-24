@@ -36,7 +36,7 @@ describe('Json Token', () => {
       const runner = plugin.load();
 
       if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
-        jest.spyOn(window.sessionStorage, 'getItem').mockImplementation(() => tokenValue);
+        vi.spyOn(window.sessionStorage, 'getItem').mockImplementation(() => tokenValue);
       }
 
       const result = await runner.transform(options);
@@ -57,7 +57,7 @@ describe('Json Token', () => {
       const runner = plugin.load();
 
       if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
-        jest.spyOn(window.sessionStorage, 'getItem').mockImplementation();
+        vi.spyOn(window.sessionStorage, 'getItem').mockImplementation();
       }
 
       const result = await runner.transform(options);
@@ -74,7 +74,7 @@ describe('Json Token', () => {
   });
 
   describe('reply plugin', () => {
-    const reviver = jest.fn();
+    const reviver = vi.fn();
 
     it('should store the received token', async () => {
       const memory = { testToken: undefined };
@@ -87,7 +87,7 @@ describe('Json Token', () => {
       const data = {};
 
       if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
-        jest.spyOn(window.sessionStorage, 'setItem').mockImplementation();
+        vi.spyOn(window.sessionStorage, 'setItem').mockImplementation();
       }
 
       await runner.transform(data);

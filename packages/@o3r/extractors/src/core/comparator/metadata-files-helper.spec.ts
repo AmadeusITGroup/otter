@@ -1,31 +1,41 @@
-const mockBaseName = jest.fn();
-jest.mock('node:path', () => {
-  const original = jest.requireActual('node:path');
+const {
+  mockBaseName,
+  mockGt,
+  mockCoerce,
+  mockNpmGetFilesFromRegistry,
+  mockYarnGetFilesFromRegistry,
+} = vi.hoisted(() => ({
+  mockBaseName: vi.fn(),
+  mockGt: vi.fn(),
+  mockCoerce: vi.fn(),
+  mockNpmGetFilesFromRegistry: vi.fn(),
+  mockYarnGetFilesFromRegistry: vi.fn()
+}));
+vi.mock('node:path', async () => {
+  const original = await vi.importActual<typeof import('node:path')>('node:path');
   return {
     ...original,
     basename: mockBaseName
   };
 });
-const mockGt = jest.fn();
-const mockCoerce = jest.fn();
-jest.mock('semver', () => {
-  const original = jest.requireActual('semver');
+vi.mock('semver', async () => {
+  const original = await vi.importActual<typeof import('semver')>('semver');
   return {
     ...original,
     coerce: mockCoerce,
     gt: mockGt
   };
 });
-const mockNpmGetFilesFromRegistry = jest.fn();
-jest.mock('./package-managers-extractors/npm-file-extractor-helper', () => ({
+vi.mock('./package-managers-extractors/npm-file-extractor-helper', async () => ({
+  default: { getFilesFromRegistry: mockNpmGetFilesFromRegistry },
   getFilesFromRegistry: mockNpmGetFilesFromRegistry
 }));
-const mockYarnGetFilesFromRegistry = jest.fn();
-jest.mock('./package-managers-extractors/yarn2-file-extractor-helper', () => ({
+vi.mock('./package-managers-extractors/yarn2-file-extractor-helper', async () => ({
+  default: { getFilesFromRegistry: mockYarnGetFilesFromRegistry },
   getFilesFromRegistry: mockYarnGetFilesFromRegistry
 }));
 
-// eslint-disable-next-line import/first -- needed for `jest.mock`
+// eslint-disable-next-line import/first -- needed for `vi.mock`
 import {
   getFilesFromRegistry,
   getLatestMigrationMetadataFile,

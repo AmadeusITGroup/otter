@@ -1,13 +1,13 @@
 describe('getTokensFromLocalVariables', () => {
-  test('should generate the manifest file content for color and text', () => {
-    const getRgbaColorHex = jest.fn().mockReturnValue('#test');
-    const convertNameToReference = jest.fn().mockImplementation((value: string) => `${value}.ref`);
-    const getPathFromName = jest.fn().mockImplementation((value: string) => [value, 'path']);
-    jest.mock('../../helpers/color-hex-helpers', () => ({
+  test('should generate the manifest file content for color and text', async () => {
+    const getRgbaColorHex = vi.fn().mockReturnValue('#test');
+    const convertNameToReference = vi.fn().mockImplementation((value: string) => `${value}.ref`);
+    const getPathFromName = vi.fn().mockImplementation((value: string) => [value, 'path']);
+    vi.doMock('../../helpers/color-hex-helpers', () => ({
       getRgbaColorHex
     }));
 
-    jest.mock('../../helpers/name-to-reference', () => ({
+    vi.doMock('../../helpers/name-to-reference', () => ({
       convertNameToReference,
       getPathFromName
     }));
@@ -88,7 +88,7 @@ describe('getTokensFromLocalVariables', () => {
     };
 
     const opts = { fileKey: 'test-file', modeId: 'm1', collectionId: 'c1' };
-    const { getTokensFromLocalVariables } = require('./token-from-local-variables');
+    const { getTokensFromLocalVariables } = (await import('./token-from-local-variables'));
     const result = getTokensFromLocalVariables({ variables, variableCollections } as any, ['var/unitless'], opts);
 
     expect(result).toEqual({

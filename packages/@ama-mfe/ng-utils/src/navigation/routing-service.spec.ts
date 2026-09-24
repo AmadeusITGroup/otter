@@ -1,3 +1,6 @@
+import type {
+  Mocked,
+} from 'vitest';
 import {
   NavigationMessage,
   NavigationV1_0,
@@ -38,7 +41,7 @@ describe('Navigation Producer Service', () => {
   let routingService: RoutingService;
   let producerManagerService: ProducerManagerService;
   let messageService: MessagePeerService<NavigationMessage>;
-  let loggerServiceMock: jest.Mocked<LoggerService>;
+  let loggerServiceMock: Mocked<LoggerService>;
 
   let routerEventsSubject: Subject<any>;
   let mockRouter: Partial<Router>;
@@ -49,26 +52,26 @@ describe('Navigation Producer Service', () => {
     routerEventsSubject = new Subject<any>();
     mockRouter = {
       events: routerEventsSubject.asObservable(),
-      navigateByUrl: jest.fn(),
-      getCurrentNavigation: jest.fn()
+      navigateByUrl: vi.fn(),
+      getCurrentNavigation: vi.fn()
     };
 
     const consumerManagerServiceMock: Partial<ConsumerManagerService> = {
-      register: jest.fn(),
-      unregister: jest.fn()
+      register: vi.fn(),
+      unregister: vi.fn()
     };
     const producerManagerServiceMock = {
-      register: jest.fn(),
-      unregister: jest.fn()
+      register: vi.fn(),
+      unregister: vi.fn()
     };
     const messageServiceMock = {
-      send: jest.fn()
+      send: vi.fn()
     };
 
     loggerServiceMock = {
-      warn: jest.fn(),
-      error: jest.fn()
-    } as unknown as jest.Mocked<LoggerService>;
+      warn: vi.fn(),
+      error: vi.fn()
+    } as unknown as Mocked<LoggerService>;
 
     mockedWindow = { ...globalThis.window };
 
@@ -92,7 +95,7 @@ describe('Navigation Producer Service', () => {
   });
 
   it('should register itself when instantiated', () => {
-    jest.spyOn(producerManagerService, 'register');
+    vi.spyOn(producerManagerService, 'register');
     expect(producerManagerService.register).toHaveBeenCalledWith(routingService);
   });
 
@@ -115,7 +118,7 @@ describe('Navigation Producer Service', () => {
   it('should include the replaceUrl extra in the v1.1 navigation message when embedded', () => {
     Object.defineProperty(mockedWindow, 'top', { value: globalThis.window.top });
     Object.defineProperty(mockedWindow, 'self', { value: mockedWindow });
-    jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { replaceUrl: true } } as any);
+    vi.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { replaceUrl: true } } as any);
 
     runInInjectionContext(TestBed.inject(Injector), () => {
       routingService.handleEmbeddedRouting();
@@ -132,7 +135,7 @@ describe('Navigation Producer Service', () => {
   });
 
   it('should include the replaceUrl extra in the v1.1 navigation message when not embedded', () => {
-    jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { replaceUrl: true, state: { channelId: 'test-channel-id' } } } as any);
+    vi.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { replaceUrl: true, state: { channelId: 'test-channel-id' } } } as any);
 
     runInInjectionContext(TestBed.inject(Injector), () => {
       routingService.handleEmbeddedRouting();
@@ -168,7 +171,7 @@ describe('Navigation Producer Service', () => {
   it('should not send navigation message via messageService if embedded, if the skipLocationChange is true', () => {
     Object.defineProperty(mockedWindow, 'top', { value: globalThis.window.top });
     Object.defineProperty(mockedWindow, 'self', { value: mockedWindow });
-    jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { skipLocationChange: true } } as any);
+    vi.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { skipLocationChange: true } } as any);
 
     runInInjectionContext(TestBed.inject(Injector), () => {
       routingService.handleEmbeddedRouting();
@@ -198,7 +201,7 @@ describe('Navigation Producer Service', () => {
   });
 
   it('should send navigation message via endpointManagerService if channelId is present and not embedded', () => {
-    jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { state: { channelId: 'test-channel-id' } } } as any);
+    vi.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { state: { channelId: 'test-channel-id' } } } as any);
 
     runInInjectionContext(TestBed.inject(Injector), () => {
       routingService.handleEmbeddedRouting();
@@ -214,8 +217,8 @@ describe('Navigation Producer Service', () => {
   });
 
   it('should log an error if endpointManagerService.send throws an error', () => {
-    jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { state: { channelId: 'test-channel-id' } } } as any);
-    jest.spyOn(messageService, 'send').mockImplementation(() => {
+    vi.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { state: { channelId: 'test-channel-id' } } } as any);
+    vi.spyOn(messageService, 'send').mockImplementation(() => {
       throw new Error('send error');
     });
 

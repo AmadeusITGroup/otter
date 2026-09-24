@@ -4,13 +4,13 @@ import type {
 
 describe('getTokensVariables', () => {
   test('should retrieve the correct file', async () => {
-    const getTextWeightVariableIds = jest.fn();
-    const getTokensFromLocalVariables = jest.fn().mockReturnValue(['']);
-    jest.mock('@ama-styling/figma-sdk', () => ({}));
-    jest.mock('../requests/get-text-weight-request', () => ({
+    const getTextWeightVariableIds = vi.fn();
+    const getTokensFromLocalVariables = vi.fn().mockReturnValue(['']);
+    vi.doMock('@ama-styling/figma-sdk', () => ({}));
+    vi.doMock('../requests/get-text-weight-request', () => ({
       getTextWeightVariableIds
     }));
-    jest.mock('./tokens/token-from-local-variables', () => ({
+    vi.doMock('./tokens/token-from-local-variables', () => ({
       getTokensFromLocalVariables
     }));
 
@@ -39,7 +39,7 @@ describe('getTokensVariables', () => {
         } as any
       }
     } as any as GetFile200Response;
-    const { getTokensVariables } = require('./generate-tokens');
+    const { getTokensVariables } = (await import('./generate-tokens'));
     const variables = await getTokensVariables(testApi, Promise.resolve(fakeFile), { variableCollections } as any, opts);
 
     expect(getTokensFromLocalVariables).toHaveBeenCalledTimes(3);

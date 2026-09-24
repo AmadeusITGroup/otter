@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.jest.json",
+  "extends": "../../../tsconfig.test.json",
   "compilerOptions": {
     "composite": true,
     "outDir": "test",

@@ -8,16 +8,16 @@ import {
 
 describe('getResponseReviver - revivers by status code', () => {
   const revivers: { [key: number]: ReviverType<any> | undefined } = {
-    202: jest.fn(),
-    201: jest.fn()
+    202: vi.fn(),
+    201: vi.fn()
   };
 
   beforeEach(() => {
-    jest.spyOn(console, 'error');
+    vi.spyOn(console, 'error');
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should not return a reviver for a non ok response', () => {
@@ -40,7 +40,7 @@ describe('getResponseReviver - revivers by status code', () => {
   });
 
   it('should not fallback on 204 (No Content)\'s reviver', () => {
-    const reviversWith204 = { 204: jest.fn(), 206: jest.fn() };
+    const reviversWith204 = { 204: vi.fn(), 206: vi.fn() };
     const fallback = getResponseReviver(reviversWith204, { status: 201, ok: true }, 'myEndpoint');
     expect(fallback).toBe(reviversWith204[206]);
     expect(fallback).not.toBe(reviversWith204[204]);
@@ -48,7 +48,7 @@ describe('getResponseReviver - revivers by status code', () => {
   });
 
   it('should not fallback if the feature is deactivated', () => {
-    jest.spyOn(console, 'log');
+    vi.spyOn(console, 'log');
     expect(getResponseReviver(revivers, { status: 206, ok: true }, 'myEndpoint', { disableFallback: true, log: console.log })).toBe(undefined);
     expect(console.error).not.toHaveBeenCalled();
     expect(console.log).toHaveBeenCalledWith('API status code error for myEndpoint endpoint - Missing 206 from API specification - fallback is deactivated, no revive will run on this response');
@@ -56,7 +56,7 @@ describe('getResponseReviver - revivers by status code', () => {
 });
 
 describe('getResponseReviver - reviver as function', () => {
-  const reviver = jest.fn();
+  const reviver = vi.fn();
 
   it('should not return a reviver for a non ok response', () => {
     expect(getResponseReviver(reviver, { status: 300, ok: false })).toBe(undefined);

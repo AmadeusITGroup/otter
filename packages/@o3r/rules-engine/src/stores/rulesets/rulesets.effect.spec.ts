@@ -32,8 +32,8 @@ describe('Rules Engine Effects', () => {
 
   const storeValue = new Subject<any>();
   const mockStore = {
-    pipe: jest.fn().mockReturnValue(storeValue),
-    dispatch: jest.fn()
+    pipe: vi.fn().mockReturnValue(storeValue),
+    dispatch: vi.fn()
   };
 
   afterEach(() => subscriptions.forEach((subscription) => subscription.unsubscribe()));

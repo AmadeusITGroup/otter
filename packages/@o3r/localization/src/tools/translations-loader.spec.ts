@@ -1,3 +1,6 @@
+import type {
+  MockInstance,
+} from 'vitest';
 /* eslint-disable jest/no-done-callback -- test made with observables */
 /* eslint-disable @typescript-eslint/naming-convention -- localization keys are not following the naming convention */
 import {
@@ -55,6 +58,13 @@ const configuration: LocalizationConfiguration = {
   mergeWithLocalTranslations: false
 };
 
+type DoneCallback = (() => void) & { fail: (error?: unknown) => void };
+
+const itWithDone = (name: string, test: (done: DoneCallback) => void) =>
+  it(name, () => new Promise<void>((resolve, reject) =>
+    test(Object.assign(resolve, { fail: reject }))
+  ));
+
 describe('TranslationsLoader - no endPointUrl', () => {
   describe('language !== fallback language', () => {
     let translationsLoader: TranslationsLoader;
@@ -69,16 +79,16 @@ describe('TranslationsLoader - no endPointUrl', () => {
       translationsLoader = TestBed.inject(TranslationsLoader);
     });
 
-    it('OK ' + configuration.language + '.json from local', (done) => {
+    itWithDone('OK ' + configuration.language + '.json from local', (done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
-      global.fetch = jest.fn().mockImplementation((url: string) => {
+      global.fetch = vi.fn().mockImplementation((url: string) => {
         countCall++;
         latestUrls.push(url);
         return Promise.resolve(mockSuccessApiResponse(responseFR));
       });
 
-      jest.spyOn(translationsLoader, 'getTranslationFromLocal');
+      vi.spyOn(translationsLoader, 'getTranslationFromLocal');
 
       const subscription = translationsLoader.getTranslation(configuration.language).subscribe((res) => {
         // 1 call
@@ -93,10 +103,10 @@ describe('TranslationsLoader - no endPointUrl', () => {
       });
     });
 
-    it('KO ' + configuration.language + '.json from local, fallback OK to local ' + configuration.fallbackLanguage + '.json', (done) => {
+    itWithDone('KO ' + configuration.language + '.json from local, fallback OK to local ' + configuration.fallbackLanguage + '.json', (done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
-      global.fetch = jest.fn().mockImplementation((url: string) => {
+      global.fetch = vi.fn().mockImplementation((url: string) => {
         const lang = url
           .split('/')
           .at(-1)
@@ -110,7 +120,7 @@ describe('TranslationsLoader - no endPointUrl', () => {
         return Promise.resolve(mockSuccessApiResponse(responseEN));
       });
 
-      jest.spyOn(translationsLoader, 'getTranslationFromLocal');
+      vi.spyOn(translationsLoader, 'getTranslationFromLocal');
 
       const subscription = translationsLoader.getTranslation(configuration.language).subscribe((res) => {
         // 2 calls
@@ -144,9 +154,9 @@ describe('TranslationsLoader - no endPointUrl', () => {
       translationsLoader = TestBed.inject(TranslationsLoader);
     });
 
-    it('KO ' + configuration2.language + '.json from local, but no second call', (done) => {
+    itWithDone('KO ' + configuration2.language + '.json from local, but no second call', (done) => {
       let countCall = 0;
-      global.fetch = jest.fn().mockImplementation(() => {
+      global.fetch = vi.fn().mockImplementation(() => {
         countCall++;
         // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- reject with a 404 response
         return Promise.reject(mockFailApiResponse({}));
@@ -172,16 +182,16 @@ describe('TranslationsLoader - with endPointUrl', () => {
   const configuration3 = Object.assign({}, configuration, { endPointUrl: 'http://myUrl/' });
 
   describe('local translation merging', () => {
-    let translationsBundleSpy: jest.SpyInstance;
+    let translationsBundleSpy: MockInstance;
 
     beforeEach(() => {
-      translationsBundleSpy = global.fetch = jest.fn().mockImplementation((url: string) => {
+      translationsBundleSpy = global.fetch = vi.fn().mockImplementation((url: string) => {
         const isDynamicTransaltions = new RegExp(configuration3.endPointUrl).test(url);
         return Promise.resolve(mockSuccessApiResponse(isDynamicTransaltions ? responseFR : { localOnly: 'test' }));
       });
     });
 
-    it('should merge local and dynamic translations', (done) => {
+    itWithDone('should merge local and dynamic translations', (done) => {
       TestBed.configureTestingModule({
         providers: [
           { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: { ...configuration3, mergeWithLocalTranslations: true } },
@@ -198,7 +208,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
       });
     });
 
-    it('should get dynamic translations only', (done) => {
+    itWithDone('should get dynamic translations only', (done) => {
       TestBed.configureTestingModule({
         providers: [
           { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: { ...configuration3, mergeWithLocalTranslations: false } },
@@ -226,16 +236,16 @@ describe('TranslationsLoader - with endPointUrl', () => {
       translationsLoader = TestBed.inject(TranslationsLoader);
     });
 
-    it('OK ' + configuration3.language + '.json from endPointUrl', (done) => {
+    itWithDone('OK ' + configuration3.language + '.json from endPointUrl', (done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
-      global.fetch = jest.fn().mockImplementation((url: string) => {
+      global.fetch = vi.fn().mockImplementation((url: string) => {
         countCall++;
         latestUrls.push(url);
         return Promise.resolve(mockSuccessApiResponse(responseFR));
       });
 
-      jest.spyOn(translationsLoader, 'getTranslationFromLocal');
+      vi.spyOn(translationsLoader, 'getTranslationFromLocal');
 
       const subscription = translationsLoader.getTranslation(configuration3.language).subscribe((res) => {
         // get the fr.json
@@ -252,10 +262,10 @@ describe('TranslationsLoader - with endPointUrl', () => {
       });
     });
 
-    it('KO ' + configuration3.language + '.json from endPointUrl, fallback OK to local ' + configuration3.language + '.json', (done) => {
+    itWithDone('KO ' + configuration3.language + '.json from endPointUrl, fallback OK to local ' + configuration3.language + '.json', (done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
-      global.fetch = jest.fn().mockImplementation((url: string) => {
+      global.fetch = vi.fn().mockImplementation((url: string) => {
         const endPointUrl = configuration3.endPointUrl + configuration3.language + '.json';
         countCall++;
         latestUrls.push(url);
@@ -267,7 +277,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
         return Promise.resolve(mockSuccessApiResponse(responseFR));
       });
 
-      jest.spyOn(translationsLoader, 'getTranslationFromLocal');
+      vi.spyOn(translationsLoader, 'getTranslationFromLocal');
 
       const subscription = translationsLoader.getTranslation(configuration3.language).subscribe((res) => {
         // 2 calls (1 for endPoint which fails + 1 local that is OK)
@@ -284,10 +294,10 @@ describe('TranslationsLoader - with endPointUrl', () => {
       });
     });
 
-    it('KO ' + configuration3.language + '.json from endPointUrl, fallback KO to local ' + configuration3.language + '.json, fallback OK to ' + configuration.fallbackLanguage + '.json', (done) => {
+    itWithDone('KO ' + configuration3.language + '.json from endPointUrl, fallback KO to local ' + configuration3.language + '.json, fallback OK to ' + configuration.fallbackLanguage + '.json', (done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
-      global.fetch = jest.fn().mockImplementation((url: string) => {
+      global.fetch = vi.fn().mockImplementation((url: string) => {
         const endPointUrl = configuration3.endPointUrl + configuration3.language + '.json';
         const localLangUrl = configuration3.language + '.json';
         countCall++;
@@ -304,7 +314,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
         return Promise.resolve(mockSuccessApiResponse(responseEN));
       });
 
-      jest.spyOn(translationsLoader, 'getTranslationFromLocal');
+      vi.spyOn(translationsLoader, 'getTranslationFromLocal');
 
       const subscription = translationsLoader.getTranslation(configuration3.language).subscribe((res) => {
         expect(countCall).toBe(3);
@@ -326,7 +336,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
   });
 
   describe('With queryParams', () => {
-    it('performs fetch with one parameter', (done) => {
+    itWithDone('performs fetch with one parameter', (done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
       const configWithParams = Object.assign({}, configuration3, { queryParams: { SITECODE: 'XDEFXDEF' } });
@@ -337,7 +347,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
         ]
       });
       translationsLoader = TestBed.inject(TranslationsLoader);
-      global.fetch = jest.fn().mockImplementation((url: string) => {
+      global.fetch = vi.fn().mockImplementation((url: string) => {
         countCall++;
         latestUrls.push(url);
         return Promise.resolve(mockSuccessApiResponse(responseFR));
@@ -354,7 +364,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
       });
     });
 
-    it('performs fetch with several parameters', (done) => {
+    itWithDone('performs fetch with several parameters', (done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
       const configWithParams = Object.assign({}, configuration3, { queryParams: { SITECODE: 'XDEFXDEF', OFFICEID: 'ANNCEPAR29MAY' } });
@@ -365,7 +375,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
         ]
       });
       translationsLoader = TestBed.inject(TranslationsLoader);
-      global.fetch = jest.fn().mockImplementation((url: string) => {
+      global.fetch = vi.fn().mockImplementation((url: string) => {
         countCall++;
         latestUrls.push(url);
         return Promise.resolve(mockSuccessApiResponse(responseFR));
@@ -382,7 +392,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
       });
     });
 
-    it('performs fetch with encoded parameters', (done) => {
+    itWithDone('performs fetch with encoded parameters', (done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
       const configWithParams = Object.assign({}, configuration3, { queryParams: { 'SITE CODE': 'XDEF DEF' } });
@@ -393,7 +403,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
         ]
       });
       translationsLoader = TestBed.inject(TranslationsLoader);
-      global.fetch = jest.fn().mockImplementation((url: string) => {
+      global.fetch = vi.fn().mockImplementation((url: string) => {
         countCall++;
         latestUrls.push(url);
         return Promise.resolve(mockSuccessApiResponse(responseFR));

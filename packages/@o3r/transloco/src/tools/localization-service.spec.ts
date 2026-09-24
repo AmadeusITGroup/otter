@@ -1,3 +1,6 @@
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   TestBed,
 } from '@angular/core/testing';
@@ -110,7 +113,7 @@ describe('LocalizationService', () => {
       language: 'fr-FR'
     });
 
-    let translateServiceSpy: jest.SpyInstance;
+    let translateServiceSpy: MockInstance;
     let localizationService: LocalizationService;
 
     beforeEach(async () => {
@@ -122,7 +125,7 @@ describe('LocalizationService', () => {
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
       const translateService = localizationService.getTranslateService();
-      translateServiceSpy = jest.spyOn(translateService, 'setDefaultLang');
+      translateServiceSpy = vi.spyOn(translateService, 'setDefaultLang');
       await localizationService.configure();
     });
 
@@ -140,7 +143,7 @@ describe('LocalizationService', () => {
       language: 'es-ES'
     });
 
-    let translateServiceSpy: jest.SpyInstance;
+    let translateServiceSpy: MockInstance;
     let localizationService: LocalizationService;
 
     beforeEach(async () => {
@@ -152,7 +155,7 @@ describe('LocalizationService', () => {
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
       const translateService = localizationService.getTranslateService();
-      translateServiceSpy = jest.spyOn(translateService, 'setDefaultLang');
+      translateServiceSpy = vi.spyOn(translateService, 'setDefaultLang');
       await localizationService.configure();
     });
 
@@ -261,7 +264,7 @@ describe('LocalizationService', () => {
       const value = 'Hello world';
 
       const translateService = localizationService.getTranslateService();
-      const selectTranslateSpy = jest.spyOn(translateService, 'selectTranslate').mockReturnValue(of(value));
+      const selectTranslateSpy = vi.spyOn(translateService, 'selectTranslate').mockReturnValue(of(value));
 
       const result = await firstValueFrom(localizationService.translate(key));
       expect(selectTranslateSpy).toHaveBeenCalledWith(key, undefined);

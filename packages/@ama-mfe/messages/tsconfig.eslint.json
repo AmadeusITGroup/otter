@@ -1,7 +1,7 @@
 {
   "include": [
     "eslint*.config.mjs",
-    "jest.config.js",
+    "vitest.config.ts",
     "testing/*"
   ]
 }

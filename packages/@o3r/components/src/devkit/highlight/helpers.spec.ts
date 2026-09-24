@@ -167,19 +167,19 @@ describe('Highlight helpers', () => {
       siblingElement = document.createElement('div');
 
       // Set spy to simulate dimensions
-      jest.spyOn(grandparentElement, 'getBoundingClientRect').mockReturnValue({
+      vi.spyOn(grandparentElement, 'getBoundingClientRect').mockReturnValue({
         height: 200,
         width: 200
       } as DOMRect);
-      jest.spyOn(parentElement, 'getBoundingClientRect').mockReturnValue({
+      vi.spyOn(parentElement, 'getBoundingClientRect').mockReturnValue({
         height: 100,
         width: 100
       } as DOMRect);
-      jest.spyOn(childElement, 'getBoundingClientRect').mockReturnValue({
+      vi.spyOn(childElement, 'getBoundingClientRect').mockReturnValue({
         height: 50,
         width: 50
       } as DOMRect);
-      jest.spyOn(siblingElement, 'getBoundingClientRect').mockReturnValue({
+      vi.spyOn(siblingElement, 'getBoundingClientRect').mockReturnValue({
         height: 10,
         width: 10
       } as DOMRect);
@@ -351,7 +351,7 @@ describe('Highlight helpers', () => {
       // Mock the clipboard API
       Object.assign(navigator, {
         clipboard: {
-          writeText: jest.fn().mockResolvedValue(undefined)
+          writeText: vi.fn().mockResolvedValue(undefined)
         }
       });
 
@@ -388,15 +388,15 @@ describe('Highlight helpers', () => {
 
     describe('throttle', () => {
       beforeEach(() => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
       });
 
       afterEach(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
       });
 
       it('should call the function immediately on first call', () => {
-        const fn = jest.fn();
+        const fn = vi.fn();
         const throttled = throttle(fn, 100);
         throttled('arg1', 'arg2');
         expect(fn).toHaveBeenCalledTimes(1);
@@ -404,7 +404,7 @@ describe('Highlight helpers', () => {
       });
 
       it('should not call the function again before the delay', () => {
-        const fn = jest.fn();
+        const fn = vi.fn();
         const throttled = throttle(fn, 100);
         throttled();
         throttled();
@@ -413,30 +413,30 @@ describe('Highlight helpers', () => {
       });
 
       it('should call the function again after the delay', () => {
-        const fn = jest.fn();
+        const fn = vi.fn();
         const throttled = throttle(fn, 100);
         throttled();
-        jest.advanceTimersByTime(100);
+        vi.advanceTimersByTime(100);
         throttled();
         expect(fn).toHaveBeenCalledTimes(2);
       });
 
       it('should pass all arguments to the throttled function', () => {
-        const fn = jest.fn();
+        const fn = vi.fn();
         const throttled = throttle(fn, 50);
         throttled(1, 2, 3);
         expect(fn).toHaveBeenCalledWith(1, 2, 3);
       });
 
       it('should not call the function if called multiple times within the delay', () => {
-        const fn = jest.fn();
+        const fn = vi.fn();
         const throttled = throttle(fn, 200);
         throttled();
-        jest.advanceTimersByTime(100);
+        vi.advanceTimersByTime(100);
         throttled();
         throttled();
         expect(fn).toHaveBeenCalledTimes(1);
-        jest.advanceTimersByTime(100);
+        vi.advanceTimersByTime(100);
         throttled();
         expect(fn).toHaveBeenCalledTimes(2);
       });

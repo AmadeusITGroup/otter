@@ -30,7 +30,7 @@ describe('Configuration DevTools console', () => {
   let mockStore: MockStore<ConfigurationState>;
 
   beforeEach(async () => {
-    jest.spyOn(console, 'info').mockImplementation();
+    vi.spyOn(console, 'info').mockImplementation();
     await TestBed.configureTestingModule({
       providers: [
         ConfigurationDevtoolsConsoleService,
@@ -62,7 +62,7 @@ describe('Configuration DevTools console', () => {
   });
 
   it('should display the whole configuration', async () => {
-    const consoleLog = jest.spyOn(console, 'log').mockImplementation();
+    const consoleLog = vi.spyOn(console, 'log').mockImplementation();
     await service.displayConfiguration();
 
     expect(consoleLog).toHaveBeenCalledWith(
@@ -78,14 +78,14 @@ describe('Configuration DevTools console', () => {
   });
 
   it('should display the configuration of componentTest', async () => {
-    const consoleLog = jest.spyOn(console, 'log').mockImplementation();
+    const consoleLog = vi.spyOn(console, 'log').mockImplementation();
     await service.displayCurrentConfigurationFor('@scope/package#componentTest');
 
     expect(consoleLog).toHaveBeenCalledWith({ configEx1: 'test', configEx2: true });
   });
 
   it('should set new configuration', () => {
-    const spy = jest.spyOn(mockStore, 'dispatch');
+    const spy = vi.spyOn(mockStore, 'dispatch');
     service.setDynamicConfig('@scope/package#componentTest', 'lolProp', 123);
 
     expect(spy).toHaveBeenCalledWith(expect.objectContaining({
@@ -97,7 +97,7 @@ describe('Configuration DevTools console', () => {
   });
 
   it('should upsert new configurations', () => {
-    const spy = jest.spyOn(mockStore, 'dispatch');
+    const spy = vi.spyOn(mockStore, 'dispatch');
     service.updateConfigurations('[{"library":"@scope/package","name":"componentTest","config":{"lolProp":123}}]');
 
     expect(spy).toHaveBeenCalledWith(expect.objectContaining(

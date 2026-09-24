@@ -48,7 +48,7 @@ describe('RouteMemorizeDirective', () => {
   beforeEach(() => {
     requestUrlSubject = new Subject<{ url: string; channelId?: string }>();
     const routeMemorizeServiceMock = {
-      memorizeRoute: jest.fn()
+      memorizeRoute: vi.fn()
     };
 
     const navigationHandlerServiceMock = {

@@ -14,9 +14,9 @@ import {
 } from './otter-inspector-service';
 
 const mockElement = {
-  append: jest.fn(),
+  append: vi.fn(),
   classList: {
-    add: jest.fn()
+    add: vi.fn()
   }
 } as unknown as HTMLElement;
 
@@ -35,13 +35,13 @@ describe('Otter Inspector Service', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should prepare the DOM', () => {
-    const createElement = jest.spyOn(document, 'createElement').mockImplementation(() => mockElement);
-    const headAppend = jest.spyOn(document.head, 'append').mockImplementation(() => mockElement);
-    const bodyAppend = jest.spyOn(document.body, 'append').mockImplementation(() => mockElement);
+    const createElement = vi.spyOn(document, 'createElement').mockImplementation(() => mockElement);
+    const headAppend = vi.spyOn(document.head, 'append').mockImplementation(() => mockElement);
+    const bodyAppend = vi.spyOn(document.body, 'append').mockImplementation(() => mockElement);
     service.prepareInspector();
 
     expect(createElement).toHaveBeenCalledTimes(3);
@@ -53,9 +53,9 @@ describe('Otter Inspector Service', () => {
   });
 
   it('should not re-prepare the DOM', () => {
-    const createElement = jest.spyOn(document, 'createElement').mockImplementation(() => mockElement);
-    const headAppend = jest.spyOn(document.head, 'append').mockImplementation(() => mockElement);
-    const bodyAppend = jest.spyOn(document.body, 'append').mockImplementation(() => mockElement);
+    const createElement = vi.spyOn(document, 'createElement').mockImplementation(() => mockElement);
+    const headAppend = vi.spyOn(document.head, 'append').mockImplementation(() => mockElement);
+    const bodyAppend = vi.spyOn(document.body, 'append').mockImplementation(() => mockElement);
     service.prepareInspector();
 
     createElement.mockClear();
@@ -69,14 +69,14 @@ describe('Otter Inspector Service', () => {
   });
 
   it('should add 3 listeners on window', () => {
-    const addEventListener = jest.spyOn(window, 'addEventListener').mockImplementation();
+    const addEventListener = vi.spyOn(window, 'addEventListener').mockImplementation();
     service.toggleInspector(true);
 
     expect(addEventListener).toHaveBeenCalledTimes(3);
   });
 
   it('should remove 3 listeners on window', () => {
-    const removeEventListener = jest.spyOn(window, 'removeEventListener').mockImplementation();
+    const removeEventListener = vi.spyOn(window, 'removeEventListener').mockImplementation();
     service.toggleInspector(false);
 
     expect(removeEventListener).toHaveBeenCalledTimes(3);

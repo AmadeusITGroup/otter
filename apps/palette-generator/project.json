@@ -51,9 +51,13 @@
     },
     "lint": {},
     "test": {
-      "options": {
-        "passWithNoTests": true
-      }
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
+    "vitest": {
+      "plugin": "@nx/vitest"
     }
   },
   "tags": []

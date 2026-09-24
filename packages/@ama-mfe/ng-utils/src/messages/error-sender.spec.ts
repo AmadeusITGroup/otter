@@ -12,7 +12,7 @@ import {
 describe('sendError', () => {
   it('should send an error message with the correct content', () => {
     const mockPeer = {
-      send: jest.fn()
+      send: vi.fn()
     } as unknown as MessagePeerServiceType<any>;
     const content: ErrorContent = {
       reason: 'unknown_type',

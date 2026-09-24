@@ -11,7 +11,7 @@ describe('A/B testing bridge', () => {
     const bridgeName = 'ab-test';
     const readyEventName = 'ab-test-ready';
     expect((window as any)[bridgeName]).toBe(undefined);
-    const spy = jest.spyOn(document, 'dispatchEvent');
+    const spy = vi.spyOn(document, 'dispatchEvent');
     new AbTestBridge<string>((a?: string, b?: string) => a === b, { bridgeName, readyEventName });
     expect(spy.mock.calls[0][0] instanceof CustomEvent).toBe(true);
     expect(spy.mock.calls[0][0].type).toBe(readyEventName);

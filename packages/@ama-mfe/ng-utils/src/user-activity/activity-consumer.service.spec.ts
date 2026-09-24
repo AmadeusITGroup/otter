@@ -1,3 +1,6 @@
+import type {
+  Mocked,
+} from 'vitest';
 import {
   USER_ACTIVITY_MESSAGE_TYPE,
   type UserActivityMessageV1_0,
@@ -17,13 +20,13 @@ import {
 
 describe('ActivityConsumerService', () => {
   let service: ActivityConsumerService;
-  let consumerManagerServiceMock: jest.Mocked<ConsumerManagerService>;
+  let consumerManagerServiceMock: Mocked<ConsumerManagerService>;
 
   beforeEach(() => {
     consumerManagerServiceMock = {
-      register: jest.fn(),
-      unregister: jest.fn()
-    } as unknown as jest.Mocked<ConsumerManagerService>;
+      register: vi.fn(),
+      unregister: vi.fn()
+    } as unknown as Mocked<ConsumerManagerService>;
 
     TestBed.configureTestingModule({
       providers: [
@@ -36,7 +39,7 @@ describe('ActivityConsumerService', () => {
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   describe('initialization', () => {

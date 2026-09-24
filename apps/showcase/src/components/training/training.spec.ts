@@ -13,7 +13,7 @@ describe('Training', () => {
   let component: Training;
   let fixture: ComponentFixture<Training>;
   beforeEach(async () => {
-    global.fetch = jest.fn(() => Promise.resolve({
+    global.fetch = vi.fn(() => Promise.resolve({
       ok: true,
       json: () => Promise.resolve({}),
       headers: {},
