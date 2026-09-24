@@ -4,6 +4,6 @@ export default {
   ...baseConfig,
   test: {
     ...baseConfig.test,
-    setupFiles: ['./testing/setup-vitest-compat.mjs', './testing/setup-vitest-compat.mjs', './testing/setup-vitest.ts'],
+    setupFiles: ['./testing/setup-vitest.ts'],
   }
 };
