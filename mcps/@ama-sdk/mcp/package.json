@@ -35,7 +35,7 @@
     "@o3r/telemetry": "workspace:~",
     "commander": "^14.0.0",
     "tslib": "^2.6.2",
-    "zod": "~4.4.0"
+    "zod": "~4.6.0"
   },
   "devDependencies": {
     "@ama-mcp/core": "workspace:~",
@@ -68,7 +68,7 @@
     "typescript": "~6.0.3",
     "typescript-eslint": "~8.70.0",
     "vitest": "~4.1.0",
-    "zod": "~4.4.0"
+    "zod": "~4.6.0"
   },
   "engines": {
     "node": "^22.22.3 || ^24.15.0 || ^26.0.0"
