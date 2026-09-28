@@ -131,6 +131,7 @@
       },
       "configurations": {
         "production": {
+          "optimization": false,
           "budgets": [
             {
               "type": "initial",
