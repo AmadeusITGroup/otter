@@ -15,5 +15,39 @@
     "package-github-action": {},
     "lint": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@actions/core",
+          "@actions/exec",
+          "@actions/github",
+          "@angular/cli",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint-plugin",
+          "@stylistic/eslint-plugin",
+          "@types/node",
+          "@types/semver",
+          "@typescript-eslint/parser",
+          "@vercel/ncc",
+          "angular-eslint",
+          "eslint",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "jsonc-eslint-parser",
+          "semver",
+          "tslib",
+          "typescript",
+          "typescript-eslint"
+        ]
+      }
+    ]
+  }
 }

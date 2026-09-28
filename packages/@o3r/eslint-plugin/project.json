@@ -11,11 +11,17 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/package.json"],
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": ["^build", "build-builders", "compile"]
+      "dependsOn": [
+        "^build",
+        "build-builders",
+        "compile"
+      ]
     },
     "prepare-build-builders": {},
     "build-builders": {
@@ -43,5 +49,58 @@
   },
   "tags": [
     "hook:postinstall"
-  ]
+  ],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular-devkit/core",
+          "@angular-eslint/template-parser",
+          "@angular-eslint/test-utils",
+          "@angular/cli",
+          "@angular/compiler",
+          "@babel/core",
+          "@babel/preset-typescript",
+          "@compodoc/compodoc",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@eslint/eslintrc",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@stylistic/eslint-plugin",
+          "@types/eslint",
+          "@types/jest",
+          "@types/node",
+          "@types/semver",
+          "@typescript-eslint/parser",
+          "@typescript-eslint/rule-tester",
+          "@typescript-eslint/utils",
+          "angular-eslint",
+          "cpy-cli",
+          "eslint",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "globby",
+          "jest",
+          "jest-junit",
+          "jest-util",
+          "jsonc-eslint-parser",
+          "nx",
+          "rimraf",
+          "semver",
+          "ts-jest",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint",
+          "yaml-eslint-parser"
+        ]
+      }
+    ]
+  }
 }

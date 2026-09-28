@@ -7,7 +7,9 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/package.json"],
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
       "options": {
         "script": "postbuild",
         "tsConfig": "{projectRoot}/tsconfig.build.json"
@@ -27,12 +29,21 @@
     "prepare-build-builders": {},
     "build-schematics": {
       "executor": "nx:run-script",
-      "dependsOn": ["^build", "compile", "prepare-build-builders"],
+      "dependsOn": [
+        "^build",
+        "compile",
+        "prepare-build-builders"
+      ],
       "options": {
         "script": "build:schematics"
       },
-      "inputs": ["schematics", "^source"],
-      "outputs": ["{projectRoot}/dist/schematics"]
+      "inputs": [
+        "schematics",
+        "^source"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/schematics"
+      ]
     },
     "build-utils": {
       "executor": "nx:run-script",
@@ -59,5 +70,80 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@amadeus-it-group/kassette",
+          "@angular-devkit/build-angular",
+          "@angular-devkit/core",
+          "@angular-devkit/schematics",
+          "@angular/animations",
+          "@angular/cli",
+          "@angular/common",
+          "@angular/compiler",
+          "@angular/compiler-cli",
+          "@angular/core",
+          "@angular/forms",
+          "@angular/platform-browser",
+          "@angular/platform-browser-dynamic",
+          "@babel/core",
+          "@babel/preset-typescript",
+          "@compodoc/compodoc",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@jsverse/transloco",
+          "@material/slider",
+          "@ngrx/store",
+          "@ngx-translate/core",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@playwright/test",
+          "@schematics/angular",
+          "@standard-schema/spec",
+          "@stylistic/eslint-plugin",
+          "@swc/helpers",
+          "@types/jest",
+          "@types/node",
+          "@types/pixelmatch",
+          "@types/pngjs",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "concurrently",
+          "cpy-cli",
+          "esbuild",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "isomorphic-fetch",
+          "jest",
+          "jest-environment-jsdom",
+          "jest-junit",
+          "jest-preset-angular",
+          "jest-util",
+          "jsdom",
+          "jsonc-eslint-parser",
+          "nx",
+          "pixelmatch",
+          "pngjs",
+          "rxjs",
+          "semver",
+          "temporal-polyfill",
+          "ts-jest",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint"
+        ]
+      }
+    ]
+  }
 }

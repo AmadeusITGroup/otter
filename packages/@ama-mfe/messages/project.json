@@ -7,7 +7,9 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/package.json"],
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
       "options": {
         "script": "postbuild"
       },
@@ -27,7 +29,9 @@
       "options": {
         "script": "build:esm2020"
       },
-      "outputs": ["{projectRoot}/dist/src"]
+      "outputs": [
+        "{projectRoot}/dist/src"
+      ]
     },
     "lint": {},
     "test": {
@@ -39,5 +43,49 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@amadeus-it-group/microfrontends",
+          "@compodoc/compodoc",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@schematics/angular",
+          "@stylistic/eslint-plugin",
+          "@swc/cli",
+          "@swc/core",
+          "@types/jest",
+          "@types/node",
+          "@typescript-eslint/parser",
+          "cpy-cli",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "jest",
+          "jest-junit",
+          "jest-util",
+          "jsonc-eslint-parser",
+          "minimist",
+          "rimraf",
+          "rxjs",
+          "semver",
+          "ts-jest",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint"
+        ]
+      }
+    ]
+  }
 }

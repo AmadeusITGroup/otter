@@ -45,5 +45,55 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular-devkit/architect",
+          "@angular-devkit/core",
+          "@angular-devkit/schematics",
+          "@angular/cli",
+          "@compodoc/compodoc",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@nx/js",
+          "@schematics/angular",
+          "@stylistic/eslint-plugin",
+          "@types/jest",
+          "@types/js-yaml",
+          "@types/node",
+          "@typescript-eslint/eslint-plugin",
+          "@typescript-eslint/parser",
+          "@typescript-eslint/utils",
+          "angular-eslint",
+          "cpy-cli",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "jest",
+          "jest-junit",
+          "jest-util",
+          "js-yaml",
+          "jsonc-eslint-parser",
+          "nx",
+          "rxjs",
+          "ts-jest",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint"
+        ]
+      }
+    ]
+  }
 }

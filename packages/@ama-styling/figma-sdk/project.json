@@ -28,5 +28,61 @@
     "prepare-publish": {},
     "publish": {},
     "documentation": {}
+  },
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular-devkit/core",
+          "@angular-devkit/schematics",
+          "@angular-devkit/schematics-cli",
+          "@angular/cli",
+          "@angular/compiler",
+          "@commitlint/cli",
+          "@commitlint/config-conventional",
+          "@compodoc/compodoc",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@figma/rest-api-spec",
+          "@nx/eslint-plugin",
+          "@openapitools/openapi-generator-cli",
+          "@schematics/angular",
+          "@stylistic/eslint-plugin",
+          "@swc/cli",
+          "@swc/core",
+          "@swc/helpers",
+          "@types/jest",
+          "@types/node",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "commit-and-tag-version",
+          "cpy-cli",
+          "eslint",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "globby",
+          "isomorphic-fetch",
+          "jest",
+          "jest-junit",
+          "jest-util",
+          "jsonc-eslint-parser",
+          "lint-staged",
+          "minimist",
+          "rimraf",
+          "rxjs",
+          "ts-jest",
+          "tsc-watch",
+          "tslib",
+          "typescript",
+          "typescript-eslint",
+          "yaml-eslint-parser"
+        ]
+      }
+    ]
   }
 }

@@ -16,14 +16,18 @@
         "{projectRoot}/dist/assets",
         "{projectRoot}/dist/.vscodeignore"
       ],
-      "dependsOn": ["compile"]
+      "dependsOn": [
+        "compile"
+      ]
     },
     "compile": {
       "executor": "nx:run-script",
       "options": {
         "script": "build:esbuild"
       },
-      "outputs": ["{projectRoot}/dist/src/extension.js"]
+      "outputs": [
+        "{projectRoot}/dist/src/extension.js"
+      ]
     },
     "lint": {},
     "test": {},
@@ -43,5 +47,62 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular-devkit/build-angular",
+          "@angular-devkit/core",
+          "@angular-devkit/schematics",
+          "@angular/animations",
+          "@angular/cli",
+          "@angular/common",
+          "@angular/compiler",
+          "@angular/compiler-cli",
+          "@angular/core",
+          "@angular/platform-browser",
+          "@angular/platform-browser-dynamic",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@nx/eslint-plugin",
+          "@nx/jest",
+          "@schematics/angular",
+          "@stylistic/eslint-plugin",
+          "@types/eslint",
+          "@types/jest",
+          "@types/node",
+          "@types/vscode",
+          "@typescript-eslint/parser",
+          "@typescript-eslint/utils",
+          "@vscode/chat-extension-utils",
+          "@vscode/vsce",
+          "angular-eslint",
+          "cpy-cli",
+          "esbuild",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "jest",
+          "jest-environment-jsdom",
+          "jest-junit",
+          "jest-util",
+          "jiti",
+          "jsonc-eslint-parser",
+          "nx",
+          "rxjs",
+          "ts-jest",
+          "typescript",
+          "typescript-eslint"
+        ]
+      }
+    ]
+  }
 }

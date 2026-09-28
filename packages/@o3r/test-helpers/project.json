@@ -34,5 +34,53 @@
   "tags": [
     "access:private",
     "hook:postinstall"
-  ]
+  ],
+  "namedInputs": {
+    "usedExternalDependencies": [
+      {
+        "externalDependencies": [
+          "@angular/cli",
+          "@eslint-community/eslint-plugin-eslint-comments",
+          "@jest/environment",
+          "@jest/transform",
+          "@jest/types",
+          "@nx/eslint-plugin",
+          "@stylistic/eslint-plugin",
+          "@types/jest",
+          "@types/node",
+          "@types/semver",
+          "@typescript-eslint/parser",
+          "angular-eslint",
+          "chalk",
+          "cpy-cli",
+          "eslint",
+          "eslint-import-resolver-node",
+          "eslint-import-resolver-typescript",
+          "eslint-plugin-import",
+          "eslint-plugin-import-newlines",
+          "eslint-plugin-jest",
+          "eslint-plugin-jsdoc",
+          "eslint-plugin-prefer-arrow",
+          "eslint-plugin-unicorn",
+          "eslint-plugin-unused-imports",
+          "globals",
+          "globby",
+          "jest",
+          "jest-environment-node",
+          "jest-junit",
+          "jest-util",
+          "jsonc-eslint-parser",
+          "memfs",
+          "rxjs",
+          "semver",
+          "ts-jest",
+          "tslib",
+          "type-fest",
+          "typescript",
+          "typescript-eslint",
+          "unionfs"
+        ]
+      }
+    ]
+  }
 }
