@@ -18,11 +18,11 @@ import type {
   OpenApiToolsConfiguration,
 } from '@ama-sdk/schematics';
 
-vi.mock('node:module', async () => {
+jest.mock('node:module', () => {
   return {
-    ...await vi.importActual<typeof import('node:module')>('node:module'),
-    createRequire: vi.fn().mockReturnValue({
-      resolve: vi.fn().mockReturnValue(path.join(__dirname, '..', '..', '..', '..', 'openapi-codegen-typescript', 'target', 'typescriptFetch-openapi-generator.jar'))
+    ...jest.requireActual<typeof import('node:module')>('node:module'),
+    createRequire: jest.fn().mockReturnValue({
+      resolve: jest.fn().mockReturnValue(path.join(__dirname, '..', '..', '..', '..', 'openapi-codegen-typescript', 'target', 'typescriptFetch-openapi-generator.jar'))
     })
   };
 });

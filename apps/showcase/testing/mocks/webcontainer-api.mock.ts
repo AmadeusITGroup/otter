@@ -10,6 +10,7 @@ export class WebContainerApiMock {
     mount: vi.fn(() => Promise.resolve()),
     spawn: vi.fn(() => Promise.resolve({
       exit: Promise.resolve(0),
+      kill: vi.fn(),
       input: new WritableStream(),
       output: new ReadableStream({
         start: (controller) => controller.close()

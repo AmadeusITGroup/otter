@@ -104,6 +104,7 @@ describe('provideConnection', () => {
 
   it('should provide correct services and dependencies', () => {
     (getHostInfo as Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
+    (isEmbedded as Mock).mockReturnValue(true);
 
     provideConnection();
 
@@ -117,7 +118,10 @@ describe('provideConnection', () => {
         {
           // in the case of the ConnectionService will extend the base service 'useExisting' should be used
           provide: MessagePeerService, useClass: ConnectionService, deps: [MESSAGE_PEER_CONFIG]
-        }
+        },
+        // in an embedded application the browser history overrides are appended;
+        // `provideHistoryOverrides` is mocked to return `undefined`
+        undefined
       ]
     );
   });

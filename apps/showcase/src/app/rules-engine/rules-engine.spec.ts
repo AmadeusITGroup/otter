@@ -88,9 +88,9 @@ describe('RulesEngine', () => {
         json: () => Promise.resolve({
           rulesets: [{
             rules: [
-              {},
-              {},
-              {}
+              { outputRuntimeFacts: [], inputRuntimeFacts: [] },
+              { outputRuntimeFacts: [], inputRuntimeFacts: [] },
+              { outputRuntimeFacts: [], inputRuntimeFacts: [] }
             ]
           }]
         })

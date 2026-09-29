@@ -5,6 +5,11 @@ export class XtermTerminalMock {
   kill = vi.fn();
   getWriter = vi.fn();
   dispose = vi.fn();
+  write = vi.fn();
+  onData = vi.fn(() => ({
+    dispose: vi.fn()
+  }));
+
   onWriteParsed = () => ({
     dispose: vi.fn()
   });

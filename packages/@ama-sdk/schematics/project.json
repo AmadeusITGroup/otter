@@ -71,6 +71,7 @@
         "vitest"
       ]
     },
+    "test-schematics": {},
     "test-int": {
       "options": {
         "passWithNoTests": true

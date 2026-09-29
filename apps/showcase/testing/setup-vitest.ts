@@ -1,8 +1,29 @@
 import '@angular/compiler';
 import '@analogjs/vitest-angular/setup-snapshots';
 import {
+  ReadableStream,
+  TransformStream,
+  WritableStream,
+} from 'node:stream/web';
+import {
   setupTestBed,
 } from '@analogjs/vitest-angular/setup-testbed';
+
+// The jsdom test environment does not expose the WHATWG Streams globals that the
+// WebContainer API mock (and the code under test) rely on. Polyfill them from
+// Node's `node:stream/web` before the mocks that use them are imported.
+globalThis.WritableStream ??= WritableStream as unknown as typeof globalThis.WritableStream;
+globalThis.ReadableStream ??= ReadableStream as unknown as typeof globalThis.ReadableStream;
+globalThis.TransformStream ??= TransformStream as unknown as typeof globalThis.TransformStream;
+
+// jsdom's `window.performance` does not implement the User Timing API (`mark`/`measure`).
+// The rules engine calls them when a performance object is available, so provide no-op
+// implementations to keep the environment consistent with a real browser.
+if (typeof globalThis.performance !== 'undefined') {
+  globalThis.performance.mark ??= (() => undefined) as typeof globalThis.performance.mark;
+  globalThis.performance.measure ??= (() => undefined) as typeof globalThis.performance.measure;
+}
+
 import './mocks/webcontainer-api.mock';
 import './mocks/x-term.mock';
 
