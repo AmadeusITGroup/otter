@@ -1,6 +1,3 @@
-import type {
-  MockInstance,
-} from 'vitest';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,6 +13,9 @@ import {
 import {
   By,
 } from '@angular/platform-browser';
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   ResizeConsumerService,
 } from './resize-consumer-service';

@@ -4,6 +4,6 @@ export default {
   ...baseConfig,
   test: {
     ...baseConfig.test,
-    passWithNoTests: true,
+    passWithNoTests: true
   }
 };

@@ -1,4 +1,5 @@
 import 'isomorphic-fetch';
+
 process.env.TZ = 'Europe/Rome';
 // Mock telemetry wrappers to keep builder tests local and deterministic.
 vi.mock('@o3r/extractors', async () => ({

@@ -1,6 +1,3 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   Locator,
   ResolveOptions,
@@ -9,6 +6,9 @@ import {
 import {
   npmHttpUtils,
 } from '@yarnpkg/plugin-npm';
+import type {
+  Mock,
+} from 'vitest';
 import {
   CustomNpmSemverResolver,
 } from './custom-npm-semver-resolver';

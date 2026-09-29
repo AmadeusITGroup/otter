@@ -1,6 +1,3 @@
-import type {
-  MockInstance,
-} from 'vitest';
 import {
   Component,
   DebugElement,
@@ -19,6 +16,9 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   UiEventPayload,
 } from '../../../contracts/index';

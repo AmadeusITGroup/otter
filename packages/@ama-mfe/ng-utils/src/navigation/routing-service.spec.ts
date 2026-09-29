@@ -1,6 +1,3 @@
-import type {
-  Mocked,
-} from 'vitest';
 import {
   NavigationMessage,
   NavigationV1_0,
@@ -26,6 +23,9 @@ import {
 import {
   Subject,
 } from 'rxjs';
+import type {
+  Mocked,
+} from 'vitest';
 import {
   ConsumerManagerService,
   ProducerManagerService,

@@ -1,6 +1,3 @@
-import type {
-  MockInstance,
-} from 'vitest';
 import {
   getTestBed,
   TestBed,
@@ -20,6 +17,9 @@ import {
 import {
   skip,
 } from 'rxjs/operators';
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   EVENT_TRACK_SERVICE_CONFIGURATION,
 } from './event-track-configuration';

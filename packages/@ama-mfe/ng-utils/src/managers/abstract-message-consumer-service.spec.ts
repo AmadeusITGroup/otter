@@ -1,7 +1,4 @@
 import type {
-  Mocked,
-} from 'vitest';
-import type {
   RoutedMessage,
   VersionedMessage,
 } from '@amadeus-it-group/microfrontends';
@@ -16,6 +13,9 @@ import {
 import {
   LoggerService,
 } from '@o3r/logger';
+import type {
+  Mocked,
+} from 'vitest';
 import {
   AbstractMessageConsumer,
 } from './abstract-message-consumer-service';

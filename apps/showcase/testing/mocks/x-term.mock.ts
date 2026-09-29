@@ -1,16 +1,16 @@
 export class XtermTerminalMock {
-  loadAddon = vi.fn(() => Promise.resolve());
-  open = vi.fn();
-  clear = vi.fn();
-  kill = vi.fn();
-  getWriter = vi.fn();
-  dispose = vi.fn();
-  write = vi.fn();
-  onData = vi.fn(() => ({
+  public loadAddon = vi.fn(() => Promise.resolve());
+  public open = vi.fn();
+  public clear = vi.fn();
+  public kill = vi.fn();
+  public getWriter = vi.fn();
+  public dispose = vi.fn();
+  public write = vi.fn();
+  public onData = vi.fn(() => ({
     dispose: vi.fn()
   }));
 
-  onWriteParsed = () => ({
+  public onWriteParsed = () => ({
     dispose: vi.fn()
   });
 }

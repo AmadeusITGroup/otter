@@ -11,6 +11,6 @@ export default {
     exclude: [
       ...(baseConfig.test?.exclude ?? []),
       '**/schematics/**/*.spec.ts'
-    ],
+    ]
   }
 };

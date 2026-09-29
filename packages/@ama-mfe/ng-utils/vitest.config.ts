@@ -27,6 +27,6 @@ export default {
         url: 'http://localhost'
       }
     },
-    setupFiles: ['./testing/setup-vitest.builders.ts', './testing/setup-vitest.ts'],
+    setupFiles: ['./testing/setup-vitest.builders.ts', './testing/setup-vitest.ts']
   }
 };

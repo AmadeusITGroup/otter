@@ -5,13 +5,6 @@ import {
   RouteMemorizeService,
 } from './route-memorize-service';
 
-type DoneCallback = (() => void) & { fail: (error?: unknown) => void };
-
-const itWithDone = (name: string, test: (done: DoneCallback) => void) =>
-  it(name, () => new Promise<void>((resolve, reject) =>
-    test(Object.assign(resolve, { fail: reject }))
-  ));
-
 describe('RouteMemorizeService', () => {
   let service: RouteMemorizeService;
 
@@ -39,8 +32,7 @@ describe('RouteMemorizeService', () => {
     expect(service.getRoute('channel1')).toBe('url2');
   });
 
-  // eslint-disable-next-line jest/no-done-callback -- use the callback function to finish the test
-  itWithDone('should clear route after liveTime', (done) => {
+  it('should clear route after liveTime', () => new Promise<void>((done) => {
     vi.useFakeTimers();
     service.memorizeRoute('channel1', 'url1', 1000);
     expect(service.getRoute('channel1')).toBe('url1');
@@ -48,7 +40,7 @@ describe('RouteMemorizeService', () => {
     vi.advanceTimersByTime(1000);
     expect(service.getRoute('channel1')).toBeUndefined();
     done();
-  });
+  }));
 
   it('should clear previous timer if memorizeRoute is called again', () => {
     vi.useFakeTimers();

@@ -4,6 +4,7 @@
     "eslint*.config.mjs",
     "vitest.config.ts",
     "scripts/**/*",
+    "testing/setup-vitest.ts",
     "testing/mocks/**/*",
     "e2e-playwright/**/*.ts"
   ]

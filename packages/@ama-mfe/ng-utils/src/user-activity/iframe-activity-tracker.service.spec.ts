@@ -1,9 +1,9 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   TestBed,
 } from '@angular/core/testing';
+import type {
+  Mock,
+} from 'vitest';
 import {
   DEFAULT_ACTIVITY_PRODUCER_CONFIG,
 } from './config';

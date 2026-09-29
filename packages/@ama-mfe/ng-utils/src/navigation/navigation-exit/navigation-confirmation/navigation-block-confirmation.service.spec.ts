@@ -1,9 +1,9 @@
-import type {
-  Mocked,
-} from 'vitest';
 import {
   TestBed,
 } from '@angular/core/testing';
+import type {
+  Mocked,
+} from 'vitest';
 import type {
   NavigationBlockConfirmation,
 } from './navigation-block-confirmation.interface';

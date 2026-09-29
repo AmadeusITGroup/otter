@@ -1,6 +1,3 @@
-import type {
-  MockInstance,
-} from 'vitest';
 import {
   getTestBed,
   TestBed,
@@ -20,6 +17,9 @@ import {
 import {
   Subscription,
 } from 'rxjs';
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   ConfigurationStore,
   globalConfigurationId,

@@ -1,6 +1,3 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   ChangeDetectorRef,
 } from '@angular/core';
@@ -15,6 +12,9 @@ import {
 import {
   BehaviorSubject,
 } from 'rxjs';
+import type {
+  Mock,
+} from 'vitest';
 import {
   LocalizationService,
   LocalizedDecimalPipe,

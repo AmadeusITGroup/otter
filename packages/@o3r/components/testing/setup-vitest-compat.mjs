@@ -12,7 +12,11 @@ if (stylePrototype) {
   const textWrapValue = Symbol('textWrap');
   Object.defineProperty(stylePrototype, 'textWrap', {
     configurable: true,
-    get() { return this[textWrapValue] ?? ''; },
-    set(value) { this[textWrapValue] = value; }
+    get() {
+      return this[textWrapValue] ?? '';
+    },
+    set(value) {
+      this[textWrapValue] = value;
+    }
   });
 }

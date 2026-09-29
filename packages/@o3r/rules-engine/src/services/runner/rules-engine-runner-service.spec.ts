@@ -1,6 +1,3 @@
-import type {
-  MockInstance,
-} from 'vitest';
 import {
   getTestBed,
   TestBed,
@@ -31,6 +28,9 @@ import {
   distinctUntilChanged,
   map,
 } from 'rxjs/operators';
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   jsonOneRulesetOneRuleNoCond,
 } from '../../../testing/mocks/oneruleset-onerule-nocond-mock';

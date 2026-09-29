@@ -1,6 +1,3 @@
-import type {
-  Mocked,
-} from 'vitest';
 /* eslint-disable @typescript-eslint/naming-convention -- versions semver format used as identifiers */
 /* eslint-disable no-console -- console calls used for tests*/
 import type {
@@ -19,6 +16,9 @@ import {
 import {
   Subject,
 } from 'rxjs';
+import type {
+  Mocked,
+} from 'vitest';
 import {
   ErrorMessageV1_0,
 } from '../messages';

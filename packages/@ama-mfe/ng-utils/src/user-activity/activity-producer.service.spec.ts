@@ -1,6 +1,3 @@
-import type {
-  Mocked,
-} from 'vitest';
 import {
   USER_ACTIVITY_MESSAGE_TYPE,
 } from '@ama-mfe/messages';
@@ -14,6 +11,9 @@ import {
 import {
   LoggerService,
 } from '@o3r/logger';
+import type {
+  Mocked,
+} from 'vitest';
 import {
   ConnectionService,
 } from '../connect';

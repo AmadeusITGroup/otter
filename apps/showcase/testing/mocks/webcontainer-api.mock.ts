@@ -1,11 +1,11 @@
 export class FileSystem {
-  readdir = vi.fn(() => Promise.resolve([]));
-  readFile = vi.fn(() => Promise.resolve());
-  watch = vi.fn();
+  public readdir = vi.fn(() => Promise.resolve([]));
+  public readFile = vi.fn(() => Promise.resolve());
+  public watch = vi.fn();
 }
 
-export class WebContainerApiMock {
-  static boot = vi.fn(() => Promise.resolve({
+export const webContainerApiMock = {
+  boot: vi.fn(() => Promise.resolve({
     on: vi.fn(() => vi.fn()),
     mount: vi.fn(() => Promise.resolve()),
     spawn: vi.fn(() => Promise.resolve({
@@ -17,12 +17,12 @@ export class WebContainerApiMock {
       })
     })),
     fs: new FileSystem()
-  }));
-}
+  }))
+};
 
 vi.mock('@webcontainer/api',
   () => ({
-    WebContainer: WebContainerApiMock
+    WebContainer: webContainerApiMock
   }), {
     virtual: true
   });

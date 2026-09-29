@@ -3,7 +3,7 @@ const {
   mockExistsSync,
   mockMkdirSync,
   mockReadFileSync,
-  mockRmSync,
+  mockRmSync
 } = vi.hoisted(() => ({
   mockSpawnSync: vi.fn(),
   mockExistsSync: vi.fn(),
@@ -86,7 +86,7 @@ describe('getFilesFromRegistry', () => {
     const result = await getFilesFromRegistry('@o3r/demo@^1.0.0', ['some-file.json']);
 
     // The npm pack call should use the latest matching version (1.3.0)
-    const npmPackCall = mockSpawnSync.mock.calls[1]![0] as string;
+    const npmPackCall = mockSpawnSync.mock.calls[1][0] as string;
     expect(npmPackCall).toContain('@o3r/demo@1.3.0');
     expect(result['some-file.json']).toBe('file-content');
   });
@@ -102,7 +102,7 @@ describe('getFilesFromRegistry', () => {
 
     const result = await getFilesFromRegistry('@o3r/demo', ['file.json']);
 
-    const npmPackCall = mockSpawnSync.mock.calls[1]![0] as string;
+    const npmPackCall = mockSpawnSync.mock.calls[1][0] as string;
     expect(npmPackCall).toContain('@o3r/demo@1.0.0');
     expect(result['file.json']).toBe('content');
   });
@@ -121,7 +121,7 @@ describe('getFilesFromRegistry', () => {
     await getFilesFromRegistry('@o3r/demo@~1.0.0', ['file.json']);
 
     // ~1.0.0 matches >=1.0.0 <1.1.0: 1.0.0, 1.0.3, 1.0.5. Latest is 1.0.5
-    const npmPackCall = mockSpawnSync.mock.calls[1]![0] as string;
+    const npmPackCall = mockSpawnSync.mock.calls[1][0] as string;
     expect(npmPackCall).toContain('@o3r/demo@1.0.5');
   });
 

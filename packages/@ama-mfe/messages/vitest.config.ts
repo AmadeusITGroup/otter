@@ -5,6 +5,6 @@ export default {
   test: {
     ...baseConfig.test,
     passWithNoTests: true,
-    setupFiles: ['./testing/setup-vitest.ts'],
+    setupFiles: ['./testing/setup-vitest.ts']
   }
 };

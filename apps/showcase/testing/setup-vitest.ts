@@ -9,6 +9,9 @@ import {
   setupTestBed,
 } from '@analogjs/vitest-angular/setup-testbed';
 
+import './mocks/webcontainer-api.mock';
+import './mocks/x-term.mock';
+
 // The jsdom test environment does not expose the WHATWG Streams globals that the
 // WebContainer API mock (and the code under test) rely on. Polyfill them from
 // Node's `node:stream/web` before the mocks that use them are imported.
@@ -20,18 +23,19 @@ globalThis.TransformStream ??= TransformStream as unknown as typeof globalThis.T
 // The rules engine calls them when a performance object is available, so provide no-op
 // implementations to keep the environment consistent with a real browser.
 if (typeof globalThis.performance !== 'undefined') {
-  globalThis.performance.mark ??= (() => undefined) as typeof globalThis.performance.mark;
-  globalThis.performance.measure ??= (() => undefined) as typeof globalThis.performance.measure;
+  if (typeof globalThis.performance.mark !== 'function') {
+    globalThis.performance.mark = (() => undefined) as typeof globalThis.performance.mark;
+  }
+  if (typeof globalThis.performance.measure !== 'function') {
+    globalThis.performance.measure = (() => undefined) as typeof globalThis.performance.measure;
+  }
 }
-
-import './mocks/webcontainer-api.mock';
-import './mocks/x-term.mock';
 
 // Mock clipboard for ngx-markdown before it's imported
 globalThis.ClipboardJS = class {
   constructor() {}
-  on() {}
-  destroy() {}
+  public on() {}
+  public destroy() {}
 };
 
 // Mock Monaco editor instance

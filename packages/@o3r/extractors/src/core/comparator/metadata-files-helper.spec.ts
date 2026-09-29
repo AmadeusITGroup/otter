@@ -3,7 +3,7 @@ const {
   mockGt,
   mockCoerce,
   mockNpmGetFilesFromRegistry,
-  mockYarnGetFilesFromRegistry,
+  mockYarnGetFilesFromRegistry
 } = vi.hoisted(() => ({
   mockBaseName: vi.fn(),
   mockGt: vi.fn(),
@@ -26,11 +26,11 @@ vi.mock('semver', async () => {
     gt: mockGt
   };
 });
-vi.mock('./package-managers-extractors/npm-file-extractor-helper', async () => ({
+vi.mock('./package-managers-extractors/npm-file-extractor-helper', () => ({
   default: { getFilesFromRegistry: mockNpmGetFilesFromRegistry },
   getFilesFromRegistry: mockNpmGetFilesFromRegistry
 }));
-vi.mock('./package-managers-extractors/yarn2-file-extractor-helper', async () => ({
+vi.mock('./package-managers-extractors/yarn2-file-extractor-helper', () => ({
   default: { getFilesFromRegistry: mockYarnGetFilesFromRegistry },
   getFilesFromRegistry: mockYarnGetFilesFromRegistry
 }));

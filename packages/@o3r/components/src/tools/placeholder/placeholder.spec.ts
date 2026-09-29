@@ -1,6 +1,3 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   CommonModule,
 } from '@angular/common';
@@ -26,6 +23,9 @@ import {
   ReplaySubject,
   Subject,
 } from 'rxjs';
+import type {
+  Mock,
+} from 'vitest';
 import {
   PlaceholderComponent,
 } from './placeholder';

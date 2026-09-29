@@ -4,4 +4,5 @@ import {
   setupTestBed,
 } from '@analogjs/vitest-angular/setup-testbed';
 import 'isomorphic-fetch';
+
 setupTestBed();

@@ -1,12 +1,12 @@
 import type {
-  Mock,
-} from 'vitest';
-import type {
   ApiClient,
 } from '@ama-sdk/core';
 import {
   TestBed,
 } from '@angular/core/testing';
+import type {
+  Mock,
+} from 'vitest';
 import {
   ApiFactoryService,
 } from './api-factory-service';

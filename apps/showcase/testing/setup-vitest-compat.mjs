@@ -8,9 +8,11 @@
  * Vitest the bare `jest` global must resolve. Alias it to Vitest's compatible
  * `vi`. This is the only shim this package needs.
  */
+/* eslint-disable import/named -- `vi` is re-exported from an internal chunk that eslint-plugin-import cannot follow */
 import {
   vi,
 } from 'vitest';
+/* eslint-enable import/named */
 
 Object.defineProperty(globalThis, 'jest', {
   configurable: true,

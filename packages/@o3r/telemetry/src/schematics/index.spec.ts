@@ -1,6 +1,3 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   callRule,
   Rule,
@@ -10,6 +7,9 @@ import {
 import {
   lastValueFrom,
 } from 'rxjs';
+import type {
+  Mock,
+} from 'vitest';
 import {
   createSchematicWithMetrics,
   SchematicWrapper,

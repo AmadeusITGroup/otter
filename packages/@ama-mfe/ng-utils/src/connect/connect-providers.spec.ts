@@ -1,6 +1,3 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   MESSAGE_PEER_CONFIG,
   MESSAGE_PEER_CONNECT_OPTIONS,
@@ -9,6 +6,9 @@ import {
 import {
   makeEnvironmentProviders,
 } from '@angular/core';
+import type {
+  Mock,
+} from 'vitest';
 import {
   provideHistoryOverrides,
 } from '../history';
@@ -34,7 +34,7 @@ vi.mock('@angular/core', async () => {
   };
 });
 
-vi.mock('../host-info/host-info', async () => ({
+vi.mock('../host-info/host-info', () => ({
   getHostInfo: vi.fn(),
   persistHostInfo: vi.fn()
 }));
@@ -43,7 +43,7 @@ vi.mock('../utils', async () => ({
   isEmbedded: vi.fn()
 }));
 
-vi.mock('../history/history-providers', async () => ({
+vi.mock('../history/history-providers', () => ({
   provideHistoryOverrides: vi.fn()
 }));
 

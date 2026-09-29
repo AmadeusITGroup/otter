@@ -1,11 +1,10 @@
-import type {
-  MockInstance,
-} from 'vitest';
-/* eslint-disable jest/no-done-callback -- test made with observables */
 /* eslint-disable @typescript-eslint/naming-convention -- localization keys are not following the naming convention */
 import {
   TestBed,
 } from '@angular/core/testing';
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   LocalizationConfiguration,
 } from '../core';
@@ -58,13 +57,6 @@ const configuration: LocalizationConfiguration = {
   mergeWithLocalTranslations: false
 };
 
-type DoneCallback = (() => void) & { fail: (error?: unknown) => void };
-
-const itWithDone = (name: string, test: (done: DoneCallback) => void) =>
-  it(name, () => new Promise<void>((resolve, reject) =>
-    test(Object.assign(resolve, { fail: reject }))
-  ));
-
 describe('TranslationsLoader - no endPointUrl', () => {
   describe('language !== fallback language', () => {
     let translationsLoader: TranslationsLoader;
@@ -79,7 +71,7 @@ describe('TranslationsLoader - no endPointUrl', () => {
       translationsLoader = TestBed.inject(TranslationsLoader);
     });
 
-    itWithDone('OK ' + configuration.language + '.json from local', (done) => {
+    it('OK ' + configuration.language + '.json from local', () => new Promise<void>((done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
       global.fetch = vi.fn().mockImplementation((url: string) => {
@@ -101,9 +93,9 @@ describe('TranslationsLoader - no endPointUrl', () => {
         subscription.unsubscribe();
         done();
       });
-    });
+    }));
 
-    itWithDone('KO ' + configuration.language + '.json from local, fallback OK to local ' + configuration.fallbackLanguage + '.json', (done) => {
+    it('KO ' + configuration.language + '.json from local, fallback OK to local ' + configuration.fallbackLanguage + '.json', () => new Promise<void>((done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
       global.fetch = vi.fn().mockImplementation((url: string) => {
@@ -137,7 +129,7 @@ describe('TranslationsLoader - no endPointUrl', () => {
         subscription.unsubscribe();
         done();
       });
-    });
+    }));
   });
 
   describe('language === fallback language', () => {
@@ -154,7 +146,7 @@ describe('TranslationsLoader - no endPointUrl', () => {
       translationsLoader = TestBed.inject(TranslationsLoader);
     });
 
-    itWithDone('KO ' + configuration2.language + '.json from local, but no second call', (done) => {
+    it('KO ' + configuration2.language + '.json from local, but no second call', () => new Promise<void>((done) => {
       let countCall = 0;
       global.fetch = vi.fn().mockImplementation(() => {
         countCall++;
@@ -173,7 +165,7 @@ describe('TranslationsLoader - no endPointUrl', () => {
           done();
         }
       );
-    });
+    }));
   });
 });
 
@@ -191,7 +183,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
       });
     });
 
-    itWithDone('should merge local and dynamic translations', (done) => {
+    it('should merge local and dynamic translations', () => new Promise<void>((done) => {
       TestBed.configureTestingModule({
         providers: [
           { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: { ...configuration3, mergeWithLocalTranslations: true } },
@@ -206,9 +198,9 @@ describe('TranslationsLoader - with endPointUrl', () => {
         subscription.unsubscribe();
         done();
       });
-    });
+    }));
 
-    itWithDone('should get dynamic translations only', (done) => {
+    it('should get dynamic translations only', () => new Promise<void>((done) => {
       TestBed.configureTestingModule({
         providers: [
           { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: { ...configuration3, mergeWithLocalTranslations: false } },
@@ -222,7 +214,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
         subscription.unsubscribe();
         done();
       });
-    });
+    }));
   });
 
   describe('language !== fallback language', () => {
@@ -236,7 +228,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
       translationsLoader = TestBed.inject(TranslationsLoader);
     });
 
-    itWithDone('OK ' + configuration3.language + '.json from endPointUrl', (done) => {
+    it('OK ' + configuration3.language + '.json from endPointUrl', () => new Promise<void>((done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
       global.fetch = vi.fn().mockImplementation((url: string) => {
@@ -260,9 +252,9 @@ describe('TranslationsLoader - with endPointUrl', () => {
         subscription.unsubscribe();
         done();
       });
-    });
+    }));
 
-    itWithDone('KO ' + configuration3.language + '.json from endPointUrl, fallback OK to local ' + configuration3.language + '.json', (done) => {
+    it('KO ' + configuration3.language + '.json from endPointUrl, fallback OK to local ' + configuration3.language + '.json', () => new Promise<void>((done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
       global.fetch = vi.fn().mockImplementation((url: string) => {
@@ -292,9 +284,10 @@ describe('TranslationsLoader - with endPointUrl', () => {
         subscription.unsubscribe();
         done();
       });
-    });
+    }));
 
-    itWithDone('KO ' + configuration3.language + '.json from endPointUrl, fallback KO to local ' + configuration3.language + '.json, fallback OK to ' + configuration.fallbackLanguage + '.json', (done) => {
+    it('KO ' + configuration3.language + '.json from endPointUrl, fallback KO to local ' + configuration3.language + '.json, fallback OK to '
+      + configuration.fallbackLanguage + '.json', () => new Promise<void>((done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
       global.fetch = vi.fn().mockImplementation((url: string) => {
@@ -332,11 +325,11 @@ describe('TranslationsLoader - with endPointUrl', () => {
         subscription.unsubscribe();
         done();
       });
-    });
+    }));
   });
 
   describe('With queryParams', () => {
-    itWithDone('performs fetch with one parameter', (done) => {
+    it('performs fetch with one parameter', () => new Promise<void>((done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
       const configWithParams = Object.assign({}, configuration3, { queryParams: { SITECODE: 'XDEFXDEF' } });
@@ -362,9 +355,9 @@ describe('TranslationsLoader - with endPointUrl', () => {
         subscription.unsubscribe();
         done();
       });
-    });
+    }));
 
-    itWithDone('performs fetch with several parameters', (done) => {
+    it('performs fetch with several parameters', () => new Promise<void>((done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
       const configWithParams = Object.assign({}, configuration3, { queryParams: { SITECODE: 'XDEFXDEF', OFFICEID: 'ANNCEPAR29MAY' } });
@@ -390,9 +383,9 @@ describe('TranslationsLoader - with endPointUrl', () => {
         subscription.unsubscribe();
         done();
       });
-    });
+    }));
 
-    itWithDone('performs fetch with encoded parameters', (done) => {
+    it('performs fetch with encoded parameters', () => new Promise<void>((done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
       const configWithParams = Object.assign({}, configuration3, { queryParams: { 'SITE CODE': 'XDEF DEF' } });
@@ -418,6 +411,6 @@ describe('TranslationsLoader - with endPointUrl', () => {
         subscription.unsubscribe();
         done();
       });
-    });
+    }));
   });
 });

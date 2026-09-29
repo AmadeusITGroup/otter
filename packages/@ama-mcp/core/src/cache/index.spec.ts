@@ -1,7 +1,7 @@
 const {
   NOW,
   TWO_DAYS_AGO,
-  writeFileMock,
+  writeFileMock
 } = vi.hoisted(() => {
   const now = new Date();
   return {

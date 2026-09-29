@@ -1,6 +1,3 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   BehaviorSubject,
   firstValueFrom,
@@ -13,6 +10,9 @@ import {
   skip,
   take,
 } from 'rxjs/operators';
+import type {
+  Mock,
+} from 'vitest';
 import {
   rulesetsObj,
 } from '../../../testing/mocks/two-rulesets';

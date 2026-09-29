@@ -1,6 +1,3 @@
-import type {
-  Mocked,
-} from 'vitest';
 import {
   THEME_MESSAGE_TYPE,
   ThemeMessage,
@@ -17,6 +14,9 @@ import {
 import {
   LoggerService,
 } from '@o3r/logger';
+import type {
+  Mocked,
+} from 'vitest';
 import {
   ConsumerManagerService,
 } from '../managers/index';

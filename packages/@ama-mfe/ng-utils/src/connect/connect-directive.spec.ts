@@ -1,6 +1,3 @@
-import type {
-  Mocked,
-} from 'vitest';
 import {
   Message,
 } from '@amadeus-it-group/microfrontends';
@@ -25,6 +22,9 @@ import {
 import {
   LoggerService,
 } from '@o3r/logger';
+import type {
+  Mocked,
+} from 'vitest';
 import {
   ConnectDirective,
 } from './connect-directive';

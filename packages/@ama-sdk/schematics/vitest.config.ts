@@ -13,6 +13,6 @@ export default {
       // harness (testing/jest.config.schematics.js).
       '**/schematics/**/*.spec.ts'
     ],
-    setupFiles: ['./testing/setup-vitest.ts'],
+    setupFiles: ['./testing/setup-vitest.ts']
   }
 };

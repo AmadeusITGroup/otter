@@ -1,6 +1,3 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   NAVIGATION_REQUEST_MESSAGE_TYPE,
   type NavigationRequestV1_0,
@@ -11,6 +8,9 @@ import {
 import {
   LoggerService,
 } from '@o3r/logger';
+import type {
+  Mock,
+} from 'vitest';
 import {
   ConsumerManagerService,
 } from '../../../managers';
@@ -61,7 +61,7 @@ describe('NavigationRequestConsumerService', () => {
     consumerManager = { register: vi.fn(), unregister: vi.fn() };
     producer = { sendDecision: vi.fn() };
     logger = { error: vi.fn() };
-    handler = { handle: vi.fn() as Mock<NavigationRequestHandler['handle']> };
+    handler = { handle: vi.fn() };
   });
 
   it('should declare the navigation-request type', () => {

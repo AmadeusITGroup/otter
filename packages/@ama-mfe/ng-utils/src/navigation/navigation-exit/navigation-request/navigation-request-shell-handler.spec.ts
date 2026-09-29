@@ -1,9 +1,9 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   TestBed,
 } from '@angular/core/testing';
+import type {
+  Mock,
+} from 'vitest';
 import {
   NavigationBlockStateConsumerService,
 } from '../block-state/navigation-block-state-consumer.service';

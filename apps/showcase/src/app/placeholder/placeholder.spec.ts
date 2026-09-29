@@ -1,6 +1,3 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   ComponentFixture,
   TestBed,
@@ -23,6 +20,9 @@ import {
 import {
   provideRulesEngineRunner,
 } from '@o3r/rules-engine';
+import type {
+  Mock,
+} from 'vitest';
 import {
   Placeholder,
 } from './placeholder';

@@ -1,6 +1,3 @@
-import type {
-  Mocked,
-} from 'vitest';
 import {
   ThemeMessage,
 } from '@ama-mfe/messages';
@@ -13,6 +10,9 @@ import {
 import {
   LoggerService,
 } from '@o3r/logger';
+import type {
+  Mocked,
+} from 'vitest';
 import {
   ProducerManagerService,
 } from '../managers/index';

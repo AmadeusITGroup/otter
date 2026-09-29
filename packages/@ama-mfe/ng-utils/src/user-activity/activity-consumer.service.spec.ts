@@ -1,6 +1,3 @@
-import type {
-  Mocked,
-} from 'vitest';
 import {
   USER_ACTIVITY_MESSAGE_TYPE,
   type UserActivityMessageV1_0,
@@ -11,6 +8,9 @@ import type {
 import {
   TestBed,
 } from '@angular/core/testing';
+import type {
+  Mocked,
+} from 'vitest';
 import {
   ActivityConsumerService,
 } from './activity-consumer.service';

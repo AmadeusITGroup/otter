@@ -1,6 +1,3 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   AsyncPipe,
 } from '@angular/common';
@@ -44,6 +41,9 @@ import {
 import {
   provideMarkdown,
 } from 'ngx-markdown';
+import type {
+  Mock,
+} from 'vitest';
 import {
   RulesEngine,
 } from './rules-engine';

@@ -27,13 +27,6 @@ const validProject = {
   }
 };
 
-type DoneCallback = (() => void) & { fail: (error?: unknown) => void };
-
-const itWithDone = (name: string, test: (done: DoneCallback) => void) =>
-  it(name, () => new Promise<void>((resolve, reject) =>
-    test(Object.assign(resolve, { fail: reject }))
-  ));
-
 describe('test runner configuration check', () => {
   it('accepts an unmigrated Jest project during incremental migration', () => {
     expect(validateProjectTestRunner({

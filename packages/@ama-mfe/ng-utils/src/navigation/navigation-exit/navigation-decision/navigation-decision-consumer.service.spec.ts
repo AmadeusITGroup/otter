@@ -1,6 +1,3 @@
-import type {
-  Mock,
-} from 'vitest';
 import {
   NAVIGATION_DECISION_MESSAGE_TYPE,
   type NavigationDecisionV1_0,
@@ -11,6 +8,9 @@ import {
 import {
   LoggerService,
 } from '@o3r/logger';
+import type {
+  Mock,
+} from 'vitest';
 import {
   ConsumerManagerService,
 } from '../../../managers';

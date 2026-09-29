@@ -5,7 +5,7 @@ import {
 
 const {
   filesApiMock,
-  projectsApiMock,
+  projectsApiMock
 } = vi.hoisted(() => ({
   filesApiMock: vi.fn(),
   projectsApiMock: vi.fn()
