@@ -6,7 +6,7 @@
   "main": "tmp/main.js",
   "scripts": {
     "nx": "nx",
-    "build": "tsc -b tsconfig.json",
+    "build": "tsc -b tsconfig.build.json",
     "package": "ncc build --source-map --license LICENSE.txt --out packaged-action",
     "test": "jest"
   },
