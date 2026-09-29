@@ -31278,6 +31278,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"magic-string@patch:magic-string@npm%3A0.30.21#~/.yarn/patches/magic-string-npm-0.30.21-9a226cb21e.patch":
+  version: 0.30.21
+  resolution: "magic-string@patch:magic-string@npm%3A0.30.21#~/.yarn/patches/magic-string-npm-0.30.21-9a226cb21e.patch::version=0.30.21&hash=899acb"
+  dependencies:
+    "@jridgewell/sourcemap-codec": "npm:^1.5.5"
+  checksum: 10/6a8d3610ac15b6bcececaefdd7d6957953105f57e373e744bf9c3f9994c26149607c04a4136d03d0931e606ec7bc0683fcc4a6a5c7a2d96f46e57efd7c54e861
+  languageName: node
+  linkType: hard
+
 "magicast@npm:^0.5.2":
   version: 0.5.4
   resolution: "magicast@npm:0.5.4"
