@@ -3,7 +3,6 @@
   "include": [
     "vitest.config.ts",
     "eslint*.config.mjs",
-    "vitest.config.ts",
     "testing/*",
     "tooling/**/*.js"
   ]
