@@ -19,6 +19,7 @@ import {
   createTestEnvironmentOtterProjectWithAppAndLib,
 } from './test-environments/create-test-environment-otter-project';
 import {
+  cloneNodeModules,
   createWithLock,
   getLatestPackageVersion,
   getPackageManager,
@@ -112,7 +113,18 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
         !/(?:^|[/\\])node_modules(?:[/\\]|$)/.test(source)
         && !/(?:^|[/\\])\.git(?:[/\\]|$)/.test(source)
     });
-    if (existsSync(path.join(workspacePath, 'package.json'))) {
+    if (!existsSync(path.join(workspacePath, 'package.json'))) {
+      return;
+    }
+    // A complete npm installation of the base app is reused (much faster than `npm ci` and resulting in the same `node_modules`),
+    // unless explicitly disabled via O3R_IT_TESTS_FORCE_INSTALL
+    const canReuseInstallation = existsSync(path.join(baseProjectPath, 'node_modules', '.package-lock.json'))
+      && !['true', '1'].includes(process.env.O3R_IT_TESTS_FORCE_INSTALL || '');
+    if (canReuseInstallation) {
+      const startTime = performance.now();
+      const { nodeModulesFolders, hardLinkedFiles, copiedFiles } = cloneNodeModules(baseProjectPath, workspacePath);
+      logger.debug?.(`Cloned ${nodeModulesFolders.join(', ')} from ${baseApp} (${hardLinkedFiles} hard linked files, ${copiedFiles} copied files) [${Math.round(performance.now() - startTime)}ms]`);
+    } else {
       packageManagerInstallWithFrozenLock(execAppOptions);
     }
   };
