@@ -2,6 +2,7 @@
  * Test environment exported by O3rEnvironment, must be first line of the file
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-config-metadata-check
+ * @jest-environment-o3r-scope file
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
@@ -228,26 +229,9 @@ const initTest = async (
     shouldCheckUnusedMigrationData = false,
     prerelease
   } = options || {};
-  const { workspacePath, appName, applicationPath, o3rVersion, isYarnTest } = o3rEnvironment.testEnvironment;
+  const { workspacePath, appName, applicationPath } = o3rEnvironment.testEnvironment;
   const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath };
   const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
-  packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
-  packageManagerExec({ script: 'ng', args: ['add', `@o3r/components@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
-  const versions = getExternalDependenciesVersionRange([
-    'semver',
-    ...(isYarnTest
-      ? [
-        '@yarnpkg/core',
-        '@yarnpkg/fslib',
-        '@yarnpkg/plugin-npm',
-        '@yarnpkg/plugin-pack',
-        '@yarnpkg/cli'
-      ]
-      : [])
-  ], join(__dirname, '..', '..', '..', 'package.json'), {
-    warn: jest.fn()
-  } as any);
-  Object.entries(versions).forEach(([pkgName, pkgVersion]) => packageManagerAdd(`${pkgName}@${pkgVersion}`, execAppOptionsWorkspace));
   const npmIgnorePath = join(applicationPath, '.npmignore');
   const packageJsonPath = join(applicationPath, 'package.json');
   const angularJsonPath = join(workspacePath, 'angular.json');
@@ -273,6 +257,8 @@ const initTest = async (
   packageJson = {
     ...packageJson,
     name: packageName,
+    // Reset the version as the test environment is shared between tests (scope file)
+    version: '0.0.0-placeholder',
     private: false
   };
   await writeFileAsJSON(packageJsonPath, packageJson);
@@ -310,6 +296,29 @@ const getMessagesForId = (id: string) => ({
 });
 
 describe('check metadata migration', () => {
+  // Setup shared by all the tests of the file as the test environment is shared (scope file)
+  beforeAll(() => {
+    const { workspacePath, appName, o3rVersion, isYarnTest } = o3rEnvironment.testEnvironment;
+    const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/components@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
+    const versions = getExternalDependenciesVersionRange([
+      'semver',
+      ...(isYarnTest
+        ? [
+          '@yarnpkg/core',
+          '@yarnpkg/fslib',
+          '@yarnpkg/plugin-npm',
+          '@yarnpkg/plugin-pack',
+          '@yarnpkg/cli'
+        ]
+        : [])
+    ], join(__dirname, '..', '..', '..', 'package.json'), {
+      warn: jest.fn()
+    } as any);
+    Object.entries(versions).forEach(([pkgName, pkgVersion]) => packageManagerAdd(`${pkgName}@${pkgVersion}`, execAppOptionsWorkspace));
+  });
+
   test('should not throw', async () => {
     await initTest(
       newConfigurationMetadata,

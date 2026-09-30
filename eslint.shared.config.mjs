@@ -226,7 +226,7 @@ export default defineConfig([
       'jsdoc/check-tag-names': [
         'error',
         {
-          definedTags: ['jest-environment', 'jest-environment-o3r-app-folder', 'jest-environment-o3r-type']
+          definedTags: ['jest-environment', 'jest-environment-o3r-app-folder', 'jest-environment-o3r-type', 'jest-environment-o3r-scope']
         }
       ],
       'import/first': 'off' // We have the jest environment setup first
