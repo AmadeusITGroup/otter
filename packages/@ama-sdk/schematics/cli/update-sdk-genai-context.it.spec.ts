@@ -3,6 +3,7 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-sdk-context
  * @jest-environment-o3r-type blank
+ * @jest-environment-o3r-scope file
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
@@ -12,6 +13,8 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
+  rmSync,
+  writeFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -31,9 +34,12 @@ let sdkFolderPath: string;
 let sdkPackagePath: string;
 const execAppOptions = getDefaultExecSyncOptions();
 const packageManager = getPackageManager();
+/** Files of the generated SDK modified by the tests, with their content right after the SDK creation */
+const sdkFilesSnapshot: Record<string, string> = {};
 
 describe('Update SDK context command', () => {
-  beforeEach(() => {
+  // The test environment is shared between the tests of this file (scope file)
+  beforeAll(() => {
     const isYarnTest = o3rEnvironment.testEnvironment.isYarnTest;
     const yarnVersion = isYarnTest ? getYarnVersionFromRoot(process.cwd()) || 'latest' : undefined;
     sdkFolderPath = o3rEnvironment.testEnvironment.workspacePath;
@@ -64,6 +70,17 @@ describe('Update SDK context command', () => {
       args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'open-api.yaml')]
     },
     execAppOptions);
+
+    ['package.json', isYarnTest ? 'yarn.lock' : 'package-lock.json']
+      .map((fileName) => path.join(sdkPackagePath, fileName))
+      .filter((filePath) => existsSync(filePath))
+      .forEach((filePath) => sdkFilesSnapshot[filePath] = readFileSync(filePath, 'utf8'));
+  });
+
+  // Restore the SDK as it was right after its creation
+  beforeEach(() => {
+    Object.entries(sdkFilesSnapshot).forEach(([filePath, content]) => writeFileSync(filePath, content));
+    rmSync(path.join(sdkPackagePath, 'SDK_CONTEXT.md'), { force: true });
   });
 
   test('should generate SDK_CONTEXT.md with domains from OpenAPI spec', () => {
