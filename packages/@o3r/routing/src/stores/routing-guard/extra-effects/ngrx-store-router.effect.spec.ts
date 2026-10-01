@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-done-callback -- test with subscriptions */
 import {
   getTestBed,
   TestBed,
@@ -21,9 +20,10 @@ import {
   RouterRequestAction,
 } from '@ngrx/router-store';
 import {
+  firstValueFrom,
   ReplaySubject,
   Subject,
-  Subscription,
+  toArray,
 } from 'rxjs';
 import * as actions from '../routing-guard.actions';
 import {
@@ -37,9 +37,6 @@ describe('Routing guard effects', () => {
 
   let effect: NgrxStoreRouterEffect;
   let actions$: Subject<any>;
-  const subscriptions: Subscription[] = [];
-
-  afterEach(() => subscriptions.forEach((subscription) => subscription.unsubscribe()));
 
   beforeEach(async () => {
     actions$ = new ReplaySubject(1);
@@ -54,7 +51,7 @@ describe('Routing guard effects', () => {
   });
 
   describe('for ROUTER_REQUEST action from NgRx/router-store', () => {
-    it('should clear the list of entities', (done) => {
+    it('should clear the list of entities', async () => {
       const routerNavigationRequest: RouterRequestAction<BaseRouterStoreState> = {
         type: ROUTER_REQUEST,
         payload: {
@@ -69,18 +66,16 @@ describe('Routing guard effects', () => {
           }
         }
       };
+      const actionPromise = firstValueFrom(effect.resetRouterRegistrationOnRequest$);
 
       actions$.next(routerNavigationRequest);
 
-      subscriptions.push(
-        effect.resetRouterRegistrationOnRequest$.subscribe((action) => {
-          expect(action.type).toBe(actions.clearRoutingGuardEntities.type);
-          done();
-        })
-      );
+      await expect(actionPromise).resolves.toEqual(expect.objectContaining({
+        type: actions.clearRoutingGuardEntities.type
+      }));
     });
 
-    it('should ignore imperative requests', (done) => {
+    it('should ignore imperative requests', async () => {
       const routerNavigationRequest: RouterRequestAction<BaseRouterStoreState> = {
         type: ROUTER_REQUEST,
         payload: {
@@ -95,25 +90,17 @@ describe('Routing guard effects', () => {
           }
         }
       };
+      const actionsPromise = firstValueFrom(effect.resetRouterRegistrationOnRequest$.pipe(toArray()));
 
       actions$.next(routerNavigationRequest);
-
-      subscriptions.push(
-        effect.resetRouterRegistrationOnRequest$
-          .subscribe({
-            next: () => done.fail(),
-            complete: () => {
-              expect(true).toBe(true);
-              done();
-            }
-          })
-      );
       actions$.complete();
+
+      await expect(actionsPromise).resolves.toEqual([]);
     });
   });
 
   describe('for ROUTER_NAVIGATED action from NgRx/router-store', () => {
-    it('should clear the list of entities', (done) => {
+    it('should clear the list of entities', async () => {
       const routerNavigated: RouterNavigatedAction<BaseRouterStoreState> = {
         type: ROUTER_NAVIGATED,
         payload: {
@@ -128,15 +115,13 @@ describe('Routing guard effects', () => {
           }
         }
       };
+      const actionPromise = firstValueFrom(effect.resetRouterRegistrationOnNavigated$);
 
       actions$.next(routerNavigated);
 
-      subscriptions.push(
-        effect.resetRouterRegistrationOnNavigated$.subscribe((action) => {
-          expect(action.type).toBe(actions.clearRoutingGuardEntities.type);
-          done();
-        })
-      );
+      await expect(actionPromise).resolves.toEqual(expect.objectContaining({
+        type: actions.clearRoutingGuardEntities.type
+      }));
     });
   });
 });

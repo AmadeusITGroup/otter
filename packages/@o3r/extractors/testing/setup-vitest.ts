@@ -1,0 +1,17 @@
+// Mock telemetry wrappers to keep builder tests local and deterministic.
+import '@angular/compiler';
+import '@analogjs/vitest-angular/setup-snapshots';
+import {
+  setupTestBed,
+} from '@analogjs/vitest-angular/setup-testbed';
+
+vi.mock('@o3r/extractors', async () => ({
+  ...(await vi.importActual('@o3r/extractors')),
+  createBuilderWithMetricsIfInstalled: vi.fn().mockImplementation((fn) => fn)
+}));
+vi.mock('@o3r/schematics', async () => ({
+  ...(await vi.importActual('@o3r/schematics')),
+  createOtterSchematic: vi.fn().mockImplementation((fn) => fn)
+}));
+
+setupTestBed();

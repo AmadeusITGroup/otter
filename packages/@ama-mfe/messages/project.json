@@ -31,13 +31,17 @@
     },
     "lint": {},
     "test": {
-      "options": {
-        "passWithNoTests": true
-      }
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
     },
     "prepare-publish": {},
     "publish": {},
-    "documentation": {}
+    "documentation": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    }
   },
   "tags": []
 }

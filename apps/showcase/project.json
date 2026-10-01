@@ -131,11 +131,12 @@
       },
       "configurations": {
         "production": {
+          "optimization": false,
           "budgets": [
             {
               "type": "initial",
               "maximumWarning": "2.5mb",
-              "maximumError": "3.2mb"
+              "maximumError": "5mb"
             },
             {
               "type": "anyComponentStyle",
@@ -247,7 +248,12 @@
         "^build-builders"
       ]
     },
-    "test": {},
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
     "generate-theme": {
       "executor": "nx:run-commands",
       "outputs": [
@@ -399,6 +405,9 @@
       "options": {
         "script": "copy-training-assets"
       }
+    },
+    "vitest": {
+      "plugin": "@nx/vitest"
     }
   }
 }

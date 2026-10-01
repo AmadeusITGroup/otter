@@ -23,9 +23,9 @@ describe('Operator helpers', () => {
     test('should validate both left hand and right hand operands', () => {
       const operator: Operator = {
         name: 'test',
-        validateLhs: jest.fn().mockReturnValue(true),
-        validateRhs: jest.fn().mockReturnValue(true),
-        evaluator: jest.fn().mockReturnValue(true)
+        validateLhs: vi.fn().mockReturnValue(true),
+        validateRhs: vi.fn().mockReturnValue(true),
+        evaluator: vi.fn().mockReturnValue(true)
       };
 
       expect(executeOperator('testLhs', 'testRhs', operator)).toBeTruthy();
@@ -39,13 +39,13 @@ describe('Operator helpers', () => {
     test('should not evaluate the condition if the checks are not passed', () => {
       const operatorLhs: Operator = {
         name: 'test',
-        validateLhs: jest.fn().mockReturnValue(false),
-        evaluator: jest.fn().mockReturnValue(true)
+        validateLhs: vi.fn().mockReturnValue(false),
+        evaluator: vi.fn().mockReturnValue(true)
       };
       const operatorRhs: Operator = {
         name: 'test',
-        validateRhs: jest.fn().mockReturnValue(false),
-        evaluator: jest.fn().mockReturnValue(true)
+        validateRhs: vi.fn().mockReturnValue(false),
+        evaluator: vi.fn().mockReturnValue(true)
       };
 
       expect(() => executeOperator('testLhs', 'testRhs', operatorLhs)).toThrow();
@@ -64,13 +64,13 @@ describe('Operator helpers', () => {
     test('should report unchecked operand value to the logger as warning', () => {
       const operatorLhs: Operator = {
         name: 'test',
-        validateLhs: jest.fn().mockReturnValue(false),
-        evaluator: jest.fn().mockReturnValue(true)
+        validateLhs: vi.fn().mockReturnValue(false),
+        evaluator: vi.fn().mockReturnValue(true)
       };
       const operatorRhs: Operator = {
         name: 'test',
-        validateRhs: jest.fn().mockReturnValue(false),
-        evaluator: jest.fn().mockReturnValue(true)
+        validateRhs: vi.fn().mockReturnValue(false),
+        evaluator: vi.fn().mockReturnValue(true)
       };
 
       expect(() => executeOperator('testLhs', 'testRhs', operatorLhs)).toThrow();
@@ -86,7 +86,7 @@ describe('Operator helpers', () => {
       test('with static value', () => {
         const operator: Operator = {
           name: 'test',
-          evaluator: jest.fn().mockReturnValue(true)
+          evaluator: vi.fn().mockReturnValue(true)
         };
 
         expect(executeOperator('testLhs', 'testRhs', operator)).toBeTruthy();
@@ -96,7 +96,7 @@ describe('Operator helpers', () => {
       test('with promise value', () => {
         const operator: Operator = {
           name: 'test',
-          evaluator: jest.fn().mockReturnValue(Promise.resolve(true))
+          evaluator: vi.fn().mockReturnValue(Promise.resolve(true))
         };
 
         expect(executeOperator('testLhs', 'testRhs', operator)).toBeTruthy();
@@ -106,7 +106,7 @@ describe('Operator helpers', () => {
       test('with observable value', () => {
         const operator: Operator = {
           name: 'test',
-          evaluator: jest.fn().mockReturnValue(of(true))
+          evaluator: vi.fn().mockReturnValue(of(true))
         };
 
         expect(executeOperator('testLhs', 'testRhs', operator)).toBeTruthy();

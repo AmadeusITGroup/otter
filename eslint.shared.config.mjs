@@ -12,6 +12,7 @@ import {
 } from '@o3r/eslint-config/helpers';
 import o3rTemplate from '@o3r/eslint-config/template';
 import o3rPlugin from '@o3r/eslint-plugin';
+import vitest from '@vitest/eslint-plugin';
 import {
   defineConfig,
   globalIgnores,
@@ -74,6 +75,13 @@ export default defineConfig([
     languageOptions: {
       sourceType: 'module',
       ecmaVersion: 12
+    }
+  },
+  {
+    name: '@o3r/framework/vitest-globals',
+    files: ['**/*.{spec,test}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    languageOptions: {
+      globals: vitest.environments.env.globals
     }
   },
   {

@@ -9,13 +9,21 @@ import {
   isCapacitorContext,
 } from './helpers';
 
+vi.mock('@capacitor/device', () => ({
+  Device: {
+    getInfo: vi.fn()
+  }
+}));
+
 /**
  * Mock capacitor platform
  * @param platform the device platform: ios, android or web
  */
 function setCapacitorPlatform(platform: CapacitorPlatforms) {
-  Device.getInfo = jest.fn().mockImplementation((): Partial<DeviceInfo> => ({ platform }));
+  vi.mocked(Device.getInfo).mockResolvedValue({ platform } as DeviceInfo);
 }
+
+afterEach(() => vi.clearAllMocks());
 
 describe('Capacitor helpers', () => {
   describe('setCapacitorPlatform', () => {

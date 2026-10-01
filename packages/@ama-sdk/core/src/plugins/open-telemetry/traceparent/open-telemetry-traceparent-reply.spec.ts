@@ -5,8 +5,8 @@ import {
 describe('OpenTelemetry Traceparent Reply Plugin', () => {
   test('should set basic telemetry information in the response', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
 
     const plugin = new OpenTelemetryTraceparentReply({
@@ -18,7 +18,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
     const context = {
       response: {
         headers: {
-          get: jest.fn().mockReturnValue(`00-${'1'.repeat(32)}-${'2'.repeat(16)}-33`)
+          get: vi.fn().mockReturnValue(`00-${'1'.repeat(32)}-${'2'.repeat(16)}-33`)
         }
       }
     } as any;
@@ -41,8 +41,8 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
 
   test('should update existing different token', async () => {
     const storage = {
-      getItem: jest.fn().mockReturnValue('a different token'),
-      setItem: jest.fn()
+      getItem: vi.fn().mockReturnValue('a different token'),
+      setItem: vi.fn()
     } as any;
 
     const plugin = new OpenTelemetryTraceparentReply({
@@ -54,7 +54,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
     const context = {
       response: {
         headers: {
-          get: jest.fn().mockReturnValue(`00-${'1'.repeat(32)}-${'2'.repeat(16)}-33`)
+          get: vi.fn().mockReturnValue(`00-${'1'.repeat(32)}-${'2'.repeat(16)}-33`)
         }
       }
     } as any;
@@ -77,8 +77,8 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
 
   test('should set basic telemetry information without version', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
 
     const plugin = new OpenTelemetryTraceparentReply({
@@ -90,7 +90,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
     const context = {
       response: {
         headers: {
-          get: jest.fn().mockReturnValue(`${'1'.repeat(32)}-${'2'.repeat(16)}-33`)
+          get: vi.fn().mockReturnValue(`${'1'.repeat(32)}-${'2'.repeat(16)}-33`)
         }
       }
     } as any;
@@ -111,8 +111,8 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
 
   test('should set skip when not reply', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
 
     const plugin = new OpenTelemetryTraceparentReply({
@@ -133,8 +133,8 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
 
   test('should skip when no data', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
 
     const plugin = new OpenTelemetryTraceparentReply({
@@ -146,7 +146,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
     const context = {
       response: {
         headers: {
-          get: jest.fn().mockReturnValue(`00-${'1'.repeat(32)}-${'2'.repeat(16)}-33`)
+          get: vi.fn().mockReturnValue(`00-${'1'.repeat(32)}-${'2'.repeat(16)}-33`)
         }
       }
     } as any;
@@ -167,8 +167,8 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
 
   test('should skip if no header', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
 
     const plugin = new OpenTelemetryTraceparentReply({
@@ -180,7 +180,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
     const context = {
       response: {
         headers: {
-          get: jest.fn().mockReturnValue(null)
+          get: vi.fn().mockReturnValue(null)
         }
       }
     } as any;
@@ -193,10 +193,10 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
 
   test('should skip if invalid header with dash', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
-    const logger = { warn: jest.fn() };
+    const logger = { warn: vi.fn() };
 
     const plugin = new OpenTelemetryTraceparentReply({
       storage,
@@ -208,7 +208,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
       logger,
       response: {
         headers: {
-          get: jest.fn().mockReturnValue('invalid-token')
+          get: vi.fn().mockReturnValue('invalid-token')
         }
       }
     } as any;
@@ -222,10 +222,10 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
 
   test('should skip if invalid header without dash', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
-    const logger = { warn: jest.fn() };
+    const logger = { warn: vi.fn() };
 
     const plugin = new OpenTelemetryTraceparentReply({
       storage,
@@ -237,7 +237,7 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
       logger,
       response: {
         headers: {
-          get: jest.fn().mockReturnValue('invalidToken')
+          get: vi.fn().mockReturnValue('invalidToken')
         }
       }
     } as any;
@@ -251,8 +251,8 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
 
   test('should warn in case of data override', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
 
     const plugin = new OpenTelemetryTraceparentReply({
@@ -262,10 +262,10 @@ describe('OpenTelemetry Traceparent Reply Plugin', () => {
       dataField: '_fieldIdTest'
     });
     const context = {
-      logger: { warn: jest.fn() },
+      logger: { warn: vi.fn() },
       response: {
         headers: {
-          get: jest.fn().mockReturnValue(`00-${'1'.repeat(32)}-${'2'.repeat(16)}-33`)
+          get: vi.fn().mockReturnValue(`00-${'1'.repeat(32)}-${'2'.repeat(16)}-33`)
         }
       }
     } as any;

@@ -12,6 +12,9 @@ import {
 import {
   BehaviorSubject,
 } from 'rxjs';
+import type {
+  Mock,
+} from 'vitest';
 import {
   LocalizationService,
 } from './localization-service';
@@ -23,18 +26,18 @@ import {
  * Fixture for ChangeDetectorRef
  */
 class ChangeDetectorRefFixture implements Readonly<ChangeDetectorRef> {
-  public markForCheck: jest.Mock<any, any>;
-  public detach: jest.Mock<any, any>;
-  public detectChanges: jest.Mock<any, any>;
-  public checkNoChanges: jest.Mock<any, any>;
-  public reattach: jest.Mock<any, any>;
+  public markForCheck: Mock;
+  public detach: Mock;
+  public detectChanges: Mock;
+  public checkNoChanges: Mock;
+  public reattach: Mock;
 
   constructor() {
-    this.markForCheck = jest.fn();
-    this.detach = jest.fn();
-    this.detectChanges = jest.fn();
-    this.checkNoChanges = jest.fn();
-    this.reattach = jest.fn();
+    this.markForCheck = vi.fn();
+    this.detach = vi.fn();
+    this.detectChanges = vi.fn();
+    this.checkNoChanges = vi.fn();
+    this.reattach = vi.fn();
   }
 }
 

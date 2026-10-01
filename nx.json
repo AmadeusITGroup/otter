@@ -207,6 +207,9 @@
     },
     "vitest": {
       "executor": "@nx/vitest:test",
+      "options": {
+        "configFile": "{projectRoot}/vitest.config.ts"
+      },
       "inputs": [
         {
           "env": "RUNNER_OS"
@@ -296,6 +299,43 @@
         "ci": {
           "ci": true,
           "codeCoverage": true
+        }
+      },
+      "cache": true
+    },
+    "test-schematics": {
+      "executor": "@nx/jest:jest",
+      "dependsOn": [
+        {
+          "projects": [
+            "test-helpers"
+          ],
+          "target": "build"
+        }
+      ],
+      "inputs": [
+        {
+          "env": "RUNNER_OS"
+        },
+        "source",
+        "builders",
+        "schematics",
+        "^schematics"
+      ],
+      "outputs": [
+        "{projectRoot}/dist-test/schematics-report.xml",
+        "{projectRoot}/coverage/cobertura-coverage.xml"
+      ],
+      "options": {
+        "jestConfig": "{projectRoot}/testing/jest.config.schematics.js",
+        "passWithNoTests": false,
+        "silent": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true,
+          "maxWorkers": 2
         }
       },
       "cache": true

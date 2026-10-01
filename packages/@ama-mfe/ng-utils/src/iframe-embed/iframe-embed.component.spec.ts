@@ -118,7 +118,7 @@ describe('IframeEmbedComponent', () => {
 
   describe('safeSrc computed', () => {
     it('should sanitize a plain string input', () => {
-      const bypassSpy = jest.spyOn(domSanitizer, 'bypassSecurityTrustResourceUrl');
+      const bypassSpy = vi.spyOn(domSanitizer, 'bypassSecurityTrustResourceUrl');
       hostComponent.src.set('https://test-url.com/page');
       hostFixture.detectChanges();
 
@@ -130,7 +130,7 @@ describe('IframeEmbedComponent', () => {
 
     it('should pass through a pre-sanitized SafeResourceUrl', () => {
       const safeUrl = domSanitizer.bypassSecurityTrustResourceUrl('https://pre-sanitized.com');
-      const bypassSpy = jest.spyOn(domSanitizer, 'bypassSecurityTrustResourceUrl');
+      const bypassSpy = vi.spyOn(domSanitizer, 'bypassSecurityTrustResourceUrl');
 
       hostComponent.src.set(safeUrl);
       hostFixture.detectChanges();

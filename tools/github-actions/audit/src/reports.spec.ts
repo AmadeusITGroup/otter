@@ -11,7 +11,7 @@ import {
   computeYarn4Report,
 } from './reports';
 
-jest.mock('@actions/core');
+vi.mock('@actions/core');
 
 const MOCK_FOLDER = join(__dirname, '..', 'testing', 'mocks');
 

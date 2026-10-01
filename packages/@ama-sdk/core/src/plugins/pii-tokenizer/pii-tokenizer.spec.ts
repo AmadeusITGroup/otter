@@ -35,11 +35,11 @@ describe('Tokenizer Request Plugin', () => {
       }
     };
 
-    jest.spyOn(console, 'error');
+    vi.spyOn(console, 'error');
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it('should replace sensitive parameters with tokens', async () => {
@@ -93,8 +93,8 @@ describe('Tokenizer Request Plugin', () => {
   });
 
   it('should use JWT if no key specified', async () => {
-    const mockJweEncoder = jest.spyOn(jsonToken, 'createJweEncoder');
-    const mockJwtEncoder = jest.spyOn(jsonToken, 'createJwtEncoder');
+    const mockJweEncoder = vi.spyOn(jsonToken, 'createJweEncoder');
+    const mockJwtEncoder = vi.spyOn(jsonToken, 'createJwtEncoder');
 
     const plugin = new PiiTokenizerRequest({ applicationId: 'app-id' });
     const runner = plugin.load();
@@ -106,11 +106,11 @@ describe('Tokenizer Request Plugin', () => {
   });
 
   it('should use JWE if a key is specified', async () => {
-    jest.spyOn(Date, 'now').mockImplementation(() => 0);
+    vi.spyOn(Date, 'now').mockImplementation(() => 0);
     const key = { publicKey: 'myPublicKey' as any, keyId: 'TEST' };
-    const mockJweEncoder = jest.fn().mockResolvedValue('myJweToken');
-    jest.spyOn(jsonToken, 'createJweEncoder').mockImplementation(() => mockJweEncoder);
-    const mockJwtEncoder = jest.spyOn(jsonToken, 'createJwtEncoder');
+    const mockJweEncoder = vi.fn().mockResolvedValue('myJweToken');
+    vi.spyOn(jsonToken, 'createJweEncoder').mockImplementation(() => mockJweEncoder);
+    const mockJwtEncoder = vi.spyOn(jsonToken, 'createJwtEncoder');
 
     const plugin = new PiiTokenizerRequest({ applicationId: 'app-id', key });
     const runner = plugin.load();
@@ -134,8 +134,8 @@ describe('Tokenizer Request Plugin', () => {
 
   it('should throw by default if an exception is raised for JWE encoder', async () => {
     const key = { publicKey: 'myPublicKey' as any, keyId: 'TEST' };
-    const mockJweEncoder = jest.fn().mockRejectedValue('Error creating JWE');
-    jest.spyOn(jsonToken, 'createJweEncoder').mockImplementation(() => mockJweEncoder);
+    const mockJweEncoder = vi.fn().mockRejectedValue('Error creating JWE');
+    vi.spyOn(jsonToken, 'createJweEncoder').mockImplementation(() => mockJweEncoder);
 
     const plugin = new PiiTokenizerRequest({ applicationId: 'app-id', key });
     const runner = plugin.load();
@@ -149,8 +149,8 @@ describe('Tokenizer Request Plugin', () => {
 
   it('should handle errors silently if an exception is raised for JWE encoder', async () => {
     const key = { publicKey: 'myPublicKey' as any, keyId: 'TEST' };
-    const mockJweEncoder = jest.fn().mockRejectedValue('Error creating JWE');
-    jest.spyOn(jsonToken, 'createJweEncoder').mockImplementation(() => mockJweEncoder);
+    const mockJweEncoder = vi.fn().mockRejectedValue('Error creating JWE');
+    vi.spyOn(jsonToken, 'createJweEncoder').mockImplementation(() => mockJweEncoder);
 
     const plugin = new PiiTokenizerRequest({ applicationId: 'app-id', key, silent: true });
     const runner = plugin.load();

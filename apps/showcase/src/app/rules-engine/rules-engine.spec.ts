@@ -41,6 +41,9 @@ import {
 import {
   provideMarkdown,
 } from 'ngx-markdown';
+import type {
+  Mock,
+} from 'vitest';
 import {
   RulesEngine,
 } from './rules-engine';
@@ -57,8 +60,8 @@ describe('RulesEngine', () => {
 
   beforeEach(async () => {
     mockScrollSpyService = {
-      start: jest.fn(),
-      stop: jest.fn()
+      start: vi.fn(),
+      stop: vi.fn()
     };
     TestBed.configureTestingModule({
       imports: [
@@ -80,19 +83,19 @@ describe('RulesEngine', () => {
         provideLocalizationMock(localizationConfiguration, mockTranslations)
       ]
     });
-    global.fetch = jest.fn(() =>
+    global.fetch = vi.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve({
           rulesets: [{
             rules: [
-              {},
-              {},
-              {}
+              { outputRuntimeFacts: [], inputRuntimeFacts: [] },
+              { outputRuntimeFacts: [], inputRuntimeFacts: [] },
+              { outputRuntimeFacts: [], inputRuntimeFacts: [] }
             ]
           }]
         })
       })
-    ) as jest.Mock;
+    ) as Mock;
     fixture = TestBed.createComponent(RulesEngine);
     component = fixture.componentInstance;
     fixture.detectChanges();

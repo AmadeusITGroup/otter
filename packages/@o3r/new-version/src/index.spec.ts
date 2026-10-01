@@ -5,10 +5,10 @@ import {
 } from './index';
 
 const mockLogger: BaseLogger = {
-  debug: jest.fn(),
-  error: jest.fn(),
-  info: jest.fn(),
-  warning: jest.fn()
+  debug: vi.fn(),
+  error: vi.fn(),
+  info: vi.fn(),
+  warning: vi.fn()
 };
 
 describe('New Version', () => {

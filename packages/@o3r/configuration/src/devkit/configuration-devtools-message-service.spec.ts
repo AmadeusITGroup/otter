@@ -69,7 +69,7 @@ describe('Configuration DevTools message', () => {
   });
 
   it('should be activated', () => {
-    const postmessage = jest.spyOn<any, any>(window, 'postMessage');
+    const postmessage = vi.spyOn<any, any>(window, 'postMessage');
 
     service.activate();
 
@@ -77,7 +77,7 @@ describe('Configuration DevTools message', () => {
   });
 
   it('should ignore message when not activated', () => {
-    const handleEvents = jest.spyOn<any, any>(service, 'handleEvents');
+    const handleEvents = vi.spyOn<any, any>(service, 'handleEvents');
 
     window.top.postMessage(connectMessage, '*');
 
@@ -85,7 +85,7 @@ describe('Configuration DevTools message', () => {
   });
 
   it('should send the application on plugin connect', () => {
-    const connectPlugin = jest.spyOn<any, any>(service, 'connectPlugin');
+    const connectPlugin = vi.spyOn<any, any>(service, 'connectPlugin');
 
     (service as any).handleEvents(connectMessage.content);
 

@@ -31,7 +31,7 @@ describe('Localization Builder', () => {
     registry.addPostTransform(schema.transforms.addUndefinedDefaults);
     architectHost = new TestingArchitectHost(path.resolve(__dirname, workspaceRoot), __dirname);
     architect = new Architect(architectHost, registry);
-    architectHost.addBuilder('.:localization', require('./index').default);
+    architectHost.addBuilder('.:localization', (await import('./index')).default);
     architectHost.addBuilder('noop', createBuilder(() => ({ success: true })));
     architectHost.addTarget({ project: 'showcase', target: 'compile' }, 'noop', {
       outputPath: path.resolve(__dirname, `${workspaceRoot}/apps/showcase/dist`)

@@ -2,6 +2,9 @@ import {
   ConcurrentFetch,
 } from './concurrent-fetch';
 
+beforeEach(() => vi.useFakeTimers());
+afterEach(() => vi.useRealTimers());
+
 describe('Concurrent Fetch Plugin', () => {
   it('should start if the limit is not reach', async () => {
     const plugin = new ConcurrentFetch(3);
@@ -36,14 +39,14 @@ describe('Concurrent Fetch Plugin', () => {
     void plugin.load({} as any).transform(call0);
     const runner1 = plugin.load({} as any);
     const canStart1 = runner1.canStart();
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
 
     expect(await canStart1).toBe(true);
     void runner1.transform(call1);
 
     const runner2 = plugin.load({} as any);
     const pCanStart2 = runner2.canStart();
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
 
     expect((plugin as any).waitingResolvers.length).toBe(1);
 
@@ -55,7 +58,7 @@ describe('Concurrent Fetch Plugin', () => {
 
     resolves[1]();
 
-    await jest.advanceTimersByTimeAsync(500);
+    await vi.advanceTimersByTimeAsync(500);
 
     expect((plugin as any).waitingResolvers.length).toBe(0);
   });

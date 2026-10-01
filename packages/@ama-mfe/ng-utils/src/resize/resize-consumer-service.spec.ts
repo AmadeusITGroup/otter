@@ -21,8 +21,8 @@ describe('ResizeConsumerService', () => {
 
   beforeEach(() => {
     const consumerManagerServiceMock = {
-      register: jest.fn(),
-      unregister: jest.fn()
+      register: vi.fn(),
+      unregister: vi.fn()
     };
     TestBed.configureTestingModule({
       providers: [

@@ -4,6 +4,7 @@
     "allowJs": true
   },
   "include": [
-    "./scripts/*.mjs"
+    "./scripts/*.mjs",
+    "./scripts/*.ts"
   ]
 }

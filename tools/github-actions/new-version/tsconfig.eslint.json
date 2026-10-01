@@ -1,7 +1,10 @@
 {
+  "compilerOptions": {
+    "composite": true
+  },
   "include": [
     "src/**/*.spec.ts",
-    "jest.config.js",
+    "vitest.config.ts",
     "eslint*.config.mjs",
     "testing/*"
   ],

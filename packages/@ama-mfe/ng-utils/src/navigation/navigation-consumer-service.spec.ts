@@ -26,8 +26,8 @@ describe('Navigation Handler Service', () => {
 
   beforeEach(() => {
     const consumerManagerServiceMock = {
-      register: jest.fn(),
-      unregister: jest.fn()
+      register: vi.fn(),
+      unregister: vi.fn()
     };
     TestBed.configureTestingModule({
       providers: [
@@ -52,19 +52,19 @@ describe('Navigation Handler Service', () => {
   });
 
   it('should register itself when start is called', () => {
-    jest.spyOn(consumerManagerService, 'register');
+    vi.spyOn(consumerManagerService, 'register');
     navHandlerService.start();
     expect(consumerManagerService.register).toHaveBeenCalledWith(navHandlerService);
   });
 
   it('should unregister itself when stop is called', () => {
-    jest.spyOn(consumerManagerService, 'unregister');
+    vi.spyOn(consumerManagerService, 'unregister');
     navHandlerService.stop();
     expect(consumerManagerService.unregister).toHaveBeenCalledWith(navHandlerService);
   });
 
   it('should call navigate when a supported message is received', () => {
-    jest.spyOn(navHandlerService as any, 'navigate');
+    vi.spyOn(navHandlerService as any, 'navigate');
     const navMessage: RoutedMessage<NavigationV1_0> = {
       from: 'test',
       to: [],
@@ -78,9 +78,8 @@ describe('Navigation Handler Service', () => {
     expect((navHandlerService as any).navigate).toHaveBeenCalledWith(navMessage.payload.url);
   });
 
-  // eslint-disable-next-line jest/no-done-callback -- use the callback function to finish the test
-  it('should emit via the requestedUrl observable when a supported message is received', (done) => {
-    jest.spyOn(navHandlerService as any, 'navigate');
+  it('should emit via the requestedUrl observable when a supported message is received', () => new Promise<void>((done) => {
+    vi.spyOn(navHandlerService as any, 'navigate');
     const navMessage: RoutedMessage<NavigationV1_0> = {
       from: 'test',
       to: [],
@@ -96,10 +95,10 @@ describe('Navigation Handler Service', () => {
       done();
     });
     navHandlerService.supportedVersions['1.0'](navMessage);
-  });
+  }));
 
   it('should call the router navigate when a supported message is received', () => {
-    jest.spyOn(router, 'navigate');
+    vi.spyOn(router, 'navigate');
     const navMessage: RoutedMessage<NavigationV1_0> = {
       from: 'test',
       to: [],
@@ -118,7 +117,7 @@ describe('Navigation Handler Service', () => {
   });
 
   it('should forward the replaceUrl extra to the router navigate call when a v1.1 message is received', () => {
-    jest.spyOn(router, 'navigate');
+    vi.spyOn(router, 'navigate');
     const navMessage: RoutedMessage<NavigationV1_1> = {
       from: 'test',
       to: [],
@@ -138,7 +137,7 @@ describe('Navigation Handler Service', () => {
   });
 
   it('should handle a v1.1 message without extras', () => {
-    jest.spyOn(router, 'navigate');
+    vi.spyOn(router, 'navigate');
     const navMessage: RoutedMessage<NavigationV1_1> = {
       from: 'test',
       to: [],

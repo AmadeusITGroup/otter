@@ -23,6 +23,9 @@ import {
   ReplaySubject,
   Subject,
 } from 'rxjs';
+import type {
+  Mock,
+} from 'vitest';
 import {
   PlaceholderComponent,
 } from './placeholder';
@@ -60,19 +63,19 @@ describe('Placeholder component', () => {
   };
   let storeContent: Subject<TemplatesFromStore>;
   let mockStore: {
-    dispatch: jest.Mock;
-    select: jest.Mock;
-    selectSignal: jest.Mock;
+    dispatch: Mock;
+    select: Mock;
+    selectSignal: Mock;
   };
-  const postMessageMock = jest.spyOn(window, 'postMessage');
+  const postMessageMock = vi.spyOn(window, 'postMessage');
 
   beforeEach(async () => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
     storeContent = new ReplaySubject<TemplatesFromStore>(1);
     mockStore = {
-      dispatch: jest.fn(),
-      select: jest.fn().mockReturnValue(storeContent),
-      selectSignal: jest.fn().mockReturnValue(() => 'normal')
+      dispatch: vi.fn(),
+      select: vi.fn().mockReturnValue(storeContent),
+      selectSignal: vi.fn().mockReturnValue(() => 'normal')
     };
     await TestBed.configureTestingModule({
       imports: [

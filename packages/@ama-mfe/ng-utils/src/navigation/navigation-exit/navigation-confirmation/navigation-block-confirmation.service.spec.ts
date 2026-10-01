@@ -2,6 +2,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import type {
+  Mocked,
+} from 'vitest';
+import type {
   NavigationBlockConfirmation,
 } from './navigation-block-confirmation.interface';
 import {
@@ -12,12 +15,12 @@ import {
 } from './navigation-block-confirmation.service';
 
 describe('NavigationBlockConfirmationService', () => {
-  let mockStrategy: jest.Mocked<NavigationBlockConfirmation>;
+  let mockStrategy: Mocked<NavigationBlockConfirmation>;
   let service: NavigationBlockConfirmationService;
 
   beforeEach(() => {
     mockStrategy = {
-      confirm: jest.fn()
+      confirm: vi.fn()
     };
 
     TestBed.configureTestingModule({

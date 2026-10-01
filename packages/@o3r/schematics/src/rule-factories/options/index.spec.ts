@@ -29,9 +29,9 @@ describe('createSchematicWithOptionsFromWorkspaceIfInstalled', () => {
   });
 
   it('should call the original schematic with the options', async () => {
-    const rule = jest.fn((tree: Tree) => tree);
+    const rule = vi.fn((tree: Tree) => tree);
 
-    const originalSchematic = jest.fn((_opts: any): Rule => rule);
+    const originalSchematic = vi.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithOptionsFromWorkspace(originalSchematic);
     const options = {
       example: 'test'
@@ -53,9 +53,9 @@ describe('createSchematicWithOptionsFromWorkspaceIfInstalled', () => {
         }
       }
     }, null, 2));
-    const rule = jest.fn((tree: Tree) => tree);
+    const rule = vi.fn((tree: Tree) => tree);
 
-    const originalSchematic = jest.fn((_opts: any): Rule => rule);
+    const originalSchematic = vi.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithOptionsFromWorkspace(originalSchematic);
     const options: any = {
       commonWithValue: 'test',
@@ -74,9 +74,9 @@ describe('createSchematicWithOptionsFromWorkspaceIfInstalled', () => {
   });
 
   it('should works if we chain schematic wrapper', async () => {
-    const rule = jest.fn((tree: Tree) => tree);
+    const rule = vi.fn((tree: Tree) => tree);
 
-    const originalSchematic = jest.fn((_opts: any): Rule => rule);
+    const originalSchematic = vi.fn((_opts: any): Rule => rule);
     const noopSchematicWrapper = (schematicFn: (_opts: any) => Rule) => (opts: any): Rule => schematicFn(opts);
     const schematic = noopSchematicWrapper(createSchematicWithOptionsFromWorkspace(originalSchematic));
     const options = {
@@ -90,11 +90,11 @@ describe('createSchematicWithOptionsFromWorkspaceIfInstalled', () => {
 
   it('should throw the original error', async () => {
     const error = new Error('error example');
-    const rule = jest.fn(() => {
+    const rule = vi.fn(() => {
       throw error;
     });
 
-    const originalSchematic = jest.fn((_opts: any): Rule => rule);
+    const originalSchematic = vi.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithOptionsFromWorkspace(originalSchematic);
     const options = {
       example: 'test'
@@ -106,9 +106,9 @@ describe('createSchematicWithOptionsFromWorkspaceIfInstalled', () => {
   });
 
   it('should throw if the rule is a rejected Promise', async () => {
-    const rule = jest.fn(() => Promise.reject(new Error('rejected')));
+    const rule = vi.fn(() => Promise.reject(new Error('rejected')));
 
-    const originalSchematic = jest.fn((_opts: any): Rule => rule);
+    const originalSchematic = vi.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithOptionsFromWorkspace(originalSchematic);
     const options = {
       example: 'test'

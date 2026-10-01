@@ -23,14 +23,14 @@ describe('Localization i18n Builder', () => {
   let architectHost: TestingArchitectHost;
   let virtualFileSystem: typeof fs;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     virtualFileSystem = useVirtualFileSystem();
 
     const registry = new schema.CoreSchemaRegistry();
     registry.addPostTransform(schema.transforms.addUndefinedDefaults);
     architectHost = new TestingArchitectHost(path.resolve(__dirname, workspaceRoot), __dirname);
     architect = new Architect(architectHost, registry);
-    architectHost.addBuilder('.:i18n', require('./index').default);
+    architectHost.addBuilder('.:i18n', (await import('./index')).default);
   });
   afterEach(() => {
     cleanVirtualFileSystem();

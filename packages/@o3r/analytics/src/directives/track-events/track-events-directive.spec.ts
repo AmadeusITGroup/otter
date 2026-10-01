@@ -15,6 +15,9 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   UiEventPayload,
 } from '../../contracts';
@@ -39,7 +42,7 @@ describe('Track events directive:', () => {
   let trackService: EventTrackService;
   let fixture: ComponentFixture<TestComponent>;
   let buttonElement: DebugElement;
-  let addEventSpy: jest.SpyInstance;
+  let addEventSpy: MockInstance;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -49,7 +52,7 @@ describe('Track events directive:', () => {
     fixture = TestBed.createComponent(TestComponent);
     buttonElement = fixture.debugElement.query(By.css('button'));
     trackService = fixture.debugElement.injector.get(EventTrackService);
-    addEventSpy = jest.spyOn(trackService, 'addUiEvent');
+    addEventSpy = vi.spyOn(trackService, 'addUiEvent');
   });
 
   it('should send the context object', () => {

@@ -10,7 +10,7 @@ describe('Api Key Request Plugin', () => {
 
   beforeEach(() => {
     const headers = new Headers();
-    jest.spyOn(headers, 'append');
+    vi.spyOn(headers, 'append');
 
     options = { headers, basePath: 'http://test.com/truc', method: 'get' };
   });

@@ -41,6 +41,9 @@ import {
   setPlaceholderRequestEntityFromUrl,
 } from '@o3r/components';
 
+beforeEach(() => vi.useFakeTimers());
+afterEach(() => vi.useRealTimers());
+
 describe('Rules Engine Effects', () => {
   let effect: PlaceholderTemplateResponseEffect;
   let actions: Subject<any>;
@@ -52,9 +55,9 @@ describe('Rules Engine Effects', () => {
   };
   const storeValue = new Subject<any>();
   const mockStore = {
-    pipe: jest.fn().mockReturnValue(storeValue),
-    dispatch: jest.fn(),
-    select: jest.fn().mockReturnValue(of(true))
+    pipe: vi.fn().mockReturnValue(storeValue),
+    dispatch: vi.fn(),
+    select: vi.fn().mockReturnValue(of(true))
   };
 
   const subscriptions: Subscription[] = [];
@@ -180,7 +183,7 @@ describe('Rules Engine Effects', () => {
   });
 
   it('should not trigger an update if the jsonpath computed value did not change', async () => {
-    const effectFn = jest.fn();
+    const effectFn = vi.fn();
     subscriptions.push(effect.setPlaceholderRequestEntityFromUrl$.subscribe(effectFn));
     const response: PlaceholderRequestReply = {
       vars: {
@@ -200,22 +203,22 @@ describe('Rules Engine Effects', () => {
 
     effectFn.mockReset();
     factsStream.factInTemplate.next({ myKey: 'actual content' });
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
     expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: 'actual content' }) }));
 
     effectFn.mockReset();
     factsStream.factInTemplate.next({ myKey: 'actual content', unrelated: 'this should not do anything' });
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
     expect(effectFn).not.toHaveBeenCalled();
 
     effectFn.mockReset();
     factsStream.factInTemplate.next({ myKey: 'this should do something', unrelated: 'this should not do anything' });
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
     expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: 'this should do something' }) }));
   });
 
   it('should not convert all falsy values to empty string', async () => {
-    const effectFn = jest.fn();
+    const effectFn = vi.fn();
     subscriptions.push(effect.setPlaceholderRequestEntityFromUrl$.subscribe(effectFn));
     const response: PlaceholderRequestReply = {
       vars: {
@@ -235,17 +238,17 @@ describe('Rules Engine Effects', () => {
 
     effectFn.mockReset();
     factsStream.factInTemplate.next({ myKey: 0 });
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
     expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: '0' }) }));
 
     effectFn.mockReset();
     factsStream.factInTemplate.next({ myKey: false });
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
     expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: 'false' }) }));
 
     effectFn.mockReset();
     factsStream.factInTemplate.next({ myKey: undefined });
-    await jest.runAllTimersAsync();
+    await vi.runAllTimersAsync();
     expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: '' }) }));
   });
 });

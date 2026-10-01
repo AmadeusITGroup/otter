@@ -5,10 +5,10 @@ import {
 describe('OpenTelemetry Traceparent Request Plugin', () => {
   test('should generate default header', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
-    const append = jest.fn() as any;
+    const append = vi.fn() as any;
 
     const plugin = new OpenTelemetryTraceparentRequest({
       storage,
@@ -25,10 +25,10 @@ describe('OpenTelemetry Traceparent Request Plugin', () => {
 
   test('should generate header with version', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
-    const append = jest.fn() as any;
+    const append = vi.fn() as any;
 
     const plugin = new OpenTelemetryTraceparentRequest({
       storage,
@@ -43,10 +43,10 @@ describe('OpenTelemetry Traceparent Request Plugin', () => {
 
   test('should generate header with flags as value', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
-    const append = jest.fn() as any;
+    const append = vi.fn() as any;
 
     const plugin = new OpenTelemetryTraceparentRequest({
       storage,
@@ -62,10 +62,10 @@ describe('OpenTelemetry Traceparent Request Plugin', () => {
 
   test('should generate header with flags as function', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
-    const append = jest.fn() as any;
+    const append = vi.fn() as any;
 
     const plugin = new OpenTelemetryTraceparentRequest({
       storage,
@@ -81,10 +81,10 @@ describe('OpenTelemetry Traceparent Request Plugin', () => {
 
   test('should generate dummy trace id', async () => {
     const storage = {
-      getItem: jest.fn(),
-      setItem: jest.fn()
+      getItem: vi.fn(),
+      setItem: vi.fn()
     } as any;
-    const append = jest.fn() as any;
+    const append = vi.fn() as any;
 
     const plugin = new OpenTelemetryTraceparentRequest({
       storage,
@@ -100,10 +100,10 @@ describe('OpenTelemetry Traceparent Request Plugin', () => {
 
   test('should use stored parent id', async () => {
     const storage = {
-      getItem: jest.fn().mockReturnValue('1'.repeat(16)),
-      setItem: jest.fn()
+      getItem: vi.fn().mockReturnValue('1'.repeat(16)),
+      setItem: vi.fn()
     } as any;
-    const append = jest.fn() as any;
+    const append = vi.fn() as any;
 
     const plugin = new OpenTelemetryTraceparentRequest({
       storage,

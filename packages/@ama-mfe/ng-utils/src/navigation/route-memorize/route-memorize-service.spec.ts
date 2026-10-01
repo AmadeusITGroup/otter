@@ -32,26 +32,25 @@ describe('RouteMemorizeService', () => {
     expect(service.getRoute('channel1')).toBe('url2');
   });
 
-  // eslint-disable-next-line jest/no-done-callback -- use the callback function to finish the test
-  it('should clear route after liveTime', (done) => {
-    jest.useFakeTimers();
+  it('should clear route after liveTime', () => new Promise<void>((done) => {
+    vi.useFakeTimers();
     service.memorizeRoute('channel1', 'url1', 1000);
     expect(service.getRoute('channel1')).toBe('url1');
 
-    jest.advanceTimersByTime(1000);
+    vi.advanceTimersByTime(1000);
     expect(service.getRoute('channel1')).toBeUndefined();
     done();
-  });
+  }));
 
   it('should clear previous timer if memorizeRoute is called again', () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     service.memorizeRoute('channel1', 'url1', 1000);
     service.memorizeRoute('channel1', 'url2', 2000);
 
-    jest.advanceTimersByTime(1000);
+    vi.advanceTimersByTime(1000);
     expect(service.getRoute('channel1')).toBe('url2');
 
-    jest.advanceTimersByTime(1000);
+    vi.advanceTimersByTime(1000);
     expect(service.getRoute('channel1')).toBeUndefined();
   });
 });

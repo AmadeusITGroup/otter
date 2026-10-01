@@ -8,6 +8,9 @@ import {
 import {
   LoggerService,
 } from '@o3r/logger';
+import type {
+  Mock,
+} from 'vitest';
 import {
   ConnectionService,
 } from '../../../connect/connect-resources';
@@ -19,15 +22,15 @@ import {
 } from './navigation-request-manager.service';
 
 describe('NavigationRequestManagerService', () => {
-  let connectionService: { send: jest.Mock };
-  let producerManager: { register: jest.Mock; unregister: jest.Mock };
-  let logger: { error: jest.Mock };
+  let connectionService: { send: Mock };
+  let producerManager: { register: Mock; unregister: Mock };
+  let logger: { error: Mock };
   let service: NavigationRequestManagerService;
 
   beforeEach(() => {
-    connectionService = { send: jest.fn() };
-    producerManager = { register: jest.fn(), unregister: jest.fn() };
-    logger = { error: jest.fn() };
+    connectionService = { send: vi.fn() };
+    producerManager = { register: vi.fn(), unregister: vi.fn() };
+    logger = { error: vi.fn() };
     TestBed.configureTestingModule({
       providers: [
         { provide: ConnectionService, useValue: connectionService },

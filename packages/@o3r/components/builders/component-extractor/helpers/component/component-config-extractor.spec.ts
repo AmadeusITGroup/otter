@@ -143,7 +143,7 @@ describe('ComponentConfigExtractor', () => {
 
     it('should not extract component configuration with an unsupported default value', () => {
       const logger: logging.LoggerApi = new logging.Logger('foo');
-      logger.warn = jest.fn();
+      logger.warn = vi.fn();
 
       const configurationFilePath = 'my-component-config.ts';
       const configurationFileContent = `
@@ -183,7 +183,7 @@ describe('ComponentConfigExtractor', () => {
 
     it('should not extract component configuration with an unsupported default value (in array)', () => {
       const logger: logging.LoggerApi = new logging.Logger('foo');
-      logger.warn = jest.fn();
+      logger.warn = vi.fn();
 
       const configurationFilePath = 'my-component-config.ts';
       const configurationFileContent = `

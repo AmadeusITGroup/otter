@@ -20,7 +20,7 @@ import type {
 
 jest.mock('node:module', () => {
   return {
-    ...jest.requireActual('node:module'),
+    ...jest.requireActual<typeof import('node:module')>('node:module'),
     createRequire: jest.fn().mockReturnValue({
       resolve: jest.fn().mockReturnValue(path.join(__dirname, '..', '..', '..', '..', 'openapi-codegen-typescript', 'target', 'typescriptFetch-openapi-generator.jar'))
     })

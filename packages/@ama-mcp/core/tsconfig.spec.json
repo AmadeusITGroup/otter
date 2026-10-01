@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.jest",
+  "extends": "../../../tsconfig.test",
   "compilerOptions": {
     "lib": ["ES2024"],
     "composite": true,
@@ -7,6 +7,7 @@
     "rootDir": ".",
   },
   "include": [
+    "vitest.config.ts",
     "./src/**/*.spec.ts"
   ],
   "exclude": [],
