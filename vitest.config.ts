@@ -31,7 +31,7 @@ const workspacePathAliases = Object.entries(tsconfigBase.compilerOptions?.paths 
   .toSorted(([a], [b]) => b.length - a.length)
   .map(([key, [target]]) => ({
     find: new RegExp(`^${escapeRegExp(key).replace('\\*', '(.*)')}$`),
-    replacement: resolve(workspaceRoot, target.replace('*', '$1'))
+    replacement: resolve(workspaceRoot, target.replaceAll('*', '$1'))
   }));
 
 export default defineConfig({
