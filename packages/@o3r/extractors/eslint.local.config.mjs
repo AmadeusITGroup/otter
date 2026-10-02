@@ -23,5 +23,23 @@ export default [
         ...globals.node
       }
     }
+  },
+  {
+    name: '@o3r/extractors/package-json',
+    files: ['package.json'],
+    rules: {
+      // The @yarnpkg/core peer range is intentionally capped (<4.9.2) and must not be aligned with the workspace range.
+      '@o3r/json-dependency-versions-harmonize': [
+        'error',
+        {
+          alignPeerDependencies: false,
+          alignEngines: true,
+          ignoredDependencies: [
+            '@yarnpkg/core',
+            'globby'
+          ]
+        }
+      ]
+    }
   }
 ];

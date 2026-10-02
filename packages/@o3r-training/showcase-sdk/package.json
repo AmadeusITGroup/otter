@@ -120,7 +120,7 @@
     "lint-staged": "^16.0.0",
     "minimist": "^1.2.6",
     "rimraf": "^6.0.1",
-    "ts-jest": "~29.4.0",
+    "ts-jest": "~29.4.13",
     "tsc-watch": "^7.0.0",
     "typedoc": "~0.28.0",
     "typescript": "~6.0.3",

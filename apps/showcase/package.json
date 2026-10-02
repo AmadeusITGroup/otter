@@ -51,7 +51,7 @@
     "@formatjs/intl-numberformat": "~9.3.0",
     "@jsverse/transloco": "~8.3.0",
     "@jsverse/transloco-messageformat": "~8.3.0",
-    "@jsverse/utils": "1.0.0-beta.6",
+    "@jsverse/utils": "1.0.0-beta.5",
     "@ng-bootstrap/ng-bootstrap": "~21.0.0",
     "@ng-select/ng-select": "~23.11.0",
     "@ngrx/effects": "~22.0.0",
@@ -104,7 +104,7 @@
     "prismjs": "^1.30.0",
     "rxjs": "^7.8.1",
     "sass-loader": "^16.0.0",
-    "ts-jest": "~29.4.0",
+    "ts-jest": "~29.4.13",
     "tslib": "^2.6.2",
     "typescript": "~6.0.3"
   },
@@ -162,7 +162,7 @@
     "playwright-lighthouse": "~4.0.0",
     "rimraf": "^6.0.1",
     "style-dictionary": "~5.4.0",
-    "ts-jest": "~29.4.0",
+    "ts-jest": "~29.4.13",
     "typescript": "~6.0.3",
     "typescript-eslint": "~8.70.0",
     "webpack": "~5.107.0"

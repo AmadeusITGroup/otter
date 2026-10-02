@@ -151,7 +151,10 @@
     "@crxjs/vite-plugin/rollup": "~2.80.0",
     "undici@^5.25.4": "^6.24.0",
     "undici@^5.28.5": "^6.24.0",
-    "undici@7.24.7": "^7.28.0"
+    "undici@7.24.7": "^7.28.0",
+    "@jsverse/utils": "1.0.0-beta.5",
+    "@yarnpkg/cli": "4.18.0",
+    "@yarnpkg/core": "4.9.1"
   },
   "dependencies": {
     "@actions/core": "^2.0.0",
@@ -192,7 +195,7 @@
     "@eslint/compat": "~2.1.0",
     "@jsverse/transloco": "~8.3.0",
     "@jsverse/transloco-messageformat": "~8.3.0",
-    "@jsverse/utils": "1.0.0-beta.6",
+    "@jsverse/utils": "1.0.0-beta.5",
     "@ng-bootstrap/ng-bootstrap": "~21.0.0",
     "@ng-select/ng-select": "~23.11.0",
     "@ngrx/effects": "~22.0.0",
@@ -305,7 +308,7 @@
     "source-map-js": "^1.2.1",
     "stylelint": "~16.26.0",
     "stylelint-scss": "~6.14.0",
-    "ts-jest": "~29.4.0",
+    "ts-jest": "~29.4.13",
     "tsc-watch": "^7.0.0",
     "tslib": "^2.6.2",
     "type-fest": "^5.3.1",
