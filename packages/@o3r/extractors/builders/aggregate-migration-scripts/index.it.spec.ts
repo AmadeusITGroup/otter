@@ -8,6 +8,7 @@ const o3rEnvironment = globalThis.o3rEnvironment;
 import {
   promises,
   readFileSync,
+  writeFileSync,
 } from 'node:fs';
 import {
   join,
@@ -84,10 +85,17 @@ describe('aggregate migration scripts', () => {
   });
 
   test('should create migration scripts including lib content', async () => {
-    const { workspacePath, appName, applicationPath, o3rExactVersion } = o3rEnvironment.testEnvironment;
+    const { workspacePath, appName, applicationPath, o3rExactVersion, isYarnTest } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath };
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
 
+    if (isYarnTest) {
+      // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
+      const packageJsonPath = `${workspacePath}/package.json`;
+      const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }));
+      packageJson.resolutions = { ...packageJson.resolutions, '@yarnpkg/core': '4.9.1' };
+      writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    }
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rExactVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
     packageManagerAdd('@o3r/my-lib', execAppOptionsWorkspace);
     packageManagerAdd('@o3r/my-lib', execAppOptions);
