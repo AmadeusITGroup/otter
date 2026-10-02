@@ -159,6 +159,7 @@
     "lerna": "^8.1.7",
     "lint-staged": "^16.0.0",
     "ts-jest": "~29.4.13",
+    "vite": "~8.0.0",
     "vitest": "~4.1.0"
   },
   "engines": {
