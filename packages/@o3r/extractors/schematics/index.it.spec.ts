@@ -5,6 +5,7 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   getDefaultExecSyncOptions,
@@ -18,6 +19,13 @@ describe('ng add extractors', () => {
   test('should add extractors to an application', () => {
     const { workspacePath, appName, isInWorkspace, isYarnTest, o3rVersion, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    if (isYarnTest) {
+      // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
+      const packageJsonPath = `${workspacePath}/package.json`;
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+      packageJson.resolutions = { ...packageJson.resolutions, '@yarnpkg/core': '4.9.1' };
+      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    }
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
@@ -45,6 +53,13 @@ describe('ng add extractors', () => {
   test('should add extractors to a library', () => {
     const { workspacePath, libName, isInWorkspace, isYarnTest, o3rVersion, applicationPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    if (isYarnTest) {
+      // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
+      const packageJsonPath = `${workspacePath}/package.json`;
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+      packageJson.resolutions = { ...packageJson.resolutions, '@yarnpkg/core': '4.9.1' };
+      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    }
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', libName] }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);

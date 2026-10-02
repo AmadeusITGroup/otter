@@ -26,6 +26,7 @@ import {
   setUpJest,
 } from '../../common';
 import {
+  addVitePeerDependency,
   updateProjectTsConfig,
 } from '../../rule-factories/index';
 import type {
@@ -80,6 +81,10 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
         { ...options, useJest: !!hasJestInstalled, useVitest: !!hasVitestInstalled }
       ),
       updateNgPackagrFactory(options.targetPath),
+      addVitePeerDependency(
+        ['/package.json', path.posix.join(options.targetPath, 'package.json')],
+        o3rWorkspacePackageJson.generatorDependencies!.vite
+      ),
       (t) => {
         const genPackageJsonPath = path.posix.join(options.targetPath, 'package.json');
         const packageJson = t.readJson(genPackageJsonPath) as PackageJson;
