@@ -35,7 +35,7 @@
     "@nx/eslint-plugin": "~23.1.0",
     "@o3r/eslint-plugin": "workspace:~",
     "@stylistic/eslint-plugin": "~5.10.0",
-    "@types/node": "~24.13.0",
+    "@types/node": "~24.19.0",
     "@typescript-eslint/eslint-plugin": "~8.70.0",
     "@typescript-eslint/parser": "~8.70.0",
     "@typescript-eslint/utils": "~8.70.0",
