@@ -105,7 +105,7 @@
     "@angular/localize": "~22.1.0",
     "@angular/platform-browser": "~22.1.0",
     "@angular/platform-browser-dynamic": "~22.1.0",
-    "@angular/router": "~22.1.0",
+    "@angular/router": "~22.2.0",
     "@crxjs/vite-plugin": "~2.4.0",
     "@design-factory/design-factory": "~22.0.0",
     "@design-factory/styles": "~22.0.0",
