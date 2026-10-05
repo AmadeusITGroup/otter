@@ -41,6 +41,7 @@ import {
   setUpJest,
 } from '../common';
 import {
+  addVitePeerDependency,
   updateProjectTsConfig,
 } from '../rule-factories/index';
 import type {
@@ -68,7 +69,9 @@ function findConfigFileRelativePath(tree: Tree, files: string[], originPath: str
  * @param options Schematic options
  */
 function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
-  const ownPackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf8' })) as PackageJson;
+  const ownPackageJsonContent = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf8' })
+  ) as PackageJson & { generatorDependencies: Record<string, string> };
   const packageJsonName = strings.dasherize(options.name);
   const cleanName = packageJsonName.replace(/^@/, '').replaceAll(/\//g, '-');
   const addProjectSpecificFiles = (targetPath: string, rootDependencies: Record<string, string | undefined>, tsconfigBasePath: string, testingFramework: string) => {
@@ -140,6 +143,10 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
         projectRoot,
         style: Style.Scss }),
       addProjectSpecificFiles(targetPath, rootDependencies, tsconfigBasePath, testingFramework),
+      addVitePeerDependency(
+        ['/package.json', path.posix.join(targetPath, 'package.json')],
+        rootDependencies.vite || ownPackageJsonContent.generatorDependencies.vite
+      ),
       updateProjectTsConfig(targetPath, 'tsconfig.app.json', { updateInputFiles: true }),
       setupDependencies({
         dependencies,

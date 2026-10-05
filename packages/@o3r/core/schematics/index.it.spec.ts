@@ -5,6 +5,7 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   addImportToAppModule,
@@ -17,10 +18,17 @@ import {
 
 describe('new otter application', () => {
   test('should build empty app', async () => {
-    const { applicationPath, workspacePath, appName, isInWorkspace, o3rVersion, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
+    const { applicationPath, workspacePath, appName, isInWorkspace, isYarnTest, o3rVersion, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
     const appNameOptions = ['--project-name', appName];
+    if (isYarnTest) {
+      // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
+      const packageJsonPath = `${workspacePath}/package.json`;
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+      packageJson.resolutions = { ...packageJson.resolutions, '@yarnpkg/core': '4.9.1' };
+      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    }
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/core@${o3rVersion}`, '--preset', 'all', ...appNameOptions, '--skip-confirmation'] }, execAppOptions)).not.toThrow();
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 

@@ -7,6 +7,7 @@ import type {
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
+  getPackageManager,
   ngAddDependenciesRule,
 } from '@o3r/schematics';
 import {
@@ -28,7 +29,16 @@ const dependenciesToInstall: string[] = [
 const devDependenciesToInstall = [
   '@angular-devkit/architect',
   '@angular-devkit/core',
-  'semver'
+  'semver',
+  ...(getPackageManager() === 'yarn'
+    ? [
+      '@yarnpkg/cli',
+      '@yarnpkg/core',
+      '@yarnpkg/fslib',
+      '@yarnpkg/plugin-npm',
+      '@yarnpkg/plugin-pack'
+    ]
+    : [])
 ];
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
