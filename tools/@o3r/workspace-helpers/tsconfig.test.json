@@ -1,0 +1,7 @@
+{
+  "extends": "../../../tsconfig.test",
+  "include": [
+    "vitest.config.ts",
+    "scripts/**/*.spec.ts"
+  ]
+}

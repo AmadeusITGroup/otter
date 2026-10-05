@@ -12,24 +12,44 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  JSDOM,
-} from 'jsdom';
-import {
   provideHistoryOverrides,
 } from './history-providers';
 
+/**
+ * Build a fresh, fully patchable `History`-like object.
+ *
+ * `provideHistoryOverrides` redefines `history` members as non-configurable, so
+ * every test needs a pristine instance. We build a minimal stand-in here rather
+ * than importing `jsdom` directly: jsdom's encoding-sniffer chain ships ESM
+ * inside CommonJS packages, which the Vitest (Vite SSR) loader cannot resolve.
+ * The Vitest jsdom test environment already provides a DOM; we only need an
+ * isolated `history` to patch.
+ */
+const createFreshHistory = (): History => Object.defineProperties({} as History, {
+  pushState: { value: () => {}, writable: true, configurable: true },
+  replaceState: { value: () => {}, writable: true, configurable: true },
+  back: { value: () => {}, writable: true, configurable: true },
+  forward: { value: () => {}, writable: true, configurable: true },
+  go: { value: () => {}, writable: true, configurable: true }
+});
+
 describe('provideDisableHistoryWrites()', () => {
-  let dom: JSDOM;
   const messageServiceMock = {
-    send: jest.fn()
+    send: vi.fn()
   } as const satisfies Partial<MessagePeerService<HistoryMessage>>;
-  let originalHistory: typeof window.history;
+  let originalHistory: History;
+  let freshHistory: History;
 
   beforeEach(async () => {
-    dom = new JSDOM('', { url: 'http://example.com/' });
-    (global as any).window = dom.window;
-    (global as any).history = dom.window.history;
-    originalHistory = { ...dom.window.history };
+    freshHistory = createFreshHistory();
+    originalHistory = { ...freshHistory };
+    // `history` is a getter-only property on the jsdom `window`/`globalThis`;
+    // redefine it so each test starts from a pristine, patchable instance.
+    Object.defineProperty(globalThis, 'history', {
+      value: freshHistory,
+      writable: true,
+      configurable: true
+    });
 
     TestBed.configureTestingModule({
       providers: [
@@ -44,9 +64,7 @@ describe('provideDisableHistoryWrites()', () => {
   });
 
   afterEach(() => {
-    dom.window.close();
-    delete (global as any).window;
-    delete (global as any).history;
+    delete (globalThis as any).history;
   });
 
   it('should patch history.pushState()', () => {
@@ -57,7 +75,7 @@ describe('provideDisableHistoryWrites()', () => {
   });
 
   it('should replaceState instead of pushState', () => {
-    const replaceStateSpy = jest.spyOn(history, 'replaceState');
+    const replaceStateSpy = vi.spyOn(history, 'replaceState');
     history.pushState({ data: 1 }, '', 'url');
     expect(replaceStateSpy).toHaveBeenCalledWith({ data: 1 }, '', 'url');
   });

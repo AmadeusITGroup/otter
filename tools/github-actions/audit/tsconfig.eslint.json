@@ -3,7 +3,7 @@
     "composite": true
   },
   "include": [
-    "jest.config.js",
+    "vitest.config.ts",
     "eslint*.config.mjs",
     "testing/*"
   ],

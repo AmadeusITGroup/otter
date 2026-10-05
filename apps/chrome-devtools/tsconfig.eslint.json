@@ -2,8 +2,8 @@
   "extends": "./tsconfig.build",
   "include": [
     "eslint*.config.mjs",
-    "jest.config.js",
-    "testing/setup-jest.ts",
+    "vitest.config.ts",
+    "testing/setup-vitest.ts",
     "scripts/**/*.cjs",
     "e2e-playwright/**/*.ts"
   ],

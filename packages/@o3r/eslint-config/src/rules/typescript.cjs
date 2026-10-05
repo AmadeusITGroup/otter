@@ -109,9 +109,9 @@ const configArray = [
   ...typescriptConfigOverrides,
   ...angularConfigOverrides,
   ...jsdocConfigOverrides,
-  ...(hasJestDependency
-    ? require('./typescript/jest.cjs')
-    : [{
+  ...(hasJestDependency ? require('./typescript/jest.cjs') : []),
+  ...(hasVitestDependency || !hasJestDependency
+    ? [{
       name: '@o3r/eslint-config/typescript/unit-test-globals',
       files: ['**/*.{c,m,}ts'],
       languageOptions: {
@@ -120,6 +120,7 @@ const configArray = [
         }
       }
     }]
+    : []
   ),
   ...preferArrowConfig,
   ...stylisticConfig,

@@ -4,7 +4,7 @@ import type {
 
 describe('getTextWeightVariableIds', () => {
   test('should retrieve the list of weights', async () => {
-    const getFileMock = jest.fn().mockResolvedValue({
+    const getFileMock = vi.fn().mockResolvedValue({
       nodes: {
         styleNode1: {
           document: {
@@ -19,9 +19,13 @@ describe('getTextWeightVariableIds', () => {
         }
       }
     });
-    const filesApiMock = jest.fn().mockReturnValue({ getFileNodes: getFileMock });
+    const filesApiMock = vi.fn(class {
+      constructor() {
+        return { getFileNodes: getFileMock };
+      }
+    });
 
-    jest.mock('@ama-styling/figma-sdk', () => ({
+    vi.doMock('@ama-styling/figma-sdk', () => ({
       FilesApi: filesApiMock
     }));
 
@@ -40,7 +44,7 @@ describe('getTextWeightVariableIds', () => {
         } as any
       }
     } as any as GetFile200Response;
-    const { getTextWeightVariableIds } = require('./get-text-weight-request');
+    const { getTextWeightVariableIds } = (await import('./get-text-weight-request'));
     await getTextWeightVariableIds(testApi, Promise.resolve(fakeFile), opts);
     expect(filesApiMock).toHaveBeenCalled();
     expect(getFileMock).toHaveBeenCalledWith({ file_key: opts.fileKey, ids: 'style1,style2' });

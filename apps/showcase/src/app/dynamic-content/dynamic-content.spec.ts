@@ -36,8 +36,8 @@ describe('DynamicContent', () => {
 
   beforeEach(() => {
     mockScrollSpyService = {
-      start: jest.fn(),
-      stop: jest.fn()
+      start: vi.fn(),
+      stop: vi.fn()
     };
     TestBed.configureTestingModule({
       imports: [

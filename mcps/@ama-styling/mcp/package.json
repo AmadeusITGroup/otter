@@ -37,6 +37,8 @@
   },
   "devDependencies": {
     "@ama-mcp/core": "workspace:~",
+    "@analogjs/vite-plugin-angular": "~2.6.0",
+    "@analogjs/vitest-angular": "~2.6.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@modelcontextprotocol/server": "~2.0.0",
     "@nx/eslint": "~23.1.0",

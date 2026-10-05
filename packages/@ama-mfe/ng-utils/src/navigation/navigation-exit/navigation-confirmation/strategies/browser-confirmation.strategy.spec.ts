@@ -1,14 +1,17 @@
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   BrowserConfirmationStrategy,
 } from './browser-confirmation.strategy';
 
 describe('BrowserConfirmationStrategy', () => {
   let strategy: BrowserConfirmationStrategy;
-  let confirmSpy: jest.SpyInstance;
+  let confirmSpy: MockInstance;
 
   beforeEach(() => {
     strategy = new BrowserConfirmationStrategy();
-    confirmSpy = jest.spyOn(window, 'confirm');
+    confirmSpy = vi.spyOn(window, 'confirm');
   });
 
   afterEach(() => {

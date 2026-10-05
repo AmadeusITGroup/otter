@@ -1,0 +1,15 @@
+{
+  "extends": "../../../tsconfig.base",
+  "compilerOptions": {
+    "allowJs": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.eslint.json"
+    },
+    {
+      "path": "./tsconfig.test.json"
+    }
+  ]
+}

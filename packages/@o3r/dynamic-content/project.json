@@ -7,12 +7,18 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/package.json"],
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
       "options": {
         "script": "postbuild",
         "tsConfig": "{projectRoot}/tsconfig.build.json"
       },
-      "dependsOn": ["build-builders", "compile", "build-fixtures"]
+      "dependsOn": [
+        "build-builders",
+        "compile",
+        "build-fixtures"
+      ]
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
@@ -20,7 +26,10 @@
         "project": "packages/@o3r/dynamic-content/src/ng-package.json",
         "tsConfig": "packages/@o3r/dynamic-content/tsconfig.build.json"
       },
-      "dependsOn": ["prepare", "^build"]
+      "dependsOn": [
+        "prepare",
+        "^build"
+      ]
     },
     "prepare": {},
     "build-fixtures": {
@@ -41,10 +50,19 @@
     "prepare-build-builders": {},
     "build-builders": {},
     "lint": {},
-    "test": {},
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
+    "test-schematics": {},
     "prepare-publish": {},
     "publish": {},
-    "documentation": {}
+    "documentation": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    }
   },
   "tags": []
 }

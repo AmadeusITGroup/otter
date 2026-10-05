@@ -12,7 +12,7 @@ describe('getPeerDepWithPattern', () => {
       }
     };
 
-    const peerDeps = getPeerDepWithPattern('any-path.json', ['testPackage'], jest.fn().mockImplementation(() => JSON.stringify(pck)));
+    const peerDeps = getPeerDepWithPattern('any-path.json', ['testPackage'], vi.fn().mockImplementation(() => JSON.stringify(pck)));
     expect(peerDeps.matchingPackagesVersions).toEqual({ testPackage: '~1.2.3' });
   });
 
@@ -25,7 +25,7 @@ describe('getPeerDepWithPattern', () => {
       }
     };
 
-    const peerDeps = getPeerDepWithPattern('any-path.json', undefined, jest.fn().mockImplementation(() => JSON.stringify(pck)));
+    const peerDeps = getPeerDepWithPattern('any-path.json', undefined, vi.fn().mockImplementation(() => JSON.stringify(pck)));
     expect(peerDeps.matchingPackagesVersions).toEqual({ '@o3r/test': '~1.2.3' });
   });
 
@@ -43,7 +43,7 @@ describe('getPeerDepWithPattern', () => {
       }
     };
 
-    const peerDeps = getPeerDepWithPattern('any-path.json', ['testPackage'], jest.fn().mockImplementation(() => JSON.stringify(pck)));
+    const peerDeps = getPeerDepWithPattern('any-path.json', ['testPackage'], vi.fn().mockImplementation(() => JSON.stringify(pck)));
     expect(peerDeps.matchingPackagesVersions).toEqual({});
   });
 
@@ -59,7 +59,7 @@ describe('getPeerDepWithPattern', () => {
       }
     };
 
-    const peerDeps = getPeerDepWithPattern('any-path.json', ['testPackage'], jest.fn().mockImplementation(() => JSON.stringify(pck)));
+    const peerDeps = getPeerDepWithPattern('any-path.json', ['testPackage'], vi.fn().mockImplementation(() => JSON.stringify(pck)));
     expect(peerDeps.matchingPackagesVersions).toEqual({ testPackage: '~3.2.1' });
   });
 });

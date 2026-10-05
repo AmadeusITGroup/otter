@@ -1,4 +1,7 @@
 import type {
+  Mocked,
+} from 'vitest';
+import type {
   BasePathServer,
   Logger,
   Server,
@@ -8,15 +11,15 @@ import {
 } from './server';
 
 describe('selectServerBasePath', () => {
-  let mockLogger: jest.Mocked<Logger>;
+  let mockLogger: Mocked<Logger>;
 
   beforeEach(() => {
     mockLogger = {
-      log: jest.fn(),
-      debug: jest.fn(),
-      info: jest.fn(),
-      warn: jest.fn(),
-      error: jest.fn()
+      log: vi.fn(),
+      debug: vi.fn(),
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn()
     };
   });
 

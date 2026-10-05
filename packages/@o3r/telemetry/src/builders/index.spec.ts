@@ -14,21 +14,21 @@ import {
   createBuilderWithMetrics,
 } from './index';
 
-jest.mock('../environment/index', () => {
-  const original = jest.requireActual('../environment/index');
+vi.mock('../environment/index', async () => {
+  const original = await vi.importActual<typeof import('../environment/index')>('../environment/index');
   return {
     ...original,
-    getEnvironmentInfo: jest.fn(() => ({ env: 'env' }))
+    getEnvironmentInfo: vi.fn(() => ({ env: 'env' }))
   };
 });
 
-jest.mock('node:perf_hooks', () => {
-  const original = jest.requireActual('node:perf_hooks');
+vi.mock('node:perf_hooks', async () => {
+  const original = await vi.importActual<typeof import('node:perf_hooks')>('node:perf_hooks');
   return {
     ...original,
     performance: {
       ...original.performance,
-      now: jest.fn().mockReturnValue(0)
+      now: vi.fn().mockReturnValue(0)
     }
   };
 });
@@ -46,7 +46,7 @@ describe('Builder with metrics', () => {
 
   it('should run the original builder with the same options', async () => {
     const expectedOutput = { success: true };
-    const originalBuilderFn = jest.fn((): BuilderOutput => expectedOutput);
+    const originalBuilderFn = vi.fn((): BuilderOutput => expectedOutput);
     const builder = createBuilder(createBuilderWithMetrics(originalBuilderFn));
     architectHost.addBuilder('.:builder', builder);
     const options = { example: 'test' };
@@ -60,7 +60,7 @@ describe('Builder with metrics', () => {
 
   it('should throw the same error as the original one', async () => {
     const error = new Error('error example');
-    const originalBuilderFn = jest.fn((): BuilderOutput => {
+    const originalBuilderFn = vi.fn((): BuilderOutput => {
       throw error;
     });
     const builder = createBuilder(createBuilderWithMetrics(originalBuilderFn));
@@ -74,7 +74,7 @@ describe('Builder with metrics', () => {
   });
 
   it('should throw if the builder function is a rejected Promise', async () => {
-    const originalBuilderFn = jest.fn(() => Promise.reject(new Error('rejected')));
+    const originalBuilderFn = vi.fn(() => Promise.reject(new Error('rejected')));
     const builder = createBuilder(createBuilderWithMetrics(originalBuilderFn));
     architectHost.addBuilder('.:builder', builder);
     const options = { example: 'test' };
@@ -85,7 +85,7 @@ describe('Builder with metrics', () => {
 
   it('should works if we chain builder wrapper', async () => {
     const expectedOutput = { success: true };
-    const originalBuilderFn = jest.fn((): BuilderOutput => expectedOutput);
+    const originalBuilderFn = vi.fn((): BuilderOutput => expectedOutput);
     const noopBuilderWrapper: BuilderWrapper = (builderFn) => (opts, ctx) => builderFn(opts, ctx);
     const builder = createBuilder(noopBuilderWrapper(createBuilderWithMetrics(originalBuilderFn)));
     architectHost.addBuilder('.:builder', builder);

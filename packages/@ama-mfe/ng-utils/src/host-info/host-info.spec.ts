@@ -22,7 +22,7 @@ describe('HostInfo', () => {
     Object.defineProperty(globalThis.document, 'referrer', { value: 'unexpected-url', writable: true });
   });
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   describe('getHostInfo', () => {
@@ -39,7 +39,7 @@ describe('HostInfo', () => {
     });
 
     it('should get host info from session storage', () => {
-      const getItemSpy = jest.spyOn(Object.getPrototypeOf(globalThis.sessionStorage), 'getItem').mockReturnValue(JSON.stringify(expectedHostInfo));
+      const getItemSpy = vi.spyOn(Object.getPrototypeOf(globalThis.sessionStorage), 'getItem').mockReturnValue(JSON.stringify(expectedHostInfo));
       const hostInfo = getHostInfo();
       expect(getItemSpy).toHaveBeenCalled();
       expect(hostInfo.hostApplicationId).toBe(expectedHostInfo.hostApplicationId);

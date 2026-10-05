@@ -12,7 +12,12 @@ import {
 
 describe('Specs processing', () => {
   const virtualFileSystem = useVirtualFileSystem();
-  const { copyReferencedFiles, updateLocalRelativeRefs } = require('./copy-referenced-files');
+  // Import the module under test only after the virtual file system is installed,
+  // so it binds the mocked `node:fs` rather than the real one.
+  const {
+    copyReferencedFiles,
+    updateLocalRelativeRefs
+  } = require('./copy-referenced-files') as typeof import('./copy-referenced-files');
 
   const specsMocksPath = join(__dirname, '../../../../testing/mocks');
   const specFilePath = '../models/split-spec/split-spec.yaml';
@@ -55,7 +60,7 @@ describe('Specs processing', () => {
     const specContent = await readFile(join(specsMocksPath, specWitheRelativesFilePath), { encoding: 'utf8' });
 
     const baseRelativePath = await copyReferencedFiles(specFilePath, './output-local-directory');
-    const newSpecContent = await updateLocalRelativeRefs(specContent, baseRelativePath);
+    const newSpecContent = updateLocalRelativeRefs(specContent, baseRelativePath);
     expect(newSpecContent).toBe(expectedContent);
   });
 });

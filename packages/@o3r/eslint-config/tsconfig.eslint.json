@@ -2,6 +2,7 @@
   "extends": "../../../tsconfig.base",
   "include": [
     "testing/*",
+    "vitest.config.ts",
     "eslint*.config.mjs"
   ]
 }

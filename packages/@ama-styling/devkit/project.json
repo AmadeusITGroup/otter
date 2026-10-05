@@ -22,14 +22,18 @@
     },
     "lint": {},
     "test": {
-      "options": {
-        "passWithNoTests": true
-      }
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
     },
     "prepare-publish": {},
     "publish": {},
     "prepare-build-builders": {},
     "build-builders": {},
-    "documentation": {}
+    "documentation": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    }
   }
 }

@@ -6,7 +6,7 @@ import {
 } from './reviver-reply';
 
 describe('Reviver Reply Plugin', () => {
-  const reviver = jest.fn();
+  const reviver = vi.fn();
 
   it('should revive a specific data', async () => {
     const plugin = new ReviverReply();

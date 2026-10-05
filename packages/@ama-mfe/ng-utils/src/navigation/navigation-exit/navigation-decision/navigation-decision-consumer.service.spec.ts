@@ -8,6 +8,9 @@ import {
 import {
   LoggerService,
 } from '@o3r/logger';
+import type {
+  Mock,
+} from 'vitest';
 import {
   ConsumerManagerService,
 } from '../../../managers';
@@ -19,18 +22,18 @@ import {
 } from './navigation-decision-consumer.service';
 
 describe('NavigationDecisionConsumerService', () => {
-  let consumerManager: { register: jest.Mock; unregister: jest.Mock };
-  let producer: { resolvePendingRequest: jest.Mock };
+  let consumerManager: { register: Mock; unregister: Mock };
+  let producer: { resolvePendingRequest: Mock };
   let service: NavigationDecisionConsumerService;
 
   beforeEach(() => {
-    consumerManager = { register: jest.fn(), unregister: jest.fn() };
-    producer = { resolvePendingRequest: jest.fn() };
+    consumerManager = { register: vi.fn(), unregister: vi.fn() };
+    producer = { resolvePendingRequest: vi.fn() };
     TestBed.configureTestingModule({
       providers: [
         { provide: ConsumerManagerService, useValue: consumerManager },
         { provide: NavigationRequestManagerService, useValue: producer },
-        { provide: LoggerService, useValue: { warn: jest.fn(), error: jest.fn() } },
+        { provide: LoggerService, useValue: { warn: vi.fn(), error: vi.fn() } },
         NavigationDecisionConsumerService
       ]
     });

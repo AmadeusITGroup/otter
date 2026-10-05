@@ -11,7 +11,7 @@ import {
 
 describe('getMigrationRuleRunner', () => {
   it('should execute rule when in the range', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     const runner = getMigrationRuleRunner({
       '10.0.*': spy
     });
@@ -24,8 +24,8 @@ describe('getMigrationRuleRunner', () => {
   });
 
   it('should not execute rule when not in the range', async () => {
-    const spy = jest.fn();
-    const spy2 = jest.fn();
+    const spy = vi.fn();
+    const spy2 = vi.fn();
     const runner = getMigrationRuleRunner({
       '8.*': spy2,
       '10.0.*': spy
@@ -39,7 +39,7 @@ describe('getMigrationRuleRunner', () => {
   });
 
   it('should execute rule when in the range without limit', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     const runner = getMigrationRuleRunner({
       '10.0.*': spy
     });

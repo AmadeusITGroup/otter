@@ -27,13 +27,13 @@ describe('ProducerManagerService', () => {
   });
 
   it('should register a producer', () => {
-    const producer: MessageProducer = { types: ['test'], handleError: jest.fn() };
+    const producer: MessageProducer = { types: ['test'], handleError: vi.fn() };
     service.register(producer);
     expect(service.producers.length).toBe(1);
   });
 
   it('should unregister a producer', () => {
-    const producer: MessageProducer = { types: ['test'], handleError: jest.fn() };
+    const producer: MessageProducer = { types: ['test'], handleError: vi.fn() };
     service.register(producer);
     expect(service.producers.length).toBe(1);
     service.unregister(producer);
@@ -41,7 +41,7 @@ describe('ProducerManagerService', () => {
   });
 
   it('should handle the double registration of a producer', () => {
-    const producer: MessageProducer = { types: ['test'], handleError: jest.fn() };
+    const producer: MessageProducer = { types: ['test'], handleError: vi.fn() };
     service.register(producer);
     expect(service.producers.length).toBe(1);
     service.register(producer);
@@ -49,7 +49,7 @@ describe('ProducerManagerService', () => {
   });
 
   it('should dispatch error messages', async () => {
-    const producer: MessageProducer = { types: ['test'], handleError: jest.fn().mockResolvedValue(true) };
+    const producer: MessageProducer = { types: ['test'], handleError: vi.fn().mockResolvedValue(true) };
     service.register(producer);
     const message: ErrorContent = { source: { type: 'test', version: '1.0' }, reason: 'unknown_type' };
     const result = await service.dispatchError(message);
@@ -58,8 +58,8 @@ describe('ProducerManagerService', () => {
   });
 
   it('should dispatch error messages when matching multiple producers', async () => {
-    const producer: MessageProducer = { types: ['test'], handleError: jest.fn().mockResolvedValue(true) };
-    const producer2: MessageProducer = { types: ['test', 'test2'], handleError: jest.fn().mockResolvedValue(true) };
+    const producer: MessageProducer = { types: ['test'], handleError: vi.fn().mockResolvedValue(true) };
+    const producer2: MessageProducer = { types: ['test', 'test2'], handleError: vi.fn().mockResolvedValue(true) };
     service.register(producer);
     service.register(producer2);
     const message: ErrorContent = { source: { type: 'test', version: '1.0' }, reason: 'unknown_type' };

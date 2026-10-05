@@ -7,6 +7,15 @@ import {
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
+import {
   LoggerClient,
 } from './logger-client';
 import {
@@ -28,6 +37,7 @@ describe('Logger service', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
+  afterEach(() => TestBed.resetTestingModule());
 
   describe('by default', () => {
     let service: LoggerService;
@@ -43,14 +53,14 @@ describe('Logger service', () => {
     });
 
     it('should report warning', () => {
-      const spy = jest.spyOn(consoleLogger, 'warn');
+      const spy = vi.spyOn(consoleLogger, 'warn');
       service.warn('warning', 'test');
 
       expect(spy).toHaveBeenCalledWith('warning', 'test');
     });
 
     it('should report error', () => {
-      const spy = jest.spyOn(consoleLogger, 'error');
+      const spy = vi.spyOn(consoleLogger, 'error');
       service.error('error', 'test');
 
       expect(spy).toHaveBeenCalledWith('error', 'test');
@@ -63,15 +73,15 @@ describe('Logger service', () => {
 
     beforeEach(() => {
       client = {
-        identify: jest.fn(),
-        event: jest.fn(),
-        getSessionURL: jest.fn().mockReturnValue('client.session.url'),
-        stopRecording: jest.fn(),
-        resumeRecording: jest.fn(),
-        error: jest.fn(),
-        warn: jest.fn(),
-        log: jest.fn(),
-        createMetaReducer: jest.fn()
+        identify: vi.fn(),
+        event: vi.fn(),
+        getSessionURL: vi.fn().mockReturnValue('client.session.url'),
+        stopRecording: vi.fn(),
+        resumeRecording: vi.fn(),
+        error: vi.fn(),
+        warn: vi.fn(),
+        log: vi.fn(),
+        createMetaReducer: vi.fn()
       };
 
       TestBed.configureTestingModule({
@@ -137,26 +147,26 @@ describe('Logger service', () => {
     describe('via forRoot', () => {
       beforeEach(() => {
         client1 = {
-          identify: jest.fn(),
-          event: jest.fn(),
-          getSessionURL: jest.fn().mockReturnValue('client.session.url1'),
-          stopRecording: jest.fn(),
-          resumeRecording: jest.fn(),
-          error: jest.fn(),
-          warn: jest.fn(),
-          log: jest.fn(),
-          createMetaReducer: jest.fn()
+          identify: vi.fn(),
+          event: vi.fn(),
+          getSessionURL: vi.fn().mockReturnValue('client.session.url1'),
+          stopRecording: vi.fn(),
+          resumeRecording: vi.fn(),
+          error: vi.fn(),
+          warn: vi.fn(),
+          log: vi.fn(),
+          createMetaReducer: vi.fn()
         };
         client2 = {
-          identify: jest.fn(),
-          event: jest.fn(),
-          getSessionURL: jest.fn().mockReturnValue('client.session.url2'),
-          stopRecording: jest.fn(),
-          resumeRecording: jest.fn(),
-          error: jest.fn(),
-          warn: jest.fn(),
-          log: jest.fn(),
-          createMetaReducer: jest.fn()
+          identify: vi.fn(),
+          event: vi.fn(),
+          getSessionURL: vi.fn().mockReturnValue('client.session.url2'),
+          stopRecording: vi.fn(),
+          resumeRecording: vi.fn(),
+          error: vi.fn(),
+          warn: vi.fn(),
+          log: vi.fn(),
+          createMetaReducer: vi.fn()
         };
 
         TestBed.configureTestingModule({
@@ -189,30 +199,30 @@ describe('Logger service', () => {
       it('should make sure new registered client are consistent with the stop and resume recording status', () => {
         service.stopClientRecording();
         const client3 = {
-          identify: jest.fn(),
-          event: jest.fn(),
-          getSessionURL: jest.fn().mockReturnValue('client.session.url2'),
-          stopRecording: jest.fn(),
-          resumeRecording: jest.fn(),
-          error: jest.fn(),
-          warn: jest.fn(),
-          log: jest.fn(),
-          createMetaReducer: jest.fn()
+          identify: vi.fn(),
+          event: vi.fn(),
+          getSessionURL: vi.fn().mockReturnValue('client.session.url2'),
+          stopRecording: vi.fn(),
+          resumeRecording: vi.fn(),
+          error: vi.fn(),
+          warn: vi.fn(),
+          log: vi.fn(),
+          createMetaReducer: vi.fn()
         };
         service.registerClient(client3);
         expect(client3.stopRecording).toHaveBeenCalled();
         expect(client3.stopRecording).toHaveBeenCalled();
         service.resumeClientRecording();
         const client4 = {
-          identify: jest.fn(),
-          event: jest.fn(),
-          getSessionURL: jest.fn().mockReturnValue('client.session.url2'),
-          stopRecording: jest.fn(),
-          resumeRecording: jest.fn(),
-          error: jest.fn(),
-          warn: jest.fn(),
-          log: jest.fn(),
-          createMetaReducer: jest.fn()
+          identify: vi.fn(),
+          event: vi.fn(),
+          getSessionURL: vi.fn().mockReturnValue('client.session.url2'),
+          stopRecording: vi.fn(),
+          resumeRecording: vi.fn(),
+          error: vi.fn(),
+          warn: vi.fn(),
+          log: vi.fn(),
+          createMetaReducer: vi.fn()
         };
         service.registerClient(client4);
         expect(client4.resumeRecording).toHaveBeenCalled();
@@ -239,26 +249,26 @@ describe('Logger service', () => {
     describe('via multi providers', () => {
       beforeEach(() => {
         client1 = {
-          identify: jest.fn(),
-          event: jest.fn(),
-          getSessionURL: jest.fn().mockReturnValue('client.session.url1'),
-          stopRecording: jest.fn(),
-          resumeRecording: jest.fn(),
-          error: jest.fn(),
-          warn: jest.fn(),
-          log: jest.fn(),
-          createMetaReducer: jest.fn()
+          identify: vi.fn(),
+          event: vi.fn(),
+          getSessionURL: vi.fn().mockReturnValue('client.session.url1'),
+          stopRecording: vi.fn(),
+          resumeRecording: vi.fn(),
+          error: vi.fn(),
+          warn: vi.fn(),
+          log: vi.fn(),
+          createMetaReducer: vi.fn()
         };
         client2 = {
-          identify: jest.fn(),
-          event: jest.fn(),
-          getSessionURL: jest.fn().mockReturnValue('client.session.url2'),
-          stopRecording: jest.fn(),
-          resumeRecording: jest.fn(),
-          error: jest.fn(),
-          warn: jest.fn(),
-          log: jest.fn(),
-          createMetaReducer: jest.fn()
+          identify: vi.fn(),
+          event: vi.fn(),
+          getSessionURL: vi.fn().mockReturnValue('client.session.url2'),
+          stopRecording: vi.fn(),
+          resumeRecording: vi.fn(),
+          error: vi.fn(),
+          warn: vi.fn(),
+          log: vi.fn(),
+          createMetaReducer: vi.fn()
         };
 
         TestBed.configureTestingModule({
@@ -274,19 +284,19 @@ describe('Logger service', () => {
 
       it('should not register twice the same service', () => {
         class MyLogger implements LoggerClient {
-          public identify = jest.fn();
-          public event = jest.fn();
-          public getSessionURL = jest.fn().mockReturnValue('client.session.url2');
-          public stopRecording = jest.fn();
-          public resumeRecording = jest.fn();
-          public error = jest.fn();
-          public warn = jest.fn();
-          public log = jest.fn();
-          public createMetaReducer = jest.fn();
+          public identify = vi.fn();
+          public event = vi.fn();
+          public getSessionURL = vi.fn().mockReturnValue('client.session.url2');
+          public stopRecording = vi.fn();
+          public resumeRecording = vi.fn();
+          public error = vi.fn();
+          public warn = vi.fn();
+          public log = vi.fn();
+          public createMetaReducer = vi.fn();
         }
 
         const client = new MyLogger();
-        jest.spyOn(service, 'warn');
+        vi.spyOn(service, 'warn');
         service.registerClient(client);
         service.registerClient(client);
         expect(service.warn).toHaveBeenCalledWith('Client MyLogger already registered');

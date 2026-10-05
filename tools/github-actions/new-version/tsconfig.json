@@ -1,22 +1,14 @@
+/* For IDE and EsLint usage */
 {
-  "extends": "../../../tsconfig.build",
-  "compilerOptions": {
-    "types": ["node"],
-    "target": "ES2022",
-    "module": "commonjs",
-    "moduleResolution": "bundler",
-    "outDir": "./tmp",
-    "rootDir": "./src",
-    "strict": true,
-    "noImplicitAny": true,
-    "esModuleInterop": true
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.ts"],
-  /* For IDE and EsLint usage */
   "references": [
     {
+      "path": "./tsconfig.build.composite.json"
+    },
+    {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.eslint.json"
     }
   ]
 }

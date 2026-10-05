@@ -3,6 +3,8 @@
   "include": [
     "eslint*.config.mjs",
     "testing/setup-jest*.ts",
+    "testing/setup-vitest*.ts",
+    "vitest.config.ts",
     "scripts/**/*"
   ],
   "exclude": [

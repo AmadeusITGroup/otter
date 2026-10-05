@@ -22,8 +22,8 @@ describe('Ng add @ama-sdk/core', () => {
     initialTree.create('package.json', JSON.stringify({ name: 'test' }, null, 2));
     initialTree.create('src/example.ts', readFileSync(join(__dirname, 'mocks', 'example.ts.mock')));
     const context: any = {
-      addTask: jest.fn(),
-      logger: { debug: jest.fn(), error: jest.fn(), warn: jest.fn() },
+      addTask: vi.fn(),
+      logger: { debug: vi.fn(), error: vi.fn(), warn: vi.fn() },
       schematic: { description: { name: 'schematic', collection: { name: '@scope/test' } } }
     };
     const tree = await firstValueFrom(callRule(ngAdd({ projectName: 'projectName' }), initialTree, context));

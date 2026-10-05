@@ -14,7 +14,7 @@ describe('SdkTraining', () => {
   let fixture: ComponentFixture<SdkTraining>;
 
   beforeEach(async () => {
-    global.fetch = jest.fn(() => Promise.resolve({
+    global.fetch = vi.fn(() => Promise.resolve({
       ok: true,
       json: () => Promise.resolve({}),
       headers: {},

@@ -16,10 +16,10 @@ import {
 const testMock: Mock<any> = {
   mockData: {}
 };
-const getMockSpy = jest.fn().mockReturnValue(testMock);
-const getLatestMockSpy = jest.fn().mockReturnValue(testMock);
-const retrieveOperationIdSpy = jest.fn().mockReturnValue(Promise.resolve('testOperation'));
-const initializeSpy = jest.fn().mockReturnValue(Promise.resolve());
+const getMockSpy = vi.fn().mockReturnValue(testMock);
+const getLatestMockSpy = vi.fn().mockReturnValue(testMock);
+const retrieveOperationIdSpy = vi.fn().mockReturnValue(Promise.resolve('testOperation'));
+const initializeSpy = vi.fn().mockReturnValue(Promise.resolve());
 const testMockAdapter: MockAdapter = {
   getMock: getMockSpy,
   getLatestMock: getLatestMockSpy,
@@ -36,8 +36,11 @@ const apiClient = {
   }
 } as ApiClient;
 
+beforeEach(() => vi.useFakeTimers());
+afterEach(() => vi.useRealTimers());
+
 describe('Mock intercept', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => vi.clearAllMocks());
 
   describe('request plugin', () => {
     it('should do nothing if disabled is true', async () => {
@@ -103,7 +106,7 @@ describe('Mock intercept', () => {
 
       it('should call initialize fn', async () => {
         const loadedPlugin = plugin.load({
-          controller: jest.fn() as any,
+          controller: vi.fn() as any,
           fetchPlugins: [],
           url: 'myurl',
           apiClient,
@@ -123,7 +126,7 @@ describe('Mock intercept', () => {
 
       it('should throw if there is no request plugin', () => {
         const config = {
-          controller: jest.fn() as any,
+          controller: vi.fn() as any,
           fetchPlugins: [],
           url: 'myurl',
           apiClient: {
@@ -143,7 +146,7 @@ describe('Mock intercept', () => {
 
       it('should throw if there is no request plugin when dynamic', async () => {
         const config: any = {
-          controller: jest.fn() as any,
+          controller: vi.fn() as any,
           fetchPlugins: [],
           url: 'myurl',
           apiClient: {
@@ -167,7 +170,7 @@ describe('Mock intercept', () => {
     it('should delay the response of the specific number', async () => {
       const plugin = new MockInterceptFetch({ adapter: testMockAdapter, delayTiming: 700 });
       const loadedPlugin = plugin.load({
-        controller: jest.fn() as any,
+        controller: vi.fn() as any,
         fetchPlugins: [],
         url: '',
         apiClient,
@@ -177,11 +180,11 @@ describe('Mock intercept', () => {
           })
         }
       });
-      const callback = jest.fn();
+      const callback = vi.fn();
       const run = loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
-      await jest.advanceTimersByTimeAsync(699);
+      await vi.advanceTimersByTimeAsync(699);
       expect(callback).not.toHaveBeenCalled();
-      await jest.advanceTimersByTimeAsync(1);
+      await vi.advanceTimersByTimeAsync(1);
       expect(callback).toHaveBeenCalled();
       await run;
     });
@@ -189,7 +192,7 @@ describe('Mock intercept', () => {
     it('should delay the response based on callback', async () => {
       const plugin = new MockInterceptFetch({ adapter: testMockAdapter, delayTiming: () => 800 });
       const loadedPlugin = plugin.load({
-        controller: jest.fn() as any,
+        controller: vi.fn() as any,
         fetchPlugins: [],
         url: '',
         apiClient,
@@ -199,11 +202,11 @@ describe('Mock intercept', () => {
           })
         }
       });
-      const callback = jest.fn();
+      const callback = vi.fn();
       const run = loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
-      await jest.advanceTimersByTimeAsync(799);
+      await vi.advanceTimersByTimeAsync(799);
       expect(callback).not.toHaveBeenCalled();
-      await jest.advanceTimersByTimeAsync(1);
+      await vi.advanceTimersByTimeAsync(1);
       expect(callback).toHaveBeenCalled();
       await run;
     });

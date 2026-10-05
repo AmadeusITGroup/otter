@@ -1,15 +1,19 @@
 describe('getFile', () => {
   test('should retrieve the correct file', async () => {
-    const getFileMock = jest.fn();
-    const filesApiMock = jest.fn().mockReturnValue({ getFile: getFileMock });
+    const getFileMock = vi.fn();
+    const filesApiMock = vi.fn(class {
+      constructor() {
+        return { getFile: getFileMock };
+      }
+    });
 
-    jest.mock('@ama-styling/figma-sdk', () => ({
+    vi.doMock('@ama-styling/figma-sdk', () => ({
       FilesApi: filesApiMock
     }));
 
     const testApi: any = {};
     const opts = { fileKey: 'test-file' };
-    const { getFile } = require('./get-file-request');
+    const { getFile } = (await import('./get-file-request'));
     await getFile(testApi, opts);
     expect(filesApiMock).toHaveBeenCalled();
     expect(getFileMock).toHaveBeenCalledWith({ file_key: opts.fileKey });

@@ -1,0 +1,23 @@
+diff --git a/dist/magic-string.cjs.js b/dist/magic-string.cjs.js
+index bf3cd1d4350284994f1202d5af20278d30480aea..2de2b4f3cccd5df2394626de054573d00dc964d9 100644
+--- a/dist/magic-string.cjs.js
++++ b/dist/magic-string.cjs.js
+@@ -1589,6 +1589,7 @@ class Bundle {
+ MagicString.Bundle = Bundle;
+ MagicString.SourceMap = SourceMap;
+ MagicString.default = MagicString; // work around TypeScript bug https://github.com/Rich-Harris/magic-string/pull/121
++MagicString.MagicString = MagicString; // named export expected by magic-string@1 consumers (e.g. @angular-devkit/schematics@22)
+ 
+ module.exports = MagicString;
+ //# sourceMappingURL=magic-string.cjs.js.map
+diff --git a/dist/magic-string.es.mjs b/dist/magic-string.es.mjs
+index c7999fc86b67064ca32bb313dc4ce96992258a4c..b3a9ff287472b72ce837804b726583c8048b561d 100644
+--- a/dist/magic-string.es.mjs
++++ b/dist/magic-string.es.mjs
+@@ -1584,5 +1584,5 @@ class Bundle {
+ 	}
+ }
+ 
+-export { Bundle, SourceMap, MagicString as default };
++export { Bundle, MagicString, SourceMap, MagicString as default };
+ //# sourceMappingURL=magic-string.es.mjs.map

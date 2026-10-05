@@ -23,9 +23,9 @@ describe('App version Builder', () => {
   let architect: Architect;
   let architectHost: TestingArchitectHost;
   let virtualFileSystem: typeof fs;
-  const patternReplacementBuilderSpy = jest.fn().mockReturnValue({ success: true });
+  const patternReplacementBuilderSpy = vi.fn().mockReturnValue({ success: true });
 
-  beforeEach(() => {
+  beforeEach(async () => {
     virtualFileSystem = useVirtualFileSystem();
 
     const registry = new schema.CoreSchemaRegistry();
@@ -33,7 +33,7 @@ describe('App version Builder', () => {
     architectHost = new TestingArchitectHost(path.resolve(__dirname, workspaceRoot), __dirname);
     architect = new Architect(architectHost, registry);
     architectHost.addBuilder('@o3r/core:pattern-replacement', createBuilder(patternReplacementBuilderSpy));
-    architectHost.addBuilder('.:app-version', require('./index').default);
+    architectHost.addBuilder('.:app-version', (await import('./index')).default);
   });
   afterEach(() => {
     cleanVirtualFileSystem();

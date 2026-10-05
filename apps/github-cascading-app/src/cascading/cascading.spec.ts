@@ -33,36 +33,36 @@ const mockBasicTemplate = `
 Super footer
 `;
 
-class JestCascading extends Cascading {
-  public loadConfiguration = jest.fn<Promise<CascadingConfiguration>, [string]>();
-  public deleteBranch = jest.fn<Promise<void>, [string]>();
-  public createBranch = jest.fn<Promise<void>, [string, string]>();
-  public merge = jest.fn<Promise<void>, [string, string]>();
-  public getBranches = jest.fn<Promise<string[]>, []>();
-  public createPullRequest = jest.fn<Promise<CascadingPullRequestInfo>, [string, string, string, string]>();
-  public updatePullRequestMessage = jest.fn<Promise<CascadingPullRequestInfo>, [string | number, string, string | undefined]>();
-  public getPullRequests = jest.fn<Promise<CascadingPullRequestInfo[]>, [string, string]>();
-  public getPullRequestFromId = jest.fn<Promise<CascadingPullRequestInfo>, [string | number]>();
-  public isCascadingPullRequest = jest.fn<Promise<boolean>, [string | number]>();
-  public areAllChecksPassed = jest.fn<Promise<boolean>, [string | number, CheckConclusion]>();
-  public mergePullRequest = jest.fn<Promise<boolean>, [string | number]>();
-  public isBranchAhead = jest.fn<Promise<boolean>, [string, string]>();
-  public updateMessageWhenNonMergeable = jest.fn<Promise<void>, [CascadingPullRequestInfo, PullRequestContext]>();
+class VitestCascading extends Cascading {
+  public loadConfiguration = vi.fn<Promise<CascadingConfiguration>, [string]>();
+  public deleteBranch = vi.fn<Promise<void>, [string]>();
+  public createBranch = vi.fn<Promise<void>, [string, string]>();
+  public merge = vi.fn<Promise<void>, [string, string]>();
+  public getBranches = vi.fn<Promise<string[]>, []>();
+  public createPullRequest = vi.fn<Promise<CascadingPullRequestInfo>, [string, string, string, string]>();
+  public updatePullRequestMessage = vi.fn<Promise<CascadingPullRequestInfo>, [string | number, string, string | undefined]>();
+  public getPullRequests = vi.fn<Promise<CascadingPullRequestInfo[]>, [string, string]>();
+  public getPullRequestFromId = vi.fn<Promise<CascadingPullRequestInfo>, [string | number]>();
+  public isCascadingPullRequest = vi.fn<Promise<boolean>, [string | number]>();
+  public areAllChecksPassed = vi.fn<Promise<boolean>, [string | number, CheckConclusion]>();
+  public mergePullRequest = vi.fn<Promise<boolean>, [string | number]>();
+  public isBranchAhead = vi.fn<Promise<boolean>, [string, string]>();
+  public updateMessageWhenNonMergeable = vi.fn<Promise<void>, [CascadingPullRequestInfo, PullRequestContext]>();
 }
 
 describe('Cascading Application', () => {
-  let customization: JestCascading;
+  let customization: VitestCascading;
 
   let logger: BaseLogger;
 
   beforeEach(() => {
     logger = {
-      debug: jest.fn<void, [string]>(),
-      error: jest.fn<void, [string]>(),
-      info: jest.fn<void, [string]>(),
-      warn: jest.fn<void, [string]>()
+      debug: vi.fn<void, [string]>(),
+      error: vi.fn<void, [string]>(),
+      info: vi.fn<void, [string]>(),
+      warn: vi.fn<void, [string]>()
     };
-    customization = new JestCascading(logger);
+    customization = new VitestCascading(logger);
   });
 
   describe('calculate the branch to re-evaluate function', () => {

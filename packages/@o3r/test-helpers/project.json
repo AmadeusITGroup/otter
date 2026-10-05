@@ -29,7 +29,15 @@
       }
     },
     "lint": {},
-    "test": {}
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
+    "vitest": {
+      "plugin": "@nx/vitest"
+    }
   },
   "tags": [
     "access:private",

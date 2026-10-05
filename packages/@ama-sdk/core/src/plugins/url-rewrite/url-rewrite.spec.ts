@@ -6,7 +6,7 @@ import {
 } from './url-rewrite-request';
 
 describe('URL Rewrite Request Plugin', () => {
-  const urlRewriter = jest.fn().mockReturnValue('http://ok');
+  const urlRewriter = vi.fn().mockReturnValue('http://ok');
 
   const defaultGetParams = { defaultTest: 'ok' };
   const defaultBody = 'default';

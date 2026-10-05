@@ -24,12 +24,21 @@
     },
     "prepare": {},
     "lint": {},
-    "test": {},
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    },
+    "test-schematics": {},
     "publish": {},
     "prepare-publish": {},
     "prepare-build-builders": {},
     "build-builders": {},
-    "documentation": {}
+    "documentation": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    }
   },
   "tags": []
 }

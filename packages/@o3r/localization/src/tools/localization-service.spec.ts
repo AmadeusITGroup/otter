@@ -8,6 +8,9 @@ import {
   firstValueFrom,
   of,
 } from 'rxjs';
+import type {
+  MockInstance,
+} from 'vitest';
 import {
   DEFAULT_LOCALIZATION_CONFIGURATION,
   LocalizationConfiguration,
@@ -116,7 +119,7 @@ describe('LocalizationService', () => {
       language: 'fr-FR'
     });
 
-    let translateServiceSpy: jest.SpyInstance;
+    let translateServiceSpy: MockInstance;
     let localizationService: LocalizationService;
 
     beforeEach(async () => {
@@ -129,7 +132,7 @@ describe('LocalizationService', () => {
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
       const translateService = localizationService.getTranslateService();
-      translateServiceSpy = jest.spyOn(translateService, 'setDefaultLang');
+      translateServiceSpy = vi.spyOn(translateService, 'setDefaultLang');
       await localizationService.configure();
     });
 
@@ -147,7 +150,7 @@ describe('LocalizationService', () => {
       language: 'es-ES'
     });
 
-    let translateServiceSpy: jest.SpyInstance;
+    let translateServiceSpy: MockInstance;
     let localizationService: LocalizationService;
 
     beforeEach(async () => {
@@ -160,7 +163,7 @@ describe('LocalizationService', () => {
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
       const translateService = localizationService.getTranslateService();
-      translateServiceSpy = jest.spyOn(translateService, 'setDefaultLang');
+      translateServiceSpy = vi.spyOn(translateService, 'setDefaultLang');
       await localizationService.configure();
     });
 
@@ -270,7 +273,7 @@ describe('LocalizationService', () => {
       const value = 'Hello world';
 
       const translateService = localizationService.getTranslateService();
-      const streamSpy = jest.spyOn(translateService, 'stream').mockReturnValue(of(value));
+      const streamSpy = vi.spyOn(translateService, 'stream').mockReturnValue(of(value));
 
       const result = await firstValueFrom(localizationService.translate(key));
       expect(streamSpy).toHaveBeenCalledWith(key, undefined);

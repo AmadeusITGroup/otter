@@ -5,6 +5,15 @@
   "sourceRoot": "packages/@o3r/workspace-helpers/scripts",
   "tags": [],
   "targets": {
-    "lint": {}
+    "lint": {},
+    "vitest": {
+      "plugin": "@nx/vitest"
+    },
+    "test": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "vitest"
+      ]
+    }
   }
 }

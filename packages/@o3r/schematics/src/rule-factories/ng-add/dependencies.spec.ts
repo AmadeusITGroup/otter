@@ -24,7 +24,7 @@ describe('setupDependencies', () => {
   });
 
   test('should apply enforceTildeRange when requested as option', async () => {
-    const logger = { debug: jest.fn(), warn: jest.fn(), error: jest.fn() };
+    const logger = { debug: vi.fn(), warn: vi.fn(), error: vi.fn() };
     const setup = setupDependencies({
       enforceTildeRange: true,
       skipInstall: true,
@@ -45,7 +45,7 @@ describe('setupDependencies', () => {
   });
 
   test('should apply enforceTildeRange per default', async () => {
-    const logger = { debug: jest.fn(), warn: jest.fn(), error: jest.fn() };
+    const logger = { debug: vi.fn(), warn: vi.fn(), error: vi.fn() };
     const setup = setupDependencies({
       skipInstall: true,
       dependencies: {
@@ -65,7 +65,7 @@ describe('setupDependencies', () => {
   });
 
   test('should apply enforceTildeRange when requested specifically', async () => {
-    const logger = { debug: jest.fn(), warn: jest.fn(), logger: jest.fn() };
+    const logger = { debug: vi.fn(), warn: vi.fn(), logger: vi.fn() };
     const setup = setupDependencies({
       enforceTildeRange: false,
       skipInstall: true,
@@ -87,7 +87,7 @@ describe('setupDependencies', () => {
   });
 
   test('should not apply enforceTildeRange when set to false', async () => {
-    const logger = { debug: jest.fn(), warn: jest.fn(), error: jest.fn() };
+    const logger = { debug: vi.fn(), warn: vi.fn(), error: vi.fn() };
     const setup = setupDependencies({
       enforceTildeRange: false,
       skipInstall: true,

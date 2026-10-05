@@ -32,14 +32,14 @@ describe('Aggregate migration scripts', () => {
     expect(await virtualFileSystem.promises.readFile(virtualPath, { encoding: 'utf8' }))
       .toEqual(await fs.promises.readFile(join(migrationScriptMocksPath, realPath), { encoding: 'utf8' }));
 
-  beforeEach(() => {
+  beforeEach(async () => {
     virtualFileSystem = useVirtualFileSystem();
 
     const registry = new schema.CoreSchemaRegistry();
     registry.addPostTransform(schema.transforms.addUndefinedDefaults);
     architectHost = new TestingArchitectHost(resolve(__dirname, workspaceRoot), __dirname);
     architect = new Architect(architectHost, registry);
-    architectHost.addBuilder('.:aggregate-migration-scripts', require('./index').default);
+    architectHost.addBuilder('.:aggregate-migration-scripts', (await import('./index')).default);
   });
   afterEach(() => {
     cleanVirtualFileSystem();

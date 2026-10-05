@@ -65,11 +65,11 @@ describe('JSON Web Encryption Token', () => {
     (global as any).window = {
       btoa: (data: string) => Buffer.from(data, 'ascii').toString('base64'),
       crypto: {
-        getRandomValues: jest.fn().mockReturnValue(expectedIv),
+        getRandomValues: vi.fn().mockReturnValue(expectedIv),
         subtle: {
-          wrapKey: jest.fn().mockReturnValue(expectedJweEncryptedKey),
-          generateKey: jest.fn().mockReturnValue(cek),
-          encrypt: jest.fn().mockReturnValue(outputAesGcm)
+          wrapKey: vi.fn().mockReturnValue(expectedJweEncryptedKey),
+          generateKey: vi.fn().mockReturnValue(cek),
+          encrypt: vi.fn().mockReturnValue(outputAesGcm)
         }
       }
     };

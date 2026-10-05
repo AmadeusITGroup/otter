@@ -29,13 +29,13 @@ describe('RestoreRoute', () => {
   beforeEach(() => {
     mockWindow = { location: { href: window.location.href } };
     const routeMemorizeServiceMock = {
-      getRoute: jest.fn(),
-      memorizeRoute: jest.fn(() => {})
+      getRoute: vi.fn(),
+      memorizeRoute: vi.fn(() => {})
     };
     TestBed.configureTestingModule({
       providers: [
         RestoreRoute,
-        { provide: DomSanitizer, useValue: { sanitize: jest.fn(() => 'sanitizedUrl'), bypassSecurityTrustResourceUrl: jest.fn((url: string) => url) } },
+        { provide: DomSanitizer, useValue: { sanitize: vi.fn(() => 'sanitizedUrl'), bypassSecurityTrustResourceUrl: vi.fn((url: string) => url) } },
         { provide: ActivatedRoute, useValue: { routeConfig: { path: 'test-path' } } },
         { provide: RouteMemorizeService, useValue: routeMemorizeServiceMock },
         { provide: Window, useValue: mockWindow }
@@ -63,7 +63,7 @@ describe('RestoreRoute', () => {
   it('should handle SafeResourceUrl input', () => {
     const url = 'http://safe-url/';
     const safeUrl: SafeResourceUrl = { mock: url };
-    jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
+    vi.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
 
     const result = pipe.transform(safeUrl);
 
@@ -75,7 +75,7 @@ describe('RestoreRoute', () => {
   it('should propagate query params if propagateQueryParams is true', () => {
     const url = 'http://example.com';
     const options: RestoreRouteOptions = { propagateQueryParams: true };
-    jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
+    vi.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
 
     Object.defineProperty(mockWindow, 'location', {
       value: { href: 'http://example-top-window.com?param2=value2' },
@@ -90,7 +90,7 @@ describe('RestoreRoute', () => {
   it('should propagate and concatenate query params if propagateQueryParams is true', () => {
     const url = 'http://example.com?param1=value1';
     const options: RestoreRouteOptions = { propagateQueryParams: true };
-    jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
+    vi.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
 
     Object.defineProperty(mockWindow, 'location', {
       value: { href: 'http://example-top-window.com?param2=value2' },
@@ -105,7 +105,7 @@ describe('RestoreRoute', () => {
   it('should override query params if overrideQueryParams and propagateQueryParams is true', () => {
     const url = 'http://example.com?param1=value1';
     const options: RestoreRouteOptions = { propagateQueryParams: true, overrideQueryParams: true };
-    jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
+    vi.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
     Object.defineProperty(mockWindow, 'location', {
       value: { href: 'http://example-to-window.com?param1=value2' },
       writable: true
@@ -118,12 +118,15 @@ describe('RestoreRoute', () => {
 
   it('should append the correct pathname and remove the module path from top window url', () => {
     const url = 'http://example.com';
-    jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
+    vi.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
     Object.defineProperty(mockWindow, 'location', {
       value: { href: 'http://example-top-window.com/module-path/in-module-path' },
       writable: true
     });
-    jest.replaceProperty(activatedRoute, 'routeConfig', { path: 'module-path' });
+    Object.defineProperty(activatedRoute, 'routeConfig', {
+      configurable: true,
+      value: { path: 'module-path' }
+    });
 
     const result = pipe.transform(url);
 
@@ -132,15 +135,18 @@ describe('RestoreRoute', () => {
 
   it('should handle memorized route', () => {
     const url = 'http://example.com';
-    jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
+    vi.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
 
     Object.defineProperty(mockWindow, 'origin', {
       value: 'http://example-top-window.com'
     });
 
     const options: RestoreRouteOptions = { memoryChannelId: 'test', propagateQueryParams: true };
-    jest.spyOn(routeMemorizeService, 'getRoute').mockReturnValue('module-path/path-inside-module?param1=value1');
-    jest.replaceProperty(activatedRoute, 'routeConfig', { path: 'module-path' });
+    vi.spyOn(routeMemorizeService, 'getRoute').mockReturnValue('module-path/path-inside-module?param1=value1');
+    Object.defineProperty(activatedRoute, 'routeConfig', {
+      configurable: true,
+      value: { path: 'module-path' }
+    });
     const result = pipe.transform(url, options);
 
     expect(result).toBe('http://example.com/path-inside-module?param1=value1');

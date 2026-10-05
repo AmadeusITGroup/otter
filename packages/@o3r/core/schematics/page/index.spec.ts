@@ -11,7 +11,7 @@ import {
 const mockGetAppModuleFilePath = jest.fn();
 jest.mock('@o3r/schematics', () => {
   return {
-    ...jest.requireActual('@o3r/schematics'),
+    ...jest.requireActual<typeof import('@o3r/schematics')>('@o3r/schematics'),
     getAppModuleFilePath: mockGetAppModuleFilePath
   };
 });

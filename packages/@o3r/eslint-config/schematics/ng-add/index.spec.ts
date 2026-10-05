@@ -9,19 +9,19 @@ import type {
   PackageJson,
 } from 'type-fest';
 
-const updateVscodeMock = jest.fn(() => {});
-const updateEslintConfigMock = jest.fn(() => () => {});
-
 jest.mock('@o3r/schematics', () => ({
-  ...jest.requireActual('@o3r/schematics'),
+  ...jest.requireActual<typeof import('@o3r/schematics')>('@o3r/schematics'),
   createOtterSchematic: jest.fn((schematicFn) => schematicFn)
 }));
 jest.mock('./vscode/index', () => ({
-  updateVscode: updateVscodeMock
+  updateVscode: jest.fn(() => {})
 }));
 jest.mock('./eslint/index', () => ({
-  updateEslintConfig: updateEslintConfigMock
+  updateEslintConfig: jest.fn(() => () => {})
 }));
+
+const mockUpdateVscode = jest.requireMock('./vscode/index').updateVscode as jest.Mock;
+const mockUpdateEslintConfig = jest.requireMock('./eslint/index').updateEslintConfig as jest.Mock;
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const emptyPackageJson = JSON.stringify({
@@ -33,8 +33,8 @@ const emptyPackageJson = JSON.stringify({
 
 describe('ng add eslint-config', () => {
   beforeEach(() => {
-    updateVscodeMock.mockClear();
-    updateEslintConfigMock.mockClear();
+    mockUpdateVscode.mockClear();
+    mockUpdateEslintConfig.mockClear();
   });
 
   it('should run add on workspace', async () => {
@@ -42,8 +42,8 @@ describe('ng add eslint-config', () => {
     initialTree.create('package.json', emptyPackageJson);
     const runner = new SchematicTestRunner('schematics', collectionPath);
     await runner.runSchematic('ng-add', {}, initialTree);
-    expect(updateVscodeMock).toHaveBeenCalled();
-    expect(updateEslintConfigMock).toHaveBeenCalledTimes(1);
+    expect(mockUpdateVscode).toHaveBeenCalled();
+    expect(mockUpdateEslintConfig).toHaveBeenCalledTimes(1);
 
     const packageJson = initialTree.readJson('package.json') as PackageJson;
     expect(packageJson.scripts.harmonize).toBe('eslint "**/package.json" .yarnrc.yml --quiet --fix --no-error-on-unmatched-pattern');
@@ -82,9 +82,9 @@ describe('ng add eslint-config', () => {
     initialTree.create(path.join('project-test', 'package.json'), emptyPackageJson);
 
     await runner.runSchematic('ng-add', { projectName: 'project-test' }, initialTree);
-    expect(updateVscodeMock).toHaveBeenCalled();
-    expect(updateEslintConfigMock).toHaveBeenCalledTimes(2);
-    expect(updateEslintConfigMock).toHaveBeenCalledWith(__dirname);
-    expect(updateEslintConfigMock).toHaveBeenCalledWith(__dirname, 'project-test');
+    expect(mockUpdateVscode).toHaveBeenCalled();
+    expect(mockUpdateEslintConfig).toHaveBeenCalledTimes(2);
+    expect(mockUpdateEslintConfig).toHaveBeenCalledWith(__dirname);
+    expect(mockUpdateEslintConfig).toHaveBeenCalledWith(__dirname, 'project-test');
   });
 });

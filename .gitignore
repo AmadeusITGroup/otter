@@ -18,6 +18,7 @@
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 
 .yarn/*
+!.yarn/patches
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
@@ -95,3 +96,7 @@ coverage
 .github/instructions/nx.instructions.md
 
 .verdaccio/conf/htpasswd
+
+# AI-DLC
+/.kiro
+/aidlc
