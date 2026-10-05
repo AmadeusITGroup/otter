@@ -33,7 +33,7 @@ const mockBasicTemplate = `
 Super footer
 `;
 
-class JestCascading extends Cascading {
+class VitestCascading extends Cascading {
   public loadConfiguration = vi.fn<Promise<CascadingConfiguration>, [string]>();
   public deleteBranch = vi.fn<Promise<void>, [string]>();
   public createBranch = vi.fn<Promise<void>, [string, string]>();
@@ -51,7 +51,7 @@ class JestCascading extends Cascading {
 }
 
 describe('Cascading Application', () => {
-  let customization: JestCascading;
+  let customization: VitestCascading;
 
   let logger: BaseLogger;
 
@@ -62,7 +62,7 @@ describe('Cascading Application', () => {
       info: vi.fn<void, [string]>(),
       warn: vi.fn<void, [string]>()
     };
-    customization = new JestCascading(logger);
+    customization = new VitestCascading(logger);
   });
 
   describe('calculate the branch to re-evaluate function', () => {

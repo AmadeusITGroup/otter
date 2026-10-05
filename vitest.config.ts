@@ -39,11 +39,11 @@ export default defineConfig({
     alias: [
       {
         find: packageManagerExecutor,
-        replacement: fileURLToPath(new URL('./testing/package-manager-executor-stub.mjs', import.meta.url))
+        replacement: fileURLToPath(new URL('testing/package-manager-executor-stub.mjs', import.meta.url))
       },
       {
         find: 'ora',
-        replacement: fileURLToPath(new URL('./testing/ora-stub.mjs', import.meta.url))
+        replacement: fileURLToPath(new URL('testing/ora-stub.mjs', import.meta.url))
       },
       ...workspacePathAliases
     ],
