@@ -291,7 +291,7 @@
     "ngx-monaco-tree": "~20.1.0",
     "npm-cli-login": "~1.0.0",
     "npm-run-all2": "^8.0.0",
-    "nx": "~23.1.0",
+    "nx": "~23.2.1",
     "pixelmatch": "^7.0.0",
     "playwright-lighthouse": "~4.0.0",
     "pngjs": "^7.0.0",
