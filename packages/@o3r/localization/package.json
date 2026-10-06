@@ -137,7 +137,7 @@
     "@types/jsdom": "~30.0.0",
     "@types/node": "~24.13.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/parser": "~8.70.0",
+    "@typescript-eslint/parser": "~8.71.0",
     "angular-eslint": "~22.5.0",
     "chokidar": "~5.0.0",
     "cpy-cli": "^6.0.0",
@@ -169,7 +169,7 @@
     "ts-jest": "~29.4.13",
     "type-fest": "^5.3.1",
     "typescript": "~6.0.3",
-    "typescript-eslint": "~8.70.0",
+    "typescript-eslint": "~8.71.0",
     "unionfs": "~4.6.0"
   },
   "engines": {
