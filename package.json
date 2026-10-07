@@ -153,8 +153,8 @@
     "undici@^5.28.5": "^6.24.0",
     "undici@7.24.7": "^7.28.0",
     "@jsverse/utils": "1.0.0-beta.5",
-    "@yarnpkg/cli": "4.18.0",
-    "@yarnpkg/core": "4.9.1"
+    "@yarnpkg/cli": "4.18.1",
+    "@yarnpkg/core": "4.9.2"
   },
   "dependencies": {
     "@actions/core": "^2.0.0",
@@ -165,7 +165,7 @@
     "@agnos-ui/core-bootstrap": "~0.11.0",
     "@amadeus-it-group/tansu": "~2.0.0",
     "@ampproject/remapping": "^2.3.0",
-    "@angular-devkit/architect": "~0.2202.0",
+    "@angular-devkit/architect": "0.2202.1",
     "@angular-devkit/build-angular": "~22.2.0",
     "@angular-devkit/core": "~22.2.0",
     "@angular-devkit/schematics": "~22.2.0",
@@ -356,5 +356,5 @@
     "apps/*",
     "mcps/@*/*"
   ],
-  "packageManager": "yarn@4.18.0"
+  "packageManager": "yarn@4.18.1"
 }

@@ -39,7 +39,7 @@
     }
   },
   "dependencies": {
-    "@angular-devkit/architect": "~0.2202.0",
+    "@angular-devkit/architect": "0.2202.1",
     "@angular-devkit/schematics": "~22.2.0",
     "@o3r/schematics": "workspace:~",
     "@schematics/angular": "~22.2.0",
