@@ -89,7 +89,7 @@
     "@schematics/angular": "~22.2.0",
     "@stylistic/eslint-plugin": "~5.10.0",
     "@types/jest": "~30.0.0",
-    "@types/node": "~24.13.0",
+    "@types/node": "~24.19.0",
     "@typescript-eslint/parser": "~8.71.0",
     "@typescript-eslint/types": "~8.71.0",
     "@typescript-eslint/utils": "~8.71.0",
