@@ -23,21 +23,22 @@ program
   .requiredOption('--files <files>', 'List of files and folder to extract in addition to the path')
   .requiredOption('-o, --output <output>', 'Output file path')
   .option('-r, --root <root>', 'Root of the extraction')
+  .option('-e, --exclude <entries>', 'Comma-separated list of files and directories to exclude')
   .parse(process.argv);
 
-const options = program.opts<{ root?: string; files: string; output: string }>();
+const options = program.opts<{ root?: string; files: string; output: string; exclude?: string }>();
 const cwd = options.root ? resolve(process.cwd(), options.root) : process.cwd();
 void (async () => {
   const filesDescriptor = await Promise.all(
     options.files.split(',').map(async (file: string) => {
       const filePath = join(cwd, file);
-      return { isDir: (await lstat(file)).isDirectory(), path: filePath };
+      return { isDir: (await lstat(filePath)).isDirectory(), path: filePath };
     })
   );
   const folderStructure = await getFilesTree(filesDescriptor, {
     readdir: readdir,
     readFile: readFile
-  } as FileSystem);
+  } as FileSystem, options.exclude?.split(','));
   const content = JSON.stringify({
     fileSystemTree: folderStructure
   });

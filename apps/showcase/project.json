@@ -248,6 +248,24 @@
       ]
     },
     "test": {},
+    "generate-sdk-training": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "outputs": [
+        "{projectRoot}/src/assets/trainings/sdk/shared/monorepo-template.json"
+      ],
+      "options": {
+        "command": "node apps/showcase/scripts/generate-sdk-training/index.cjs"
+      },
+      "dependsOn": [
+        {
+          "projects": [
+            "training-tools"
+          ],
+          "target": "build"
+        }
+      ]
+    },
     "generate-theme": {
       "executor": "nx:run-commands",
       "outputs": [
