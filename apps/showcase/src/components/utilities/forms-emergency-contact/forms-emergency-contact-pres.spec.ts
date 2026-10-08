@@ -3,9 +3,6 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  ReactiveFormsModule,
-} from '@angular/forms';
-import {
   provideLocalizationMock,
 } from '@o3r/testing/transloco';
 import {
@@ -18,7 +15,7 @@ describe('FormsEmergencyContactPres', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsEmergencyContactPres, ReactiveFormsModule],
+      imports: [FormsEmergencyContactPres],
       providers: [provideLocalizationMock()]
     }).compileComponents();
 
