@@ -15,7 +15,7 @@ import {
 } from '@ama-mcp/core';
 import type {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
 import {
   sendGenAIEventMetricsIfAuthorized,
 } from '@o3r/telemetry';
@@ -155,10 +155,10 @@ const registerTool = (
         readOnlyHint: true,
         openWorldHint: false
       },
-      inputSchema: {
+      inputSchema: z.object({
         packageName: z.string()
           .describe('The npm package name of the SDK (e.g., "@my-scope/my-sdk-package")')
-      }
+      })
     },
     sdkContextRetriever(contexts, logger)
   );

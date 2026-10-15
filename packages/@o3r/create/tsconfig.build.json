@@ -7,7 +7,7 @@
     "sourceMap": false,
     "declarationMap": false,
     "module": "CommonJS",
-    "moduleResolution": "node10",
+    "moduleResolution": "bundler",
     "outDir": "./dist",
     "rootDir": "src",
     "tsBuildInfoFile": "build/.tsbuildinfo"

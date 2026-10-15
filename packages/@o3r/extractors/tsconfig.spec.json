@@ -3,8 +3,7 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "test",
-    "rootDir": ".",
-    "esModuleInterop": false
+    "rootDir": "."
   },
   "include": [
     "**/*.spec.ts"

@@ -8,7 +8,7 @@
     "rootDir": ".",
     "declaration": true,
     "tsBuildInfoFile": "build/.tsbuildinfo.builders",
-    "moduleResolution": "node"
+    "moduleResolution": "bundler"
   },
   "include": [
     "builders/**/*.ts",

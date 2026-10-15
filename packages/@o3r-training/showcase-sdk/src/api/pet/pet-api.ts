@@ -158,7 +158,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'addPet');
     return ret;
@@ -216,7 +216,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<string>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'deletePet');
     return ret;
@@ -272,7 +272,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<Pet[]>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'findPetsByStatus');
     return ret;
@@ -327,7 +327,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<Pet[]>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'findPetsByTags');
     return ret;
@@ -384,7 +384,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'getPetById');
     return ret;
@@ -437,7 +437,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'updatePet');
     return ret;
@@ -499,7 +499,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'updatePetWithForm');
     return ret;
@@ -567,7 +567,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<ApiResponse>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'uploadFile');
     return ret;

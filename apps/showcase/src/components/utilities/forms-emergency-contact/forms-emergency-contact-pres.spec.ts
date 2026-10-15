@@ -24,6 +24,7 @@ describe('FormsEmergencyContactPres', () => {
 
     fixture = TestBed.createComponent(FormsEmergencyContactPres);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('id', 'test-emergency-contact');
     fixture.detectChanges();
   });
 

@@ -23,6 +23,17 @@
         "openapi",
         "redocly"
       ]
+    },
+    {
+      "name": "ama-sdk",
+      "source": "./tools/llm/plugins/ama-sdk",
+      "tags": [
+        "sdk",
+        "openapi",
+        "typescript",
+        "api-client",
+        "ama-sdk"
+      ]
     }
   ]
 }

@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "ama-sdk",
+  "description": "Skills and guidance for creating, using, and extending TypeScript SDKs generated from OpenAPI specifications with @ama-sdk",
+  "version": "1.0.0"
+}

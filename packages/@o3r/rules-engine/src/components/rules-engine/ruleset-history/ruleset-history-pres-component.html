@@ -1,7 +1,7 @@
 <section>
-  @if (rulesetExecutions) {
+  @if (rulesetExecutions()) {
     <ul class="rulesets">
-      @for (execution of rulesetExecutions; track execution) {
+      @for (execution of rulesetExecutions(); track execution) {
         <li class="ruleset">
           <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- need to refactor the div to accordion from DF #1518 -->
           <div class="ruleset-panel-title ruleset-expansion-action"
@@ -38,7 +38,7 @@
             }
             <span class="time capsule">
               <span>{{execution.timestamp | date: 'HH:mm:ss SSS'}}</span>
-              <span>({{execution.duration | number: executionDurationFormat}}ms)</span>
+              <span>({{execution.duration | number: executionDurationFormat()}}ms)</span>
             </span>
             <button
               class="icon"
@@ -104,7 +104,7 @@
                       @if (ruleEvaluation.cached) {
                         <span class="capsule inactive">Cached</span>
                       }
-                      <span class="capsule">({{ruleEvaluation.duration | number: executionDurationFormat}}ms)</span>
+                      <span class="capsule">({{ruleEvaluation.duration | number: executionDurationFormat()}}ms)</span>
                     </div>
                     <div>
                       <ng-container [ngTemplateOutlet]="triggers"

@@ -2,22 +2,19 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  EffectsModule,
+  provideEffects,
 } from '@ngrx/effects';
 import {
-  StoreModule,
+  provideStore,
 } from '@ngrx/store';
 import {
-  provideMockStore,
-} from '@ngrx/store/testing';
-import {
-  ApplicationDevtoolsModule,
+  provideApplicationDevtools,
 } from '@o3r/application';
 import {
-  ComponentsDevtoolsModule,
+  provideComponentsDevtools,
 } from '@o3r/components';
 import {
-  ConfigurationDevtoolsModule,
+  provideConfigurationDevtools,
 } from '@o3r/configuration';
 import {
   provideLocalizationMock,
@@ -37,18 +34,17 @@ const mockTranslations = {
 describe('App', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
-      ApplicationDevtoolsModule,
-      ComponentsDevtoolsModule,
-      StoreModule.forRoot(),
-      ConfigurationDevtoolsModule,
-      EffectsModule.forRoot()
+      App
     ],
     providers: [
-      provideMockStore(),
+      provideStore(),
+      provideEffects(),
+      provideApplicationDevtools(),
+      provideComponentsDevtools(),
+      provideConfigurationDevtools(),
       provideLocalizationDevtools(),
       provideLocalizationMock(localizationConfiguration, mockTranslations)
-    ],
-    declarations: [App]
+    ]
   }));
 
   it('should create the app', () => {

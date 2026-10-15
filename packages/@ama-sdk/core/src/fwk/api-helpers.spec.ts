@@ -1,9 +1,9 @@
 /* eslint-disable no-console -- only using the reference */
 import {
   getResponseReviver,
-  prepareUrl,
   prepareUrlWithQueryParams,
   ReviverType,
+  stringifyQueryParams,
 } from '@ama-sdk/core';
 
 describe('getResponseReviver - revivers by status code', () => {
@@ -69,13 +69,6 @@ describe('getResponseReviver - reviver as function', () => {
 });
 
 describe('Prepare URL', () => {
-  it('should correctly prepare url with query parameters of deprecated type', () => {
-    // primitive value
-    expect(prepareUrl('https://sampleUrl/samplePath/sampleOperation', { id: '5' })).toEqual('https://sampleUrl/samplePath/sampleOperation?id=5');
-    // array value
-    expect(prepareUrl('https://sampleUrl/samplePath/sampleOperation', { id: '3,4,5' })).toEqual('https://sampleUrl/samplePath/sampleOperation?id=3,4,5');
-  });
-
   it('should correctly prepare url with serialized query parameters', () => {
     // one parameter
     expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', { id: 'id=5' }))
@@ -87,5 +80,68 @@ describe('Prepare URL', () => {
     // multiple parameters
     expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', { id1: 'id1=3,4,5', id2: 'id2=5' }))
       .toEqual('https://sampleUrl/samplePath/sampleOperation?id1=3,4,5&id2=5');
+  });
+
+  it('should correctly prepare url with serialized query parameters when enableParameterSerialization is true', () => {
+    // Serialized values already contain "key=value" — Object.values is used
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', { id: 'id=5' }, true))
+      .toEqual('https://sampleUrl/samplePath/sampleOperation?id=5');
+
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', { id1: 'id1=3,4,5', id2: 'id2=5' }, true))
+      .toEqual('https://sampleUrl/samplePath/sampleOperation?id1=3,4,5&id2=5');
+  });
+
+  it('should correctly prepare url with stringified query parameters when enableParameterSerialization is false', () => {
+    // Stringified values are bare — Object.entries is used to produce "key=value"
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', { id: '5' }, false))
+      .toEqual('https://sampleUrl/samplePath/sampleOperation?id=5');
+
+    // no parameters
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', {}, false))
+      .toEqual('https://sampleUrl/samplePath/sampleOperation');
+
+    // multiple parameters
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', { id1: '3,4,5', id2: '5' }, false))
+      .toEqual('https://sampleUrl/samplePath/sampleOperation?id1=3,4,5&id2=5');
+
+    // array-like values
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', { tags: 'a,b,c' }, false))
+      .toEqual('https://sampleUrl/samplePath/sampleOperation?tags=a,b,c');
+
+    // undefined values should be filtered
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', { id: '5', filter: undefined }, false))
+      .toEqual('https://sampleUrl/samplePath/sampleOperation?id=5');
+  });
+
+  it('should use & as separator when url already contains ?', () => {
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath?existing=1', { id: 'id=5' }, true))
+      .toEqual('https://sampleUrl/samplePath?existing=1&id=5');
+
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath?existing=1', { id: '5' }, false))
+      .toEqual('https://sampleUrl/samplePath?existing=1&id=5');
+  });
+});
+
+describe('stringifyQueryParams', () => {
+  it('should exclude undefined values from the result', () => {
+    const queryParams = { id: '5', filter: undefined, name: 'test' };
+    const result = stringifyQueryParams(queryParams);
+    expect(result).toEqual({ id: '5', name: 'test' });
+    expect('filter' in result).toBe(false);
+  });
+
+  it('should exclude null values from the result', () => {
+    const queryParams = { id: '5', filter: null, name: 'test' };
+    const result = stringifyQueryParams(queryParams);
+    expect(result).toEqual({ id: '5', name: 'test' });
+    expect('filter' in result).toBe(false);
+  });
+
+  it('should produce correct URL when combined with prepareUrlWithQueryParams and enableParameterSerialization is false', () => {
+    // Simulates the template flow: stringifyQueryParams -> prepareUrlWithQueryParams(url, params, false)
+    const queryParams = { id: '5', filter: undefined, page: '2' };
+    const stringified = stringifyQueryParams(queryParams);
+    const url = prepareUrlWithQueryParams('https://api.example.com/resource', stringified, false);
+    expect(url).toEqual('https://api.example.com/resource?id=5&page=2');
   });
 });

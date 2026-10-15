@@ -1,13 +1,13 @@
 <nav>
-    @for (group of linksGroups; track $index) {
+    @for (group of linksGroups(); track $index) {
       <nav class="nav nav-pills flex-column" [attr.aria-label]="group.label || null" [class.sub-group]="group.label">
         @if (group.label) {
           <div class="nav-group">{{group.label}}</div>
         }
         @for (link of group.links; track $index) {
           <a class="nav-link"
-              [class.active]="activeUrl === link.url"
-              [routerLinkActive]="activeUrl === link.url ? 'active' : ''"
+              [class.active]="activeUrl() === link.url"
+              [routerLinkActive]="activeUrl() === link.url ? 'active' : ''"
               ariaCurrentWhenActive="page"
               [routerLink]="link.url"
             >

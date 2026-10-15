@@ -105,7 +105,21 @@ export function setupJest(options: NgAddSchematicsSchema): Rule {
       ? [
         setupJestScript(workingDirectory, isAngularSetup, options.projectName),
         setupJestInProject,
-        setUpJestForAngularJson(options.projectName)
+        setUpJestForAngularJson(options.projectName),
+        () => {
+          if (tree.exists(`${workingDirectory}/tsconfig.spec.json`)) {
+            const tsConfigSpec = tree.readJson(`${workingDirectory}/tsconfig.spec.json`) as { compilerOptions: { types?: string[] }; extends?: string; include?: string[] };
+            if (tsConfigSpec.compilerOptions.types) {
+              delete tsConfigSpec.compilerOptions.types;
+            }
+            tsConfigSpec.extends = `${rootRelativePath}/tsconfig.jest.json`;
+            tsConfigSpec.include ??= [];
+            if (!tsConfigSpec.include.includes('testing/setup-jest.ts')) {
+              tsConfigSpec.include.push('testing/setup-jest.ts');
+            }
+            tree.overwrite(`${workingDirectory}/tsconfig.spec.json`, JSON.stringify(tsConfigSpec, null, 2));
+          }
+        }
       ]
       : [];
 

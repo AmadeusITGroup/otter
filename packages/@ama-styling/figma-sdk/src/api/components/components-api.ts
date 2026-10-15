@@ -93,7 +93,7 @@ export class ComponentsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetComponent200Response>(url, options, ApiTypes.DEFAULT, ComponentsApi.apiName, undefined, 'getComponent');
     return ret;
@@ -145,7 +145,7 @@ export class ComponentsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetFileComponents200Response>(url, options, ApiTypes.DEFAULT, ComponentsApi.apiName, undefined, 'getFileComponents');
     return ret;
@@ -203,7 +203,7 @@ export class ComponentsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetTeamComponents200Response>(url, options, ApiTypes.DEFAULT, ComponentsApi.apiName, undefined, 'getTeamComponents');
     return ret;

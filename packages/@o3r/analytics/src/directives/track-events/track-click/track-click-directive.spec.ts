@@ -2,6 +2,7 @@ import {
   Component,
   DebugElement,
   provideZonelessChangeDetection,
+  signal,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -28,12 +29,12 @@ import {
 const dummyEventContext = { eventInfo: { eventName: '', pageId: '', timeStamp: '' } };
 
 @Component({
-  template: '<button trackClick [trackEventContext]="eventModel">Click</button>',
+  template: '<button trackClick [trackEventContext]="eventModel()">Click</button>',
   imports: [TrackClickDirective],
   providers: [EventTrackService]
 })
 class TestComponent {
-  public eventModel = dummyEventContext;
+  public eventModel = signal(dummyEventContext);
 }
 
 describe('Track click directive:', () => {
@@ -42,6 +43,7 @@ describe('Track click directive:', () => {
   }));
   let trackService: EventTrackService;
   let fixture: ComponentFixture<TestComponent>;
+  let component: TestComponent;
   let buttonElement: DebugElement;
   let addEventSpy: jest.SpyInstance;
 
@@ -51,6 +53,7 @@ describe('Track click directive:', () => {
       providers: [provideZonelessChangeDetection()]
     }).compileComponents();
     fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
     buttonElement = fixture.debugElement.query(By.css('button'));
     trackService = fixture.debugElement.injector.get(EventTrackService);
     addEventSpy = jest.spyOn(trackService, 'addUiEvent');
@@ -68,7 +71,7 @@ describe('Track click directive:', () => {
     fixture.detectChanges();
     const dummyEvent = new Event('click');
     buttonElement.nativeElement.dispatchEvent(dummyEvent);
-    const expectedEventPayload: UiEventPayload = { nativeEvent: dummyEvent, context: dummyEventContext };
+    const expectedEventPayload: UiEventPayload = { nativeEvent: dummyEvent, context: component.eventModel() };
 
     expect(addEventSpy).toHaveBeenCalledWith(expectedEventPayload);
   });
@@ -91,12 +94,11 @@ describe('Track click directive:', () => {
   });
 
   it('should receive the new event context', () => {
-    const component = fixture.componentInstance;
     fixture.detectChanges();
     const event1 = new Event('click');
     buttonElement.nativeElement.dispatchEvent(event1);
 
-    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: event1, context: component.eventModel });
+    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: event1, context: component.eventModel() });
 
     const newModel = {
       ...dummyEventContext,
@@ -105,8 +107,7 @@ describe('Track click directive:', () => {
         eventName: 'newEvent'
       }
     };
-    component.eventModel = newModel;
-    fixture.changeDetectorRef.markForCheck();
+    component.eventModel.set(newModel);
     fixture.detectChanges();
     const event2 = new Event('click');
     buttonElement.nativeElement.dispatchEvent(event2);

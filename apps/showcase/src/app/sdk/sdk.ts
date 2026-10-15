@@ -16,7 +16,7 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  MarkdownModule,
+  MarkdownComponent,
 } from 'ngx-markdown';
 import {
   IN_PAGE_NAV_PRES_DIRECTIVES,
@@ -34,7 +34,7 @@ import {
     SdkPres,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     AsyncPipe,
-    MarkdownModule
+    MarkdownComponent
   ],
   templateUrl: './sdk.html',
   styleUrls: ['./sdk.scss'],

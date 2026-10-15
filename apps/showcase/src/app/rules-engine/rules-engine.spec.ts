@@ -6,22 +6,28 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  RouterModule,
+  provideRouter,
 } from '@angular/router';
 import {
   NgbScrollSpyService,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  EffectsModule,
+  provideEffects,
 } from '@ngrx/effects';
 import {
-  StoreModule,
+  provideStore,
 } from '@ngrx/store';
+import {
+  provideConfigurationRulesEngineAction,
+} from '@o3r/configuration/rules-engine';
 import {
   provideDynamicContent,
 } from '@o3r/dynamic-content';
 import {
-  RulesEngineRunnerModule,
+  provideAssetRulesEngineAction,
+} from '@o3r/dynamic-content/rules-engine';
+import {
+  provideRulesEngineRunner,
 } from '@o3r/rules-engine';
 import {
   provideLocalizationMock,
@@ -30,7 +36,7 @@ import {
   LocalizationService,
 } from '@o3r/transloco';
 import {
-  LocalizationRulesEngineActionHandler,
+  provideLocalizationRulesEngineAction,
 } from '@o3r/transloco/rules-engine';
 import {
   provideMarkdown,
@@ -57,18 +63,20 @@ describe('RulesEngine', () => {
     TestBed.configureTestingModule({
       imports: [
         RulesEngine,
-        StoreModule.forRoot(),
-        EffectsModule.forRoot(),
-        RulesEngineRunnerModule.forRoot(),
-        RouterModule.forRoot([]),
         AsyncPipe
       ],
       providers: [
+        provideRouter([]),
         LocalizationService,
-        LocalizationRulesEngineActionHandler,
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
+        provideStore(),
+        provideEffects(),
+        provideRulesEngineRunner(),
         provideMarkdown(),
         provideDynamicContent(),
+        provideConfigurationRulesEngineAction(),
+        provideAssetRulesEngineAction(),
+        provideLocalizationRulesEngineAction(),
         provideLocalizationMock(localizationConfiguration, mockTranslations)
       ]
     });

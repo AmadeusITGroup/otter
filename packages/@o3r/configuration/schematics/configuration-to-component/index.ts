@@ -362,7 +362,7 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
               const visit = (node: ts.Node): ts.Node => {
                 if (ts.isClassDeclaration(node) && isO3rClassComponent(node)) {
                   const propertiesToAdd = generateClassElementsFromString(`
-  public config = input<Partial<${properties.componentConfig}>>();
+  public readonly config = input<Partial<${properties.componentConfig}>>();
 
   @O3rConfig()
   public readonly configSignal = configSignal(this.config, ${properties.configKey}_CONFIG_ID, ${properties.configKey}_DEFAULT_CONFIG);`);

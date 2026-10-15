@@ -77,7 +77,7 @@ function ngUseConfigSignalFn(options: NgUseConfigSignalSchematicsSchema): Rule {
           const visit = (node: ts.Node): ts.Node => {
             if (ts.isClassDeclaration(node) && isO3rClassComponent(node)) {
               const propertiesToAdd = generateClassElementsFromString(`
-  public config = input<Partial<${configName}>>();
+  public readonly config = input<Partial<${configName}>>();
 
   @O3rConfig()
   public readonly configSignal = configSignal(this.config, ${configId}, ${defaultConfig});

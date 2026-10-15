@@ -4,7 +4,7 @@ import {
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input,
   ViewEncapsulation,
 } from '@angular/core';
 import type {
@@ -30,34 +30,29 @@ export class RuleTreePresComponent {
   /**
    * Rule name. Will only be defined at the root of the rule tree.
    */
-  @Input()
-  public name?: string;
+  public name = input<string>();
 
   /**
    * Type of the block being resolved.
    * A type "IF_ELSE" will display two branches and the success and failure outputs associated
    * Else, only the successElements will be shown
    */
-  @Input()
-  public blockType = '';
+  public blockType = input('');
 
   /**
    * The condition under which the success elements will be displayed.
    */
-  @Input()
-  public condition?: TopLevelCondition;
+  public condition = input<TopLevelCondition>();
 
   /**
    * If case output
    */
-  @Input()
-  public successElements: AllBlock[] = [];
+  public successElements = input<AllBlock[]>([]);
 
   /**
    * Else case output
    */
-  @Input()
-  public failureElements: AllBlock[] = [];
+  public failureElements = input<AllBlock[]>([]);
 
   /**
    * Should the "Else case scenario" actions be displayed

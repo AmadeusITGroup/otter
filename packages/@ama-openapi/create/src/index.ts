@@ -16,7 +16,7 @@ import {
 import type {
   PackageJson,
 } from 'type-fest';
-import * as yargs from 'yargs';
+import yargs from 'yargs';
 import {
   hideBin,
 } from 'yargs/helpers';

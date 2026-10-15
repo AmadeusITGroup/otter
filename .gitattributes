@@ -12,6 +12,4 @@
 *.jar linguist-vendored
 
 # Generated files
-tools/github-actions/*/packaged-action/** linguist-generated
-packages/@o3r-training/showcase-sdk/src/api/** linguist-generated
-packages/@o3r-training/showcase-sdk/src/models/base/** linguist-generated
+**/packaged-action/** linguist-generated

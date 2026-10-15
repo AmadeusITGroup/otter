@@ -89,7 +89,7 @@ export class ProjectsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetProjectFiles200Response>(url, options, ApiTypes.DEFAULT, ProjectsApi.apiName, undefined, 'getProjectFiles');
     return ret;
@@ -141,7 +141,7 @@ export class ProjectsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetTeamProjects200Response>(url, options, ApiTypes.DEFAULT, ProjectsApi.apiName, undefined, 'getTeamProjects');
     return ret;

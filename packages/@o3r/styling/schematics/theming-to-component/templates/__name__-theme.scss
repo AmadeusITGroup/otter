@@ -1,8 +1,0 @@
-@use '@o3r/styling' as o3r;
-@use '@o3r/styling/otter-theme' as otter-theme;
-
-$palette-primary: o3r.get-mandatory(otter-theme.$default-theme, 'primary');
-
-// list of variables used by the component
-// The variables will be exposed by the CMS and should default on the theme
-$<%=name%>-color: o3r.var('<%=name%>-color', otter-theme.color($palette-primary, 700), (description: 'Example of variable', type: 'color', category: 'examples', label: 'Color example')) !default;

@@ -125,18 +125,17 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
       const configFile = tree.readJson(tsconfigPath) as TsConfigJson;
       configFile.compilerOptions ||= {};
       configFile.compilerOptions.paths ||= {};
-      configFile.compilerOptions.baseUrl ||= '.';
       configFile.compilerOptions.paths = Object.fromEntries(
         Object.entries(configFile.compilerOptions.paths).filter(([pathName, _]) => pathName !== options.name));
       configFile.compilerOptions.paths[options.packageJsonName] = [
-        path.posix.join(relativeTargetPath, 'src', 'public-api')
+        '.' + path.posix.sep + path.posix.join(relativeTargetPath, 'src', 'public-api')
       ];
       tree.overwrite(tsconfigPath, JSON.stringify(configFile, null, 2));
     });
 
     if (tsconfigBuild && tree.exists(tsconfigBuild)) {
       const configFile = tree.readJson(tsconfigBuild) as TsConfigJson;
-      configFile.compilerOptions!.paths![options.packageJsonName].unshift(path.posix.join(relativeTargetPath, 'dist'));
+      configFile.compilerOptions!.paths![options.packageJsonName].unshift('.' + path.posix.sep + path.posix.join(relativeTargetPath, 'dist'));
       tree.overwrite(tsconfigBuild, JSON.stringify(configFile, null, 2));
     }
   };

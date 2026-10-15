@@ -126,7 +126,7 @@ export class NgComponent {}
     expect(tree.exists(o3rComponentPath.replace(/\.ts$/, '-config.ts'))).toBeTruthy();
     const componentFileContent = tree.readText(o3rComponentPath);
     expect(componentFileContent).toContain('DynamicConfigurableWithSignal<TestConfig>');
-    expect(componentFileContent).toContain('public config = input<Partial<TestConfig>>()');
+    expect(componentFileContent).toContain('public readonly config = input<Partial<TestConfig>>()');
     expect(componentFileContent).toContain('public readonly configSignal = configSignal(this.config, TEST_CONFIG_ID, TEST_DEFAULT_CONFIG)');
   });
 

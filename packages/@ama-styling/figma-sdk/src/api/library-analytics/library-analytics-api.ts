@@ -164,7 +164,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsComponentActions200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsComponentActions');
     return ret;
@@ -221,7 +221,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsComponentUsages200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsComponentUsages');
     return ret;
@@ -278,7 +278,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsStyleActions200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsStyleActions');
     return ret;
@@ -335,7 +335,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsStyleUsages200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsStyleUsages');
     return ret;
@@ -392,7 +392,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsVariableActions200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsVariableActions');
     return ret;
@@ -449,7 +449,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsVariableUsages200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsVariableUsages');
     return ret;

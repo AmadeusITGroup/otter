@@ -5,7 +5,7 @@ import {
 } from '@ama-mcp/core';
 import type {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
 import {
   Octokit,
 } from '@octokit/rest';
@@ -65,9 +65,9 @@ export async function registerSupportedReleasesTool(server: McpServer, options: 
     {
       title: toolTitle,
       description: toolDescription,
-      outputSchema: {
+      outputSchema: z.object({
         releases: z.array(z.string()).describe('List of supported releases')
-      }
+      })
     },
     () => {
       return {

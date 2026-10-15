@@ -5,7 +5,7 @@ import {
   computed,
   ElementRef,
   inject,
-  Input,
+  input,
   OnDestroy,
   viewChild,
   ViewEncapsulation,
@@ -14,7 +14,7 @@ import {
   toSignal,
 } from '@angular/core/rxjs-interop';
 import {
-  DfProgressbarModule,
+  DfProgressbarComponent,
 } from '@design-factory/design-factory';
 import {
   NgbNavModule,
@@ -40,7 +40,7 @@ import {
   imports: [
     CodeEditorTerminal,
     NgbNavModule,
-    DfProgressbarModule
+    DfProgressbarComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -51,7 +51,7 @@ export class CodeEditorControl implements OnDestroy, AfterViewInit {
   /**
    * Show the terminal used as output for the command process
    */
-  @Input() public showOutput = true;
+  public readonly showOutput = input(true);
 
   /**
    * Reference to the iframe used to display the content of the application served in the web container

@@ -8,6 +8,7 @@ import {
   Component,
   DebugElement,
   inject,
+  signal,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -28,11 +29,11 @@ import {
 @Component({
   imports: [ConnectDirective],
   standalone: true,
-  template: `<iframe [connect]="connect" [src]="src"></iframe>`
+  template: `<iframe [connect]="connect()" [src]="src()"></iframe>`
 })
 class ParentComponent {
-  public connect = 'testConnectId';
-  public src: SafeResourceUrl = inject(DomSanitizer).bypassSecurityTrustResourceUrl('https://example-initial.com');
+  public connect = signal('testConnectId');
+  public src = signal<SafeResourceUrl>(inject(DomSanitizer).bypassSecurityTrustResourceUrl('https://example-initial.com'));
 }
 
 describe('ConnectDirective', () => {
@@ -87,14 +88,14 @@ describe('ConnectDirective', () => {
 
   it('should set src attribute on the iframe when src attribute changes', () => {
     const safeUrl = domSanitizer.bypassSecurityTrustResourceUrl('https://example.com');
-    parentComponentFixture.componentInstance.src = safeUrl;
+    parentComponentFixture.componentInstance.src.set(safeUrl);
     parentComponentFixture.detectChanges();
     expect(directiveEl.nativeElement.src).toBe('https://example.com/');
   });
 
   it('should not call disconnect initially before listening for a new connection', () => {
     const safeUrl = domSanitizer.bypassSecurityTrustResourceUrl('https://example.com?param=test');
-    parentComponentFixture.componentInstance.src = safeUrl;
+    parentComponentFixture.componentInstance.src.set(safeUrl);
     parentComponentFixture.detectChanges();
     expect(messagePeerService.disconnect).not.toHaveBeenCalled();
     expect(listenHandler).toHaveBeenCalled();
@@ -104,15 +105,16 @@ describe('ConnectDirective', () => {
   it('should call disconnect before connection needs to be re-established', () => {
     // initial connection
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
     expect(messagePeerService.disconnect).not.toHaveBeenCalled();
     expect(listenHandler).toHaveBeenCalledTimes(1);
     expect(stopHandshakeListening).not.toHaveBeenCalled();
 
     // change of src - should reconnect
     const safeUrl = domSanitizer.bypassSecurityTrustResourceUrl('https://example.com?param=test');
-    parentComponentFixture.componentInstance.src = safeUrl;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentFixture.componentInstance.src.set(safeUrl);
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
     expect(messagePeerService.disconnect).toHaveBeenCalledTimes(1);
     expect(listenHandler).toHaveBeenCalledTimes(2);
     expect(stopHandshakeListening).toHaveBeenCalledTimes(1);
@@ -130,7 +132,7 @@ describe('ConnectDirective', () => {
 
   it('should compute the client origin', () => {
     const safeUrl = domSanitizer.bypassSecurityTrustResourceUrl('https://example.com?param=test');
-    parentComponentFixture.componentInstance.src = safeUrl;
+    parentComponentFixture.componentInstance.src.set(safeUrl);
     parentComponentFixture.detectChanges();
 
     // test the client origin even if it's private
@@ -138,7 +140,7 @@ describe('ConnectDirective', () => {
   });
 
   it('should not connect if connection ID is not provided', () => {
-    parentComponentFixture.componentInstance.connect = undefined;
+    parentComponentFixture.componentInstance.connect.set(undefined);
     parentComponentFixture.detectChanges();
     expect(messagePeerService.disconnect).not.toHaveBeenCalled();
     expect(listenHandler).not.toHaveBeenCalled();
@@ -146,7 +148,7 @@ describe('ConnectDirective', () => {
   });
 
   it('should not connect if origin is not provided', () => {
-    parentComponentFixture.componentInstance.src = domSanitizer.bypassSecurityTrustResourceUrl('');
+    parentComponentFixture.componentInstance.src.set(domSanitizer.bypassSecurityTrustResourceUrl(''));
     parentComponentFixture.detectChanges();
     expect(messagePeerService.disconnect).not.toHaveBeenCalled();
     expect(listenHandler).not.toHaveBeenCalled();
@@ -159,7 +161,7 @@ describe('ConnectDirective', () => {
       throw errorToThrow;
     };
     const safeUrl = domSanitizer.bypassSecurityTrustResourceUrl('https://example.com?param=test');
-    parentComponentFixture.componentInstance.src = safeUrl;
+    parentComponentFixture.componentInstance.src.set(safeUrl);
     parentComponentFixture.detectChanges();
 
     expect(loggerServiceMock.error).toHaveBeenCalledWith(expect.stringMatching(/.+/), errorToThrow);

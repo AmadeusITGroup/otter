@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import * as minimist from 'minimist';
+import minimist from 'minimist';
 import {
   getPreviousVersion,
 } from './get-previous-version.cjs';

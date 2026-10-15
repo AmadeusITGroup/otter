@@ -36,6 +36,7 @@ const dependenciesToInstall: string[] = [];
  * List of external dependencies to be added to the project as dev dependencies
  */
 const devDependenciesToInstall = [
+  '@eslint/compat',
   '@eslint/js',
   '@eslint-community/eslint-plugin-eslint-comments',
   '@stylistic/eslint-plugin',

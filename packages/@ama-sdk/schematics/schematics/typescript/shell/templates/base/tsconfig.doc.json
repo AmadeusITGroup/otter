@@ -2,9 +2,8 @@
   "extends": "./tsconfig.build",
   "compilerOptions": {
     "rootDir": ".",
-    "baseUrl": ".",
     "module": "commonjs",
-    "moduleResolution": "node10"
+    "moduleResolution": "bundler"
   },
   "exclude": [
     "**/*.fixture.ts",

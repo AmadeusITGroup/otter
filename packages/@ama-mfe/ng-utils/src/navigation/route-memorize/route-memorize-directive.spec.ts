@@ -1,6 +1,7 @@
 import {
   Component,
   DebugElement,
+  signal,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -25,15 +26,15 @@ import {
 @Component({
   imports: [RouteMemorizeDirective],
   standalone: true,
-  template: `<iframe [memorizeRoute]="memorizeRouteInput" [memorizeRouteId]="memorizeRouteId" [connect]="connect"
-  [memorizeMaxAge]="memorizeMaxAge" [memorizeRouteMaxAge]="memorizeRouteMaxAge"></iframe>`
+  template: `<iframe [memorizeRoute]="memorizeRouteInput()" [memorizeRouteId]="memorizeRouteId()" [connect]="connect()"
+  [memorizeMaxAge]="memorizeMaxAge()" [memorizeRouteMaxAge]="memorizeRouteMaxAge()"></iframe>`
 })
 class ParentComponent {
-  public memorizeRouteInput = true;
-  public memorizeRouteId: any;
-  public connect: any;
-  public memorizeMaxAge = 0;
-  public memorizeRouteMaxAge = 0;
+  public memorizeRouteInput = signal(true);
+  public memorizeRouteId = signal<any>(undefined);
+  public connect = signal<any>(undefined);
+  public memorizeMaxAge = signal(0);
+  public memorizeRouteMaxAge = signal(0);
 }
 
 describe('RouteMemorizeDirective', () => {
@@ -75,8 +76,7 @@ describe('RouteMemorizeDirective', () => {
   });
 
   it('should not memorize route when memorizeRoute input is false', () => {
-    parentComponentInstance.memorizeRouteInput = false;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentInstance.memorizeRouteInput.set(false);
     parentComponentFixture.detectChanges();
 
     expect(routeMemorizeService.memorizeRoute).not.toHaveBeenCalled();
@@ -86,50 +86,49 @@ describe('RouteMemorizeDirective', () => {
   });
 
   it('should not memorize route if memorizeRoute is true but the id (from connect input) provided does not match the channelId from requestedUrl', () => {
-    parentComponentInstance.connect = 'testChannelIdNotMatch';
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentInstance.connect.set('testChannelIdNotMatch');
     parentComponentFixture.detectChanges();
     expect(routeMemorizeService.memorizeRoute).not.toHaveBeenCalled();
   });
 
   it('should call memorize route when passing the connect which matches the channelId from requestedUrl', () => {
-    parentComponentInstance.connect = 'testChannelId';
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentInstance.connect.set('testChannelId');
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
     expect(routeMemorizeService.memorizeRoute).toHaveBeenCalledWith('testChannelId', 'testUrl', 0);
   });
 
   it('memorizeRouteId should have greater priority then connect', () => {
     requestUrlSubject.next({ channelId: 'testChannelIdConnect', url: 'testUrl' });
-    parentComponentInstance.memorizeRouteId = 'testChannelIdMemorizeId';
-    parentComponentInstance.connect = 'testChannelIdConnect';
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentInstance.memorizeRouteId.set('testChannelIdMemorizeId');
+    parentComponentInstance.connect.set('testChannelIdConnect');
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
     expect(routeMemorizeService.memorizeRoute).toHaveBeenCalledWith('testChannelIdMemorizeId', 'testUrl', 0);
   });
 
   it('should call memorize route with the memorizeMaxAge value', () => {
-    parentComponentInstance.connect = 'testChannelId';
-    parentComponentInstance.memorizeMaxAge = 10;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentInstance.connect.set('testChannelId');
+    parentComponentInstance.memorizeMaxAge.set(10);
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
     expect(routeMemorizeService.memorizeRoute).toHaveBeenCalledWith('testChannelId', 'testUrl', 10);
   });
 
   it('should call memorize route with the memorizeRouteMaxAge value', () => {
-    parentComponentInstance.connect = 'testChannelId';
-    parentComponentInstance.memorizeRouteMaxAge = 12;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentInstance.connect.set('testChannelId');
+    parentComponentInstance.memorizeRouteMaxAge.set(12);
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
     expect(routeMemorizeService.memorizeRoute).toHaveBeenCalledWith('testChannelId', 'testUrl', 12);
   });
 
   it('memorizeMaxAge should take precedence over memorizeRouteMaxAge', () => {
-    parentComponentInstance.connect = 'testChannelId';
-    parentComponentInstance.memorizeMaxAge = 10;
-    parentComponentInstance.memorizeRouteMaxAge = 12;
-    parentComponentFixture.changeDetectorRef.markForCheck();
+    parentComponentInstance.connect.set('testChannelId');
+    parentComponentInstance.memorizeMaxAge.set(10);
+    parentComponentInstance.memorizeRouteMaxAge.set(12);
     parentComponentFixture.detectChanges();
+    TestBed.flushEffects();
     expect(routeMemorizeService.memorizeRoute).toHaveBeenCalledWith('testChannelId', 'testUrl', 10);
   });
 });

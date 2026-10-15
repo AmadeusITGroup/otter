@@ -1,114 +1,3 @@
-const paginate = jest.fn().mockImplementation(() => {
-  return [
-    { repository: { name: 'repo1', full_name: 'testOrg/repo1', default_branch: 'main' } },
-    { repository: { name: 'repo2', full_name: 'testOrg/repo2', default_branch: 'main' } }
-  ];
-});
-const getBranch = jest.fn().mockImplementation(({ repo }) => {
-  if (repo === 'repo1') {
-    return Promise.resolve({
-      data: {
-        commit: { sha: 'sha-repo1' }
-      }
-    });
-  } else if (repo === 'repo2') {
-    return Promise.resolve({
-      data: {
-        commit: { sha: 'sha-repo2' }
-      }
-    });
-  }
-  return Promise.reject(new Error('Repository not found'));
-});
-const getTree = jest.fn().mockImplementation(({ repo }) => {
-  if (repo === 'repo1') {
-    return Promise.resolve({
-      data: {
-        tree: [
-          { type: 'blob', path: 'package.json' },
-          { type: 'blob', path: 'src/index.ts' },
-          { type: 'blob', path: 'libs/@scope/name/package.json' }
-        ]
-      }
-    });
-  } else if (repo === 'repo2') {
-    return Promise.resolve({
-      data: {
-        tree: [
-          { type: 'blob', path: 'src/index.ts' },
-          { type: 'blob', path: 'README.md' }
-        ]
-      }
-    });
-  }
-  return Promise.reject(new Error('Tree not found'));
-});
-const getContent = jest.fn().mockImplementation(({ repo, path }) => {
-  if (repo === 'repo1' && path === 'package.json') {
-    return Promise.resolve({
-      data: {
-        encoding: 'base64',
-        type: 'file',
-        content: Buffer.from(JSON.stringify({
-          dependencies: {
-            '@scope/some-package': '^1.0.0'
-          }
-        })).toString('base64')
-      }
-    });
-  } else if (repo === 'repo1' && path === 'libs/@scope/name/package.json') {
-    return Promise.resolve({
-      data: {
-        encoding: 'base64',
-        type: 'file',
-        content: Buffer.from(JSON.stringify({
-          dependencies: {
-            'some-other-package': '^1.0.0'
-          }
-        })).toString('base64')
-      }
-    });
-  }
-  return Promise.reject(new Error('Content not found'));
-});
-const readFile = jest.fn().mockImplementation((path) => {
-  if (path.toString().endsWith('cache.json')) {
-    return Promise.resolve(JSON.stringify({
-      'testOrg/repoCached': { data: { dependsOn: true }, updatedAt: new Date().toISOString() },
-      'testOrg/repoCachedExpired': { data: { dependsOn: true }, updatedAt: new Date(0).toISOString() } // very old date to simulate expiration
-    }));
-  }
-  return Promise.resolve('File content');
-});
-const writeFile = jest.fn();
-
-jest.mock('@octokit/rest', () => {
-  return {
-    Octokit: jest.fn().mockImplementation(() => ({
-      paginate,
-      repos: {
-        getBranch,
-        getContent
-      },
-      git: {
-        getTree
-      },
-      search: {
-        code: jest.fn()
-      }
-    }))
-  };
-});
-jest.mock('node:fs/promises', () => {
-  const originalFs = jest.requireActual('node:fs/promises');
-  return {
-    ...originalFs,
-    readFile,
-    writeFile
-  };
-});
-
-/* eslint-disable import/first -- important to be after the mock */
 import {
   tmpdir,
 } from 'node:os';
@@ -120,10 +9,130 @@ import {
 } from '@ama-mcp/core';
 import {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import {
   registerGetRepositoriesUsingLibraryTool,
 } from './index';
+
+const { paginate, getBranch, getTree, getContent, readFile, writeFile } = vi.hoisted(() => ({
+  paginate: vi.fn().mockImplementation(() => {
+    return [
+      { repository: { name: 'repo1', full_name: 'testOrg/repo1', default_branch: 'main' } },
+      { repository: { name: 'repo2', full_name: 'testOrg/repo2', default_branch: 'main' } }
+    ];
+  }),
+  getBranch: vi.fn().mockImplementation(({ repo }) => {
+    if (repo === 'repo1') {
+      return Promise.resolve({
+        data: {
+          commit: { sha: 'sha-repo1' }
+        }
+      });
+    } else if (repo === 'repo2') {
+      return Promise.resolve({
+        data: {
+          commit: { sha: 'sha-repo2' }
+        }
+      });
+    }
+    return Promise.reject(new Error('Repository not found'));
+  }),
+  getTree: vi.fn().mockImplementation(({ repo }) => {
+    if (repo === 'repo1') {
+      return Promise.resolve({
+        data: {
+          tree: [
+            { type: 'blob', path: 'package.json' },
+            { type: 'blob', path: 'src/index.ts' },
+            { type: 'blob', path: 'libs/@scope/name/package.json' }
+          ]
+        }
+      });
+    } else if (repo === 'repo2') {
+      return Promise.resolve({
+        data: {
+          tree: [
+            { type: 'blob', path: 'src/index.ts' },
+            { type: 'blob', path: 'README.md' }
+          ]
+        }
+      });
+    }
+    return Promise.reject(new Error('Tree not found'));
+  }),
+  getContent: vi.fn().mockImplementation(({ repo, path }) => {
+    if (repo === 'repo1' && path === 'package.json') {
+      return Promise.resolve({
+        data: {
+          encoding: 'base64',
+          type: 'file',
+          content: Buffer.from(JSON.stringify({
+            dependencies: {
+              '@scope/some-package': '^1.0.0'
+            }
+          })).toString('base64')
+        }
+      });
+    } else if (repo === 'repo1' && path === 'libs/@scope/name/package.json') {
+      return Promise.resolve({
+        data: {
+          encoding: 'base64',
+          type: 'file',
+          content: Buffer.from(JSON.stringify({
+            dependencies: {
+              'some-other-package': '^1.0.0'
+            }
+          })).toString('base64')
+        }
+      });
+    }
+    return Promise.reject(new Error('Content not found'));
+  }),
+  readFile: vi.fn().mockImplementation((path) => {
+    if (path.toString().endsWith('cache.json')) {
+      return Promise.resolve(JSON.stringify({
+        'testOrg/repoCached': { data: { dependsOn: true }, updatedAt: new Date().toISOString() },
+        'testOrg/repoCachedExpired': { data: { dependsOn: true }, updatedAt: new Date(0).toISOString() } // very old date to simulate expiration
+      }));
+    }
+    return Promise.resolve('File content');
+  }),
+  writeFile: vi.fn()
+}));
+
+vi.mock('@octokit/rest', () => ({
+  Octokit: class {
+    public paginate = paginate;
+
+    public repos = {
+      getBranch,
+      getContent
+    };
+
+    public git = {
+      getTree
+    };
+
+    public search = {
+      code: vi.fn()
+    };
+  }
+}));
+vi.mock('node:fs/promises', async (importOriginal) => {
+  const originalFs = await importOriginal<typeof import('node:fs/promises')>();
+  return {
+    ...originalFs,
+    readFile,
+    writeFile
+  };
+});
 
 const setUpClientAndServer = async (options: { disableCache?: boolean } = {}) => {
   const { disableCache = false } = options;
@@ -199,6 +208,6 @@ describe('Find repositories using library', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 });

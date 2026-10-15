@@ -214,7 +214,9 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
       const packageManager = options.packageManager || getPackageManager();
       const installId = isInstallNeeded()
         ? [
-          context.addTask(new NodePackageInstallTask({ packageManager, quiet: true, workingDirectory: options.workingDirectory }), options.runAfterTasks)
+          // `quiet` is kept to `false` to capture the package manager stdout (Yarn reports its errors on stdout),
+          // `hideOutput` ensures the captured output is only replayed in case of failure
+          context.addTask(new NodePackageInstallTask({ packageManager, quiet: false, hideOutput: true, workingDirectory: options.workingDirectory }), options.runAfterTasks)
         ]
         : undefined;
 

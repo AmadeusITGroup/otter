@@ -1,11 +1,12 @@
 {
   "extends": "../../../tsconfig.jest",
   "compilerOptions": {
+    "rootDir": ".",
     "allowSyntheticDefaultImports": true,
     "incremental": true,
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "moduleResolution": "node10"
+    "moduleResolution": "bundler"
   },
   "include": [
     "src/**/*.test.ts",

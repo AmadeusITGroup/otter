@@ -6,16 +6,19 @@ import {
   NgbScrollSpyService,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  EffectsModule,
+  provideEffects,
 } from '@ngrx/effects';
 import {
-  StoreModule,
+  provideStore,
 } from '@ngrx/store';
+import {
+  providePlaceholderRulesEngineAction,
+} from '@o3r/components/rules-engine';
 import {
   provideDynamicContent,
 } from '@o3r/dynamic-content';
 import {
-  RulesEngineRunnerModule,
+  provideRulesEngineRunner,
 } from '@o3r/rules-engine';
 import {
   Placeholder,
@@ -33,12 +36,13 @@ describe('Placeholder', () => {
     };
     await TestBed.configureTestingModule({
       imports: [
-        Placeholder,
-        StoreModule.forRoot(),
-        EffectsModule.forRoot(),
-        RulesEngineRunnerModule.forRoot()
+        Placeholder
       ],
       providers: [
+        provideStore(),
+        provideEffects(),
+        provideRulesEngineRunner(),
+        providePlaceholderRulesEngineAction(),
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
         provideDynamicContent()
       ]

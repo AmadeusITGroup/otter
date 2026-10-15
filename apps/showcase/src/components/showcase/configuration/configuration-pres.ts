@@ -47,7 +47,7 @@ export class ConfigurationPres implements DynamicConfigurableWithSignal<Configur
   private readonly fb = inject(FormBuilder);
 
   /** Input configuration to override the default configuration of the component */
-  public config = input<Partial<ConfigurationPresConfig>>();
+  public readonly config = input<Partial<ConfigurationPresConfig>>();
   /** Configuration signal based on the input and the stored configuration */
   @O3rConfig()
   public configSignal = configSignal(

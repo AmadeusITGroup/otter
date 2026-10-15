@@ -81,7 +81,7 @@ export class DatePickerHebrewInputPres implements ControlValueAccessor, DatePick
   public selectedDate = signal<NgbDate | null>(null);
 
   /** @inheritDoc */
-  public id = input.required<string>();
+  public readonly id = input.required<string>();
 
   private readonly calendar = inject(NgbCalendar);
 
