@@ -54,6 +54,7 @@ export default [
     name: '<%= projectPackageName %>/ignores',
     ignores: [
       '/dist',
+      '/dist-*',
       '/build',
       '/scripts',
       '/jest.config.js'
