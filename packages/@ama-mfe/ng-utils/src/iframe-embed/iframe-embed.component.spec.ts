@@ -41,6 +41,14 @@ class MockSandboxDirective {
   public readonly mfeSandbox = input('');
 }
 
+@Directive({
+  selector: 'iframe[mfeAllow]',
+  standalone: true
+})
+class MockAllowDirective {
+  public readonly mfeAllow = input('');
+}
+
 @Pipe({
   name: 'hostInfo',
   standalone: true
@@ -94,7 +102,7 @@ describe('IframeEmbedComponent', () => {
       ]
     }).overrideComponent(IframeEmbedComponent, {
       set: {
-        imports: [MockConnectDirective, MockScalableDirective, MockHostInfoPipe, MockApplyTheme, MockSandboxDirective]
+        imports: [MockConnectDirective, MockScalableDirective, MockHostInfoPipe, MockApplyTheme, MockSandboxDirective, MockAllowDirective]
       }
     }).compileComponents();
 
@@ -169,6 +177,10 @@ describe('IframeEmbedComponent', () => {
 
     it('should have the default sandbox attribute', () => {
       expect(component.sandbox()).toBe('allow-scripts allow-same-origin');
+    });
+
+    it('should have an empty allow attribute by default', () => {
+      expect(component.allow()).toBe('');
     });
 
     it('should apply the scalable directive', () => {
