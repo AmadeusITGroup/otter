@@ -5,6 +5,7 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   addImportToAppModule,
@@ -20,6 +21,13 @@ describe('ng add rules-engine', () => {
     const { applicationPath, workspacePath, appName, isInWorkspace, isYarnTest, untouchedProjectsPaths, o3rVersion, libraryPath } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
+    if (isYarnTest) {
+      // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
+      const packageJsonPath = `${workspacePath}/package.json`;
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+      packageJson.resolutions = { ...packageJson.resolutions, '@yarnpkg/core': '4.9.1' };
+      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    }
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/rules-engine@${o3rVersion}`,
       '--enable-metadata-extract', '--project-name', appName, '--skip-confirmation'] }, execAppOptions)).not.toThrow();
     const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.ts'));
@@ -63,6 +71,13 @@ describe('ng add rules-engine', () => {
     const { applicationPath, workspacePath, isInWorkspace, isYarnTest, o3rVersion, libraryPath, libName, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
+    if (isYarnTest) {
+      // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
+      const packageJsonPath = `${workspacePath}/package.json`;
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+      packageJson.resolutions = { ...packageJson.resolutions, '@yarnpkg/core': '4.9.1' };
+      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    }
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/rules-engine@${o3rVersion}`,
       '--enable-metadata-extract', '--project-name', libName, '--skip-confirmation'] }, execAppOptions)).not.toThrow();
     const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.ts'));
