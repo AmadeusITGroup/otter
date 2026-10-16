@@ -104,21 +104,6 @@
     "@schematics/angular": {
       "optional": true
     },
-    "@yarnpkg/cli": {
-      "optional": true
-    },
-    "@yarnpkg/core": {
-      "optional": true
-    },
-    "@yarnpkg/fslib": {
-      "optional": true
-    },
-    "@yarnpkg/plugin-npm": {
-      "optional": true
-    },
-    "@yarnpkg/plugin-pack": {
-      "optional": true
-    },
     "chokidar": {
       "optional": true
     },

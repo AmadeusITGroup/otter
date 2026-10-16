@@ -18,3 +18,16 @@ export const addDependenciesToPackageJson = (folders: string[], dependencyName: 
     writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
   });
 };
+
+/**
+ * Pin `@yarnpkg/core` in the `resolutions` of the workspace root package.json.
+ * `@yarnpkg/core@4.9.2` cannot be installed, and it is pulled by the direct dependency of `@yarnpkg/cli` on `@yarnpkg/core@^4.9.1`.
+ * TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
+ * @param workspacePath Path to the folder containing the workspace root package.json
+ */
+export const pinYarnCoreResolution = (workspacePath: string) => {
+  const packageJsonPath = `${workspacePath}/package.json`;
+  const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }));
+  packageJson.resolutions = { ...packageJson.resolutions, '@yarnpkg/core': '4.9.1' };
+  writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+};

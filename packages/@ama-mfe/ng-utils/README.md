@@ -334,7 +334,8 @@ import {IframeEmbedComponent} from '@ama-mfe/ng-utils';
       src="https://my-embedded-app.example.com"
       moduleId="my-module-id"
       hostApplicationId="host-app-id"
-      sandbox="allow-scripts allow-same-origin" />
+      sandbox="allow-scripts allow-same-origin"
+      allow="camera; microphone" />
   `
 })
 export class HostComponent {}
@@ -346,8 +347,9 @@ export class HostComponent {}
 | `moduleId` | `string` | Unique identifier for the embedded module (used by the `connect` directive). |
 | `hostApplicationId` | `string` | The host application identifier sent to the embedded module via `hostInfo`. |
 | `sandbox` | `string` | The iframe sandbox permissions. Defaults to `'allow-scripts allow-same-origin'`. |
+| `allow` | `string` | The iframe [Permissions Policy](https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/iframe#allow) (e.g. `'camera; microphone'`). Defaults to `''` (attribute not set). |
 
-The `sandbox` attribute is set once at initialization for security reasons (runtime changes are ignored).
+The `sandbox` and `allow` attributes are set once at initialization for security reasons (runtime changes are ignored).
 
 ### Host information
 
