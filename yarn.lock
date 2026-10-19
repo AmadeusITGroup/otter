@@ -9354,11 +9354,6 @@ __metadata:
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.67.0"
     "@typescript/vfs": "npm:^1.6.1"
-    "@yarnpkg/cli": "npm:^4.5.0"
-    "@yarnpkg/core": "npm:^4.1.3"
-    "@yarnpkg/fslib": "npm:^3.1.0"
-    "@yarnpkg/plugin-npm": "npm:^3.0.1"
-    "@yarnpkg/plugin-pack": "npm:^4.0.0"
     angular-eslint: "npm:~22.0.0"
     chokidar: "npm:~5.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -9416,11 +9411,6 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/transloco": "workspace:~"
     "@schematics/angular": ^22.0.0
-    "@yarnpkg/cli": ^4.0.0
-    "@yarnpkg/core": ^4.1.1
-    "@yarnpkg/fslib": ^3.1.0
-    "@yarnpkg/plugin-npm": ^3.0.1
-    "@yarnpkg/plugin-pack": ^4.0.0
     chokidar: ^4.0.0 || ^5.0.0
     globby: ^11.1.0
     jsonpath-plus: ^9.0.0 || ^10.0.0
@@ -10070,11 +10060,11 @@ __metadata:
     "@types/node": "npm:~24.13.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.67.0"
-    "@yarnpkg/cli": "npm:^4.5.0"
-    "@yarnpkg/core": "npm:^4.1.3"
-    "@yarnpkg/fslib": "npm:^3.1.0"
-    "@yarnpkg/plugin-npm": "npm:^3.0.1"
-    "@yarnpkg/plugin-pack": "npm:^4.0.0"
+    "@yarnpkg/cli": "npm:~4.18.0"
+    "@yarnpkg/core": "npm:~4.9.1"
+    "@yarnpkg/fslib": "npm:~3.1.0"
+    "@yarnpkg/plugin-npm": "npm:~3.7.0"
+    "@yarnpkg/plugin-pack": "npm:~4.0.0"
     angular-eslint: "npm:~22.0.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -10531,11 +10521,6 @@ __metadata:
     "@types/node": "npm:~24.13.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.67.0"
-    "@yarnpkg/cli": "npm:^4.5.0"
-    "@yarnpkg/core": "npm:^4.1.3"
-    "@yarnpkg/fslib": "npm:^3.1.0"
-    "@yarnpkg/plugin-npm": "npm:^3.0.1"
-    "@yarnpkg/plugin-pack": "npm:^4.0.0"
     angular-eslint: "npm:~22.0.0"
     chokidar: "npm:~5.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -10588,11 +10573,6 @@ __metadata:
     "@o3r/logger": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^22.0.0
-    "@yarnpkg/cli": ^4.3.1
-    "@yarnpkg/core": ^4.1.1
-    "@yarnpkg/fslib": ^3.1.0
-    "@yarnpkg/plugin-npm": ^3.0.1
-    "@yarnpkg/plugin-pack": ^4.0.0
     chokidar: ^4.0.0 || ^5.0.0
     globby: ^11.1.0
     intl-messageformat: ^11.0.0
@@ -12050,11 +12030,6 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.13.0"
     "@typescript-eslint/parser": "npm:~8.67.0"
-    "@yarnpkg/cli": "npm:^4.5.0"
-    "@yarnpkg/core": "npm:^4.1.3"
-    "@yarnpkg/fslib": "npm:^3.1.0"
-    "@yarnpkg/plugin-npm": "npm:^3.0.1"
-    "@yarnpkg/plugin-pack": "npm:^4.0.0"
     angular-eslint: "npm:~22.0.0"
     chokidar: "npm:~5.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -12106,11 +12081,6 @@ __metadata:
     "@o3r/logger": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^22.0.0
-    "@yarnpkg/cli": ^4.3.1
-    "@yarnpkg/core": ^4.1.1
-    "@yarnpkg/fslib": ^3.1.0
-    "@yarnpkg/plugin-npm": ^3.0.1
-    "@yarnpkg/plugin-pack": ^4.0.0
     chokidar: ^4.0.0 || ^5.0.0
     globby: ^11.1.0
     rxjs: ^7.8.1
@@ -17419,7 +17389,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/cli@npm:^4.5.0":
+"@yarnpkg/cli@npm:4.18.0":
   version: 4.18.0
   resolution: "@yarnpkg/cli@npm:4.18.0"
   dependencies:
@@ -17464,7 +17434,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.1.3, @yarnpkg/core@npm:^4.8.0, @yarnpkg/core@npm:^4.9.1":
+"@yarnpkg/core@npm:4.9.1":
   version: 4.9.1
   resolution: "@yarnpkg/core@npm:4.9.1"
   dependencies:
@@ -17507,7 +17477,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^3.1.0, @yarnpkg/fslib@npm:^3.1.2, @yarnpkg/fslib@npm:^3.1.3, @yarnpkg/fslib@npm:^3.1.5":
+"@yarnpkg/fslib@npm:^3.1.2, @yarnpkg/fslib@npm:^3.1.3, @yarnpkg/fslib@npm:^3.1.5, @yarnpkg/fslib@npm:~3.1.0":
   version: 3.1.5
   resolution: "@yarnpkg/fslib@npm:3.1.5"
   dependencies:
@@ -17812,7 +17782,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-npm@npm:^3.0.1, @yarnpkg/plugin-npm@npm:^3.7.1":
+"@yarnpkg/plugin-npm@npm:^3.7.1, @yarnpkg/plugin-npm@npm:~3.7.0":
   version: 3.7.1
   resolution: "@yarnpkg/plugin-npm@npm:3.7.1"
   dependencies:
@@ -17831,7 +17801,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-pack@npm:^4.0.0, @yarnpkg/plugin-pack@npm:^4.0.5":
+"@yarnpkg/plugin-pack@npm:^4.0.5, @yarnpkg/plugin-pack@npm:~4.0.0":
   version: 4.0.5
   resolution: "@yarnpkg/plugin-pack@npm:4.0.5"
   dependencies:

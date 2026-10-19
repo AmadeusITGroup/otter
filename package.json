@@ -152,7 +152,9 @@
     "@crxjs/vite-plugin/rollup": "~2.80.0",
     "undici@^5.25.4": "^6.24.0",
     "undici@^5.28.5": "^6.24.0",
-    "undici@7.24.7": "^7.28.0"
+    "undici@7.24.7": "^7.28.0",
+    "@yarnpkg/cli": "4.18.0",
+    "@yarnpkg/core": "4.9.1"
   },
   "dependencies": {
     "@actions/core": "^2.0.0",
