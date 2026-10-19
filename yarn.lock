@@ -9354,11 +9354,6 @@ __metadata:
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.67.0"
     "@typescript/vfs": "npm:^1.6.1"
-    "@yarnpkg/cli": "npm:^4.5.0"
-    "@yarnpkg/core": "npm:^4.1.3"
-    "@yarnpkg/fslib": "npm:^3.1.0"
-    "@yarnpkg/plugin-npm": "npm:^3.0.1"
-    "@yarnpkg/plugin-pack": "npm:^4.0.0"
     angular-eslint: "npm:~22.0.0"
     chokidar: "npm:~5.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -9416,11 +9411,6 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/transloco": "workspace:~"
     "@schematics/angular": ^22.0.0
-    "@yarnpkg/cli": ^4.0.0
-    "@yarnpkg/core": ^4.1.1
-    "@yarnpkg/fslib": ^3.1.0
-    "@yarnpkg/plugin-npm": ^3.0.1
-    "@yarnpkg/plugin-pack": ^4.0.0
     chokidar: ^4.0.0 || ^5.0.0
     globby: ^11.1.0
     jsonpath-plus: ^9.0.0 || ^10.0.0
@@ -9450,16 +9440,6 @@ __metadata:
     "@o3r/transloco":
       optional: true
     "@schematics/angular":
-      optional: true
-    "@yarnpkg/cli":
-      optional: true
-    "@yarnpkg/core":
-      optional: true
-    "@yarnpkg/fslib":
-      optional: true
-    "@yarnpkg/plugin-npm":
-      optional: true
-    "@yarnpkg/plugin-pack":
       optional: true
     chokidar:
       optional: true
@@ -10080,11 +10060,11 @@ __metadata:
     "@types/node": "npm:~24.13.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.67.0"
-    "@yarnpkg/cli": "npm:^4.5.0"
-    "@yarnpkg/core": "npm:^4.1.3"
-    "@yarnpkg/fslib": "npm:^3.1.0"
-    "@yarnpkg/plugin-npm": "npm:^3.0.1"
-    "@yarnpkg/plugin-pack": "npm:^4.0.0"
+    "@yarnpkg/cli": "npm:~4.18.0"
+    "@yarnpkg/core": "npm:~4.9.1"
+    "@yarnpkg/fslib": "npm:~3.1.0"
+    "@yarnpkg/plugin-npm": "npm:~3.7.0"
+    "@yarnpkg/plugin-pack": "npm:~4.0.0"
     angular-eslint: "npm:~22.0.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
@@ -10128,7 +10108,7 @@ __metadata:
     "@o3r/telemetry": "workspace:~"
     "@schematics/angular": ^22.0.0
     "@yarnpkg/cli": ^4.0.0
-    "@yarnpkg/core": ^4.1.1
+    "@yarnpkg/core": ">=4.1.1 <4.9.2"
     "@yarnpkg/fslib": ^3.1.0
     "@yarnpkg/plugin-npm": ^3.0.1
     "@yarnpkg/plugin-pack": ^4.0.0
@@ -10541,11 +10521,6 @@ __metadata:
     "@types/node": "npm:~24.13.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.67.0"
-    "@yarnpkg/cli": "npm:^4.5.0"
-    "@yarnpkg/core": "npm:^4.1.3"
-    "@yarnpkg/fslib": "npm:^3.1.0"
-    "@yarnpkg/plugin-npm": "npm:^3.0.1"
-    "@yarnpkg/plugin-pack": "npm:^4.0.0"
     angular-eslint: "npm:~22.0.0"
     chokidar: "npm:~5.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -10598,11 +10573,6 @@ __metadata:
     "@o3r/logger": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^22.0.0
-    "@yarnpkg/cli": ^4.3.1
-    "@yarnpkg/core": ^4.1.1
-    "@yarnpkg/fslib": ^3.1.0
-    "@yarnpkg/plugin-npm": ^3.0.1
-    "@yarnpkg/plugin-pack": ^4.0.0
     chokidar: ^4.0.0 || ^5.0.0
     globby: ^11.1.0
     intl-messageformat: ^11.0.0
@@ -10622,16 +10592,6 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
-      optional: true
-    "@yarnpkg/cli":
-      optional: true
-    "@yarnpkg/core":
-      optional: true
-    "@yarnpkg/fslib":
-      optional: true
-    "@yarnpkg/plugin-npm":
-      optional: true
-    "@yarnpkg/plugin-pack":
       optional: true
     chokidar:
       optional: true
@@ -12070,11 +12030,6 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.13.0"
     "@typescript-eslint/parser": "npm:~8.67.0"
-    "@yarnpkg/cli": "npm:^4.5.0"
-    "@yarnpkg/core": "npm:^4.1.3"
-    "@yarnpkg/fslib": "npm:^3.1.0"
-    "@yarnpkg/plugin-npm": "npm:^3.0.1"
-    "@yarnpkg/plugin-pack": "npm:^4.0.0"
     angular-eslint: "npm:~22.0.0"
     chokidar: "npm:~5.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -12126,11 +12081,6 @@ __metadata:
     "@o3r/logger": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^22.0.0
-    "@yarnpkg/cli": ^4.3.1
-    "@yarnpkg/core": ^4.1.1
-    "@yarnpkg/fslib": ^3.1.0
-    "@yarnpkg/plugin-npm": ^3.0.1
-    "@yarnpkg/plugin-pack": ^4.0.0
     chokidar: ^4.0.0 || ^5.0.0
     globby: ^11.1.0
     rxjs: ^7.8.1
@@ -12148,16 +12098,6 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
-      optional: true
-    "@yarnpkg/cli":
-      optional: true
-    "@yarnpkg/core":
-      optional: true
-    "@yarnpkg/fslib":
-      optional: true
-    "@yarnpkg/plugin-npm":
-      optional: true
-    "@yarnpkg/plugin-pack":
       optional: true
     chokidar:
       optional: true
@@ -17337,7 +17277,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xhmikosr/decompress-tarbz2@npm:^9.0.1":
+"@xhmikosr/decompress-tar@npm:^9.0.2":
+  version: 9.0.2
+  resolution: "@xhmikosr/decompress-tar@npm:9.0.2"
+  dependencies:
+    file-type: "npm:^21.3.4"
+    is-stream: "npm:^4.0.1"
+    tar-stream: "npm:3.1.7"
+  checksum: 10/8909e76beaf0dfb2bbd77f96c56921e05f47a2054ff4ead1158be35415ce28264bd35421d1030b13bbce31fcdaf87a781effe08090d2bfd1f376dfdadec0177a
+  languageName: node
+  linkType: hard
+
+"@xhmikosr/decompress-tarbz2@npm:^9.0.2":
   version: 9.0.2
   resolution: "@xhmikosr/decompress-tarbz2@npm:9.0.2"
   dependencies:
@@ -17361,7 +17312,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xhmikosr/decompress-unzip@npm:^8.1.1":
+"@xhmikosr/decompress-unzip@npm:^8.2.1":
   version: 8.2.1
   resolution: "@xhmikosr/decompress-unzip@npm:8.2.1"
   dependencies:
@@ -17373,16 +17324,16 @@ __metadata:
   linkType: hard
 
 "@xhmikosr/decompress@npm:^11.1.3":
-  version: 11.1.3
-  resolution: "@xhmikosr/decompress@npm:11.1.3"
+  version: 11.1.4
+  resolution: "@xhmikosr/decompress@npm:11.1.4"
   dependencies:
-    "@xhmikosr/decompress-tar": "npm:^9.0.1"
-    "@xhmikosr/decompress-tarbz2": "npm:^9.0.1"
+    "@xhmikosr/decompress-tar": "npm:^9.0.2"
+    "@xhmikosr/decompress-tarbz2": "npm:^9.0.2"
     "@xhmikosr/decompress-targz": "npm:^9.0.1"
-    "@xhmikosr/decompress-unzip": "npm:^8.1.1"
+    "@xhmikosr/decompress-unzip": "npm:^8.2.1"
     graceful-fs: "npm:^4.2.11"
     strip-dirs: "npm:^3.0.0"
-  checksum: 10/0035a59040fe292361884db2d78ef746fac44fef8992a3e4d7b9029b6dcc0ddfb7ebf124f41e921de0eaa969c87736daddef9e4a6f7121bf696cdf3ea7dc301c
+  checksum: 10/279ad3456f27ca42090a6b7e87554f56c6f99a5692d9fed526ace6c59341656b69ede120d7c94f362a5ced3aab6fb8290b47becc31844dcebc85eb6d31bc9040
   languageName: node
   linkType: hard
 
@@ -17438,7 +17389,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/cli@npm:^4.5.0":
+"@yarnpkg/cli@npm:4.18.0":
   version: 4.18.0
   resolution: "@yarnpkg/cli@npm:4.18.0"
   dependencies:
@@ -17483,7 +17434,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.1.3, @yarnpkg/core@npm:^4.8.0, @yarnpkg/core@npm:^4.9.1":
+"@yarnpkg/core@npm:4.9.1":
   version: 4.9.1
   resolution: "@yarnpkg/core@npm:4.9.1"
   dependencies:
@@ -17526,7 +17477,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^3.1.0, @yarnpkg/fslib@npm:^3.1.2, @yarnpkg/fslib@npm:^3.1.3, @yarnpkg/fslib@npm:^3.1.5":
+"@yarnpkg/fslib@npm:^3.1.2, @yarnpkg/fslib@npm:^3.1.3, @yarnpkg/fslib@npm:^3.1.5, @yarnpkg/fslib@npm:~3.1.0":
   version: 3.1.5
   resolution: "@yarnpkg/fslib@npm:3.1.5"
   dependencies:
@@ -17831,7 +17782,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-npm@npm:^3.0.1, @yarnpkg/plugin-npm@npm:^3.7.1":
+"@yarnpkg/plugin-npm@npm:^3.7.1, @yarnpkg/plugin-npm@npm:~3.7.0":
   version: 3.7.1
   resolution: "@yarnpkg/plugin-npm@npm:3.7.1"
   dependencies:
@@ -17850,7 +17801,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-pack@npm:^4.0.0, @yarnpkg/plugin-pack@npm:^4.0.5":
+"@yarnpkg/plugin-pack@npm:^4.0.5, @yarnpkg/plugin-pack@npm:~4.0.0":
   version: 4.0.5
   resolution: "@yarnpkg/plugin-pack@npm:4.0.5"
   dependencies:
@@ -25201,11 +25152,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"handlebars@npm:~4.7.9":
-  version: 4.7.9
-  resolution: "handlebars@npm:4.7.9"
+"handlebars@npm:~4.7.10":
+  version: 4.7.10
+  resolution: "handlebars@npm:4.7.10"
   dependencies:
-    minimist: "npm:^1.2.5"
+    minimist: "npm:^1.2.8"
     neo-async: "npm:^2.6.2"
     source-map: "npm:^0.6.1"
     uglify-js: "npm:^3.1.4"
@@ -25215,7 +25166,7 @@ __metadata:
       optional: true
   bin:
     handlebars: bin/handlebars
-  checksum: 10/e755433d652e8a15fc02f83d7478e652359e7a4d354c4328818853ed4f8a39d4a09e1d22dad3c7213c5240864a65b3c840970b8b181745575dd957dd258f2b8d
+  checksum: 10/e7df9b9986594384de11ea27d2f9c694f90dca9ff768ac28851b4cf89f6268a3177ec50c9bb1601c8841f67bee25598b37bdcd53d1f7acd3744619f938ad1f53
   languageName: node
   linkType: hard
 
@@ -29481,7 +29432,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:1.2.8, minimist@npm:^1.2.0, minimist@npm:^1.2.3, minimist@npm:^1.2.5, minimist@npm:^1.2.6, minimist@npm:^1.2.8":
+"minimist@npm:1.2.8, minimist@npm:^1.2.0, minimist@npm:^1.2.3, minimist@npm:^1.2.6, minimist@npm:^1.2.8":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 10/908491b6cc15a6c440ba5b22780a0ba89b9810e1aea684e253e43c4e3b8d56ec1dcdd7ea96dde119c29df59c936cde16062159eae4225c691e19c70b432b6e6f
@@ -32031,27 +31982,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"piscina@npm:5.2.0, piscina@npm:^5.0.0":
-  version: 5.2.0
-  resolution: "piscina@npm:5.2.0"
+"piscina@npm:5.3.2, piscina@npm:^5.0.0":
+  version: 5.3.2
+  resolution: "piscina@npm:5.3.2"
   dependencies:
     "@napi-rs/nice": "npm:^1.0.4"
   dependenciesMeta:
     "@napi-rs/nice":
       optional: true
-  checksum: 10/c1d5592d372d88778641137b6d7a46e4260195f7c57cfd53215a6cb432a64d6a02c6831e289b2459a37b9619c037f1e1decb72929ad97b59af11f21aceec8484
+  checksum: 10/a09db8d614de6055e9977491f52c509a5dfa8b9ac2c857862e97e732b6cd30a8b5b9fddc5ccd8d423f4880b127251cdd4441abd0fd1d5f90e14d14231d721fe1
   languageName: node
   linkType: hard
 
 "piscina@npm:^4.3.1":
-  version: 4.9.3
-  resolution: "piscina@npm:4.9.3"
+  version: 4.9.4
+  resolution: "piscina@npm:4.9.4"
   dependencies:
     "@napi-rs/nice": "npm:^1.0.1"
   dependenciesMeta:
     "@napi-rs/nice":
       optional: true
-  checksum: 10/04382e77aaee664323999d36334fb4463c5af1980db1bf582c462567c5fcc4dbe47b3ecf08e6a09d2a777902432955e45bbc08479ac751b49e9d50e18355aee9
+  checksum: 10/1184a56fd2390c6368bf81891ed0b9b0aea55362aeb6b0fdbc75fdd28fdbd220e7dd5641fdd890155485276b0d674a6e58803f6002ce1f45d972c1c88bacf345
   languageName: node
   linkType: hard
 
@@ -32886,12 +32837,12 @@ __metadata:
   linkType: hard
 
 "proxy-addr@npm:^2.0.7, proxy-addr@npm:~2.0.7":
-  version: 2.0.7
-  resolution: "proxy-addr@npm:2.0.7"
+  version: 2.0.8
+  resolution: "proxy-addr@npm:2.0.8"
   dependencies:
     forwarded: "npm:0.2.0"
     ipaddr.js: "npm:1.9.1"
-  checksum: 10/f24a0c80af0e75d31e3451398670d73406ec642914da11a2965b80b1898ca6f66a0e3e091a11a4327079b2b268795f6fa06691923fef91887215c3d0e8ea3f68
+  checksum: 10/6922b732c5625a9ba174c053bf3a750a80c87f19b7c62919f88ff01834eb80e2467834cfa72fc48b3a7ed6b3d18daadf773f6efb21db1c5fcc76d784509fcf1f
   languageName: node
   linkType: hard
 
@@ -35021,9 +34972,9 @@ __metadata:
   linkType: hard
 
 "shell-quote@npm:^1.6.1, shell-quote@npm:^1.7.3, shell-quote@npm:^1.8.4, shell-quote@npm:^1.9.0":
-  version: 1.10.0
-  resolution: "shell-quote@npm:1.10.0"
-  checksum: 10/d4a22aeefe64919290af753ac6098239d7ffee52a5db62c20edef69794bd10b5f86e298f68be26af9606ac435e890dd391994a5405a90bb8aebef1ff1dde839b
+  version: 1.12.0
+  resolution: "shell-quote@npm:1.12.0"
+  checksum: 10/18b3e382272804e79fd3187c18877cfd4e736b5afb576bf1ab66a561b0a0e26eada4b7c8eb45473d1f17268ffcf12d0aaa90b9235132123eb673df5d0a5df943
   languageName: node
   linkType: hard
 
