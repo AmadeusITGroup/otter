@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/AmadeusITGroup/ai-primitives-hub/refs/heads/main/packages/core/src/public/schemas/collection.schema.json
+id: ama-styling
+name: Ama Styling
+description: Design token usage guidance and styling best practices for @ama-styling projects
+items:
+  - path: tools/llm/plugins/ama-styling/skills/styling-mcp-setup/SKILL.md
+    kind: skill
+    title: Styling MCP Setup
+    description: Install and configure the @ama-styling/mcp server for AI-assisted design token usage
+    tags:
+      - mcp
+      - setup
+      - design-tokens
+  - path: tools/llm/plugins/ama-styling/skills/styling-best-practices/SKILL.md
+    kind: skill
+    title: Styling Best Practices
+    description: Design token usage guidelines, Otter extensions, naming conventions, and component styling patterns
+    tags:
+      - best-practices
+      - design-tokens
+      - css
+      - theming
+readme:
+  path: tools/llm/plugins/ama-styling/README.md
+display:
+  ordering: manual
+  show_badge: true

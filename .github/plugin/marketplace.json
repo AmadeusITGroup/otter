@@ -34,6 +34,16 @@
         "api-client",
         "ama-sdk"
       ]
+    },
+    {
+      "name": "ama-styling",
+      "source": "./tools/llm/plugins/ama-styling",
+      "tags": [
+        "styling",
+        "design-tokens",
+        "css",
+        "ama-styling"
+      ]
     }
   ]
 }
