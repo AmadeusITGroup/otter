@@ -67,7 +67,7 @@ jobs:
       # Needed to publish on npmjs registry
       id-token: write
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 2
           ref: ${{ inputs.gitRef }}
@@ -96,7 +96,7 @@ jobs:
       APP_PATH: 'apps/github-cascading-app/dist'
     environment: 'cascading-app'
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
@@ -118,7 +118,7 @@ jobs:
         env:
           PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8996AC226FB9456EA73A6B8439B12946 || secrets.CASCADING_AZURE_APP_PUBLISH_PROFILE }}
         if: env.PUBLISH_PROFILE != null && (github.base_ref == 'main' || github.ref_name == 'main')
-        uses: Azure/functions-action@bc63708cc6539760eea18d8a7de4ce8ef5fdf593 # v1.5.6
+        uses: Azure/functions-action@c5060b3b8bb1ebbcb531abd00c822ecbaa8ea656 # v1.5.7
         with:
           app-name: 'github-cascading'
           slot-name: 'production'
@@ -130,7 +130,7 @@ jobs:
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     needs: [publish]
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output

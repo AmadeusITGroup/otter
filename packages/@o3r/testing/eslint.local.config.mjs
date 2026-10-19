@@ -25,5 +25,23 @@ export default [
         NodeJS: true
       }
     }
+  },
+  {
+    name: '@o3r/testing/package-json',
+    files: ['package.json'],
+    rules: {
+      // ts-jest 29 rejects Babel 8, so generated Jest workspaces intentionally receive Babel 7.
+      '@o3r/json-dependency-versions-harmonize': [
+        'error',
+        {
+          alignPeerDependencies: false,
+          alignEngines: true,
+          ignoredDependencies: [
+            '@babel/core',
+            'globby'
+          ]
+        }
+      ]
+    }
   }
 ];

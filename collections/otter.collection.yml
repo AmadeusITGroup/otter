@@ -98,11 +98,12 @@ items:
   - path: tools/llm/plugins/otter/agents/otter-migration.agent.md
     kind: agent
     title: Otter Migration
-    description: Safely upgrade @o3r, @ama-mfe, and @ama-sdk packages across an Otter workspace, handling Angular peer-dependency upgrades and migration schematics
+    description: Safely upgrade @o3r, @ama-mfe, and @ama-sdk packages across an Otter workspace, handling Angular peer-dependency upgrades, migration schematics, and regeneration of SDKs built with @ama-sdk/schematics
     tags:
       - migration
       - upgrade
       - angular
+      - sdk
   - path: tools/llm/plugins/otter/agents/logic-design.agent.md
     kind: agent
     title: Logic Design

@@ -21,9 +21,9 @@ const xtermPath = path.join(getAbsolutePath('@xterm/xterm'), 'css/xterm.css');
 const xtermDestinationPath = `${temporaryAssetsDirectory}/@xterm/xterm/css/xterm.css`;
 fs.cpSync(xtermPath, xtermDestinationPath, { recursive: true });
 
-// monaco-editor
-const monacoEditorPath = path.join(getAbsolutePath('monaco-editor'));
-const monacoEditorDestinationPath = `${temporaryAssetsDirectory}/monaco-editor`;
+// monaco-editor: exports map no longer exposes ./package.json
+const monacoEditorPath = path.dirname(require.resolve('monaco-editor')); // default path is monaco-editor/min/vs
+const monacoEditorDestinationPath = `${temporaryAssetsDirectory}/monaco-editor/min/vs`;
 fs.cpSync(monacoEditorPath, monacoEditorDestinationPath, { recursive: true });
 
 // ngx-monaco-tree

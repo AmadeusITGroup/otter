@@ -1,9 +1,8 @@
-const { getTsJestBaseConfig, getOtterJestBaseConfig, getJestUnitTestConfig } = require('@o3r/test-helpers');
-const { createDefaultPreset } = require('ts-jest');
+const { getDefaultTsJestCjsPreset, getOtterJestBaseConfig, getJestUnitTestConfig } = require('@o3r/test-helpers');
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...createDefaultPreset(getTsJestBaseConfig()),
+  ...getDefaultTsJestCjsPreset(),
   ...getOtterJestBaseConfig(__dirname),
   ...getJestUnitTestConfig()
 };
