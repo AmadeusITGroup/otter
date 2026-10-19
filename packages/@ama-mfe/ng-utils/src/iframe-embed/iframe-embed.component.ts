@@ -25,6 +25,9 @@ import {
   ApplyTheme,
 } from '../theme/apply-theme-pipe';
 import {
+  AllowDirective,
+} from './allow.directive';
+import {
   SandboxDirective,
 } from './sandbox.directive';
 
@@ -39,7 +42,8 @@ import {
     ScalableDirective,
     ApplyTheme,
     HostInfoPipe,
-    SandboxDirective
+    SandboxDirective,
+    AllowDirective
   ],
   templateUrl: './iframe-embed.template.html',
   styleUrl: './iframe-embed.style.scss',
@@ -71,4 +75,11 @@ export class IframeEmbedComponent {
    * Pass through to the SandboxDirective on the iframe element.
    */
   public readonly sandbox = input('allow-scripts allow-same-origin');
+
+  /**
+   * The allow attribute (Permissions Policy) for the iframe, e.g. `'camera; microphone'`.
+   * Pass through to the AllowDirective on the iframe element.
+   * Defaults to empty string (attribute not set).
+   */
+  public readonly allow = input('');
 }

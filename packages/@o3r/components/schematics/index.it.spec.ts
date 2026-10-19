@@ -19,6 +19,13 @@ describe('ng add components', () => {
   test('should add components to an application', () => {
     const { workspacePath, appName, isInWorkspace, o3rVersion, isYarnTest, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    if (isYarnTest) {
+      // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
+      const packageJsonPath = `${workspacePath}/package.json`;
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+      packageJson.resolutions = { ...packageJson.resolutions, '@yarnpkg/core': '4.9.1' };
+      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    }
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/components@${o3rVersion}`,
       '--skip-confirmation', '--enable-metadata-extract', '--project-name', appName] }, execAppOptions)).not.toThrow();
 
@@ -46,8 +53,15 @@ describe('ng add components', () => {
   });
 
   test('should add components to a library', () => {
-    const { workspacePath, libName, isInWorkspace, o3rVersion, applicationPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
+    const { workspacePath, libName, isInWorkspace, isYarnTest, o3rVersion, applicationPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    const packageJsonPath = `${workspacePath}/package.json`;
+    if (isYarnTest) {
+      // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
+      const initialPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+      initialPackageJson.resolutions = { ...initialPackageJson.resolutions, '@yarnpkg/core': '4.9.1' };
+      fs.writeFileSync(packageJsonPath, JSON.stringify(initialPackageJson, null, 2));
+    }
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/components@${o3rVersion}`,
       '--skip-confirmation', '--enable-metadata-extract', '--project-name', libName] }, execAppOptions)).not.toThrow();
 
@@ -61,7 +75,7 @@ describe('ng add components', () => {
     expect(angularJSON.schematics['@o3r/core:component-presenter']).toBeDefined();
     expect(angularJSON.cli?.schematicCollections?.indexOf('@o3r/components') > -1).toBe(true);
 
-    const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
     expect(packageJson.devDependencies['@o3r/components']).toBeDefined();
 
     expect(diff.added.toSorted()).toEqual([

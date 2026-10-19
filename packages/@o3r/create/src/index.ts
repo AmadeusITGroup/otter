@@ -218,6 +218,10 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
       (packageJson as any).overrides = resolutions;
     }
   }
+  if (projectPackageManager === 'yarn') {
+    // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
+    packageJson.resolutions = { ...packageJson.resolutions, '@yarnpkg/core': '4.9.1' };
+  }
   writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
   if (projectPackageManager === 'yarn') {
