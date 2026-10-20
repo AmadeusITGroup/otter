@@ -4,6 +4,9 @@ src/spec/operation-adapter.ts linguist-generated
 src/api/** linguist-generated
 src/models/base/** linguist-generated
 src/constants/** linguist-generated
+src/**/index.ts linguist-generated
+src/**/enums.ts linguist-generated
+src/**/patterns.ts linguist-generated
 
 # in case of core models, the `index.ts` file should be ignored as follows:
 # !src/models/base/<model>/index.ts
