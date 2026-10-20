@@ -593,7 +593,7 @@ __metadata:
     "@angular/core": "npm:~22.2.0"
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
-    "@angular/router": "npm:~22.2.0"
+    "@angular/router": "npm:~22.2.1"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@jest/environment-jsdom-abstract": "npm:~30.4.0"
     "@o3r/build-helpers": "workspace:~"
@@ -2576,17 +2576,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/router@npm:~22.2.0":
-  version: 22.2.0
-  resolution: "@angular/router@npm:22.2.0"
+"@angular/router@npm:~22.2.1":
+  version: 22.2.1
+  resolution: "@angular/router@npm:22.2.1"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 22.2.0
-    "@angular/core": 22.2.0
-    "@angular/platform-browser": 22.2.0
+    "@angular/common": 22.2.1
+    "@angular/core": 22.2.1
+    "@angular/platform-browser": 22.2.1
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/6e88ce985a7f69daf29bc13f07a8317fc249924d0adf1ec5bb2f7feb659f29908fc624885c7ccd7e4a18f79b43ec203d9c826688d76f1906ef9c07f0d1cdd457
+  checksum: 10/8b92273d9d513f9a3e64d89c51c6a55bb025ce2337e36bf76bbb7097a9a99b83ebdb63845a0183fa9de10a29093c5ab1bebd4788b36c52f0395e88e6cd7a2690
   languageName: node
   linkType: hard
 
@@ -10091,7 +10091,7 @@ __metadata:
     "@angular/core": "npm:~22.2.0"
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
-    "@angular/router": "npm:~22.2.0"
+    "@angular/router": "npm:~22.2.1"
     "@babel/core": "npm:~8.0.0"
     "@babel/preset-typescript": "npm:~8.0.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -10549,7 +10549,7 @@ __metadata:
     "@angular/localize": "npm:~22.2.0"
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
-    "@angular/router": "npm:~22.2.0"
+    "@angular/router": "npm:~22.2.1"
     "@crxjs/vite-plugin": "npm:~2.4.0"
     "@design-factory/design-factory": "npm:~22.0.0"
     "@design-factory/styles": "npm:~22.0.0"
@@ -10902,7 +10902,7 @@ __metadata:
     "@angular/forms": "npm:~22.2.0"
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
-    "@angular/router": "npm:~22.2.0"
+    "@angular/router": "npm:~22.2.1"
     "@babel/core": "npm:~8.0.0"
     "@babel/preset-typescript": "npm:~8.0.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -11591,7 +11591,7 @@ __metadata:
     "@angular/localize": "npm:~22.2.0"
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
-    "@angular/router": "npm:~22.2.0"
+    "@angular/router": "npm:~22.2.1"
     "@babel/core": "npm:~8.0.0"
     "@babel/preset-typescript": "npm:~8.0.0"
     "@commitlint/cli": "npm:^20.2.0"
@@ -12405,7 +12405,7 @@ __metadata:
     "@angular/core": "npm:~22.2.0"
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
-    "@angular/router": "npm:~22.2.0"
+    "@angular/router": "npm:~22.2.1"
     "@babel/core": "npm:~8.0.0"
     "@babel/preset-typescript": "npm:~8.0.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -12758,7 +12758,7 @@ __metadata:
     "@angular/localize": "npm:~22.2.0"
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
-    "@angular/router": "npm:~22.2.0"
+    "@angular/router": "npm:~22.2.1"
     "@commitlint/types": "npm:^20.2.0"
     "@design-factory/design-factory": "npm:~22.0.0"
     "@design-factory/styles": "npm:~22.0.0"
@@ -13513,7 +13513,7 @@ __metadata:
     "@angular/core": "npm:~22.2.0"
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
-    "@angular/router": "npm:~22.2.0"
+    "@angular/router": "npm:~22.2.1"
     "@babel/core": "npm:~8.0.0"
     "@babel/preset-typescript": "npm:~8.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
