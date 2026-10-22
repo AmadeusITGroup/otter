@@ -299,7 +299,7 @@ __metadata:
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/server": "npm:~2.0.0"
+    "@modelcontextprotocol/server": "npm:~2.3.0"
     "@nx/eslint": "npm:~23.1.0"
     "@nx/eslint-plugin": "npm:~23.1.0"
     "@nx/js": "npm:~23.1.0"
@@ -354,7 +354,7 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@modelcontextprotocol/client": "npm:~2.2.0"
-    "@modelcontextprotocol/server": "npm:~2.0.0"
+    "@modelcontextprotocol/server": "npm:~2.3.0"
     "@nx/eslint": "npm:~23.1.0"
     "@nx/eslint-plugin": "npm:~23.1.0"
     "@nx/jest": "npm:~23.1.0"
@@ -421,7 +421,7 @@ __metadata:
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/server": "npm:~2.0.0"
+    "@modelcontextprotocol/server": "npm:~2.3.0"
     "@nx/eslint": "npm:~23.1.0"
     "@nx/eslint-plugin": "npm:~23.1.0"
     "@nx/js": "npm:~23.1.0"
@@ -478,7 +478,7 @@ __metadata:
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/server": "npm:~2.0.0"
+    "@modelcontextprotocol/server": "npm:~2.3.0"
     "@nx/eslint": "npm:~23.1.0"
     "@nx/eslint-plugin": "npm:~23.1.0"
     "@nx/js": "npm:~23.1.0"
@@ -1281,7 +1281,7 @@ __metadata:
   dependencies:
     "@ama-mcp/core": "workspace:~"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/server": "npm:~2.0.0"
+    "@modelcontextprotocol/server": "npm:~2.3.0"
     "@nx/eslint": "npm:~23.1.0"
     "@nx/eslint-plugin": "npm:~23.1.0"
     "@nx/js": "npm:~23.1.0"
@@ -1721,7 +1721,7 @@ __metadata:
   dependencies:
     "@ama-mcp/core": "workspace:~"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/server": "npm:~2.0.0"
+    "@modelcontextprotocol/server": "npm:~2.3.0"
     "@nx/eslint": "npm:~23.1.0"
     "@nx/eslint-plugin": "npm:~23.1.0"
     "@nx/js": "npm:~23.1.0"
@@ -8769,15 +8769,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/core@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@modelcontextprotocol/core@npm:2.0.0"
-  dependencies:
-    zod: "npm:^4.2.0"
-  checksum: 10/65d695e0fb8def8fcaa72f49866dcf6adaefb06b03bfb17691c11a07b147ef60cbb0076f38438c774dfa8ceff21b14a9c21aa1d30fa665fe83e4bb2a447a9d51
-  languageName: node
-  linkType: hard
-
 "@modelcontextprotocol/core@npm:2.2.0":
   version: 2.2.0
   resolution: "@modelcontextprotocol/core@npm:2.2.0"
@@ -8796,23 +8787,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/server@npm:2.3.1":
+"@modelcontextprotocol/server@npm:2.3.1, @modelcontextprotocol/server@npm:~2.3.0":
   version: 2.3.1
   resolution: "@modelcontextprotocol/server@npm:2.3.1"
   dependencies:
     "@modelcontextprotocol/core": "npm:2.3.1"
     zod: "npm:^4.2.0"
   checksum: 10/13bcf61340f11c6e77eb2803cdb1758534fe51ed67b536592f66355ddfcc546d0ca39741aacf2eccd1d7f92e2350733dde475b3b7627ba2251c4ea10aec194cc
-  languageName: node
-  linkType: hard
-
-"@modelcontextprotocol/server@npm:~2.0.0":
-  version: 2.0.0
-  resolution: "@modelcontextprotocol/server@npm:2.0.0"
-  dependencies:
-    "@modelcontextprotocol/core": "npm:2.0.0"
-    zod: "npm:^4.2.0"
-  checksum: 10/32d50b224f8f00b60886c2c84a53d3c0b6a0e9cd37afe4782c895795cb979c4e57736b6b663966cf50da145f3b926fc559648d521abcdadd22de4366a085e681
   languageName: node
   linkType: hard
 
@@ -12109,7 +12090,7 @@ __metadata:
     "@angular/platform-browser": "npm:~22.2.0"
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/server": "npm:~2.0.0"
+    "@modelcontextprotocol/server": "npm:~2.3.0"
     "@nx/eslint": "npm:~23.1.0"
     "@nx/eslint-plugin": "npm:~23.1.0"
     "@nx/js": "npm:~23.1.0"
