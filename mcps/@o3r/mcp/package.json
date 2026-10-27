@@ -27,7 +27,7 @@
     "@ama-mcp/core": "workspace:^",
     "@ama-mcp/github": "workspace:^",
     "@ama-mcp/otter": "workspace:^",
-    "@modelcontextprotocol/server": "~2.0.0",
+    "@modelcontextprotocol/server": "~2.3.0",
     "@o3r/telemetry": "workspace:~",
     "@octokit/rest": "~22.0.0",
     "tslib": "^2.6.2",
