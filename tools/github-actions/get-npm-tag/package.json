@@ -23,7 +23,7 @@
   "devDependencies": {
     "@angular/cli": "~22.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~23.1.0",
+    "@nx/eslint-plugin": "~23.3.0",
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@stylistic/eslint-plugin": "~5.10.0",
@@ -31,7 +31,7 @@
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.71.0",
     "@vercel/ncc": "~0.38.0",
-    "angular-eslint": "~22.5.0",
+    "angular-eslint": "~22.6.0",
     "eslint": "~9.39.0",
     "eslint-plugin-import": "~2.32.0",
     "eslint-plugin-import-newlines": "~1.4.0",
