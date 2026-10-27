@@ -13,6 +13,7 @@ import {
   createWithLock,
   CreateWithLockOptions,
   getPackageManager,
+  getUnrsResolverEnvOverride,
   type Logger,
   PackageManagerConfig,
   packageManagerCreate,
@@ -74,7 +75,7 @@ export async function createTestEnvironmentOtterProjectWithAppAndLib(inputOption
     const execAppOptions = {
       cwd: appFolderPath,
       stdio: 'inherit',
-      env: { ...process.env, NODE_OPTIONS: '', CI: 'true' }
+      env: { ...process.env, NODE_OPTIONS: '', CI: 'true', ...getUnrsResolverEnvOverride() }
     } as const satisfies ExecSyncOptions;
 
     // Prepare folder
