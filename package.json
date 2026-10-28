@@ -154,8 +154,8 @@
     "undici@^5.28.5": "^6.24.0",
     "undici@7.24.7": "^7.28.0",
     "@jsverse/utils": "1.0.0-beta.5",
-    "@yarnpkg/cli": "4.18.0",
-    "@yarnpkg/core": "4.9.1",
+    "@yarnpkg/cli": "4.18.1",
+    "@yarnpkg/core": "4.9.2",
     "dompurify": "^3.4.17"
   },
   "dependencies": {
