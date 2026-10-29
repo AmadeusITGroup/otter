@@ -67,7 +67,7 @@ jobs:
         with:
           install-jdk: 'true'
       - name: Cache Jest
-        uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         env:
           hash: ${{ hashFiles('package.json', 'tsconfig.base.json', 'tsconfig.build.json', 'nx.json') }}
         with:
@@ -84,7 +84,7 @@ jobs:
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
         run: yarn ${{ env.testCmd }} --coverage --configuration=ci
       - name: Upload results to Codecov
-        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           flags: unittests
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -109,7 +109,7 @@ jobs:
         uses: ./tools/github-actions/setup
         timeout-minutes: 30
       - name: Cache Eslint
-        uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         env:
           hash: ${{ hashFiles('yarn.lock') }}
         with:

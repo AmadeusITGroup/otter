@@ -22,7 +22,7 @@ runs:
     - name: Create branch
       id: auto-commit-action
       # Upgrading to v7 break the action
-      uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
+      uses: stefanzweifel/git-auto-commit-action@d0b01107b5db882071f96de5dd4b54961ea93f4c # v7.2.1
       with:
         commit_message: ${{ inputs.commitMessage }}
         branch: ${{ inputs.branchName }}
