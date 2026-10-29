@@ -29,7 +29,7 @@
     "@o3r/telemetry": "workspace:~",
     "@schematics/angular": "^22.0.0",
     "@yarnpkg/cli": "^4.0.0",
-    "@yarnpkg/core": ">=4.1.1 <4.9.2",
+    "@yarnpkg/core": ">=4.1.1 <4.9.3",
     "@yarnpkg/fslib": "^3.1.0",
     "@yarnpkg/plugin-npm": "^3.0.1",
     "@yarnpkg/plugin-pack": "^4.0.0",
