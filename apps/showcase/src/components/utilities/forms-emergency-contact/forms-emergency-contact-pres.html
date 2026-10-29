@@ -1,15 +1,15 @@
 <div class="p-3">
   <h3 class="row card-text mt-auto ms-1 h5">Emergency Contact Information</h3>
-  <form [formGroup]="form">
+  <form>
     <div class="row mb-3">
       <div class="input-group">
         <label class="input-group-text w-50" for="name">Name</label>
-        <input class="form-control" formControlName="name" [id]="'name'">
+        <input class="form-control" [formField]="formTree.name" [id]="'name'">
       </div>
-      @if (form.controls.name.touched && form.controls.name.dirty) {
+      @if (formTree.name().touched() && formTree.name().dirty()) {
         <ng-container>
           <div class="row mb-3">
-            @if (form.controls.name.errors?.required) {
+            @if (formTree.name().getError('required')) {
               <div class="text-danger">{{translations.nameRequired | o3rTranslate}}</div>
             }
           </div>
@@ -19,15 +19,15 @@
     <div class="row mb-3">
       <div class="input-group">
         <label class="input-group-text w-50" for="phone">Phone Number</label>
-        <input class="form-control" formControlName="phone" [id]="'phone'">
+        <input class="form-control" [formField]="formTree.phone" [id]="'phone'">
       </div>
-      @if (form.controls.phone.touched && form.controls.phone.dirty) {
+      @if (formTree.phone().touched() && formTree.phone().dirty()) {
         <ng-container>
           <div class="row mb-3">
-            @if (form.controls.phone.errors?.required) {
+            @if (formTree.phone().getError('required')) {
               <div class="text-danger">{{translations.phoneRequired | o3rTranslate}}</div>
             }
-            @if (form.controls.phone.errors?.pattern) {
+            @if (formTree.phone().getError('pattern')) {
               <div class="text-danger">{{translations.phonePattern | o3rTranslate}}</div>
             }
           </div>
@@ -37,13 +37,13 @@
     <div class="row mb-3">
       <div class="input-group">
         <label class="input-group-text w-50" for="email">Email address</label>
-        <input class="form-control" formControlName="email" [id]="'email'">
+        <input class="form-control" [formField]="formTree.email" [id]="'email'">
       </div>
     </div>
-    @if (form.controls.email.touched && form.controls.email.dirty) {
+    @if (formTree.email().touched() && formTree.email().dirty()) {
       <ng-container>
         <div class="row mb-3">
-          @if (form.controls.email.errors?.email) {
+          @if (formTree.email().getError('email')) {
             <div class="text-danger">{{translations.emailPatternLong | o3rTranslate}}</div>
           }
         </div>
@@ -51,8 +51,8 @@
     }
   </form>
   <div class="row mb-3">
-    @if (form.errors) {
-      <div class="text-danger">Global validator: {{form.errors | json}}</div>
+    @if (formTree().errors().length > 0) {
+      <div class="text-danger">Global validator: {{formTree().errors() | json}}</div>
     }
   </div>
   <div class="m-auto pb-3">
