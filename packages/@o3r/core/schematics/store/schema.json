@@ -7,9 +7,6 @@
     "projectName": {
       "type": "string",
       "description": "Name of the project",
-      "$default": {
-        "$source": "projectName"
-      },
       "alias": "project"
     },
     "storeType": {

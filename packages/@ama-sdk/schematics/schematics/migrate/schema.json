@@ -16,9 +16,6 @@
     "projectName": {
       "type": "string",
       "description": "Project name (in case it is applied to a module from an Angular Project)",
-      "$default": {
-        "$source": "projectName"
-      },
       "alias": "project"
     }
   },

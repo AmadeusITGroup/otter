@@ -7,9 +7,6 @@
     "name": {
       "type": "string",
       "description": "Project name",
-      "$default": {
-        "$source": "projectName"
-      },
       "alias": "project"
     },
     "path": {
