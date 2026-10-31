@@ -34,7 +34,7 @@ permissions:
 
 jobs:
   e2e-tests:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
     steps:
@@ -63,7 +63,7 @@ jobs:
             apps/showcase/test-results
 
   e2e-screenshots:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     # To work correctly this workflow must be run only on pull_request trigger and not coming from a fork
     if: ${{ failure() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name }}
     permissions:
