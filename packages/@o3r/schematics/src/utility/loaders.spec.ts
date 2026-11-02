@@ -4,8 +4,12 @@ import {
 import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
+import type {
+  WorkspaceSchema,
+} from '../interfaces/index';
 import {
   findFilesInTree,
+  getDefaultProjectName,
 } from './loaders';
 
 describe('findFilesInTree', () => {
@@ -71,5 +75,24 @@ describe('findFilesInTree', () => {
     expect(files).toHaveLength(1);
     expect(files[0].path).toBe('/src/hello.ts');
     expect(files[0].content.toString()).toBe('export const x = 1;');
+  });
+});
+
+describe('getDefaultProjectName', () => {
+  const workspaceOf = (...names: string[]) => ({
+    projects: Object.fromEntries(names.map((name) => [name, { root: `projects/${name}` }]))
+  }) as unknown as WorkspaceSchema;
+
+  test('should return undefined without workspace or project', () => {
+    expect(getDefaultProjectName(null)).toBeUndefined();
+    expect(getDefaultProjectName(workspaceOf())).toBeUndefined();
+  });
+
+  test('should return the only project of the workspace', () => {
+    expect(getDefaultProjectName(workspaceOf('app'))).toBe('app');
+  });
+
+  test('should return undefined for a multi-project workspace', () => {
+    expect(getDefaultProjectName(workspaceOf('app', 'lib'))).toBeUndefined();
   });
 });
