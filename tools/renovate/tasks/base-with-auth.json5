@@ -12,9 +12,9 @@
       ],
       "postUpgradeTasks": {
         "commands": [
-          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user registry https:{{arg0}}{{else}}:{{/unless}}",
-          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user ignore-scripts true{{else}}:{{/unless}}",
-          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user {{arg0}}:_auth \"${{arg1}}\"{{else}}:{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user registry https:{{arg0}}{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user ignore-scripts true{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user {{arg0}}:_auth '${{{arg1}}}'{{/unless}}",
           "{{{depName}}} install"
         ],
         "executionMode": "branch",
@@ -37,9 +37,9 @@
       "matchCurrentVersion": ">=2.0.0",
       "postUpgradeTasks": {
         "commands": [
-          "yarn config set -H npmRegistryServer \"https:{{arg0}}\"",
-          "yarn config set -H enableScripts false",
-          "yarn config set -H 'npmRegistries[\"{{arg0}}\"].npmAuthIdent' \"${{arg1}}\"",
+          "{{#unless (equals '{{arg0}}' '')}}yarn config set -H npmRegistryServer \"https:{{arg0}}\"{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}yarn config set -H enableScripts false{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}yarn config set -H 'npmRegistries[\"{{{replace '/$' '' '{{arg0}}'}}}\"].npmAuthIdent' '${{{arg1}}}'{{/unless}}",
           "yarn install"
         ],
         "executionMode": "branch",

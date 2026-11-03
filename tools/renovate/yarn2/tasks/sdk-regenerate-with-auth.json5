@@ -10,7 +10,7 @@
         "commands": [
           "yarn config set -H npmRegistryServer \"https:{{arg0}}\"",
           "yarn config set -H enableScripts false",
-          "yarn config set -H 'npmRegistries[\"{{arg0}}\"].npmAuthIdent' \"${{arg1}}\"",
+          "yarn config set -H 'npmRegistries[\"{{{replace '/$' '' '{{arg0}}'}}}\"].npmAuthIdent' '${{{arg1}}}'",
           "yarn install",
           "yarn exec schematics @ama-sdk/schematics:migrate --from={{{currentVersion}}} --to={{{newVersion}}}",
           "yarn run spec:upgrade"
