@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@ama-mcp/core": "workspace:~",
-    "@modelcontextprotocol/server": "~2.3.0",
+    "@modelcontextprotocol/server": "~2.4.0",
     "@o3r/telemetry": "workspace:~",
     "commander": "^14.0.0",
     "tslib": "^2.6.2",
@@ -38,7 +38,7 @@
   "devDependencies": {
     "@ama-mcp/core": "workspace:~",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@modelcontextprotocol/server": "~2.3.0",
+    "@modelcontextprotocol/server": "~2.4.0",
     "@nx/eslint": "~23.3.0",
     "@nx/eslint-plugin": "~23.3.0",
     "@nx/js": "~23.3.0",
@@ -47,7 +47,7 @@
     "@o3r/eslint-config": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin": "~5.10.0",
-    "@types/node": "~24.13.0",
+    "@types/node": "~24.19.0",
     "@typescript-eslint/parser": "~8.72.0",
     "@vitest/coverage-istanbul": "^4.0.18",
     "@vitest/eslint-plugin": "~1.6.0",
