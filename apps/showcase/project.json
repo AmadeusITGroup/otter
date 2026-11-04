@@ -55,6 +55,7 @@
       ],
       "options": {
         "outputPath": "apps/showcase/dist",
+        "externalDependencies": ["marked-katex-extension"],
         "index": "apps/showcase/src/index.html",
         "browser": "apps/showcase/src/main.ts",
         "polyfills": [
@@ -179,7 +180,7 @@
       ]
     },
     "serve-app": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "options": {
         "headers": {
           "Cross-Origin-Opener-Policy": "same-origin",

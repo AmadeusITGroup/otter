@@ -115,8 +115,6 @@ export class App {
 
   private readonly selectedComponentInfo = new BehaviorSubject<OtterLikeComponentInfo | undefined>(undefined);
 
-  private readonly updateSelectedComponentInfoCallback = this.updateSelectedComponentInfo.bind(this);
-
   public selectedComponentInfo$ = this.selectedComponentInfo.asObservable();
 
   constructor() {
@@ -148,11 +146,11 @@ export class App {
 
   private requestSelectedComponentInfo() {
     /* eslint-disable @typescript-eslint/restrict-template-expressions -- we want to print the content of the functions */
-    chrome.devtools.inspectedWindow.eval<OtterLikeComponentInfo | undefined>(
+    void chrome.devtools.inspectedWindow.eval<OtterLikeComponentInfo | undefined>(
       `function getTranslations(node){ return (${getTranslationsRec})(node, getTranslations); } `
       + `function getAnalyticEvents(node){ return (${getAnalyticEventsRec})(node, getAnalyticEvents); } `
       + `(${getSelectedComponentInfo})(getTranslations, getAnalyticEvents);`,
-      this.updateSelectedComponentInfoCallback
+      (...[info]) => this.updateSelectedComponentInfo(info)
     );
     /* eslint-enable @typescript-eslint/restrict-template-expressions */
   }
