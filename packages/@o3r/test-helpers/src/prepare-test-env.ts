@@ -22,6 +22,7 @@ import {
   createWithLock,
   getLatestPackageVersion,
   getPackageManager,
+  getUnrsResolverEnvOverride,
   type Logger,
   packageManagerInstallWithFrozenLock,
   setPackagerManagerConfig,
@@ -73,7 +74,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const execAppOptions = {
     cwd: workspacePath,
     stdio: 'inherit',
-    env: { ...process.env, NODE_OPTIONS: '', CI: 'true' }
+    env: { ...process.env, NODE_OPTIONS: '', CI: 'true', ...getUnrsResolverEnvOverride() }
   } as const satisfies ExecSyncOptions;
 
   const packageManagerConfig = {
