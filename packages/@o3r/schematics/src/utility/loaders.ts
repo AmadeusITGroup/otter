@@ -67,6 +67,17 @@ export function getWorkspaceConfig<T extends WorkspaceSchema = WorkspaceSchema>(
 }
 
 /**
+ * Determine the project to target when none is specified.
+ * The Angular CLI throws when it cannot determine a project, so the default is resolved here:
+ * the only project of the workspace, `undefined` otherwise.
+ * @param workspace Angular workspace
+ */
+export function getDefaultProjectName(workspace: WorkspaceSchema | null): string | undefined {
+  const projectNames = Object.keys(workspace?.projects ?? {});
+  return projectNames.length === 1 ? projectNames[0] : undefined;
+}
+
+/**
  * Update angular.json file
  * @param tree File tree
  * @param workspace Angular workspace
