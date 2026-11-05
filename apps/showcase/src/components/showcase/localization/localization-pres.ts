@@ -4,19 +4,17 @@ import {
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   Input,
+  signal,
+  untracked,
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  takeUntilDestroyed,
-} from '@angular/core/rxjs-interop';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+  form,
+  FormField,
+} from '@angular/forms/signals';
 import {
   O3rComponent,
 } from '@o3r/core';
@@ -43,18 +41,23 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   styleUrls: ['./localization-pres.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, DatePickerInputPres, O3rLocalizationTranslatePipe]
+  imports: [FormField, DatePickerInputPres, O3rLocalizationTranslatePipe]
 })
 export class LocalizationPres implements Translatable<LocalizationPresTranslation> {
   private readonly localizationService = inject(LocalizationService);
 
   /**
-   * Form group
+   * Form model
    */
-  public form: FormGroup<{ destination: FormControl<string | null>; outboundDate: FormControl<string | null> }> = inject(FormBuilder).group({
-    destination: new FormControl<string | null>(null),
-    outboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS))
+  public model = signal({
+    destination: '',
+    outboundDate: this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS)
   });
+
+  /**
+   * Form tree
+   */
+  public formTree = form(this.model);
 
   /** Localization of the component*/
   @Input()
@@ -62,19 +65,22 @@ export class LocalizationPres implements Translatable<LocalizationPresTranslatio
   public translations: LocalizationPresTranslation = translations;
 
   constructor() {
-    this.form.controls.destination.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
-      let language = 'en-GB';
-      switch (value) {
-        case 'PAR': {
-          language = 'fr-FR';
-          break;
+    effect(() => {
+      const destination = this.model().destination;
+      untracked(() => {
+        let language = 'en-GB';
+        switch (destination) {
+          case 'PAR': {
+            language = 'fr-FR';
+            break;
+          }
+          case 'NYC': {
+            language = 'en-US';
+            break;
+          }
         }
-        case 'NYC': {
-          language = 'en-US';
-          break;
-        }
-      }
-      this.localizationService.useLanguage(language);
+        this.localizationService.useLanguage(language);
+      });
     });
   }
 
