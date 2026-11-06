@@ -1659,7 +1659,7 @@ __metadata:
     "@commitlint/config-conventional": "npm:^20.2.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@figma/rest-api-spec": "npm:~0.46.0"
+    "@figma/rest-api-spec": "npm:~0.47.0"
     "@nx/eslint-plugin": "npm:~23.3.0"
     "@o3r/build-helpers": "workspace:~"
     "@o3r/eslint-config": "workspace:~"
@@ -6793,10 +6793,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma/rest-api-spec@npm:~0.46.0":
-  version: 0.46.0
-  resolution: "@figma/rest-api-spec@npm:0.46.0"
-  checksum: 10/93c04acfa2a512998098498c3952d5a28f3061a292f7e67dfdee18357dab6fc1532ec8e88e9ca8a7e7ea9828586d6c6ef29b0f398265e7a3a25c866933b9f1cf
+"@figma/rest-api-spec@npm:~0.47.0":
+  version: 0.47.0
+  resolution: "@figma/rest-api-spec@npm:0.47.0"
+  checksum: 10/4752cb623899d2b0711b772f81e8f00fc63ea424cf988daaf9c933285f0508cd41ebb65cfc94104ef6ea5f73e135aeb45ebe65ca1a912da58f0e930ea1bef689
   languageName: node
   linkType: hard
 
@@ -6872,6 +6872,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/intl-localematcher@npm:0.10.0":
+  version: 0.10.0
+  resolution: "@formatjs/intl-localematcher@npm:0.10.0"
+  dependencies:
+    "@formatjs/fast-memoize": "npm:3.1.7"
+  checksum: 10/f718a098a991a2e021f79b038453bf5c438d7c30a430fe73e5625737af0d849307c0123b1a0a6abb605e6ff27b2bf22b948f2cfc7935ed0d94263a6928020fbc
+  languageName: node
+  linkType: hard
+
 "@formatjs/intl-localematcher@npm:0.6.2":
   version: 0.6.2
   resolution: "@formatjs/intl-localematcher@npm:0.6.2"
@@ -6881,22 +6890,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-localematcher@npm:0.9.0":
-  version: 0.9.0
-  resolution: "@formatjs/intl-localematcher@npm:0.9.0"
-  dependencies:
-    "@formatjs/fast-memoize": "npm:3.1.7"
-  checksum: 10/4ccb448607ec7415fd5bc1f6e9ab66f60a141c81d80631fd64415038c8e2bc883d7951e5901ac9e4f540f090cff0fb219c20989f85f244adfa4c038661706365
-  languageName: node
-  linkType: hard
-
-"@formatjs/intl-numberformat@npm:~9.4.0":
-  version: 9.4.3
-  resolution: "@formatjs/intl-numberformat@npm:9.4.3"
+"@formatjs/intl-numberformat@npm:~9.5.0":
+  version: 9.5.0
+  resolution: "@formatjs/intl-numberformat@npm:9.5.0"
   dependencies:
     "@formatjs/bigdecimal": "npm:0.2.7"
-    "@formatjs/intl-localematcher": "npm:0.9.0"
-  checksum: 10/dafb147e829bd5cb1d6a79d21cb22ae7a7469a76837845a0f70254f9b886579051adcc8dab44e88e235ce26aae11ac554adcacf07349ffd984257513766c9503
+    "@formatjs/intl-localematcher": "npm:0.10.0"
+  checksum: 10/62c1e3f332f186f7265b0a9788aa1e693868fc2f24c7b68e1c40ad28ef49d30082a3ea2a9a92264aaa6679bda268a5a9d74baa5b19dcf86cdf0957329c048dd2
   languageName: node
   linkType: hard
 
@@ -12314,7 +12314,7 @@ __metadata:
     "@design-factory/design-factory": "npm:~22.0.0"
     "@design-factory/styles": "npm:~22.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@formatjs/intl-numberformat": "npm:~9.4.0"
+    "@formatjs/intl-numberformat": "npm:~9.5.0"
     "@jsverse/transloco": "npm:~8.4.0"
     "@jsverse/transloco-messageformat": "npm:~8.4.0"
     "@jsverse/utils": "npm:1.0.0-beta.5"

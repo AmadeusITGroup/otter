@@ -48,7 +48,7 @@
     "@commitlint/types": "^20.2.0",
     "@design-factory/design-factory": "~22.0.0",
     "@design-factory/styles": "~22.0.0",
-    "@formatjs/intl-numberformat": "~9.4.0",
+    "@formatjs/intl-numberformat": "~9.5.0",
     "@jsverse/transloco": "~8.4.0",
     "@jsverse/transloco-messageformat": "~8.4.0",
     "@jsverse/utils": "1.0.0-beta.5",
