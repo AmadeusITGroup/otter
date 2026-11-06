@@ -90,7 +90,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Publish tests reports
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ut-reports-${{ matrix.os }}
           path: |
@@ -148,5 +148,5 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./tools/github-actions/setup
-      - uses: AmadeusITGroup/ai-primitives-hub/github-actions/validate-collections@9a7c4131bd6e6a9f676fadd65262572371146894 # v0.0.43
+      - uses: AmadeusITGroup/ai-primitives-hub/github-actions/validate-collections@d740b8a8cec3cff1ea3086b386a86f4f399498c9 # v0.0.44
       - run: node tools/@o3r/workspace-helpers/scripts/check-plugin-marketplace-sync.mjs
