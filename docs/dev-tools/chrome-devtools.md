@@ -102,6 +102,20 @@ export class App {
 >
 > `platformBrowserDynamic().bootstrapModule(AppModule).then((m) => runInInjectionContext(m.injector, () => inject(ConfigurationDevtoolsConsoleService)))`
 
+For configurable components using `configSignal`, provide the configuration override store
+alongside the configuration devtools. `provideConfigurationDevtools()` also provides the
+configuration store and `ConfigurationBaseService`:
+
+```typescript
+import { provideConfigOverrideStore, provideConfigurationDevtools } from '@o3r/configuration';
+
+// In the application providers, alongside provideStore():
+provideConfigOverrideStore(),
+provideConfigurationDevtools({ isActivatedOnBootstrap: true })
+```
+
+The configuration message service must still be injected as described above.
+
 ### How to enable more features by providing metadata files
 
 In your `angular.json` or `project.json`, you can specify `assets` in the options of `@angular-devkit/build-angular:application`.

@@ -12,6 +12,9 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import {
+  ConfigurationBaseService,
+} from '../../services/configuration/configuration-base-service';
+import {
   configurationReducer,
 } from './configuration.reducer';
 import {
@@ -50,11 +53,12 @@ export class ConfigurationStoreModule {
 }
 
 /**
- * Provide Configuration feature store.
+ * Provide the Configuration feature store and configuration service.
  * @param reducerFactory Optional factory to override the default reducer.
  */
 export function provideConfigurationStore(reducerFactory?: () => ActionReducer<ConfigurationState, Action>): EnvironmentProviders {
   return makeEnvironmentProviders([
-    provideState(CONFIGURATION_STORE_NAME, reducerFactory ? reducerFactory() : configurationReducer)
+    provideState(CONFIGURATION_STORE_NAME, reducerFactory ? reducerFactory() : configurationReducer),
+    ConfigurationBaseService
   ]);
 }
