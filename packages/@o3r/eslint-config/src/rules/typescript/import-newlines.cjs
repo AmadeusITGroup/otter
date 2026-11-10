@@ -1,4 +1,5 @@
 'use strict';
+const { fixupPluginRules } = require('@eslint/compat');
 const importNewlinesPlugin = require('eslint-plugin-import-newlines');
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
@@ -9,7 +10,7 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     plugins: {
-      'import-newlines': importNewlinesPlugin
+      'import-newlines': fixupPluginRules(importNewlinesPlugin)
     },
     rules: {
       'import-newlines/enforce': [
