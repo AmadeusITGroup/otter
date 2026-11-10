@@ -46,7 +46,7 @@ describe('ng add eslint-config', () => {
     expect(updateEslintConfigMock).toHaveBeenCalledTimes(1);
 
     const packageJson = initialTree.readJson('package.json') as PackageJson;
-    expect(packageJson.scripts.harmonize).toBe('eslint "**/package.json" .yarnrc.yml --quiet --fix --no-error-on-unmatched-pattern');
+    expect(packageJson.scripts.harmonize).toBe('eslint --config eslint.config.mjs "**/package.json" .yarnrc.yml --quiet --fix --no-error-on-unmatched-pattern');
     expect(packageJson.scripts.postinstall).toContain('yarn harmonize && yarn install --mode=skip-build');
   });
 
@@ -59,6 +59,18 @@ describe('ng add eslint-config', () => {
     const packageJson = tree.readJson('package.json') as PackageJson;
     expect(packageJson.scripts.harmonize).toBe('do not touch');
     expect(packageJson.scripts.postinstall).not.toBeDefined();
+  });
+
+  it.each(['cjs', 'js'])('should select an existing %s workspace config for harmonize', async (extension) => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = Tree.empty();
+    tree.create('package.json', emptyPackageJson);
+    tree.create(`eslint.config.${extension}`, 'module.exports = [];');
+
+    await runner.runSchematic('ng-add', {}, tree);
+
+    const packageJson = tree.readJson('package.json') as PackageJson;
+    expect(packageJson.scripts.harmonize).toContain(`--config eslint.config.${extension}`);
   });
 
   it('should throw an exception if package.json does not exist', async () => {

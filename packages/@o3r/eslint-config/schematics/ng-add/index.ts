@@ -109,7 +109,9 @@ const addHarmonizeScript: Rule = (tree: Tree, context: SchematicContext) => {
     return tree;
   }
   const postInstall = rootPackageJsonObject.scripts.postinstall;
-  rootPackageJsonObject.scripts.harmonize = `eslint "**/package.json" ${isYarnPackageManager ? '.yarnrc.yml ' : ''}--quiet --fix --no-error-on-unmatched-pattern`;
+  const eslintConfigFile = ['eslint.config.mjs', 'eslint.config.cjs', 'eslint.config.js']
+    .find((file) => tree.exists(file)) ?? 'eslint.config.mjs';
+  rootPackageJsonObject.scripts.harmonize = `eslint --config ${eslintConfigFile} "**/package.json" ${isYarnPackageManager ? '.yarnrc.yml ' : ''}--quiet --fix --no-error-on-unmatched-pattern`;
   rootPackageJsonObject.scripts.postinstall = `${postInstall ? postInstall + ' && ' : ''}${extraPostInstall}`;
   tree.overwrite(rootPackageJsonPath, JSON.stringify(rootPackageJsonObject, null, 2));
   return tree;

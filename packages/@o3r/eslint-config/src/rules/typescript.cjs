@@ -1,4 +1,5 @@
 'use strict';
+const { fixupPluginRules } = require('@eslint/compat');
 const eslint = require('@eslint/js');
 const comments = require('@eslint-community/eslint-plugin-eslint-comments/configs');
 const o3r = require('@o3r/eslint-plugin');
@@ -63,7 +64,10 @@ const configArray = [
     files: [
       '**/*.{c,m,}{t,j}s'
     ],
-    ...jsdoc.configs['flat/recommended']
+    ...jsdoc.configs['flat/recommended'],
+    plugins: {
+      jsdoc: fixupPluginRules(jsdoc)
+    }
   },
   {
     // Name added for debugging purpose with @eslint/config-inspector
@@ -94,13 +98,19 @@ const configArray = [
     // Name added for debugging purpose with @eslint/config-inspector
     name: 'import/recommended',
     files: ['**/*.{c,m,}{t,j}s'],
-    ...importPlugin.flatConfigs.recommended
+    ...importPlugin.flatConfigs.recommended,
+    plugins: {
+      import: fixupPluginRules(importPlugin)
+    }
   },
   {
     // Name added for debugging purpose with @eslint/config-inspector
     name: 'import/typescript',
     files: ['**/*.{c,m,}ts'],
-    ...importPlugin.flatConfigs.typescript
+    ...importPlugin.flatConfigs.typescript,
+    plugins: {
+      import: fixupPluginRules(importPlugin)
+    }
   },
   comments.recommended,
   // All recommended first as the order has an importance
