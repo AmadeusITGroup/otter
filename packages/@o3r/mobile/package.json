@@ -78,7 +78,7 @@
     "@angular/core": "~22.2.0",
     "@angular/platform-browser": "~22.2.0",
     "@angular/platform-browser-dynamic": "~22.2.0",
-    "@babel/core": "~8.0.0",
+    "@babel/core": "~8.1.0",
     "@babel/preset-typescript": "~8.0.0",
     "@capacitor/browser": "^8.0.0",
     "@capacitor/core": "^8.0.0",
