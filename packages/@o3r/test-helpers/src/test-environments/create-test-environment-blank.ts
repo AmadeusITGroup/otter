@@ -9,6 +9,7 @@ import * as path from 'node:path';
 import {
   createWithLock,
   type CreateWithLockOptions,
+  getUnrsResolverEnvOverride,
   type Logger,
   PackageManagerConfig,
   setPackagerManagerConfig,
@@ -48,7 +49,7 @@ export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTes
     const execAppOptions = {
       cwd: appFolderPath,
       stdio: 'inherit',
-      env: { ...process.env, NODE_OPTIONS: '', CI: 'true' }
+      env: { ...process.env, NODE_OPTIONS: '', CI: 'true', ...getUnrsResolverEnvOverride() }
     } as const satisfies ExecSyncOptions;
 
     // Prepare folder

@@ -2,8 +2,10 @@ import {
   type Icon,
   type Implementation,
   McpServer,
+  type PromptCallback,
   type ReadResourceCallback,
   type ReadResourceTemplateCallback,
+  type RegisteredPrompt,
   type RegisteredResource,
   type RegisteredResourceTemplate,
   type RegisteredTool,
@@ -21,6 +23,9 @@ import type {
 import type {
   Logger,
 } from '../logger';
+
+/** Prompt configuration (without the arguments schema), derived from the SDK to stay compatible with all its 2.x versions */
+type PromptConfig = Omit<Parameters<typeof McpServer.prototype.registerPrompt>[1], 'argsSchema'>;
 
 const createCallback = <T extends (...args: any[]) => any>(...args: Parameters<typeof createGenAICallbackWithMetrics>) => async (...callbackArgs: Parameters<T>) => {
   const { createGenAICallbackWithMetrics } = await import('@o3r/telemetry');
@@ -44,12 +49,21 @@ export class AmaMcpServer extends McpServer {
   /**
    * @inheritdoc
    */
-  public override registerPrompt(...args: Parameters<typeof McpServer.prototype.registerPrompt>) {
-    const [name, config, promptCallback] = args;
+  public override registerPrompt<Args extends StandardSchemaWithJSON>(name: string, config: PromptConfig & { argsSchema?: Args }, promptCallback: PromptCallback<Args>): RegisteredPrompt;
+  /**
+   * @inheritdoc
+   */
+  public override registerPrompt(name: string, config: PromptConfig & { argsSchema?: undefined }, promptCallback: PromptCallback): RegisteredPrompt;
+  /**
+   * @inheritdoc
+   */
+  public override registerPrompt(...args: Parameters<typeof McpServer.prototype.registerPrompt>): RegisteredPrompt;
+  public override registerPrompt(name: string, config: PromptConfig & { argsSchema?: unknown }, promptCallback: (...callbackArgs: any[]) => any): RegisteredPrompt {
     const callback = createCallback(promptCallback, name, 'promptCall', { logger: this.logger });
     let error;
     try {
-      return super.registerPrompt(name, config, callback);
+      // Cast is required because the overload typing on MCP SDK cannot be resolved from an implementation signature
+      return super.registerPrompt(name, config as any, callback as any);
     } catch (e) {
       error = e;
       throw e;
