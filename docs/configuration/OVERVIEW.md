@@ -435,19 +435,31 @@ export class MyComponent implements OnChanges, DynamicConfigurable<MyConfig> {
 
 ```typescript
 export class MyComponent implements DynamicConfigurableWithSignal<MyConfig> {
-  private readonly configurationService = inject(ConfigurationBaseService, { optional: true });
-
   /** @inheritDoc */
   public config = input<Partial<MyConfig>>();
 
   @O3rConfig()
   /** @inheritDoc */
-  public readonly configSignal = configSignal(this.config, MY_CONFIG_ID, MY_DEFAULT_CONFIG, this.configurationService);
+  public readonly configSignal = configSignal(this.config, MY_CONFIG_ID, MY_DEFAULT_CONFIG);
 }
 ```
 ### Application
 
-To use the configuration mechanism, the first step is to inject the configuration module into our application module.
+For a standalone application, provide the NgRx root store and the configuration store.
+`provideConfigurationStore()` also provides `ConfigurationBaseService`; add the override
+store when using configuration overrides:
+
+```typescript
+import { provideStore } from '@ngrx/store';
+import { provideConfigOverrideStore, provideConfigurationStore } from '@o3r/configuration';
+
+// In the application providers:
+provideStore(),
+provideConfigurationStore(),
+provideConfigOverrideStore()
+```
+
+For an NgModule-based application, import the configuration module:
 
 ````typescript
 import {ConfigurationBaseServiceModule} from '@o3r/configuration';
