@@ -27,28 +27,29 @@ import {
   selectComponentOverrideConfig,
 } from '../../stores/config-override/index';
 import {
-  computeConfiguration,
-  ConfigurationStore,
-  globalConfigurationId,
-  selectConfigurationEntities,
-  selectConfigurationForComponent,
-  selectGlobalConfiguration,
   updateConfigurationEntity,
   upsertConfigurationEntities,
   upsertConfigurationEntity,
-} from '../../stores/index';
+} from '../../stores/configuration/configuration.actions';
 import {
-  ConfigurationBaseServiceModule,
-} from './configuration-base-module';
+  computeConfiguration,
+} from '../../stores/configuration/configuration.helpers';
+import {
+  selectConfigurationEntities,
+  selectConfigurationForComponent,
+  selectGlobalConfiguration,
+} from '../../stores/configuration/configuration.selectors';
+import {
+  ConfigurationStore,
+  globalConfigurationId,
+} from '../../stores/configuration/configuration.state';
 
 const jsonStringifyDiff = (obj1: any, obj2: any) => JSON.stringify(obj1) === JSON.stringify(obj2);
 
 /**
  * Configuration service
  */
-@Injectable({
-  providedIn: ConfigurationBaseServiceModule
-})
+@Injectable()
 export class ConfigurationBaseService {
   private readonly store = inject<Store<ConfigurationStore & ConfigOverrideStore>>(Store);
 

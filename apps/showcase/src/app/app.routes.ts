@@ -8,10 +8,6 @@ import {
   providePlaceholderRulesEngineAction,
 } from '@o3r/components/rules-engine';
 import {
-  provideConfigOverrideStore,
-  provideConfigurationStore,
-} from '@o3r/configuration';
-import {
   provideConfigurationRulesEngineAction,
 } from '@o3r/configuration/rules-engine';
 import {
@@ -26,9 +22,6 @@ export const appRoutes = [
   {
     path: 'configuration',
     loadComponent: () => import('./configuration/index').then((m) => m.Configuration),
-    providers: [
-      provideConfigurationStore()
-    ],
     title: 'Otter Showcase - Configuration'
   },
   { path: 'component-replacement', loadComponent: () => import('./component-replacement/index').then((m) => m.ComponentReplacement), title: 'Otter Showcase - Component replacement' },
@@ -42,9 +35,7 @@ export const appRoutes = [
     providers: [
       provideConfigurationRulesEngineAction(),
       provideAssetRulesEngineAction(),
-      provideConfigOverrideStore(),
       provideAssetPathOverrideStore(),
-      provideConfigurationStore(),
       providePlaceholderRulesEngineAction()
     ]
   },
