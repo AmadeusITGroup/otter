@@ -4,24 +4,20 @@ import {
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
+  effect,
   inject,
   Input,
   input,
+  linkedSignal,
   type OnDestroy,
   OnInit,
+  untracked,
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  takeUntilDestroyed,
-  toObservable,
-} from '@angular/core/rxjs-interop';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+  form,
+  FormField,
+} from '@angular/forms/signals';
 import {
   configSignal,
   DynamicConfigurableWithSignal,
@@ -70,7 +66,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   imports: [
     O3rDynamicContentPipe,
     O3rLocalizationTranslatePipe,
-    ReactiveFormsModule,
+    FormField,
     DatePickerInputPres
   ]
 })
@@ -84,17 +80,51 @@ export class RulesEnginePres implements OnDestroy, DynamicConfigurableWithSignal
   public translations: RulesEnginePresTranslation = translations;
 
   /**
-   * Form group
+   * Form model – reactively resets when config changes (inXDays, destinations),
+   * while remaining writable from the form.
    */
-  public form: FormGroup<{
-    destination: FormControl<string | null>;
-    outboundDate: FormControl<string | null>;
-    inboundDate: FormControl<string | null>;
-  }> = inject(FormBuilder).group({
-    destination: new FormControl<string | null>(null),
-    outboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS)),
-    inboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 14 * ONE_DAY_IN_MS))
+  public model = linkedSignal<{ inXDays: number; destinations: RulesEnginePresConfig['destinations'] }, { destination: string; outboundDate: string; inboundDate: string }>({
+    source: () => ({
+      inXDays: this.configSignal().inXDays,
+      destinations: this.configSignal().destinations
+    }),
+    computation: ({ inXDays, destinations }, previous) => {
+      if (!previous) {
+        return {
+          destination: '',
+          outboundDate: this.formatDate(Date.now() + inXDays * ONE_DAY_IN_MS),
+          inboundDate: this.formatDate(Date.now() + (inXDays + 7) * ONE_DAY_IN_MS)
+        };
+      }
+
+      const prev = previous.value;
+      let outboundDate = prev.outboundDate;
+      let inboundDate = prev.inboundDate;
+      let destination = prev.destination;
+
+      // React to inXDays changes
+      const newOutboundDate = this.formatDate(Date.now() + inXDays * ONE_DAY_IN_MS);
+      if (outboundDate !== newOutboundDate) {
+        outboundDate = newOutboundDate;
+        if (inboundDate && inboundDate <= outboundDate) {
+          inboundDate = this.formatDate(new Date(outboundDate).getTime() + 7 * ONE_DAY_IN_MS);
+        }
+      }
+
+      // React to destinations changes – reset unavailable destination
+      const selected = destinations.find((d) => d.cityName === destination);
+      if (selected && !selected.available) {
+        destination = '';
+      }
+
+      return { destination, outboundDate, inboundDate };
+    }
   });
+
+  /**
+   * Form tree
+   */
+  public formTree = form(this.model);
 
   /** Input configuration to override the default configuration of the component */
   public readonly config = input<Partial<RulesEnginePresConfig>>();
@@ -107,35 +137,30 @@ export class RulesEnginePres implements OnDestroy, DynamicConfigurableWithSignal
   );
 
   constructor() {
-    this.form.controls.destination.valueChanges.pipe(takeUntilDestroyed()).subscribe((destination) => this.tripService.updateDestination(destination));
-    this.form.controls.outboundDate.valueChanges.pipe(takeUntilDestroyed()).subscribe((outboundDate) => this.tripService.updateOutboundDate(outboundDate));
-    const inXDays$ = toObservable(computed(() => this.configSignal().inXDays));
-    inXDays$.pipe(takeUntilDestroyed()).subscribe((inXDays) => {
-      this.form.controls.outboundDate.setValue(this.formatDate(Date.now() + inXDays * ONE_DAY_IN_MS));
-      if (this.form.value.inboundDate && this.form.value.outboundDate && this.form.value.inboundDate <= this.form.value.outboundDate) {
-        this.form.controls.inboundDate.setValue(this.formatDate((this.form.value.outboundDate ? (new Date(this.form.value.outboundDate)).getTime() : Date.now()) + 7 * ONE_DAY_IN_MS));
-      }
-    });
-    const destinations$ = toObservable(computed(() => this.configSignal().destinations));
-    destinations$.pipe(takeUntilDestroyed()).subscribe((destinations) => {
-      const selectedDestination = destinations.find((d) => d.cityName === this.form.value.destination);
-      if (selectedDestination && !selectedDestination.available) {
-        this.form.controls.destination.reset();
-      }
-    });
-    this.form.controls.destination.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
-      let language = 'en-GB';
-      switch (value) {
-        case 'PAR': {
-          language = 'fr-FR';
-          break;
+    // Track destination changes and update trip service + language
+    effect(() => {
+      const destination = this.model().destination;
+      untracked(() => {
+        this.tripService.updateDestination(destination);
+        let language = 'en-GB';
+        switch (destination) {
+          case 'PAR': {
+            language = 'fr-FR';
+            break;
+          }
+          case 'NYC': {
+            language = 'en-US';
+            break;
+          }
         }
-        case 'NYC': {
-          language = 'en-US';
-          break;
-        }
-      }
-      this.localizationService.useLanguage(language);
+        this.localizationService.useLanguage(language);
+      });
+    });
+
+    // Track outbound date changes and update trip service
+    effect(() => {
+      const outboundDate = this.model().outboundDate;
+      untracked(() => this.tripService.updateOutboundDate(outboundDate));
     });
   }
 

@@ -1,10 +1,10 @@
 <as-split direction="vertical">
   <as-split-area [size]="editorMode() === 'interactive' ? 50 : 100">
-    <form [formGroup]="form" class="editor h-100 overflow-hidden position-relative">
+    <form class="editor h-100 overflow-hidden position-relative">
       <as-split direction="horizontal">
         <as-split-area [size]="25">
           <monaco-tree [tree]="(cwdTree$ | async) || []"
-                       [currentFile]="form.controls.file.value"
+                       [currentFile]="model().file"
                        (currentFileChange)="onClickFile($event)"
                        [width]="'auto'"
                        [height]="'auto'"
@@ -14,10 +14,10 @@
           @if (editorOptions()) {
             <ngx-monaco-editor class="h-100 position-relative"
                                [options]="editorOptions()"
-                               [model]="(model$ | async)!"
+                               [model]="(editorModel$ | async)!"
                                (keydown)="onEditorKeyDown($event)"
                                (onInit)="newMonacoEditorCreated.next()"
-                               formControlName="code" />
+                               [formField]="formTree.code" />
           }
         </as-split-area>
       </as-split>

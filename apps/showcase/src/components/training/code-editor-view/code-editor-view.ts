@@ -8,21 +8,20 @@ import {
   effect,
   inject,
   input,
+  linkedSignal,
   OnDestroy,
   untracked,
   ViewEncapsulation,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
+  toObservable,
   toSignal,
 } from '@angular/core/rxjs-interop';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+  form,
+  FormField,
+} from '@angular/forms/signals';
 import {
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -120,10 +119,9 @@ export class MonacoFailedToLoadError extends Error {
   imports: [
     AsyncPipe,
     CodeEditorControl,
-    FormsModule,
+    FormField,
     MonacoEditorModule,
     NgxMonacoTreeComponent,
-    ReactiveFormsModule,
     AngularSplitModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -132,11 +130,6 @@ export class MonacoFailedToLoadError extends Error {
   styleUrl: './code-editor-view.scss'
 })
 export class CodeEditorView implements OnDestroy {
-  /**
-   * @see {FormBuilder}
-   */
-  private readonly formBuilder = inject(FormBuilder);
-
   /**
    * Stream of the working directory for this component to use it to compute the monaco tree from the
    * {@link WebContainerService} tree
@@ -190,15 +183,31 @@ export class CodeEditorView implements OnDestroy {
   public cwdTreeSignal = toSignal(this.cwdTree$, { initialValue: [] });
 
   /**
-   * Form with the selected file and its content which can be edited in the Monaco Editor
+   * Signal model for the form data (selected file and its code content).
+   * Resets `file` to the project's starting file when the project input changes.
    */
-  public form: FormGroup<{
-    code: FormControl<string | null>;
-    file: FormControl<string | null>;
-  }> = this.formBuilder.group({
-    code: '',
-    file: ''
+  public model = linkedSignal<TrainingProject, { code: string; file: string }>({
+    source: this.project,
+    computation: (project, previous) => ({
+      code: previous?.value.code ?? '',
+      file: project.startingFile
+    })
   });
+
+  /**
+   * Signal form field tree for binding to UI controls
+   */
+  public formTree = form(this.model);
+
+  /**
+   * Observable that emits file path changes (from signal)
+   */
+  private readonly file$ = toObservable(computed(() => this.model().file));
+
+  /**
+   * Observable that emits code changes (from signal)
+   */
+  private readonly code$ = toObservable(computed(() => this.model().code));
 
   /**
    * Subject used to notify when a new monaco editor has been created
@@ -231,7 +240,7 @@ export class CodeEditorView implements OnDestroy {
   private readonly forceSave = new Subject<void>();
 
   private readonly fileContentLoaded$ = combineLatest([
-    this.form.controls.file.valueChanges,
+    this.file$,
     this.forceReload.pipe(startWith(undefined))
   ]).pipe(
     takeUntilDestroyed(),
@@ -253,8 +262,8 @@ export class CodeEditorView implements OnDestroy {
    * Model used for monaco editor for the currently selected file.
    * We need that to associate the opened file to a URI which is necessary to resolve relative paths on imports.
    */
-  public model$ = combineLatest([
-    this.form.controls.file.valueChanges,
+  public editorModel$ = combineLatest([
+    this.file$,
     this.fileContentLoaded$
   ]).pipe(
     map(([filename, value]) => {
@@ -274,7 +283,7 @@ export class CodeEditorView implements OnDestroy {
       await untracked(async () => {
         if (project.files) {
           await this.webContainerService.loadProject(project.files, project.commands, project.cwd);
-          this.loadNewProject();
+          this.forceReload.next();
           this.cwd$.next(project?.cwd || '');
         }
       });
@@ -292,8 +301,8 @@ export class CodeEditorView implements OnDestroy {
       }
     });
     merge(
-      this.forceSave.pipe(map(() => this.form.value.code)),
-      this.form.controls.code.valueChanges.pipe(
+      this.forceSave.pipe(map(() => this.model().code)),
+      this.code$.pipe(
         distinctUntilChanged(),
         skip(1),
         debounceTime(1000)
@@ -311,15 +320,15 @@ export class CodeEditorView implements OnDestroy {
       if (text !== this.fileContent() || localStorage.getItem(cwd)) {
         localStorage.setItem(cwd, JSON.stringify({
           ...JSON.parse(localStorage.getItem(cwd) || '{}'),
-          [this.form.controls.file.value!]: text
+          [this.model().file]: text
         }));
       }
-      const path = `${this.project().cwd}/${this.form.controls.file.value}`;
+      const path = `${this.project().cwd}/${this.model().file}`;
       this.loggerService.log('Writing file', path);
       void this.webContainerService.writeFile(path, text);
     });
     this.fileContentLoaded$.subscribe(
-      (content) => this.form.controls.code.setValue(content)
+      (content) => this.model.update((m) => ({ ...m, code: content }))
     );
 
     // Reload definition types when finishing install
@@ -354,7 +363,7 @@ export class CodeEditorView implements OnDestroy {
           const monacoTree = this.cwdTreeSignal();
           const pathElements = resource.path.split('/').filter((pathElement) => !!pathElement);
           if (checkIfPathInMonacoTree(monacoTree, pathElements)) {
-            this.form.controls.file.setValue(filePath);
+            this.model.update((m) => ({ ...m, file: filePath }));
             if (selectionOrPosition) {
               revealCodeInEditorRequest.next(selectionOrPosition);
             }
@@ -447,14 +456,6 @@ export class CodeEditorView implements OnDestroy {
   }
 
   /**
-   * Load a new project in global monaco editor and update local form accordingly
-   */
-  private loadNewProject() {
-    this.form.controls.file.setValue(this.project().startingFile);
-    this.forceReload.next();
-  }
-
-  /**
    * Reload declaration types from web-container
    */
   public async reloadDeclarationTypes() {
@@ -487,7 +488,7 @@ export class CodeEditorView implements OnDestroy {
   public async onClickFile(filePath: string | null) {
     const path = `${this.project().cwd}/${filePath}`;
     if (await this.webContainerService.isFile(path)) {
-      this.form.controls.file.setValue(filePath);
+      this.model.update((m) => ({ ...m, file: filePath || '' }));
     }
   }
 
