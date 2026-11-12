@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "ama-styling",
+  "description": "Skills and MCP server for design token usage and styling best practices with @ama-styling",
+  "version": "1.0.0"
+}

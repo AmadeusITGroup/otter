@@ -63,9 +63,21 @@ export class ApiFactoryService {
       return cache as T;
     }
 
-    const instance = new apiClass(this.getConfigFor(customApiName ?? apiClass));
+    const instance = this.createApi(apiClass, customApiName);
     this.loadedApis[apiName] = instance;
     return instance;
+  }
+
+  /**
+   * Instantiate a new instance of a specific API with loaded configuration, without using cache mechanism.
+   * Warning: This function should be used only in specific cases when the cache should not be used. Otherwise, {@link getApi} is highly recommended.
+   * @param apiClass class of the API to retrieve
+   * @param customApiName override the `apiName` set in the `apiClass`
+   * @note When passing `customApiName` the configuration is expecting to exist else an error is thrown
+   * @note When passing an Api instance that does not match a registered configuration without `customApiName`, the default one will be returned
+   */
+  public createApi<T extends Api>(apiClass: (new (client: ApiClient) => T) & ApiName, customApiName?: string): T {
+    return new apiClass(this.getConfigFor(customApiName ?? apiClass));
   }
 
   /**

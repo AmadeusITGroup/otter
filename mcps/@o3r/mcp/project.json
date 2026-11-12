@@ -1,7 +1,7 @@
 {
   "name": "mcp",
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
-  "projectType": "library",
+  "projectType": "application",
   "sourceRoot": "mcps/@o3r/mcp/src",
   "prefix": "o3r",
   "targets": {

@@ -3,6 +3,48 @@ id: otter
 name: Otter
 description: Collection for Otter
 items:
+  - path: tools/llm/plugins/otter/skills/logic-placement/SKILL.md
+    kind: skill
+    title: Logic Placement
+    description: Design-mode entry point deciding where application logic belongs, routing to the component shape, logic layer, and store implementation decision trees
+    tags:
+      - architecture
+      - state-management
+      - container-presenter
+      - store
+  - path: tools/llm/plugins/otter/skills/logic-review/SKILL.md
+    kind: skill
+    title: Logic Review
+    description: Review-mode entry point detecting misplaced logic in existing components, services, and stores - presenter leaks, componentType mismatches, and wrong store variants
+    tags:
+      - architecture
+      - review
+      - anti-patterns
+      - state-management
+  - path: tools/llm/plugins/otter/skills/logic-component-shape/SKILL.md
+    kind: skill
+    title: Logic Decision Tree - Component Shape
+    description: Decision tree for a single component versus a container/presenter pair, the componentStructure to generate, and the componentType to declare
+    tags:
+      - architecture
+      - container-presenter
+      - components
+  - path: tools/llm/plugins/otter/skills/logic-state-layer/SKILL.md
+    kind: skill
+    title: Logic Decision Tree - Logic Layer
+    description: Decision tree for whether logic belongs in the component class, an injectable service, or an NgRx store, including service scope and where API calls go
+    tags:
+      - architecture
+      - state-management
+      - services
+  - path: tools/llm/plugins/otter/skills/logic-store-type/SKILL.md
+    kind: skill
+    title: Logic Decision Tree - Store Implementation
+    description: Decision tree for which NgRx store variant to generate - entity or simple, sync or async - and what each one provides
+    tags:
+      - architecture
+      - store
+      - ngrx
   - path: tools/llm/plugins/otter/skills/otter-rules-engine/SKILL.md
     kind: skill
     title: Otter Rules Engine
@@ -61,6 +103,22 @@ items:
       - migration
       - upgrade
       - angular
+  - path: tools/llm/plugins/otter/agents/logic-design.agent.md
+    kind: agent
+    title: Logic Design
+    description: Decide where new application logic belongs and return a placement recommendation with the schematic to run, stopping to ask when the choice is a trade-off the user owns
+    tags:
+      - architecture
+      - design
+      - state-management
+  - path: tools/llm/plugins/otter/agents/logic-review.agent.md
+    kind: agent
+    title: Logic Review
+    description: Review existing components, services, and stores for misplaced logic and report findings with the rule broken and the concrete fix
+    tags:
+      - architecture
+      - review
+      - state-management
 readme:
   path: tools/llm/plugins/otter/README.md
 display:
@@ -73,18 +131,18 @@ mcp:
       args:
         - -y
         - -p
-        - '@o3r/mcp@^14.0.0'
+        - '@o3r/mcp@^15.0.0'
         - o3r-mcp-start
 
     angular:
       command: npx
       args:
         - -y
-        - '@angular/cli@^21.0.0'
+        - '@angular/cli@^22.0.0'
         - mcp
 
     playwright:
       command: npx
       args:
         - -y
-        - '@playwright/mcp@~0.0.70'
+        - '@playwright/mcp@~0.0.79'
