@@ -29,6 +29,7 @@ import type {
  */
 export const jestDependencies = (eslintDependencies: boolean) => [
   '@angular-builders/jest',
+  '@babel/core',
   '@types/jest',
   'jest',
   'jest-environment-jsdom',

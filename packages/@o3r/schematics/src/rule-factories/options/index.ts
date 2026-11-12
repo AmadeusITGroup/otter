@@ -5,6 +5,7 @@ import {
   getDefaultOptionsForSchematic,
 } from '../../utility/collection';
 import {
+  getDefaultProjectName,
   getWorkspaceConfig,
 } from '../../utility/loaders';
 
@@ -22,11 +23,15 @@ type SchematicWrapperFn<S extends Record<string, any>> = (options: S) => Rule;
 export function createSchematicWithOptionsFromWorkspace<S extends Record<string, any>>(schematicFn: SchematicWrapperFn<S>): SchematicWrapperFn<S> {
   return (options) => (tree, context) => {
     const workspace = getWorkspaceConfig(tree);
+    // The `projectName` default is not provided by the schema (the Angular CLI throws when it cannot determine a project).
+    // It is resolved before reading the workspace defaults so that the project-level ones are applied.
+    const hasProjectNameOption = !!(context.schematic.description as { schemaJson?: { properties?: Record<string, unknown> } }).schemaJson?.properties?.projectName;
+    const projectName = (options.projectName as string | undefined) || (hasProjectNameOption ? getDefaultProjectName(workspace) : undefined);
     const workspaceOptions = getDefaultOptionsForSchematic(
       workspace,
       context.schematic.description.collection.name,
       context.schematic.description.name,
-      { projectName: undefined, ...options }
+      { ...options, projectName }
     );
     const schematicOptionsWithoutUndefined = Object.entries(options).reduce((acc: Record<string, any>, [key, value]) => {
       if (typeof value !== 'undefined') {
@@ -35,6 +40,7 @@ export function createSchematicWithOptionsFromWorkspace<S extends Record<string,
       return acc;
     }, {}) as S;
     const schematicOptions = {
+      ...(projectName ? { projectName } : {}),
       ...workspaceOptions,
       ...schematicOptionsWithoutUndefined
     };

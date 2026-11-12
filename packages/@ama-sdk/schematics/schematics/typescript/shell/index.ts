@@ -76,6 +76,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       jest: amaSdkSchematicsPackageJson.devDependencies!.jest,
       rxjs: amaSdkSchematicsPackageJson.dependencies!.rxjs,
       'ts-jest': amaSdkSchematicsPackageJson.devDependencies!['ts-jest'],
+      'type-fest': amaSdkSchematicsPackageJson.devDependencies!['type-fest'],
       typescript: amaSdkSchematicsPackageJson.devDependencies!.typescript,
       'jest-junit': amaSdkSchematicsPackageJson.generatorDependencies['jest-junit'],
       'lint-staged': amaSdkSchematicsPackageJson.generatorDependencies['lint-staged'],
@@ -124,7 +125,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
 
       const yarnrc = tree.exists(workspaceRootYarnRcPath)
         ? load(tree.readText(workspaceRootYarnRcPath))
-        : (load(tree.exists(standaloneYarnRcPath) ? tree.readText(standaloneYarnRcPath) : '') || {}) as any;
+        : (tree.exists(standaloneYarnRcPath) ? (load(tree.readText(standaloneYarnRcPath)) || {}) : {}) as any;
       yarnrc.nodeLinker ||= 'pnp';
       yarnrc.packageExtensions ||= {};
       yarnrc.packageExtensions['@ama-sdk/schematics@*'] = {

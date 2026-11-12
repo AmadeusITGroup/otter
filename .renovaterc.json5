@@ -108,6 +108,14 @@
         "io.swagger:swagger-codegen-cli"
       ],
       "enabled": false
+    },
+    {
+      // Pin @jsverse/utils to 1.0.0-beta.5 to match the peer dependency requested by @jsverse/transloco-messageformat.
+      // Remove this rule once transloco-messageformat bumps its @jsverse/utils peer.
+      "matchPackageNames": [
+        "@jsverse/utils"
+      ],
+      "enabled": false
     }
   ],
   "customManagers": [

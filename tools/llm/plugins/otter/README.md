@@ -39,7 +39,7 @@ This plugin ships specialized subagents in a format that both **Claude Code** (C
 
 | Agent | Description |
 |-------|-------------|
-| **otter-migration** | Safely upgrades `@o3r/*`, `@ama-mfe/*`, and `@ama-sdk/*` packages across an Otter monorepo, handling Angular peer-dependency bumps when required. Plans the migration, bumps versions, resolves peer-dependency conflicts, reads migration schematics and applies the equivalent changes manually, then validates the result. |
+| **otter-migration** | Safely upgrades `@o3r/*`, `@ama-mfe/*`, and `@ama-sdk/*` packages across an Otter monorepo, handling Angular peer-dependency bumps when required. Plans the migration, bumps versions, resolves peer-dependency conflicts, reads migration schematics and applies the equivalent changes manually, regenerates any SDK produced with `@ama-sdk/schematics`, then validates the result. |
 | **logic-design** | Decides where new application logic belongs — component shape, logic layer, store variant — and returns a recommendation with the schematic to run and what to verify. Stops to ask when the choice is a trade-off the user owns. |
 | **logic-review** | Reviews existing components, services, and stores for misplaced logic and reports findings with `file:line`, the rule broken, and the concrete fix. Reads the same decision trees as **logic-design**, so the two cannot disagree. |
 

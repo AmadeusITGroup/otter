@@ -33,7 +33,8 @@ import type {
 function isYarn2(tree: Tree) {
   const yarnrcPath = '/.yarnrc.yml';
   if (tree.exists(yarnrcPath)) {
-    const { yarnPath } = (load(tree.readText(yarnrcPath)) || {}) as { yarnPath?: string };
+    const yarnrcContent = tree.readText(yarnrcPath);
+    const { yarnPath } = ((yarnrcContent ? load(yarnrcContent) : null) || {}) as { yarnPath?: string };
     return !yarnPath || !/yarn-1\./.test(yarnPath);
   }
   return false;

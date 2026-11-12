@@ -33,6 +33,9 @@ describe('ng add testing', () => {
     const packageJsonContent = fs.readFileSync(path.join(applicationPath, 'package.json'), { encoding: 'utf8' });
     expect(packageJsonContent).toContain('@o3r/testing');
     expect(packageJsonContent).toContain('@playwright/test');
+    const rootPackageJson = JSON.parse(fs.readFileSync(path.join(workspacePath, 'package.json'), { encoding: 'utf8' })) as { devDependencies: Record<string, string> };
+    // Remove this and generatorDependency when https://github.com/kulshekhar/ts-jest/issues/5412 is resolved
+    expect(rootPackageJson.devDependencies['@babel/core']).toBe('~7.29.0');
     const vscodeContent = fs.readFileSync(`${workspacePath}/.vscode/extensions.json`, 'utf8');
     expect(vscodeContent).toContain('"Orta.vscode-jest"');
 

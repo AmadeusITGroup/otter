@@ -104,6 +104,7 @@
     "rxjs": "<%= versions['rxjs'] %>",
     "commit-and-tag-version": "<%= versions['commit-and-tag-version'] %>",
     "ts-jest": "<%= versions['ts-jest'] %>",
+    "type-fest": "<%= versions['type-fest'] %>",
     "typedoc": "<%= versions['typedoc'] %>",
     "tsc-watch": "<%= versions['tsc-watch'] %>",
     "yaml-eslint-parser": "<%= versions['yaml-eslint-parser'] %>",

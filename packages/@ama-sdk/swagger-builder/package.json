@@ -23,7 +23,7 @@
     "@apidevtools/swagger-parser": "^12.0.0",
     "commander": "^14.0.0",
     "globby": "^11.1.0",
-    "js-yaml": "^4.3.1",
+    "js-yaml": "^5.2.2",
     "jsonschema": "~1.5.0",
     "openapi-types": "^12.0.0",
     "semver": "^7.5.2",
@@ -31,7 +31,7 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@angular/cli": "~22.0.4",
+    "@angular/cli": "~22.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~23.1.0",
     "@nx/jest": "~23.1.0",
@@ -44,8 +44,8 @@
     "@types/node": "~24.13.0",
     "@types/semver": "^7.3.13",
     "@types/swagger-schema-official": "^2.0.22",
-    "@typescript-eslint/parser": "~8.67.0",
-    "angular-eslint": "~22.0.0",
+    "@typescript-eslint/parser": "~8.70.0",
+    "angular-eslint": "~22.5.0",
     "concurrently": "^9.2.3",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
@@ -63,9 +63,9 @@
     "jest-junit": "~16.0.0",
     "jest-util": "~30.4.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "ts-jest": "~29.4.0",
+    "ts-jest": "~29.4.13",
     "typescript": "~6.0.3",
-    "typescript-eslint": "~8.67.0"
+    "typescript-eslint": "~8.70.0"
   },
   "engines": {
     "node": "^22.22.3 || ^24.15.0 || ^26.0.0"
