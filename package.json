@@ -148,7 +148,7 @@
     "@yarnpkg/core/tar": "^7.5.19",
     "tar": "^7.5.19",
     "npm-registry-client/ssri": "^12.0.0",
-    "@verdaccio/core/minimatch": "~10.2.0",
+    "@verdaccio/core/minimatch": "~11.0.1",
     "@crxjs/vite-plugin/rollup": "~2.80.0",
     "undici@^5.25.4": "^6.24.0",
     "undici@^5.28.5": "^6.24.0",
