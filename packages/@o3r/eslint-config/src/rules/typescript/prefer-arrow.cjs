@@ -1,4 +1,5 @@
 'use strict';
+const { fixupPluginRules } = require('@eslint/compat');
 const preferArrowPlugin = require('eslint-plugin-prefer-arrow');
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
@@ -9,7 +10,7 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     plugins: {
-      'prefer-arrow': preferArrowPlugin
+      'prefer-arrow': fixupPluginRules(preferArrowPlugin)
     },
     rules: {
       'prefer-arrow/prefer-arrow-functions': [
