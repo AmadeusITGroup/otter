@@ -5,7 +5,11 @@ import {
   type UserActivityMessageV1_0,
 } from '@ama-mfe/messages';
 import {
+  DOCUMENT,
+} from '@angular/common';
+import {
   afterNextRender,
+  type AfterRenderRef,
   DestroyRef,
   inject,
   Injectable,
@@ -39,6 +43,9 @@ import type {
   ActivityProducerConfig,
 } from './interfaces';
 
+const SCROLL_INPUT_WINDOW_MS = 1000;
+const SCROLLBAR_RELEASE_EVENTS = ['pointerup', 'pointercancel'] as const;
+
 /**
  * Generic service that tracks user activity and sends messages.
  * Can be configured for different contexts (cockpit or modules) via start() method parameter.
@@ -51,6 +58,11 @@ export class ActivityProducerService implements MessageProducer<UserActivityMess
   private readonly destroyRef = inject(DestroyRef);
   private readonly iframeActivityTracker = inject(IframeActivityTrackerService);
   private readonly logger = inject(LoggerService);
+  private readonly document = inject(DOCUMENT);
+  private renderRef?: AfterRenderRef;
+  private config?: ActivityProducerConfig;
+  private lastLocalInteractionAt = 0;
+  private scrollbarTarget?: EventTarget;
 
   /**
    * Timestamp of the last sent activity message
@@ -60,7 +72,7 @@ export class ActivityProducerService implements MessageProducer<UserActivityMess
   /**
    * Bound event listeners for cleanup
    */
-  private readonly boundListeners = new Map<UserActivityEventType, EventListener>();
+  private readonly boundListeners = new Map<keyof DocumentEventMap, EventListener>();
 
   /**
    * Last emission timestamps for throttled high-frequency events
@@ -93,6 +105,10 @@ export class ActivityProducerService implements MessageProducer<UserActivityMess
     registerProducer(this);
     this.destroyRef.onDestroy(() => this.stop());
   }
+
+  private readonly releaseScrollbar = () => {
+    this.scrollbarTarget = undefined;
+  };
 
   /**
    * Checks if a high-frequency event should be processed based on throttle timing.
@@ -134,6 +150,46 @@ export class ActivityProducerService implements MessageProducer<UserActivityMess
     }
   }
 
+  private getScrollbarTarget(event: Event): EventTarget | undefined {
+    if (!(event instanceof MouseEvent)) {
+      return undefined;
+    }
+    const target = event.target === this.document ? this.document.scrollingElement : event.target;
+    if (!(target instanceof HTMLElement)) {
+      return undefined;
+    }
+    const root = target === this.document.scrollingElement;
+    const bounds = target.getBoundingClientRect();
+    const width = root ? this.document.defaultView?.innerWidth ?? 0 : target.offsetWidth;
+    const height = root ? this.document.defaultView?.innerHeight ?? 0 : target.offsetHeight;
+    if (width <= 0 || height <= 0 || (!root && (bounds.width <= 0 || bounds.height <= 0))) {
+      return undefined;
+    }
+    // Pointer coordinates include CSS scaling; scrollbar metrics use layout pixels.
+    const x = root ? event.clientX : (event.clientX - bounds.left) * width / bounds.width;
+    const y = root ? event.clientY : (event.clientY - bounds.top) * height / bounds.height;
+    if (x < 0 || y < 0 || x >= width || y >= height) {
+      return undefined;
+    }
+    const vertical = target.scrollHeight > target.clientHeight && (x < target.clientLeft || x >= target.clientLeft + target.clientWidth);
+    const horizontal = target.scrollWidth > target.clientWidth && (y < target.clientTop || y >= target.clientTop + target.clientHeight);
+    return vertical || horizontal ? (root ? this.document : target) : undefined;
+  }
+
+  private isActivityEvent(event: Event): boolean {
+    if (event.type === 'focus') {
+      return true;
+    }
+    if (!event.isTrusted) {
+      return false;
+    }
+    if (event.type === 'scroll') {
+      return event.target === this.scrollbarTarget
+        || (this.lastLocalInteractionAt > 0 && Date.now() - this.lastLocalInteractionAt < SCROLL_INPUT_WINDOW_MS);
+    }
+    return true;
+  }
+
   /**
    * Sends an activity message.
    * @param eventType The type of activity event
@@ -158,6 +214,20 @@ export class ActivityProducerService implements MessageProducer<UserActivityMess
   }
 
   /**
+   * Immediately records and broadcasts SDK-classified input inside a nested iframe.
+   * Call only for actual interaction, never focus, renders alone or periodic updates.
+   * Tracking must be started first. Explicit reports are not throttled and do not affect DOM throttling.
+   */
+  public reportIframeInteraction(): void {
+    if (!this.started) {
+      return;
+    }
+    const timestamp = Date.now();
+    this.localActivityWritable.set({ channelId: 'local', eventType: IFRAME_INTERACTION_EVENT, timestamp });
+    this.sendActivityMessage(IFRAME_INTERACTION_EVENT, timestamp);
+  }
+
+  /**
    * @inheritdoc
    */
   public handleError(message: ErrorContent<UserActivityMessage>): void {
@@ -176,18 +246,29 @@ export class ActivityProducerService implements MessageProducer<UserActivityMess
     }
     this.started = true;
     const configObject: ActivityProducerConfig = { ...DEFAULT_ACTIVITY_PRODUCER_CONFIG, ...config };
+    this.config = configObject;
 
     // Always use afterNextRender to ensure DOM is ready in all contexts
-    afterNextRender(() => {
-      ACTIVITY_EVENTS.forEach((eventType) => {
+    this.renderRef = afterNextRender(() => {
+      if (!this.started || this.config !== configObject) {
+        return;
+      }
+      const activityEvents: [keyof DocumentEventMap, UserActivityEventType][] = ACTIVITY_EVENTS
+        .map((eventType) => [eventType, eventType]);
+      // Reuse existing protocol categories for additional trusted DOM input.
+      activityEvents.push(['wheel', 'scroll'], ['pointerdown', 'click'], ['touchmove', 'touchstart']);
+      for (const eventType of SCROLLBAR_RELEASE_EVENTS) {
+        this.boundListeners.set(eventType, this.releaseScrollbar);
+        this.document.addEventListener(eventType, this.releaseScrollbar, { passive: true, capture: true });
+      }
+      this.document.defaultView?.addEventListener('blur', this.releaseScrollbar);
+      activityEvents.forEach(([domEventType, eventType]) => {
         const isHighFrequency = HIGH_FREQUENCY_EVENTS.includes(eventType);
         const listener = (event: Event) => {
           // do nothing if the event is a key kept pressed
           if (eventType === 'keydown' && event instanceof KeyboardEvent && event.repeat) {
             return;
           }
-          // For high-frequency events, apply throttle BEFORE shouldBroadcast
-          // to avoid expensive filter operations on every event (e.g. reflows)
           if (isHighFrequency && !this.shouldProcessHighFrequencyEvent(eventType, configObject.highFrequencyThrottleMs!)) {
             return;
           }
@@ -195,20 +276,30 @@ export class ActivityProducerService implements MessageProducer<UserActivityMess
           if (configObject.shouldBroadcast?.(event) === false) {
             return;
           }
+          if (!this.isActivityEvent(event)) {
+            return;
+          }
+          if (event.type === 'pointerdown') {
+            this.scrollbarTarget = this.getScrollbarTarget(event);
+          }
+          if (event.type !== 'focus' && event.type !== 'scroll') {
+            this.lastLocalInteractionAt = Date.now();
+          }
           this.onActivity(eventType, configObject);
         };
-        this.boundListeners.set(eventType, listener);
-        document.addEventListener(eventType, listener, { passive: true, capture: true });
+        this.boundListeners.set(domEventType, listener);
+        this.document.addEventListener(domEventType, listener, { passive: true, capture: true });
       });
 
       // Also listen for visibility changes
       const visibilityListener = () => {
-        if (document.visibilityState === 'visible') {
+        this.releaseScrollbar();
+        if (this.document.visibilityState === 'visible') {
           this.onActivity(VISIBILITY_CHANGE_EVENT, configObject);
         }
       };
       this.boundListeners.set(VISIBILITY_CHANGE_EVENT, visibilityListener);
-      document.addEventListener(VISIBILITY_CHANGE_EVENT, visibilityListener, { passive: true, capture: true });
+      this.document.addEventListener(VISIBILITY_CHANGE_EVENT, visibilityListener, { passive: true, capture: true });
 
       // Set up nested iframe tracking if enabled
       if (configObject.trackNestedIframes) {
@@ -225,11 +316,19 @@ export class ActivityProducerService implements MessageProducer<UserActivityMess
    * Stops observing user activity events.
    */
   public stop(): void {
+    this.started = false;
+    this.config = undefined;
+    this.renderRef?.destroy();
+    this.renderRef = undefined;
     this.boundListeners.forEach((listener, eventType) => {
-      document.removeEventListener(eventType, listener, { capture: true });
+      this.document.removeEventListener(eventType, listener, { capture: true });
     });
     this.boundListeners.clear();
     this.lastEmitTimestamps.clear();
+    this.document.defaultView?.removeEventListener('blur', this.releaseScrollbar);
+    this.lastLocalInteractionAt = 0;
+    this.lastSentTimestamp = 0;
+    this.releaseScrollbar();
     this.iframeActivityTracker.stop();
   }
 }

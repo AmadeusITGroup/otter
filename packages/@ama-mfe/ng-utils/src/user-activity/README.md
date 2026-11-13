@@ -68,6 +68,8 @@ inject(ActivityProducerService).start({
 #### Tracking Nested Iframes
 
 When `trackNestedIframes` is enabled, the service polls `document.activeElement` to detect when an iframe gains focus. While an iframe has focus, the service emits `iframeinteraction` events periodically.
+This option is only to be used if there is no other ways to track events inside the iframe.
+This is no proof of interaction and can prevent detecting session inactivity (as long as the iframe is focused).
 
 ```typescript
 inject(ActivityProducerService).start({
