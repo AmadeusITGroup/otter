@@ -50,7 +50,6 @@ import {
   withComponent,
 } from '@o3r/components';
 import {
-  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
   provideConfigOverrideStore,
   provideConfigurationDevtools,
 } from '@o3r/configuration';
@@ -69,7 +68,6 @@ import {
 } from '@o3r/rules-engine';
 import {
   LocalizationConfiguration,
-  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
   provideLocalization,
   provideLocalizationDevtools,
 } from '@o3r/transloco';
@@ -158,15 +156,13 @@ export const appConfig: ApplicationConfig = {
     provideLocalizationRulesEngineAction(),
     provideApplicationDevtools(),
     provideComponentsDevtools(),
-    provideConfigurationDevtools(),
+    provideConfigurationDevtools({ isActivatedOnBootstrap: true }),
     provideStylingDevtools(),
     provideMonacoEditor(),
     provideCustomComponents(new Map(), withComponent('exampleDatePickerFlavorHebrew', DatePickerHebrewInputPres)),
     provideDynamicContent(),
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
     { provide: PetApi, useFactory: petApiFactory, deps: [LoggerService] },
-    { provide: OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
-    { provide: OTTER_LOCALIZATION_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
     { provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
     { provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
     { provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true, appName: 'showcase' } },
@@ -190,7 +186,7 @@ export const appConfig: ApplicationConfig = {
     }),
     { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } },
     provideLocalization(localizationConfigurationFactory),
-    provideLocalizationDevtools(),
+    provideLocalizationDevtools({ isActivatedOnBootstrap: true }),
     provideTranslocoMessageformat()
   ]
 };
