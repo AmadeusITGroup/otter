@@ -51,6 +51,7 @@ import {
 } from '@o3r/components';
 import {
   OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
+  provideConfigOverrideStore,
   provideConfigurationDevtools,
 } from '@o3r/configuration';
 import {
@@ -151,6 +152,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideStore({}, { runtimeChecks }),
     provideEffects(),
+    provideConfigOverrideStore(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideRulesEngineRunner({ debug: true }),
     provideLocalizationRulesEngineAction(),
