@@ -65,9 +65,27 @@ inject(ActivityProducerService).start({
 });
 ```
 
-#### Tracking Nested Iframes
+#### Reporting Interactions Inside Nested Iframes
+
+Call `reportIframeInteraction()` when an iframe integration reports actual user input, such as a click or key press. It does not require focus polling, so `trackNestedIframes` can remain disabled.
+
+```typescript
+const activityProducer = inject(ActivityProducerService);
+activityProducer.start();
+
+// Call from an iframe integration callback that reports actual user input.
+activityProducer.reportIframeInteraction();
+```
+
+Each call updates `localActivity` and immediately sends an `iframeinteraction` message to subscribed peers. Explicit reports bypass `throttleMs`, `highFrequencyThrottleMs`, and `shouldBroadcast`, without affecting DOM-event throttling. Calls before `start()` or after `stop()` are ignored.
+
+Only report actual user interaction, not focus alone, rendering, or periodic updates.
+
+#### Tracking Nested Iframes by Focus Polling
 
 When `trackNestedIframes` is enabled, the service polls `document.activeElement` to detect when an iframe gains focus. While an iframe has focus, the service emits `iframeinteraction` events periodically.
+This option is only to be used if there is no other way to track events inside the iframe.
+This is not a proof of interaction and can prevent detecting session inactivity (as long as the iframe is focused).
 
 ```typescript
 inject(ActivityProducerService).start({
