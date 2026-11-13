@@ -8,7 +8,7 @@ import type {
 /**
  * DOM events that indicate user activity
  */
-export const ACTIVITY_EVENTS: readonly Exclude<UserActivityEventType, 'visibilitychange'>[] = [
+export const ACTIVITY_EVENTS: readonly Exclude<UserActivityEventType, 'visibilitychange' | 'iframeinteraction'>[] = [
   'click',
   'keydown',
   'scroll',
@@ -18,7 +18,7 @@ export const ACTIVITY_EVENTS: readonly Exclude<UserActivityEventType, 'visibilit
 
 /**
  * Custom activity event type for iframe interactions.
- * Emitted programmatically when an iframe gains focus, not from a DOM event listener.
+ * Used for explicit SDK-classified input and legacy iframe-focus polling, not DOM events.
  */
 export const IFRAME_INTERACTION_EVENT: UserActivityEventType = 'iframeinteraction';
 
@@ -26,7 +26,7 @@ export const IFRAME_INTERACTION_EVENT: UserActivityEventType = 'iframeinteractio
  * Custom activity event type for visibility changes.
  * Emitted programmatically when the document becomes visible, not from a DOM event listener.
  */
-export const VISIBILITY_CHANGE_EVENT: UserActivityEventType = 'visibilitychange';
+export const VISIBILITY_CHANGE_EVENT = 'visibilitychange' satisfies UserActivityEventType;
 
 /**
  * High-frequency events that require throttling to avoid performance issues

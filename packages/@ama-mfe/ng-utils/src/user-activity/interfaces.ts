@@ -33,6 +33,7 @@ export interface ActivityProducerConfig {
    * moves to an iframe within the document and send periodic activity signals while
    * the iframe has focus. This is useful for modules that contain iframes whose content
    * cannot be modified to include activity tracking.
+   * Focus alone is not proof of interaction; this option can break inactivity detection.
    */
   trackNestedIframes?: boolean;
   /**
