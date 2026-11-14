@@ -860,7 +860,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@redocly/openapi-core": "npm:~2.72.0"
+    "@redocly/openapi-core": "npm:~2.77.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.19.0"
@@ -1659,7 +1659,7 @@ __metadata:
     "@commitlint/config-conventional": "npm:^20.2.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@figma/rest-api-spec": "npm:~0.46.0"
+    "@figma/rest-api-spec": "npm:~0.47.0"
     "@nx/eslint-plugin": "npm:~23.3.0"
     "@o3r/build-helpers": "workspace:~"
     "@o3r/eslint-config": "workspace:~"
@@ -1806,7 +1806,7 @@ __metadata:
     jest-util: "npm:~30.5.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~23.3.0"
-    style-dictionary: "npm:~5.7.0"
+    style-dictionary: "npm:~5.8.0"
     ts-jest: "npm:~29.4.13"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
@@ -6793,10 +6793,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma/rest-api-spec@npm:~0.46.0":
-  version: 0.46.0
-  resolution: "@figma/rest-api-spec@npm:0.46.0"
-  checksum: 10/93c04acfa2a512998098498c3952d5a28f3061a292f7e67dfdee18357dab6fc1532ec8e88e9ca8a7e7ea9828586d6c6ef29b0f398265e7a3a25c866933b9f1cf
+"@figma/rest-api-spec@npm:~0.47.0":
+  version: 0.47.0
+  resolution: "@figma/rest-api-spec@npm:0.47.0"
+  checksum: 10/4752cb623899d2b0711b772f81e8f00fc63ea424cf988daaf9c933285f0508cd41ebb65cfc94104ef6ea5f73e135aeb45ebe65ca1a912da58f0e930ea1bef689
   languageName: node
   linkType: hard
 
@@ -6872,6 +6872,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/intl-localematcher@npm:0.10.0":
+  version: 0.10.0
+  resolution: "@formatjs/intl-localematcher@npm:0.10.0"
+  dependencies:
+    "@formatjs/fast-memoize": "npm:3.1.7"
+  checksum: 10/f718a098a991a2e021f79b038453bf5c438d7c30a430fe73e5625737af0d849307c0123b1a0a6abb605e6ff27b2bf22b948f2cfc7935ed0d94263a6928020fbc
+  languageName: node
+  linkType: hard
+
 "@formatjs/intl-localematcher@npm:0.6.2":
   version: 0.6.2
   resolution: "@formatjs/intl-localematcher@npm:0.6.2"
@@ -6881,22 +6890,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-localematcher@npm:0.9.0":
-  version: 0.9.0
-  resolution: "@formatjs/intl-localematcher@npm:0.9.0"
-  dependencies:
-    "@formatjs/fast-memoize": "npm:3.1.7"
-  checksum: 10/4ccb448607ec7415fd5bc1f6e9ab66f60a141c81d80631fd64415038c8e2bc883d7951e5901ac9e4f540f090cff0fb219c20989f85f244adfa4c038661706365
-  languageName: node
-  linkType: hard
-
-"@formatjs/intl-numberformat@npm:~9.4.0":
-  version: 9.4.3
-  resolution: "@formatjs/intl-numberformat@npm:9.4.3"
+"@formatjs/intl-numberformat@npm:~9.5.0":
+  version: 9.5.0
+  resolution: "@formatjs/intl-numberformat@npm:9.5.0"
   dependencies:
     "@formatjs/bigdecimal": "npm:0.2.7"
-    "@formatjs/intl-localematcher": "npm:0.9.0"
-  checksum: 10/dafb147e829bd5cb1d6a79d21cb22ae7a7469a76837845a0f70254f9b886579051adcc8dab44e88e235ce26aae11ac554adcacf07349ffd984257513766c9503
+    "@formatjs/intl-localematcher": "npm:0.10.0"
+  checksum: 10/62c1e3f332f186f7265b0a9788aa1e693868fc2f24c7b68e1c40ad28ef49d30082a3ea2a9a92264aaa6679bda268a5a9d74baa5b19dcf86cdf0957329c048dd2
   languageName: node
   linkType: hard
 
@@ -11263,7 +11263,7 @@ __metadata:
     replace-in-files-cli: "npm:^4.0.0"
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
-    sass: "npm:~1.107.0"
+    sass: "npm:~1.108.0"
     sass-loader: "npm:^16.0.0"
     semver: "npm:^7.5.2"
     source-map-js: "npm:^1.2.1"
@@ -12314,7 +12314,7 @@ __metadata:
     "@design-factory/design-factory": "npm:~22.0.0"
     "@design-factory/styles": "npm:~22.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@formatjs/intl-numberformat": "npm:~9.4.0"
+    "@formatjs/intl-numberformat": "npm:~9.5.0"
     "@jsverse/transloco": "npm:~8.4.0"
     "@jsverse/transloco-messageformat": "npm:~8.4.0"
     "@jsverse/utils": "npm:1.0.0-beta.5"
@@ -12405,7 +12405,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     sass-loader: "npm:^16.0.0"
-    style-dictionary: "npm:~5.7.0"
+    style-dictionary: "npm:~5.8.0"
     ts-jest: "npm:~29.4.13"
     tslib: "npm:^2.6.2"
     typescript: "npm:~6.0.3"
@@ -14492,22 +14492,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redocly/config@npm:^0.69.0":
-  version: 0.69.1
-  resolution: "@redocly/config@npm:0.69.1"
-  checksum: 10/faa903cbd49282b9c59d815db75108e5e1a100718e5f28302c39b5f76eeab6f88fb7d46fc1ec0b60f0b0087a23876594f9f3f7f58a5dfb09acc549c599fac625
+"@redocly/config@npm:^0.72.1":
+  version: 0.72.1
+  resolution: "@redocly/config@npm:0.72.1"
+  checksum: 10/fabc35751a1c01b85b9643d7050e6d59497e80c5da0a34dd90e3236f8d2d2f4434de60bc1621636e74a5387c9eceb01abb564225d0cfcc1a6b47628132783588
   languageName: node
   linkType: hard
 
-"@redocly/openapi-core@npm:~2.72.0":
-  version: 2.72.1
-  resolution: "@redocly/openapi-core@npm:2.72.1"
+"@redocly/openapi-core@npm:~2.77.0":
+  version: 2.77.0
+  resolution: "@redocly/openapi-core@npm:2.77.0"
   dependencies:
     "@redocly/ajv": "npm:^8.18.3"
-    "@redocly/config": "npm:^0.69.0"
+    "@redocly/config": "npm:^0.72.1"
     ajv: "npm:@redocly/ajv@^8.18.3"
     ajv-formats: "npm:^3.0.1"
-    colorette: "npm:^1.2.0"
+    colorette: "npm:^2.0.20"
     fastest-levenshtein: "npm:^1.0.16"
     graphql: "npm:^16.14.1"
     js-yaml: "npm:^5.2.2"
@@ -14516,7 +14516,7 @@ __metadata:
     picomatch: "npm:^4.0.4"
     pluralize: "npm:^8.0.0"
     yaml-ast-parser: "npm:0.0.43"
-  checksum: 10/a446d9238f5763bdefab73447d55bf335843b21fa6412871e47a4fe74dd34974546ab3882b29afff88827ec47ec8059c3e7c7802202ad204167a9bd9fbeabf8a
+  checksum: 10/a9979e35d00ee841758e5c4597e6608eec41127167a24f409e91aab17a8cc4c0f76b6ea7d86cb5e8b600673295730cd2c76bd191bf2a2553dc72926841723ea5
   languageName: node
   linkType: hard
 
@@ -16270,10 +16270,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/vscode@npm:~1.144.0":
-  version: 1.144.0
-  resolution: "@types/vscode@npm:1.144.0"
-  checksum: 10/dea370022b29f4202b2faa09fc47f3a884ee0de033f967605fdc6eac2c22a8250a525ff0e41a0222c0ab1694f56d91a21e71561b68cc5785911e69efa6af4457
+"@types/vscode@npm:~1.145.0":
+  version: 1.145.0
+  resolution: "@types/vscode@npm:1.145.0"
+  checksum: 10/c4a89f77e670f1022342a94b7dedfd4ff6fda7b8d3a2e028d6433bc317c78376323f77439704f4d4267672510222e773650da02680f958be80e06965e40f5a42
   languageName: node
   linkType: hard
 
@@ -18960,7 +18960,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:~8.72.0"
     "@vercel/ncc": "npm:~0.45.0"
     angular-eslint: "npm:~22.6.0"
-    audit-types: "npm:^0.6.0"
+    audit-types: "npm:^0.7.0"
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
@@ -18986,10 +18986,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"audit-types@npm:^0.6.0":
-  version: 0.6.2
-  resolution: "audit-types@npm:0.6.2"
-  checksum: 10/0ad90cec66f9eeabd0792ce6dc0a9be386dfe499cb26b07079a1d8acc0ddf9740d627c9a54e5b3a9fba289a60a51fc962c235ea71e843ff5d82b6d2f0e753a91
+"audit-types@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "audit-types@npm:0.7.0"
+  checksum: 10/1ff050458ef0505755060f3f3180e7b37d54b593000762110c1f3644d726fdb024a8b86c669759837a3e5e7c2db9fbe8020b4c1400fe05d657dc2a42d75a857b
   languageName: node
   linkType: hard
 
@@ -20594,13 +20594,6 @@ __metadata:
   version: 2.0.20
   resolution: "colorette@npm:2.0.20"
   checksum: 10/0b8de48bfa5d10afc160b8eaa2b9938f34a892530b2f7d7897e0458d9535a066e3998b49da9d21161c78225b272df19ae3a64d6df28b4c9734c0e55bbd02406f
-  languageName: node
-  linkType: hard
-
-"colorette@npm:^1.2.0":
-  version: 1.4.0
-  resolution: "colorette@npm:1.4.0"
-  checksum: 10/c8d6c8c3ef5a99acfc3dd9a68f48019f1479ec347551387e4a1762e40f69e98ce19d4dc321ffb4919d1f28a7bdc90c39d4e9a901f4c474fd2124ad93a00c0454
   languageName: node
   linkType: hard
 
@@ -30449,7 +30442,7 @@ __metadata:
     "@types/eslint": "npm:~9.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.19.0"
-    "@types/vscode": "npm:~1.144.0"
+    "@types/vscode": "npm:~1.145.0"
     "@typescript-eslint/parser": "npm:~8.72.0"
     "@typescript-eslint/utils": "npm:~8.72.0"
     "@vscode/chat-extension-utils": "npm:0.0.0-alpha.5"
@@ -33665,9 +33658,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.103.1, sass@npm:~1.107.0":
-  version: 1.107.1
-  resolution: "sass@npm:1.107.1"
+"sass@npm:^1.103.1, sass@npm:~1.108.0":
+  version: 1.108.2
+  resolution: "sass@npm:1.108.2"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^5.0.0"
@@ -33678,7 +33671,7 @@ __metadata:
       optional: true
   bin:
     sass: sass.js
-  checksum: 10/d6799e29c66f223462dadf06366888f2c6320d30ea58028ed7861fd3edbbdfece55f39b75fe99ffa1b4c5531950632981053fbd7b29ddfec5505d4057a22d70a
+  checksum: 10/44df98c784b0674281833cfcf516cc4474d9efb4d2d62dd045930b2e42b95326b8aaa0d4f41767aeed2ece51d15167028e7213794886d9aff29c2274356d56ef
   languageName: node
   linkType: hard
 
@@ -34996,9 +34989,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"style-dictionary@npm:~5.7.0":
-  version: 5.7.1
-  resolution: "style-dictionary@npm:5.7.1"
+"style-dictionary@npm:~5.8.0":
+  version: 5.8.0
+  resolution: "style-dictionary@npm:5.8.0"
   dependencies:
     "@bundled-es-modules/deepmerge": "npm:^4.3.2"
     "@bundled-es-modules/glob": "npm:^13.0.6-hotfix.0"
@@ -35015,7 +35008,7 @@ __metadata:
     tinycolor2: "npm:^1.6.0"
   bin:
     style-dictionary: bin/style-dictionary.js
-  checksum: 10/ba6c54008293d839a4343f19f30f223e2dd092fdff9c63e8916122fea0e5c02a270c5e5e30360037d26c80419171b2f7f7c73b50364fbbccafabda7af8fe1ec5
+  checksum: 10/cadffd52badce36c3063389608a282d2dd826add162c8233a469576c8988e29e50eca776719a6f2e1b1757ec548350d96d02ceb3eab951d0864d14cb64ae2e14
   languageName: node
   linkType: hard
 
