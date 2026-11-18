@@ -16,5 +16,9 @@ export interface OpenURLAction {
   url: string;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['URL'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'URL';
 

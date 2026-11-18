@@ -25,7 +25,7 @@ export interface LocalVariable {
   /** The resolved type of the variable. */
   resolvedType: ResolvedTypeEnum;
   /** The values for each mode of this variable. */
-  valuesByMode: { [key: string]: LocalVariableValuesByModeValue; };
+  valuesByMode: Record<string, LocalVariableValuesByModeValue>;
   /** Whether this variable is remote. */
   remote: boolean;
   /** The description of this variable. */
@@ -36,9 +36,16 @@ export interface LocalVariable {
   scopes: VariableScope[];
   /** @see VariableCodeSyntax */
   codeSyntax: VariableCodeSyntax;
-  /** Indicates that the variable was deleted in the editor, but the document may still contain references to the variable. References to the variable may exist through bound values or variable aliases. */
+  /**
+   * Indicates that the variable was deleted in the editor, but the document may still contain references to the variable. References to the variable may exist through bound values or variable aliases.
+   * @default false
+   */
   deletedButReferenced?: boolean;
 }
 
+/** Array of ResolvedTypeEnum items */
+export const LIST_RESOLVED_TYPE_ENUM = ['BOOLEAN', 'FLOAT', 'STRING', 'COLOR'] as const;
+
+/** List of available values for ResolvedTypeEnum */
 export type ResolvedTypeEnum = 'BOOLEAN' | 'FLOAT' | 'STRING' | 'COLOR';
 

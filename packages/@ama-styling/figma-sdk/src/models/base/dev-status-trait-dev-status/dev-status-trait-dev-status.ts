@@ -17,5 +17,9 @@ export interface DevStatusTraitDevStatus {
   description?: string;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['NONE', 'READY_FOR_DEV', 'COMPLETED'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'NONE' | 'READY_FOR_DEV' | 'COMPLETED';
 

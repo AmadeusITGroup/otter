@@ -11,16 +11,30 @@ import { Paint } from '../paint';
 export interface MinimalStrokesTrait {
   /** An array of stroke paints applied to the node. */
   strokes?: Paint[];
-  /** The weight of strokes on the node. */
+  /**
+   * The weight of strokes on the node.
+   * @default 1
+   */
   strokeWeight?: number;
   /** Position of stroke relative to vector outline, as a string enum  - `INSIDE`: stroke drawn inside the shape boundary - `OUTSIDE`: stroke drawn outside the shape boundary - `CENTER`: stroke drawn centered along the shape boundary */
   strokeAlign?: StrokeAlignEnum;
-  /** A string enum with value of \"MITER\", \"BEVEL\", or \"ROUND\", describing how corners in vector paths are rendered. */
+  /**
+   * A string enum with value of "MITER", "BEVEL", or "ROUND", describing how corners in vector paths are rendered.
+   * @default 'MITER'
+   */
   strokeJoin?: StrokeJoinEnum;
   /** An array of floating point numbers describing the pattern of dash length and gap lengths that the vector stroke will use when drawn.  For example a value of [1, 2] indicates that the stroke will be drawn with a dash of length 1 followed by a gap of length 2, repeated. */
   strokeDashes?: number[];
 }
 
+/** Array of StrokeAlignEnum items */
+export const LIST_STROKE_ALIGN_ENUM = ['INSIDE', 'OUTSIDE', 'CENTER'] as const;
+
+/** List of available values for StrokeAlignEnum */
 export type StrokeAlignEnum = 'INSIDE' | 'OUTSIDE' | 'CENTER';
+/** Array of StrokeJoinEnum items */
+export const LIST_STROKE_JOIN_ENUM = ['MITER', 'BEVEL', 'ROUND'] as const;
+
+/** List of available values for StrokeJoinEnum */
 export type StrokeJoinEnum = 'MITER' | 'BEVEL' | 'ROUND';
 

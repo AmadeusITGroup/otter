@@ -20,10 +20,18 @@ export interface DirectionalTransition {
   duration: number;
   /** @see Easing */
   easing: Easing;
-  /** When the transition `type` is `\"SMART_ANIMATE\"` or when `matchLayers` is `true`, then the transition will be performed using smart animate, which attempts to match corresponding layers an interpolate other properties during the animation. */
+  /** When the transition `type` is `"SMART_ANIMATE"` or when `matchLayers` is `true`, then the transition will be performed using smart animate, which attempts to match corresponding layers an interpolate other properties during the animation. */
   matchLayers?: boolean;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['MOVE_IN', 'MOVE_OUT', 'PUSH', 'SLIDE_IN', 'SLIDE_OUT'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'MOVE_IN' | 'MOVE_OUT' | 'PUSH' | 'SLIDE_IN' | 'SLIDE_OUT';
+/** Array of DirectionEnum items */
+export const LIST_DIRECTION_ENUM = ['LEFT', 'RIGHT', 'TOP', 'BOTTOM'] as const;
+
+/** List of available values for DirectionEnum */
 export type DirectionEnum = 'LEFT' | 'RIGHT' | 'TOP' | 'BOTTOM';
 

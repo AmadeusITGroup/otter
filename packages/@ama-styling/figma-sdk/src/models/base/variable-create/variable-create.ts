@@ -25,7 +25,10 @@ export interface VariableCreate {
   resolvedType: ResolvedTypeEnum;
   /** The description of this variable. */
   description?: string;
-  /** Whether this variable is hidden when publishing the current file as a library. */
+  /**
+   * Whether this variable is hidden when publishing the current file as a library.
+   * @default false
+   */
   hiddenFromPublishing?: boolean;
   /** An array of scopes in the UI where this variable is shown. Setting this property will show/hide this variable in the variable picker UI for different fields. */
   scopes?: VariableScope[];
@@ -33,6 +36,14 @@ export interface VariableCreate {
   codeSyntax?: VariableCodeSyntax;
 }
 
+/** Array of ActionEnum items */
+export const LIST_ACTION_ENUM = ['CREATE'] as const;
+
+/** List of available values for ActionEnum */
 export type ActionEnum = 'CREATE';
+/** Array of ResolvedTypeEnum items */
+export const LIST_RESOLVED_TYPE_ENUM = ['BOOLEAN', 'FLOAT', 'STRING', 'COLOR'] as const;
+
+/** List of available values for ResolvedTypeEnum */
 export type ResolvedTypeEnum = 'BOOLEAN' | 'FLOAT' | 'STRING' | 'COLOR';
 

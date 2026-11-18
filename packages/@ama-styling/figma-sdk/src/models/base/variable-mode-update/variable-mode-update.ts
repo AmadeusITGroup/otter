@@ -21,5 +21,9 @@ export interface VariableModeUpdate {
   variableCollectionId: string;
 }
 
+/** Array of ActionEnum items */
+export const LIST_ACTION_ENUM = ['UPDATE'] as const;
+
+/** List of available values for ActionEnum */
 export type ActionEnum = 'UPDATE';
 

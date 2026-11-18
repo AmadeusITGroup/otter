@@ -9,7 +9,7 @@
 
 export interface GetImageFills200ResponseMeta {
   /** A map of image references to URLs of the image fills. */
-  images: { [key: string]: string; };
+  images: Record<string, string>;
 }
 
 

@@ -17,6 +17,14 @@ export interface LayoutConstraint {
   horizontal: HorizontalEnum;
 }
 
+/** Array of VerticalEnum items */
+export const LIST_VERTICAL_ENUM = ['TOP', 'BOTTOM', 'CENTER', 'TOP_BOTTOM', 'SCALE'] as const;
+
+/** List of available values for VerticalEnum */
 export type VerticalEnum = 'TOP' | 'BOTTOM' | 'CENTER' | 'TOP_BOTTOM' | 'SCALE';
+/** Array of HorizontalEnum items */
+export const LIST_HORIZONTAL_ENUM = ['LEFT', 'RIGHT', 'CENTER', 'LEFT_RIGHT', 'SCALE'] as const;
+
+/** List of available values for HorizontalEnum */
 export type HorizontalEnum = 'LEFT' | 'RIGHT' | 'CENTER' | 'LEFT_RIGHT' | 'SCALE';
 

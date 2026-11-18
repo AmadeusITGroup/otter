@@ -17,9 +17,16 @@ export interface VariableCollectionUpdate {
   id: string;
   /** The name of this variable collection. */
   name?: string;
-  /** Whether this variable collection is hidden when publishing the current file as a library. */
+  /**
+   * Whether this variable collection is hidden when publishing the current file as a library.
+   * @default false
+   */
   hiddenFromPublishing?: boolean;
 }
 
+/** Array of ActionEnum items */
+export const LIST_ACTION_ENUM = ['UPDATE'] as const;
+
+/** List of available values for ActionEnum */
 export type ActionEnum = 'UPDATE';
 

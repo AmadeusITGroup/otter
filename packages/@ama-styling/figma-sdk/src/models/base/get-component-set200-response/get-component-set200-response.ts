@@ -17,5 +17,9 @@ export interface GetComponentSet200Response {
   meta: PublishedComponentSet;
 }
 
+/** Array of StatusEnum items */
+export const LIST_STATUS_ENUM = ['200'] as const;
+
+/** List of available values for StatusEnum */
 export type StatusEnum = '200';
 

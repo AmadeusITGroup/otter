@@ -14,5 +14,9 @@ import { ConnectorEndpointOneOf1 } from '../connector-endpoint-one-of1';
  */
 export type ConnectorEndpoint = ConnectorEndpointOneOf | ConnectorEndpointOneOf1;
 
+/** Array of MagnetEnum items */
+export const LIST_MAGNET_ENUM = ['AUTO', 'TOP', 'BOTTOM', 'LEFT', 'RIGHT', 'CENTER'] as const;
+
+/** List of available values for MagnetEnum */
 export type MagnetEnum = 'AUTO' | 'TOP' | 'BOTTOM' | 'LEFT' | 'RIGHT' | 'CENTER';
 

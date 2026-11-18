@@ -9,9 +9,15 @@
 import { BlendMode } from '../blend-mode';
 
 export interface BasePaint {
-  /** Is the paint enabled? */
+  /**
+   * Is the paint enabled?
+   * @default true
+   */
   visible?: boolean;
-  /** Overall opacity of paint (colors within the paint can also have opacity values which would blend with this) */
+  /**
+   * Overall opacity of paint (colors within the paint can also have opacity values which would blend with this)
+   * @default 1
+   */
   opacity?: number;
   /** @see BlendMode */
   blendMode: BlendMode;

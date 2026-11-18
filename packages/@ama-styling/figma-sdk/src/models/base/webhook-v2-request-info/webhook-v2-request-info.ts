@@ -16,7 +16,7 @@ export interface WebhookV2RequestInfo {
   /** The actual endpoint the request was sent to */
   endpoint: string;
   /** The contents of the request that was sent to the endpoint */
-  payload: any;
+  payload: object;
   /** UTC ISO 8601 timestamp of when the request was sent */
   sent_at: string;
 }

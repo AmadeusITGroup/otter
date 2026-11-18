@@ -18,6 +18,14 @@ export interface UpdateMediaRuntimeActionOneOf {
   mediaAction: MediaActionEnum;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['UPDATE_MEDIA_RUNTIME'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'UPDATE_MEDIA_RUNTIME';
+/** Array of MediaActionEnum items */
+export const LIST_MEDIA_ACTION_ENUM = ['PLAY', 'PAUSE', 'TOGGLE_PLAY_PAUSE', 'MUTE', 'UNMUTE', 'TOGGLE_MUTE_UNMUTE'] as const;
+
+/** List of available values for MediaActionEnum */
 export type MediaActionEnum = 'PLAY' | 'PAUSE' | 'TOGGLE_PLAY_PAUSE' | 'MUTE' | 'UNMUTE' | 'TOGGLE_MUTE_UNMUTE';
 

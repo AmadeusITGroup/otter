@@ -14,7 +14,7 @@ export interface ActivityLogAction {
   /** The type of the action. */
   type: string;
   /** Metadata of the action. Each action type supports its own metadata attributes. */
-  details: { [key: string]: any; };
+  details: Record<string, any>;
 }
 
 

@@ -26,7 +26,7 @@ export interface FrameInfo {
   /** @see FrameInfoContainingStateGroup */
   containingStateGroup?: FrameInfoContainingStateGroup;
   /** @see FrameInfoContainingComponentSet */
-  containingComponentSet?: FrameInfoContainingComponentSet;
+  containingComponentSet?: FrameInfoContainingComponentSet | null;
 }
 
 

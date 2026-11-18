@@ -18,7 +18,7 @@ export interface TextPathPropertiesTrait {
   /** Internal property, preserved for backward compatibility. Avoid using this value. */
   layoutVersion?: number;
   /** Map from ID to TextPathTypeStyle for looking up style overrides. */
-  styleOverrideTable: { [key: string]: TextPathTypeStyle; };
+  styleOverrideTable: Record<string, TextPathTypeStyle>;
 }
 
 

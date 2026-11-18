@@ -23,5 +23,13 @@ export default [
         projectService: true
       }
     }
+  },
+  {
+    name: '@ama-styling/figma-sdk/models-barrel',
+    files: ['src/models/index.ts'],
+    rules: {
+      // Standalone enum types are re-exported by both `./base` and `./enums` barrels
+      'import/export': 'off'
+    }
   }
 ];

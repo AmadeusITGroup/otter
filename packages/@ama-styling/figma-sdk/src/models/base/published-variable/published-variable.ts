@@ -27,5 +27,9 @@ export interface PublishedVariable {
   updatedAt: string;
 }
 
+/** Array of ResolvedDataTypeEnum items */
+export const LIST_RESOLVED_DATA_TYPE_ENUM = ['BOOLEAN', 'FLOAT', 'STRING', 'COLOR'] as const;
+
+/** List of available values for ResolvedDataTypeEnum */
 export type ResolvedDataTypeEnum = 'BOOLEAN' | 'FLOAT' | 'STRING' | 'COLOR';
 

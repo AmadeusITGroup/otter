@@ -20,7 +20,10 @@ export interface DropShadowEffect {
   offset: Vector;
   /** Radius of the blur effect (applies to shadows as well) */
   radius: number;
-  /** The distance by which to expand (or contract) the shadow.  For drop shadows, a positive `spread` value creates a shadow larger than the node, whereas a negative value creates a shadow smaller than the node.  For inner shadows, a positive `spread` value contracts the shadow. Spread values are only accepted on rectangles and ellipses, or on frames, components, and instances with visible fill paints and `clipsContent` enabled. When left unspecified, the default value is 0. */
+  /**
+   * The distance by which to expand (or contract) the shadow.  For drop shadows, a positive `spread` value creates a shadow larger than the node, whereas a negative value creates a shadow smaller than the node.  For inner shadows, a positive `spread` value contracts the shadow. Spread values are only accepted on rectangles and ellipses, or on frames, components, and instances with visible fill paints and `clipsContent` enabled. When left unspecified, the default value is 0.
+   * @default 0
+   */
   spread?: number;
   /** Whether this shadow is visible. */
   visible: boolean;
@@ -28,9 +31,16 @@ export interface DropShadowEffect {
   boundVariables?: BaseShadowEffectBoundVariables;
   /** A string literal representing the effect's type. Always check the type before reading other properties. */
   type: TypeEnum;
-  /** Whether to show the shadow behind translucent or transparent pixels */
+  /**
+   * Whether to show the shadow behind translucent or transparent pixels
+   * @default false
+   */
   showShadowBehindNode: boolean;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['DROP_SHADOW'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'DROP_SHADOW';
 

@@ -21,7 +21,10 @@ export interface VariableUpdate {
   name?: string;
   /** The description of this variable. */
   description?: string;
-  /** Whether this variable is hidden when publishing the current file as a library. */
+  /**
+   * Whether this variable is hidden when publishing the current file as a library.
+   * @default false
+   */
   hiddenFromPublishing?: boolean;
   /** An array of scopes in the UI where this variable is shown. Setting this property will show/hide this variable in the variable picker UI for different fields. */
   scopes?: VariableScope[];
@@ -29,5 +32,9 @@ export interface VariableUpdate {
   codeSyntax?: VariableCodeSyntax;
 }
 
+/** Array of ActionEnum items */
+export const LIST_ACTION_ENUM = ['UPDATE'] as const;
+
+/** List of available values for ActionEnum */
 export type ActionEnum = 'UPDATE';
 

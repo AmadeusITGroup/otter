@@ -21,5 +21,9 @@ export interface VariableModeCreate {
   variableCollectionId: string;
 }
 
+/** Array of ActionEnum items */
+export const LIST_ACTION_ENUM = ['CREATE'] as const;
+
+/** List of available values for ActionEnum */
 export type ActionEnum = 'CREATE';
 

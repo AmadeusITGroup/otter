@@ -17,5 +17,9 @@ export interface InstanceSwapPreferredValue {
   key: string;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['COMPONENT', 'COMPONENT_SET'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'COMPONENT' | 'COMPONENT_SET';
 

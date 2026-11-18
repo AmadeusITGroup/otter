@@ -3,30 +3,42 @@ import { PostDevResources200Response } from '../../models/base/post-dev-resource
 import { PostDevResourcesRequest } from '../../models/base/post-dev-resources-request/index';
 import { PutDevResources200Response } from '../../models/base/put-dev-resources200-response/index';
 import { PutDevResourcesRequest } from '../../models/base/put-dev-resources-request/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
-
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
+import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to DevResourcesApi's deleteDevResource function */
 export interface DevResourcesApiDeleteDevResourceRequestData {
-  /** The file to delete the dev resource from. This must be a main file key, not a branch key. */
+  /**
+   * The file to delete the dev resource from. This must be a main file key, not a branch key. 
+   */
   'file_key': string;
-  /** The id of the dev resource to delete. */
+  /**
+   * The id of the dev resource to delete. 
+   */
   'dev_resource_id': string;
 }
 /** Parameters object to DevResourcesApi's getDevResources function */
 export interface DevResourcesApiGetDevResourcesRequestData {
-  /** The file to get the dev resources from. This must be a main file key, not a branch key. */
+  /**
+   * The file to get the dev resources from. This must be a main file key, not a branch key. 
+   */
   'file_key': string;
-  /** Comma separated list of nodes that you care about in the document. If specified, only dev resources attached to these nodes will be returned. If not specified, all dev resources in the file will be returned. */
+  /**
+   * Comma separated list of nodes that you care about in the document. If specified, only dev resources attached to these nodes will be returned. If not specified, all dev resources in the file will be returned. 
+   */
   'node_ids'?: string;
 }
 /** Parameters object to DevResourcesApi's postDevResources function */
 export interface DevResourcesApiPostDevResourcesRequestData {
-  /** A list of dev resources that you want to create. */
+  /**
+   * A list of dev resources that you want to create. 
+   */
   'PostDevResourcesRequest': PostDevResourcesRequest;
 }
 /** Parameters object to DevResourcesApi's putDevResources function */
 export interface DevResourcesApiPutDevResourcesRequestData {
-  /** A list of dev resources that you want to update. */
+  /**
+   * A list of dev resources that you want to update. 
+   */
   'PutDevResourcesRequest': PutDevResourcesRequest;
 }
 export class DevResourcesApi implements Api {
@@ -65,6 +77,11 @@ export class DevResourcesApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -75,13 +92,13 @@ export class DevResourcesApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key', 'dev_resource_id']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' }, dev_resource_id: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' }, 'dev_resource_id': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/files/${serializedPathParams['file_key']}/dev_resources/${serializedPathParams['dev_resource_id']}`
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/dev_resources/${this.piiParamTokens['dev_resource_id'] || serializedPathParams['dev_resource_id']}`
+      basePath = `${serverBasePath}/v1/files/${serializedPathParams['file_key']}/dev_resources/${serializedPathParams['dev_resource_id']}`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/dev_resources/${this.piiParamTokens['dev_resource_id'] || serializedPathParams['dev_resource_id']}`;
     } else {
-      basePath = `${this.client.options.basePath}/v1/files/${data['file_key']}/dev_resources/${data['dev_resource_id']}`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/dev_resources/${this.piiParamTokens['dev_resource_id'] || data['dev_resource_id']}`;
+      basePath = `${serverBasePath}/v1/files/${data['file_key']}/dev_resources/${data['dev_resource_id']}`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/dev_resources/${this.piiParamTokens['dev_resource_id'] || data['dev_resource_id']}`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -98,7 +115,7 @@ export class DevResourcesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<void>(url, options, ApiTypes.DEFAULT, DevResourcesApi.apiName, undefined, 'deleteDevResource');
     return ret;
@@ -117,6 +134,11 @@ export class DevResourcesApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -127,18 +149,18 @@ export class DevResourcesApi implements Api {
     let basePath;
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { node_ids: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'node_ids': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/files/${serializedPathParams['file_key']}/dev_resources`
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/dev_resources`
+      basePath = `${serverBasePath}/v1/files/${serializedPathParams['file_key']}/dev_resources`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/dev_resources`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
-      basePath = `${this.client.options.basePath}/v1/files/${data['file_key']}/dev_resources`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/dev_resources`;
+      basePath = `${serverBasePath}/v1/files/${data['file_key']}/dev_resources`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/dev_resources`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -155,7 +177,7 @@ export class DevResourcesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetDevResources200Response>(url, options, ApiTypes.DEFAULT, DevResourcesApi.apiName, undefined, 'getDevResources');
     return ret;
@@ -174,19 +196,25 @@ export class DevResourcesApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
+    const bodyRequestParam = 'PostDevResourcesRequest';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['PostDevResourcesRequest'] !== 'undefined' ? JSON.stringify(data['PostDevResourcesRequest']) : '{}';
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : '{}';
     } else {
-      body = data['PostDevResourcesRequest'] as any;
+      body = data[bodyRequestParam] as any;
     }
 
     let queryParams = {};
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${this.client.options.basePath}/v1/dev_resources`;
-    const tokenizedUrl = `${this.client.options.basePath}/v1/dev_resources`;
+    const basePath = `${serverBasePath}/v1/dev_resources`;
+    const tokenizedUrl = `${serverBasePath}/v1/dev_resources`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -202,7 +230,7 @@ export class DevResourcesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<PostDevResources200Response>(url, options, ApiTypes.DEFAULT, DevResourcesApi.apiName, undefined, 'postDevResources');
     return ret;
@@ -221,19 +249,25 @@ export class DevResourcesApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
+    const bodyRequestParam = 'PutDevResourcesRequest';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['PutDevResourcesRequest'] !== 'undefined' ? JSON.stringify(data['PutDevResourcesRequest']) : '{}';
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : '{}';
     } else {
-      body = data['PutDevResourcesRequest'] as any;
+      body = data[bodyRequestParam] as any;
     }
 
     let queryParams = {};
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${this.client.options.basePath}/v1/dev_resources`;
-    const tokenizedUrl = `${this.client.options.basePath}/v1/dev_resources`;
+    const basePath = `${serverBasePath}/v1/dev_resources`;
+    const tokenizedUrl = `${serverBasePath}/v1/dev_resources`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -249,7 +283,7 @@ export class DevResourcesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<PutDevResources200Response>(url, options, ApiTypes.DEFAULT, DevResourcesApi.apiName, undefined, 'putDevResources');
     return ret;

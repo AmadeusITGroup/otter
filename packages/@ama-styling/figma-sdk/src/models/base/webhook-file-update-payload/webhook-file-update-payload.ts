@@ -22,5 +22,9 @@ export interface WebhookFileUpdatePayload {
   file_name: string;
 }
 
+/** Array of EventTypeEnum items */
+export const LIST_EVENT_TYPE_ENUM = ['FILE_UPDATE'] as const;
+
+/** List of available values for EventTypeEnum */
 export type EventTypeEnum = 'FILE_UPDATE';
 

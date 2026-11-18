@@ -17,5 +17,9 @@ export interface VariableCollectionDelete {
   id: string;
 }
 
+/** Array of ActionEnum items */
+export const LIST_ACTION_ENUM = ['DELETE'] as const;
+
+/** List of available values for ActionEnum */
 export type ActionEnum = 'DELETE';
 

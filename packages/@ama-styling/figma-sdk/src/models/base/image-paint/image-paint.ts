@@ -10,13 +10,19 @@ import { BlendMode } from '../blend-mode';
 import { ImageFilters } from '../image-filters';
 
 export interface ImagePaint {
-  /** Is the paint enabled? */
+  /**
+   * Is the paint enabled?
+   * @default true
+   */
   visible?: boolean;
-  /** Overall opacity of paint (colors within the paint can also have opacity values which would blend with this) */
+  /**
+   * Overall opacity of paint (colors within the paint can also have opacity values which would blend with this)
+   * @default 1
+   */
   opacity?: number;
   /** @see BlendMode */
   blendMode: BlendMode;
-  /** The string literal \"IMAGE\" representing the paint's type. Always check the `type` before reading other properties. */
+  /** The string literal "IMAGE" representing the paint's type. Always check the `type` before reading other properties. */
   type: TypeEnum;
   /** Image scaling mode. */
   scaleMode: ScaleModeEnum;
@@ -28,12 +34,23 @@ export interface ImagePaint {
   scalingFactor?: number;
   /** @see ImageFilters */
   filters?: ImageFilters;
-  /** Image rotation, in degrees. */
+  /**
+   * Image rotation, in degrees.
+   * @default 0
+   */
   rotation?: number;
   /** A reference to an animated GIF embedded in this node. To download the image using this reference, use the `GET file images` endpoint to retrieve the mapping from image references to image URLs. */
   gifRef?: string;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['IMAGE'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'IMAGE';
+/** Array of ScaleModeEnum items */
+export const LIST_SCALE_MODE_ENUM = ['FILL', 'FIT', 'TILE', 'STRETCH'] as const;
+
+/** List of available values for ScaleModeEnum */
 export type ScaleModeEnum = 'FILL' | 'FIT' | 'TILE' | 'STRETCH';
 

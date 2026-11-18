@@ -20,5 +20,9 @@ export interface SimpleTransition {
   easing: Easing;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['DISSOLVE', 'SMART_ANIMATE', 'SCROLL_ANIMATE'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'DISSOLVE' | 'SMART_ANIMATE' | 'SCROLL_ANIMATE';
 

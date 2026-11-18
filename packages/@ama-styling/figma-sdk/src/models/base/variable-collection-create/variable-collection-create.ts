@@ -19,9 +19,16 @@ export interface VariableCollectionCreate {
   name: string;
   /** The initial mode refers to the mode that is created by default. You can set a temporary id here, in order to reference this mode later in this request. */
   initialModeId?: string;
-  /** Whether this variable collection is hidden when publishing the current file as a library. */
+  /**
+   * Whether this variable collection is hidden when publishing the current file as a library.
+   * @default false
+   */
   hiddenFromPublishing?: boolean;
 }
 
+/** Array of ActionEnum items */
+export const LIST_ACTION_ENUM = ['CREATE'] as const;
+
+/** List of available values for ActionEnum */
 export type ActionEnum = 'CREATE';
 

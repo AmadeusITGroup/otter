@@ -14,5 +14,9 @@ export interface DeleteComment200Response {
   error: boolean;
 }
 
+/** Array of StatusEnum items */
+export const LIST_STATUS_ENUM = ['200'] as const;
+
+/** List of available values for StatusEnum */
 export type StatusEnum = '200';
 

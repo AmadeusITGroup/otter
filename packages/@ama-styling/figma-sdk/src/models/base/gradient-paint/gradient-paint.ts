@@ -11,9 +11,15 @@ import { ColorStop } from '../color-stop';
 import { Vector } from '../vector';
 
 export interface GradientPaint {
-  /** Is the paint enabled? */
+  /**
+   * Is the paint enabled?
+   * @default true
+   */
   visible?: boolean;
-  /** Overall opacity of paint (colors within the paint can also have opacity values which would blend with this) */
+  /**
+   * Overall opacity of paint (colors within the paint can also have opacity values which would blend with this)
+   * @default 1
+   */
   opacity?: number;
   /** @see BlendMode */
   blendMode: BlendMode;
@@ -25,5 +31,9 @@ export interface GradientPaint {
   gradientStops: ColorStop[];
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['GRADIENT_LINEAR', 'GRADIENT_RADIAL', 'GRADIENT_ANGULAR', 'GRADIENT_DIAMOND'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'GRADIENT_LINEAR' | 'GRADIENT_RADIAL' | 'GRADIENT_ANGULAR' | 'GRADIENT_DIAMOND';
 

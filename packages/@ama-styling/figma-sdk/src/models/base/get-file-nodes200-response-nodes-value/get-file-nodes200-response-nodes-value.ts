@@ -15,13 +15,16 @@ export interface GetFileNodes200ResponseNodesValue {
   /** @see Node */
   document: Node;
   /** A mapping from component IDs to component metadata. */
-  components: { [key: string]: Component; };
+  components: Record<string, Component>;
   /** A mapping from component set IDs to component set metadata. */
-  componentSets: { [key: string]: ComponentSet; };
-  /** The version of the file schema that this file uses. */
+  componentSets: Record<string, ComponentSet>;
+  /**
+   * The version of the file schema that this file uses.
+   * @default 0
+   */
   schemaVersion: number;
   /** A mapping from style IDs to style metadata. */
-  styles: { [key: string]: Style; };
+  styles: Record<string, Style>;
 }
 
 

@@ -18,5 +18,9 @@ export interface WebhookPingPayload {
   event_type: EventTypeEnum;
 }
 
+/** Array of EventTypeEnum items */
+export const LIST_EVENT_TYPE_ENUM = ['PING'] as const;
+
+/** List of available values for EventTypeEnum */
 export type EventTypeEnum = 'PING';
 

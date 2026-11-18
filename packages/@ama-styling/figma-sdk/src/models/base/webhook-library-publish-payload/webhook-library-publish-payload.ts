@@ -48,5 +48,9 @@ export interface WebhookLibraryPublishPayload {
   triggered_by: User;
 }
 
+/** Array of EventTypeEnum items */
+export const LIST_EVENT_TYPE_ENUM = ['LIBRARY_PUBLISH'] as const;
+
+/** List of available values for EventTypeEnum */
 export type EventTypeEnum = 'LIBRARY_PUBLISH';
 

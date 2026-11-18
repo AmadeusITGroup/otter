@@ -16,5 +16,9 @@ export interface MeasurementStartEnd {
   side: SideEnum;
 }
 
+/** Array of SideEnum items */
+export const LIST_SIDE_ENUM = ['TOP', 'RIGHT', 'BOTTOM', 'LEFT'] as const;
+
+/** List of available values for SideEnum */
 export type SideEnum = 'TOP' | 'RIGHT' | 'BOTTOM' | 'LEFT';
 

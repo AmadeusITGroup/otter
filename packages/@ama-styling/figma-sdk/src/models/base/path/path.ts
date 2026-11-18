@@ -19,5 +19,9 @@ export interface Path {
   overrideID?: number;
 }
 
+/** Array of WindingRuleEnum items */
+export const LIST_WINDING_RULE_ENUM = ['NONZERO', 'EVENODD'] as const;
+
+/** List of available values for WindingRuleEnum */
 export type WindingRuleEnum = 'NONZERO' | 'EVENODD';
 

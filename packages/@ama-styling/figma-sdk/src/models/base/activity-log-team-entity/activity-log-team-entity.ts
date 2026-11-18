@@ -19,5 +19,9 @@ export interface ActivityLogTeamEntity {
   name: string;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['team'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'team';
 

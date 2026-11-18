@@ -17,5 +17,9 @@ export interface Constraint {
   value: number;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['SCALE', 'WIDTH', 'HEIGHT'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'SCALE' | 'WIDTH' | 'HEIGHT';
 
