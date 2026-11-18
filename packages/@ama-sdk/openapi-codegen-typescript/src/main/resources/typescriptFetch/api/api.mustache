@@ -68,11 +68,11 @@ export class {{classname}} implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async {{nickname}}(data: {{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData, metadata?: RequestMetadata<{{#consumes}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/consumes}}{{^consumes}}string{{/consumes}}, {{#produces}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/produces}}{{^produces}}string{{/produces}}>): Promise<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{{.}}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}> {
-    {{#allParams}}
+    {{#requiredParams}}
       {{#defaultValue}}
     data['{{baseName}}'] = data['{{baseName}}'] !== undefined ? data['{{baseName}}'] : {{{defaultValue}}};
       {{/defaultValue}}
-    {{/allParams}}
+    {{/requiredParams}}
     const metadataHeaderAccept = metadata?.headerAccept || '{{#headerJsonMimeType}}{{#produces}}{{mediaType}}{{^-last}}, {{/-last}}{{/produces}}{{/headerJsonMimeType}}';
     const headers: { [key: string]: string | undefined } = {
   {{#trimComma}}    'Content-Type': metadata?.headerContentType || '{{#headerJsonMimeType}}{{#consumes}}{{mediaType}}{{^-last}}, {{/-last}}{{/consumes}}{{/headerJsonMimeType}}',

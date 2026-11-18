@@ -229,7 +229,6 @@ export class PetApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async findPetsByStatus(data: PetApiFindPetsByStatusRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Pet[]> {
-    data['status'] = data['status'] !== undefined ? data['status'] : 'available';
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
