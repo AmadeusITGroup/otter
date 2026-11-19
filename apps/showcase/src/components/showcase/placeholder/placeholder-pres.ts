@@ -4,18 +4,16 @@ import {
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
+  signal,
+  untracked,
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  takeUntilDestroyed,
-} from '@angular/core/rxjs-interop';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+  form,
+  FormField,
+} from '@angular/forms/signals';
 import {
   PlaceholderComponent,
 } from '@o3r/components';
@@ -39,7 +37,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    ReactiveFormsModule,
+    FormField,
     DatePickerInputPres,
     PlaceholderComponent
   ]
@@ -48,20 +46,33 @@ export class PlaceholderPres {
   private readonly tripService = inject(TripFactsService);
 
   /**
-   * Form group
+   * Form model
    */
-  public form: FormGroup<{ destination: FormControl<string | null>; outboundDate: FormControl<string | null> }> = inject(FormBuilder).group({
-    destination: new FormControl<string | null>(null),
-    outboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS))
+  public model = signal({
+    destination: '',
+    outboundDate: this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS)
   });
 
-  constructor() {
-    this.tripService.updateDestination(this.form.controls.destination.value);
-    this.tripService.updateOutboundDate(this.form.controls.outboundDate.value);
+  /**
+   * Form tree
+   */
+  public formTree = form(this.model);
 
-    this.form.controls.destination.valueChanges.pipe(takeUntilDestroyed()).subscribe((destination) => this.tripService.updateDestination(destination));
-    this.form.controls.outboundDate.valueChanges.pipe(takeUntilDestroyed()).subscribe((outboundDate) => {
-      this.tripService.updateOutboundDate(outboundDate);
+  constructor() {
+    // Initial service calls with default values
+    this.tripService.updateDestination(this.model().destination);
+    this.tripService.updateOutboundDate(this.model().outboundDate);
+
+    // Track destination changes
+    effect(() => {
+      const destination = this.model().destination;
+      untracked(() => this.tripService.updateDestination(destination));
+    });
+
+    // Track outbound date changes
+    effect(() => {
+      const outboundDate = this.model().outboundDate;
+      untracked(() => this.tripService.updateOutboundDate(outboundDate));
     });
   }
 

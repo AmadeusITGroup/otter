@@ -2,19 +2,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  effect,
   inject,
+  signal,
+  untracked,
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  takeUntilDestroyed,
-} from '@angular/core/rxjs-interop';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+  form,
+  FormField,
+} from '@angular/forms/signals';
 import {
   O3rComponent,
 } from '@o3r/core';
@@ -26,8 +23,7 @@ import {
 @Component({
   selector: 'o3r-design-token-pres',
   imports: [
-    FormsModule,
-    ReactiveFormsModule
+    FormField
   ],
   templateUrl: './design-token-pres.html',
   styleUrl: './design-token-pres.scss',
@@ -38,11 +34,16 @@ export class DesignTokenPres {
   private readonly styleLoader = inject(StyleLazyLoader);
 
   /**
-   * Form group
+   * Form model
    */
-  public form: FormGroup<{ theme: FormControl<string | null> }> = inject(FormBuilder).group({
-    theme: new FormControl<string | null>('')
+  public model = signal({
+    theme: ''
   });
+
+  /**
+   * Form tree
+   */
+  public formTree = form(this.model);
 
   constructor() {
     let style: HTMLElement | null = null;
@@ -52,13 +53,16 @@ export class DesignTokenPres {
         style = null;
       }
     };
-    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
-      cleanUpStyle();
-      if (value.theme === 'dark') {
-        style = this.styleLoader.loadStyleFromURL({ href: 'dark-theme.css' });
-      } else if (value.theme === 'horizon') {
-        style = this.styleLoader.loadStyleFromURL({ href: 'horizon-theme.css' });
-      }
+    effect(() => {
+      const theme = this.model().theme;
+      untracked(() => {
+        cleanUpStyle();
+        if (theme === 'dark') {
+          style = this.styleLoader.loadStyleFromURL({ href: 'dark-theme.css' });
+        } else if (theme === 'horizon') {
+          style = this.styleLoader.loadStyleFromURL({ href: 'horizon-theme.css' });
+        }
+      });
     });
     inject(DestroyRef).onDestroy(cleanUpStyle);
   }

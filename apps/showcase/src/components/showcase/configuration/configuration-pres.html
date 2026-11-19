@@ -14,11 +14,11 @@
           </h2>
         </div>
         <h3 class="row card-text mt-auto ms-1 h5">Where do you want to go?</h3>
-        <form class="row g-2" [formGroup]="form">
+        <form class="row g-2">
           <div class="col-12 col-xl-6" [class.col-xl-12]="shouldProposeRoundTrip()">
             <div class="input-group">
               <label class="input-group-text w-50" for="destination">Destination</label>
-              <select class="form-select" id="destination" formControlName="destination">
+              <select class="form-select" id="destination" [formField]="formTree.destination">
                 <option disabled selected value> -- select a destination --</option>
                 @for (destination of destinations(); track destination.cityCode) {
                   <option [disabled]="!destination.available"
@@ -30,12 +30,12 @@
           </div>
           <div class="col-12 col-xl-6">
             <o3r-date-picker-input-pres [id]="'date-outbound'" [label]="'Departure'"
-                                        formControlName="outboundDate" />
+                                        [formField]="formTree.outboundDate" />
           </div>
           @if (shouldProposeRoundTrip()) {
             <div class="col-12 col-xl-6">
               <o3r-date-picker-input-pres [id]="'date-inbound'" [label]="'Return'"
-                                          formControlName="inboundDate" />
+                                          [formField]="formTree.inboundDate" />
             </div>
           }
         </form>

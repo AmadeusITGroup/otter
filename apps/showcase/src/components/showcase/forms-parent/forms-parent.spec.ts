@@ -3,9 +3,6 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  ReactiveFormsModule,
-} from '@angular/forms';
-import {
   provideLocalizationMock,
 } from '@o3r/testing/transloco';
 import {
@@ -21,7 +18,7 @@ describe('FormsParent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsParent, ReactiveFormsModule],
+      imports: [FormsParent],
       providers: [provideMarkdown(), provideLocalizationMock()]
     }).compileComponents();
 
