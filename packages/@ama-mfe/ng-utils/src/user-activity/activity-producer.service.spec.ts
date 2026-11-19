@@ -20,6 +20,9 @@ import {
 import {
   ActivityProducerService,
 } from './activity-producer.service';
+import {
+  IframeActivityTrackerService,
+} from './iframe-activity-tracker.service';
 import type {
   ActivityProducerConfig,
 } from './interfaces';
@@ -45,9 +48,34 @@ jest.mock('@angular/core', () => {
 });
 
 describe('ActivityProducerService', () => {
+  const expectedDocumentEvents = [
+    'click',
+    'focus',
+    'keydown',
+    'pointercancel',
+    'pointerdown',
+    'pointerup',
+    'scroll',
+    'touchmove',
+    'touchstart',
+    'visibilitychange',
+    'wheel'
+  ] as const;
+
   let service: ActivityProducerService;
   let connectionServiceMock: jest.Mocked<ConnectionService<any>>;
   let loggerServiceMock: jest.Mocked<LoggerService>;
+  let documentListeners: jest.SpiedFunction<Document['addEventListener']>;
+
+  const notifyInput = (event: Event) => {
+    const trusted = new Proxy(event, {
+      get: (target, key): unknown => key === 'isTrusted' ? true : Reflect.get(target, key, target)
+    });
+    const listener = [...documentListeners.mock.calls].reverse().find(([type]) => type === event.type)?.[1];
+    if (typeof listener === 'function') {
+      listener.call(document, trusted);
+    }
+  };
 
   beforeEach(() => {
     jest.useFakeTimers();
@@ -76,6 +104,7 @@ describe('ActivityProducerService', () => {
     });
 
     service = TestBed.inject(ActivityProducerService);
+    documentListeners = jest.spyOn(document, 'addEventListener');
   });
 
   afterEach(() => {
@@ -83,6 +112,7 @@ describe('ActivityProducerService', () => {
     jest.useRealTimers();
     // Clean up any event listeners
     service?.stop();
+    documentListeners.mockRestore();
   });
 
   describe('initialization', () => {
@@ -144,18 +174,18 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       // First event should send
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Second event should not send (default throttle is 1000ms)
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // After default throttle window passes, it should send again
       jest.advanceTimersByTime(1000);
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(2);
     });
@@ -182,14 +212,10 @@ describe('ActivityProducerService', () => {
       service.start(config);
       afterNextRenderCallback?.();
 
-      // Should add listeners for: click, keydown, scroll, touchstart, focus, visibilitychange
-      expect(addEventListenerSpy).toHaveBeenCalledTimes(6);
-      expect(addEventListenerSpy).toHaveBeenCalledWith('click', expect.any(Function), { passive: true, capture: true });
-      expect(addEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), { passive: true, capture: true });
-      expect(addEventListenerSpy).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true, capture: true });
-      expect(addEventListenerSpy).toHaveBeenCalledWith('touchstart', expect.any(Function), { passive: true, capture: true });
-      expect(addEventListenerSpy).toHaveBeenCalledWith('focus', expect.any(Function), { passive: true, capture: true });
-      expect(addEventListenerSpy).toHaveBeenCalledWith('visibilitychange', expect.any(Function), { passive: true, capture: true });
+      expect(addEventListenerSpy.mock.calls.map(([eventType]) => eventType).toSorted()).toEqual(expectedDocumentEvents);
+      for (const eventType of expectedDocumentEvents) {
+        expect(addEventListenerSpy).toHaveBeenCalledWith(eventType, expect.any(Function), { passive: true, capture: true });
+      }
 
       addEventListenerSpy.mockRestore();
     });
@@ -207,7 +233,10 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
       service.stop();
 
-      expect(removeEventListenerSpy).toHaveBeenCalledTimes(6);
+      expect(removeEventListenerSpy.mock.calls.map(([eventType]) => eventType).toSorted()).toEqual(expectedDocumentEvents);
+      for (const eventType of expectedDocumentEvents) {
+        expect(removeEventListenerSpy).toHaveBeenCalledWith(eventType, expect.any(Function), { capture: true });
+      }
       removeEventListenerSpy.mockRestore();
     });
   });
@@ -223,7 +252,7 @@ describe('ActivityProducerService', () => {
     });
 
     it('should send message on click event', () => {
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
@@ -239,7 +268,7 @@ describe('ActivityProducerService', () => {
     });
 
     it('should update localActivity signal on activity', () => {
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
 
       const activity = service.localActivity();
@@ -251,29 +280,29 @@ describe('ActivityProducerService', () => {
 
     it('should throttle messages', () => {
       // First event should send
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Second event within throttle window should not send
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(50);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Event after throttle window should send
       jest.advanceTimersByTime(100);
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(2);
     });
 
     it('should always update localActivity signal even when throttled', () => {
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
       const firstTimestamp = service.localActivity()?.timestamp;
 
       jest.advanceTimersByTime(50);
-      document.dispatchEvent(new Event('keydown'));
+      notifyInput(new Event('keydown'));
       jest.advanceTimersByTime(0);
 
       // localActivity should be updated even though message was throttled
@@ -282,7 +311,7 @@ describe('ActivityProducerService', () => {
     });
 
     it('should handle keydown events', () => {
-      document.dispatchEvent(new Event('keydown'));
+      notifyInput(new Event('keydown'));
       jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
@@ -296,14 +325,17 @@ describe('ActivityProducerService', () => {
     it('should ignore repeated keydown events', () => {
       const repeatedKeydownEvent = new KeyboardEvent('keydown', { repeat: true });
 
-      document.dispatchEvent(repeatedKeydownEvent);
+      notifyInput(repeatedKeydownEvent);
       jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).not.toHaveBeenCalled();
     });
 
     it('should handle scroll events with throttling', () => {
-      document.dispatchEvent(new Event('scroll'));
+      notifyInput(new Event('keydown'));
+      jest.advanceTimersByTime(300);
+      connectionServiceMock.send.mockClear();
+      notifyInput(new Event('scroll'));
       jest.advanceTimersByTime(300); // Wait for throttle interval (default 300ms)
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
@@ -315,30 +347,33 @@ describe('ActivityProducerService', () => {
     });
 
     it('should throttle high-frequency scroll events', () => {
+      notifyInput(new Event('keydown'));
+      jest.advanceTimersByTime(300);
+      connectionServiceMock.send.mockClear();
       // First scroll event should send immediately
-      document.dispatchEvent(new Event('scroll'));
+      notifyInput(new Event('scroll'));
       jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Second scroll within throttle window (300ms) should not send
-      document.dispatchEvent(new Event('scroll'));
+      notifyInput(new Event('scroll'));
       jest.advanceTimersByTime(100);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Third scroll still within throttle window should not send
-      document.dispatchEvent(new Event('scroll'));
+      notifyInput(new Event('scroll'));
       jest.advanceTimersByTime(100);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // After throttle window passes, next scroll should send
       jest.advanceTimersByTime(200); // Total 400ms since first event
-      document.dispatchEvent(new Event('scroll'));
+      notifyInput(new Event('scroll'));
       jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(2);
     });
 
     it('should handle touchstart events', () => {
-      document.dispatchEvent(new Event('touchstart'));
+      notifyInput(new Event('touchstart'));
       jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
@@ -350,7 +385,7 @@ describe('ActivityProducerService', () => {
     });
 
     it('should handle focus events', () => {
-      document.dispatchEvent(new Event('focus'));
+      notifyInput(new FocusEvent('focus'));
       jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
@@ -401,7 +436,7 @@ describe('ActivityProducerService', () => {
       localService.start({ throttleMs: 100 });
       afterNextRenderCallback?.();
 
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
 
       expect(localConnectionMock.send).not.toHaveBeenCalled();
@@ -429,7 +464,7 @@ describe('ActivityProducerService', () => {
       localService.start({ throttleMs: 100 });
       afterNextRenderCallback?.();
 
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
 
       expect(localConnectionMock.send).not.toHaveBeenCalled();
@@ -459,7 +494,7 @@ describe('ActivityProducerService', () => {
       localService.start({ throttleMs: 100 });
       afterNextRenderCallback?.();
 
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
 
       expect(localConnectionMock.send).toHaveBeenCalled();
@@ -481,7 +516,7 @@ describe('ActivityProducerService', () => {
       service.start(config);
       afterNextRenderCallback?.();
 
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).not.toHaveBeenCalled();
@@ -496,7 +531,7 @@ describe('ActivityProducerService', () => {
       service.start(config);
       afterNextRenderCallback?.();
 
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalled();
@@ -513,7 +548,7 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       const clickEvent = new Event('click');
-      document.dispatchEvent(clickEvent);
+      notifyInput(clickEvent);
       jest.advanceTimersByTime(0);
 
       expect(shouldBroadcastMock).toHaveBeenCalledWith(expect.any(Event));
@@ -529,19 +564,21 @@ describe('ActivityProducerService', () => {
 
       service.start(config);
       afterNextRenderCallback?.();
+      notifyInput(new Event('keydown'));
+      jest.advanceTimersByTime(300);
+      shouldBroadcastMock.mockClear();
 
       // Dispatch many scroll events rapidly (high-frequency event)
       for (let i = 0; i < 10; i++) {
-        document.dispatchEvent(new Event('scroll'));
+        notifyInput(new Event('scroll'));
         jest.advanceTimersByTime(10); // 10ms between each event
       }
 
-      // shouldBroadcast should only be called once due to throttling (300ms throttle, 100ms total time)
       expect(shouldBroadcastMock).toHaveBeenCalledTimes(1);
 
       // After throttle window passes, next scroll should call shouldBroadcast again
       jest.advanceTimersByTime(300);
-      document.dispatchEvent(new Event('scroll'));
+      notifyInput(new Event('scroll'));
       jest.advanceTimersByTime(0);
 
       expect(shouldBroadcastMock).toHaveBeenCalledTimes(2);
@@ -558,11 +595,11 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       // Dispatch multiple click events (not a high-frequency event)
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(10);
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(10);
-      document.dispatchEvent(new Event('click'));
+      notifyInput(new Event('click'));
       jest.advanceTimersByTime(0);
 
       // shouldBroadcast should be called for each click event
@@ -579,6 +616,347 @@ describe('ActivityProducerService', () => {
       expect((service.localActivity as any).set).toBeUndefined();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- testing signal type
       expect((service.localActivity as any).update).toBeUndefined();
+    });
+
+    describe('genuine interaction tracking', () => {
+      let listeners: jest.SpiedFunction<Document['addEventListener']>;
+
+      const notify = notifyInput;
+
+      beforeEach(() => {
+        jest.setSystemTime(10_000);
+        listeners = jest.spyOn(document, 'addEventListener');
+        service.start({ trackNestedIframes: false });
+        afterNextRenderCallback?.();
+      });
+
+      afterEach(() => {
+        listeners.mockRestore();
+      });
+
+      it('ignores synthetic focus without changing local activity or broadcasting', () => {
+        document.dispatchEvent(new FocusEvent('focus'));
+        expect(service.localActivity()).toBeUndefined();
+        expect(connectionServiceMock.send).not.toHaveBeenCalled();
+
+        notify(new MouseEvent('click'));
+        const activity = service.localActivity();
+        connectionServiceMock.send.mockClear();
+        jest.advanceTimersByTime(1000);
+        document.dispatchEvent(new FocusEvent('focus'));
+
+        expect(service.localActivity()).toBe(activity);
+        expect(connectionServiceMock.send).not.toHaveBeenCalled();
+      });
+
+      it('ignores synthetic input and leaves iframe polling disabled by default', () => {
+        document.dispatchEvent(new MouseEvent('click'));
+        document.dispatchEvent(new KeyboardEvent('keydown'));
+        document.dispatchEvent(new WheelEvent('wheel'));
+        expect(connectionServiceMock.send).not.toHaveBeenCalled();
+        const iframe = document.createElement('iframe');
+        document.body.append(iframe);
+        iframe.focus();
+        jest.advanceTimersByTime(60_000);
+        expect(service.localActivity()?.eventType).not.toBe('iframeinteraction');
+        expect(connectionServiceMock.send).not.toHaveBeenCalledWith(
+          expect.objectContaining({ eventType: 'iframeinteraction' }), expect.anything()
+        );
+        iframe.remove();
+      });
+
+      it('honors explicit iframe focus tracking', () => {
+        service.stop();
+        const startTracker = jest.spyOn(TestBed.inject(IframeActivityTrackerService), 'start').mockImplementation(() => {});
+        service.start({ trackNestedIframes: true });
+        afterNextRenderCallback?.();
+
+        expect(startTracker).toHaveBeenCalledTimes(1);
+        startTracker.mock.calls[0][0].onActivity();
+        expect(service.localActivity()?.eventType).toBe('iframeinteraction');
+        expect(connectionServiceMock.send).toHaveBeenCalledWith(
+          expect.objectContaining({ eventType: 'iframeinteraction' }), { to: ['host-app'] }
+        );
+        startTracker.mockRestore();
+      });
+
+      it.each([
+        ['click', 'click'],
+        ['keydown', 'keydown'],
+        ['wheel', 'scroll'],
+        ['pointerdown', 'click'],
+        ['touchstart', 'touchstart'],
+        ['touchmove', 'touchstart']
+      ])('reports trusted %s using the existing %s protocol category', (domEvent, eventType) => {
+        notify(new Event(domEvent));
+        expect(service.localActivity()).toEqual({ channelId: 'local', eventType, timestamp: 10_000 });
+        expect(connectionServiceMock.send).toHaveBeenCalledWith(
+          expect.objectContaining({ eventType, timestamp: 10_000 }), { to: ['host-app'] }
+        );
+      });
+
+      it.each(['focus', 'visibilitychange'])('counts %s as activity and preserves broadcast throttling', (eventType) => {
+        notify(new Event(eventType));
+        notify(new MouseEvent('click'));
+        notify(new MouseEvent('click'));
+        expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
+        expect(connectionServiceMock.send).toHaveBeenNthCalledWith(1, expect.objectContaining({ eventType }), { to: ['host-app'] });
+        expect(service.localActivity()?.eventType).toBe('click');
+        jest.advanceTimersByTime(1000);
+        notify(new MouseEvent('click'));
+        expect(connectionServiceMock.send).toHaveBeenCalledTimes(2);
+        expect(connectionServiceMock.send).toHaveBeenNthCalledWith(2, expect.objectContaining({ eventType: 'click' }), { to: ['host-app'] });
+      });
+
+      it('records focus and visibility notifications after input', () => {
+        notify(new MouseEvent('click'));
+        notify(new FocusEvent('focus'));
+        document.dispatchEvent(new Event('visibilitychange'));
+        expect(service.localActivity()?.eventType).toBe('visibilitychange');
+      });
+
+      it('does not report activity when the document becomes hidden', () => {
+        const visibility = document.visibilityState;
+        Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'hidden' });
+        try {
+          document.dispatchEvent(new Event('visibilitychange'));
+          expect(service.localActivity()).toBeUndefined();
+          expect(connectionServiceMock.send).not.toHaveBeenCalled();
+        } finally {
+          Object.defineProperty(document, 'visibilityState', { configurable: true, value: visibility });
+        }
+      });
+
+      it('does not qualify scrolling from focus or visibility notifications', () => {
+        notify(new FocusEvent('focus'));
+        document.dispatchEvent(new Event('visibilitychange'));
+        notify(new Event('scroll'));
+        expect(service.localActivity()?.eventType).toBe('visibilitychange');
+      });
+
+      it('requires recent input for scrolling and does not extend the window with scrolling', () => {
+        notify(new Event('scroll'));
+        expect(service.localActivity()).toBeUndefined();
+        jest.advanceTimersByTime(300);
+        notify(new WheelEvent('wheel'));
+        jest.advanceTimersByTime(500);
+        notify(new Event('scroll'));
+        expect(service.localActivity()?.timestamp).toBe(10_800);
+        jest.advanceTimersByTime(500);
+        notify(new Event('scroll'));
+        expect(service.localActivity()?.timestamp).toBe(10_800);
+      });
+
+      it('updates local activity for input inside the broadcast throttle window', () => {
+        notify(new KeyboardEvent('keydown'));
+        jest.advanceTimersByTime(10);
+        notify(new Event('scroll'));
+        expect(service.localActivity()?.timestamp).toBe(10_010);
+        expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
+      });
+
+      it.each(['pointerup', 'pointercancel', 'visibilitychange', 'blur'])('tracks sustained scrollbar dragging until %s', (releaseEvent) => {
+        const scroller = document.createElement('div');
+        Object.defineProperties(scroller, {
+          offsetWidth: { value: 300 },
+          offsetHeight: { value: 200 },
+          clientWidth: { value: 284 },
+          clientHeight: { value: 200 },
+          scrollHeight: { value: 2000 }
+        });
+        jest.spyOn(scroller, 'getBoundingClientRect').mockReturnValue(new DOMRect(100, 100, 300, 200));
+        const down = new MouseEvent('pointerdown', { clientX: 392, clientY: 110 });
+        Object.defineProperty(down, 'target', { value: scroller });
+        notify(down);
+        jest.advanceTimersByTime(2000);
+        const scroll = new Event('scroll');
+        Object.defineProperty(scroll, 'target', { value: scroller });
+        notify(scroll);
+        expect(service.localActivity()?.timestamp).toBe(12_000);
+        if (releaseEvent === 'blur') {
+          window.dispatchEvent(new Event('blur'));
+        } else {
+          notify(new Event(releaseEvent));
+        }
+        jest.advanceTimersByTime(1000);
+        notify(scroll);
+        expect(service.localActivity()?.timestamp).toBe(12_000);
+      });
+
+      it.each([
+        [0.5, 0.5, 292, 50, true],
+        [2, 2, 292, 50, true],
+        [0.5, 2, 50, 192, true],
+        [2, 0.5, 50, 192, true],
+        [0.5, 0.5, 150, 100, false],
+        [2, 2, 150, 100, false],
+        [0.5, 0.5, 310, 50, false],
+        [1, 1, -1, 50, false],
+        [1, 1, 50, -1, false],
+        [1, 1, 50, 210, false],
+        [0, 1, 292, 50, false],
+        [1, 0, 50, 192, false]
+      ] as const)('detects scaled scrollbar input at scale (%s, %s), layout position (%s, %s): %s', (scaleX, scaleY, x, y, scrollbar) => {
+        const scroller = document.createElement('div');
+        Object.defineProperties(scroller, {
+          offsetWidth: { value: 300 },
+          offsetHeight: { value: 200 },
+          clientWidth: { value: 284 },
+          clientHeight: { value: 184 },
+          scrollWidth: { value: 2000 },
+          scrollHeight: { value: 2000 }
+        });
+        jest.spyOn(scroller, 'getBoundingClientRect').mockReturnValue(new DOMRect(100, 100, 300 * scaleX, 200 * scaleY));
+        const down = new MouseEvent('pointerdown', { clientX: 100 + x * scaleX, clientY: 100 + y * scaleY });
+        Object.defineProperty(down, 'target', { value: scroller });
+        notify(down);
+        jest.advanceTimersByTime(2000);
+        const scroll = new Event('scroll');
+        Object.defineProperty(scroll, 'target', { value: scroller });
+        notify(scroll);
+        expect(service.localActivity()?.timestamp).toBe(scrollbar ? 12_000 : 10_000);
+      });
+
+      it.each(['document', 'element'])('tracks sustained viewport scrollbar dragging from the %s', (targetType) => {
+        const scroller = document.createElement('div');
+        Object.defineProperties(scroller, {
+          clientWidth: { value: window.innerWidth - 16 },
+          clientHeight: { value: window.innerHeight },
+          scrollHeight: { value: 2000 }
+        });
+        Object.defineProperty(document, 'scrollingElement', { configurable: true, value: scroller });
+        try {
+          const down = new MouseEvent('pointerdown', { clientX: window.innerWidth - 8, clientY: 50 });
+          Object.defineProperty(down, 'target', { value: targetType === 'document' ? document : scroller });
+          notify(down);
+          jest.advanceTimersByTime(2000);
+          const scroll = new Event('scroll');
+          Object.defineProperty(scroll, 'target', { value: document });
+          notify(scroll);
+          expect(service.localActivity()).toEqual({ channelId: 'local', eventType: 'scroll', timestamp: 12_000 });
+        } finally {
+          Reflect.deleteProperty(document, 'scrollingElement');
+        }
+      });
+
+      it('does not treat input on non-HTML elements as scrollbar dragging', () => {
+        const target = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const down = new MouseEvent('pointerdown');
+        Object.defineProperty(down, 'target', { value: target });
+        notify(down);
+        jest.advanceTimersByTime(2000);
+        const scroll = new Event('scroll');
+        Object.defineProperty(scroll, 'target', { value: target });
+        notify(scroll);
+        expect(service.localActivity()).toEqual({ channelId: 'local', eventType: 'click', timestamp: 10_000 });
+      });
+
+      it.each([
+        [0, 200],
+        [300, 0]
+      ])('does not track scrollbar dragging without layout dimensions (%s, %s)', (width, height) => {
+        const scroller = document.createElement('div');
+        Object.defineProperties(scroller, {
+          offsetWidth: { value: width },
+          offsetHeight: { value: height },
+          scrollHeight: { value: 2000 }
+        });
+        const down = new MouseEvent('pointerdown');
+        Object.defineProperty(down, 'target', { value: scroller });
+        notify(down);
+        jest.advanceTimersByTime(2000);
+        const scroll = new Event('scroll');
+        Object.defineProperty(scroll, 'target', { value: scroller });
+        notify(scroll);
+        expect(service.localActivity()).toEqual({ channelId: 'local', eventType: 'click', timestamp: 10_000 });
+      });
+
+      it('honors custom filters without qualifying later scrolling from rejected input', () => {
+        service.stop();
+        listeners.mockClear();
+        service.start({ shouldBroadcast: (event) => event.type !== 'click' });
+        afterNextRenderCallback?.();
+        notify(new MouseEvent('click'));
+        notify(new Event('scroll'));
+        expect(service.localActivity()).toBeUndefined();
+        expect(connectionServiceMock.send).not.toHaveBeenCalled();
+      });
+
+      it('ignores repeated keydown without qualifying later scrolling', () => {
+        notify(new KeyboardEvent('keydown', { repeat: true }));
+        notify(new Event('scroll'));
+        expect(service.localActivity()).toBeUndefined();
+      });
+
+      it('reports every SDK interaction without consuming or bypassing DOM throttling', () => {
+        service.reportIframeInteraction();
+        service.reportIframeInteraction();
+        notify(new MouseEvent('click'));
+        notify(new MouseEvent('click'));
+        service.reportIframeInteraction();
+        for (const [index, eventType] of ['iframeinteraction', 'iframeinteraction', 'click', 'iframeinteraction'].entries()) {
+          expect(connectionServiceMock.send).toHaveBeenNthCalledWith(index + 1, expect.objectContaining({ eventType }), { to: ['host-app'] });
+        }
+        expect(service.localActivity()).toEqual({ channelId: 'local', eventType: 'iframeinteraction', timestamp: 10_000 });
+        service.stop();
+        service.reportIframeInteraction();
+        expect(connectionServiceMock.send).toHaveBeenCalledTimes(4);
+      });
+
+      it('reports explicit iframe input independently of DOM event filters', () => {
+        service.stop();
+        const shouldBroadcast = jest.fn().mockReturnValue(false);
+        service.start({ shouldBroadcast });
+        afterNextRenderCallback?.();
+        notify(new MouseEvent('click'));
+        expect(service.localActivity()).toBeUndefined();
+        expect(shouldBroadcast).toHaveBeenCalledTimes(1);
+
+        service.reportIframeInteraction();
+
+        expect(shouldBroadcast).toHaveBeenCalledTimes(1);
+        expect(service.localActivity()).toEqual({ channelId: 'local', eventType: 'iframeinteraction', timestamp: 10_000 });
+        expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
+        expect(connectionServiceMock.send).toHaveBeenCalledWith(
+          expect.objectContaining({ eventType: 'iframeinteraction', timestamp: 10_000 }), { to: ['host-app'] }
+        );
+      });
+    });
+
+    describe('restart lifecycle', () => {
+      it('cancels pending setup when stopped before rendering', () => {
+        service.start();
+        service.stop();
+        afterNextRenderCallback?.();
+        notifyInput(new Event('click'));
+        expect(connectionServiceMock.send).not.toHaveBeenCalled();
+      });
+
+      it('ignores old setup callbacks after restarting and resets broadcast throttling', () => {
+        service.start();
+        const oldCallback = afterNextRenderCallback;
+        service.stop();
+        service.start();
+        oldCallback?.();
+        afterNextRenderCallback?.();
+        notifyInput(new Event('click'));
+        expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
+        service.stop();
+        service.start();
+        afterNextRenderCallback?.();
+        notifyInput(new Event('click'));
+        expect(connectionServiceMock.send).toHaveBeenCalledTimes(2);
+      });
+
+      it('records explicit reports locally without interested peers', () => {
+        connectionServiceMock.knownPeers.clear();
+        service.reportIframeInteraction();
+        expect(service.localActivity()).toBeUndefined();
+        service.start();
+        service.reportIframeInteraction();
+        expect(service.localActivity()?.eventType).toBe('iframeinteraction');
+        expect(connectionServiceMock.send).not.toHaveBeenCalled();
+      });
     });
   });
 });
