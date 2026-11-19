@@ -33,5 +33,9 @@ export interface NodeAction {
   resetInteractiveComponents?: boolean;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['NODE'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'NODE';
 

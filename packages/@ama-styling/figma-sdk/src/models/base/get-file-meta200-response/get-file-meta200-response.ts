@@ -33,7 +33,19 @@ export interface GetFileMeta200Response {
   version?: string;
 }
 
+/** Array of EditorTypeEnum items */
+export const LIST_EDITOR_TYPE_ENUM = ['figma', 'figjam', 'slides'] as const;
+
+/** List of available values for EditorTypeEnum */
 export type EditorTypeEnum = 'figma' | 'figjam' | 'slides';
+/** Array of RoleEnum items */
+export const LIST_ROLE_ENUM = ['owner', 'editor', 'viewer'] as const;
+
+/** List of available values for RoleEnum */
 export type RoleEnum = 'owner' | 'editor' | 'viewer';
+/** Array of LinkAccessEnum items */
+export const LIST_LINK_ACCESS_ENUM = ['view', 'edit', 'org_view', 'org_edit', 'inherit'] as const;
+
+/** List of available values for LinkAccessEnum */
 export type LinkAccessEnum = 'view' | 'edit' | 'org_view' | 'org_edit' | 'inherit';
 

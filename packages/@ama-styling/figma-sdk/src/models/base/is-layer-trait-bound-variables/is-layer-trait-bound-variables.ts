@@ -73,8 +73,8 @@ export interface IsLayerTraitBoundVariables {
   fills?: VariableAlias[];
   /** List of VariableAliass */
   strokes?: VariableAlias[];
-  /** @see { [key: string]: VariableAlias; } */
-  componentProperties?: { [key: string]: VariableAlias; };
+  /** @see Record&lt;string, VariableAlias&gt; */
+  componentProperties?: Record<string, VariableAlias>;
   /** List of VariableAliass */
   textRangeFills?: VariableAlias[];
   /** List of VariableAliass */

@@ -1,6 +1,6 @@
 import { GetMe200Response } from '../../models/base/get-me200-response/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
-
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
+import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to UsersApi's getMe function */
 export interface UsersApiGetMeRequestData {
 }
@@ -40,14 +40,19 @@ export class UsersApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${this.client.options.basePath}/v1/me`;
-    const tokenizedUrl = `${this.client.options.basePath}/v1/me`;
+    const basePath = `${serverBasePath}/v1/me`;
+    const tokenizedUrl = `${serverBasePath}/v1/me`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -63,7 +68,7 @@ export class UsersApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetMe200Response>(url, options, ApiTypes.DEFAULT, UsersApi.apiName, undefined, 'getMe');
     return ret;

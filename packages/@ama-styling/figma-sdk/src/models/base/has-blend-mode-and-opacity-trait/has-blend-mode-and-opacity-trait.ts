@@ -11,7 +11,10 @@ import { BlendMode } from '../blend-mode';
 export interface HasBlendModeAndOpacityTrait {
   /** @see BlendMode */
   blendMode: BlendMode;
-  /** Opacity of the node */
+  /**
+   * Opacity of the node
+   * @default 1
+   */
   opacity?: number;
 }
 

@@ -33,6 +33,14 @@ export interface LayoutGrid {
   boundVariables?: LayoutGridBoundVariables;
 }
 
+/** Array of PatternEnum items */
+export const LIST_PATTERN_ENUM = ['COLUMNS', 'ROWS', 'GRID'] as const;
+
+/** List of available values for PatternEnum */
 export type PatternEnum = 'COLUMNS' | 'ROWS' | 'GRID';
+/** Array of AlignmentEnum items */
+export const LIST_ALIGNMENT_ENUM = ['MIN', 'MAX', 'STRETCH', 'CENTER'] as const;
+
+/** List of available values for AlignmentEnum */
 export type AlignmentEnum = 'MIN' | 'MAX' | 'STRETCH' | 'CENTER';
 

@@ -21,5 +21,9 @@ export interface ActivityLogUserEntity {
   email: string;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['user'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'user';
 

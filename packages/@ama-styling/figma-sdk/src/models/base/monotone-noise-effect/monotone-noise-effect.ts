@@ -21,6 +21,14 @@ export interface MonotoneNoiseEffect {
   noiseType: NoiseTypeEnum;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['NOISE'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'NOISE';
+/** Array of NoiseTypeEnum items */
+export const LIST_NOISE_TYPE_ENUM = ['MONOTONE'] as const;
+
+/** List of available values for NoiseTypeEnum */
 export type NoiseTypeEnum = 'MONOTONE';
 

@@ -21,6 +21,14 @@ export interface PrototypeDevice {
   rotation: RotationEnum;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['NONE', 'PRESET', 'CUSTOM', 'PRESENTATION'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'NONE' | 'PRESET' | 'CUSTOM' | 'PRESENTATION';
+/** Array of RotationEnum items */
+export const LIST_ROTATION_ENUM = ['NONE', 'CCW_90'] as const;
+
+/** List of available values for RotationEnum */
 export type RotationEnum = 'NONE' | 'CCW_90';
 

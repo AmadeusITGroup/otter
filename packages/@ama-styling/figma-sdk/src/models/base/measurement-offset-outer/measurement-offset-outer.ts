@@ -16,5 +16,9 @@ export interface MeasurementOffsetOuter {
   fixed: number;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['OUTER'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'OUTER';
 

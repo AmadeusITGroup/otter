@@ -26,31 +26,49 @@ export interface BooleanOperationNode {
   id: string;
   /** The name given to the node by the user in the tool. */
   name: string;
-  /** The type of this node, represented by the string literal \"BOOLEAN_OPERATION\" */
+  /** The type of this node, represented by the string literal "BOOLEAN_OPERATION" */
   type: TypeEnum;
-  /** Whether or not the node is visible on the canvas. */
+  /**
+   * Whether or not the node is visible on the canvas.
+   * @default true
+   */
   visible?: boolean;
-  /** If true, layer is locked and cannot be edited */
+  /**
+   * If true, layer is locked and cannot be edited
+   * @default false
+   */
   locked?: boolean;
-  /** Whether the layer is fixed while the parent is scrolling */
+  /**
+   * Whether the layer is fixed while the parent is scrolling
+   * @default false
+   */
   isFixed?: boolean;
-  /** How layer should be treated when the frame is resized */
+  /**
+   * How layer should be treated when the frame is resized
+   * @default 'SCROLLS'
+   */
   scrollBehavior: ScrollBehaviorEnum;
-  /** The rotation of the node, if not 0. */
+  /**
+   * The rotation of the node, if not 0.
+   * @default 0
+   */
   rotation?: number;
   /** A mapping of a layer's property to component property name of component properties attached to this node. The component property name can be used to look up more information on the corresponding component's or component set's componentPropertyDefinitions. */
-  componentPropertyReferences?: { [key: string]: string; };
+  componentPropertyReferences?: Record<string, string>;
   /** Data written by plugins that is visible only to the plugin that wrote it. Requires the `pluginData` to include the ID of the plugin. */
   pluginData?: any;
-  /** Data written by plugins that is visible to all plugins. Requires the `pluginData` parameter to include the string \"shared\". */
+  /** Data written by plugins that is visible to all plugins. Requires the `pluginData` parameter to include the string "shared". */
   sharedPluginData?: any;
   /** @see IsLayerTraitBoundVariables */
   boundVariables?: IsLayerTraitBoundVariables;
   /** A mapping of variable collection ID to mode ID representing the explicitly set modes for this node. */
-  explicitVariableModes?: { [key: string]: string; };
+  explicitVariableModes?: Record<string, string>;
   /** @see BlendMode */
   blendMode: BlendMode;
-  /** Opacity of the node */
+  /**
+   * Opacity of the node
+   * @default 1
+   */
   opacity?: number;
   /** An array of nodes that are direct children of this node */
   children: SubcanvasNode[];
@@ -58,7 +76,10 @@ export interface BooleanOperationNode {
   absoluteBoundingBox: HasLayoutTraitAbsoluteBoundingBox;
   /** @see HasLayoutTraitAbsoluteRenderBounds */
   absoluteRenderBounds: HasLayoutTraitAbsoluteRenderBounds;
-  /** Keep height and width constrained to same ratio. */
+  /**
+   * Keep height and width constrained to same ratio.
+   * @default false
+   */
   preserveRatio?: boolean;
   /** @see LayoutConstraint */
   constraints?: LayoutConstraint;
@@ -66,19 +87,37 @@ export interface BooleanOperationNode {
   relativeTransform?: number[][];
   /** @see Vector */
   size?: Vector;
-  /**  Determines if the layer should stretch along the parent's counter axis. This property is only provided for direct children of auto-layout frames.  - `INHERIT` - `STRETCH`  In previous versions of auto layout, determined how the layer is aligned inside an auto-layout frame. This property is only provided for direct children of auto-layout frames.  - `MIN` - `CENTER` - `MAX` - `STRETCH`  In horizontal auto-layout frames, \"MIN\" and \"MAX\" correspond to \"TOP\" and \"BOTTOM\". In vertical auto-layout frames, \"MIN\" and \"MAX\" correspond to \"LEFT\" and \"RIGHT\". */
+  /**  Determines if the layer should stretch along the parent's counter axis. This property is only provided for direct children of auto-layout frames.  - `INHERIT` - `STRETCH`  In previous versions of auto layout, determined how the layer is aligned inside an auto-layout frame. This property is only provided for direct children of auto-layout frames.  - `MIN` - `CENTER` - `MAX` - `STRETCH`  In horizontal auto-layout frames, "MIN" and "MAX" correspond to "TOP" and "BOTTOM". In vertical auto-layout frames, "MIN" and "MAX" correspond to "LEFT" and "RIGHT". */
   layoutAlign?: LayoutAlignEnum;
-  /** This property is applicable only for direct children of auto-layout frames, ignored otherwise. Determines whether a layer should stretch along the parent's primary axis. A `0` corresponds to a fixed size and `1` corresponds to stretch. */
+  /**
+   * This property is applicable only for direct children of auto-layout frames, ignored otherwise. Determines whether a layer should stretch along the parent's primary axis. A `0` corresponds to a fixed size and `1` corresponds to stretch.
+   * @default 0
+   */
   layoutGrow?: LayoutGrowEnum;
-  /** Determines whether a layer's size and position should be determined by auto-layout settings or manually adjustable. */
+  /**
+   * Determines whether a layer's size and position should be determined by auto-layout settings or manually adjustable.
+   * @default 'AUTO'
+   */
   layoutPositioning?: LayoutPositioningEnum;
-  /** The minimum width of the frame. This property is only applicable for auto-layout frames or direct children of auto-layout frames. */
+  /**
+   * The minimum width of the frame. This property is only applicable for auto-layout frames or direct children of auto-layout frames.
+   * @default 0
+   */
   minWidth?: number;
-  /** The maximum width of the frame. This property is only applicable for auto-layout frames or direct children of auto-layout frames. */
+  /**
+   * The maximum width of the frame. This property is only applicable for auto-layout frames or direct children of auto-layout frames.
+   * @default 0
+   */
   maxWidth?: number;
-  /** The minimum height of the frame. This property is only applicable for auto-layout frames or direct children of auto-layout frames. */
+  /**
+   * The minimum height of the frame. This property is only applicable for auto-layout frames or direct children of auto-layout frames.
+   * @default 0
+   */
   minHeight?: number;
-  /** The maximum height of the frame. This property is only applicable for auto-layout frames or direct children of auto-layout frames. */
+  /**
+   * The maximum height of the frame. This property is only applicable for auto-layout frames or direct children of auto-layout frames.
+   * @default 0
+   */
   maxHeight?: number;
   /** The horizontal sizing setting on this auto-layout frame or frame child. - `FIXED` - `HUG`: only valid on auto-layout frames and text nodes - `FILL`: only valid on auto-layout frame children */
   layoutSizingHorizontal?: LayoutSizingHorizontalEnum;
@@ -87,36 +126,54 @@ export interface BooleanOperationNode {
   /** An array of fill paints applied to the node. */
   fills: Paint[];
   /** A mapping of a StyleType to style ID (see Style) of styles present on this node. The style ID can be used to look up more information about the style in the top-level styles field. */
-  styles?: { [key: string]: string; };
+  styles?: Record<string, string>;
   /** An array of stroke paints applied to the node. */
   strokes?: Paint[];
-  /** The weight of strokes on the node. */
+  /**
+   * The weight of strokes on the node.
+   * @default 1
+   */
   strokeWeight?: number;
   /** Position of stroke relative to vector outline, as a string enum  - `INSIDE`: stroke drawn inside the shape boundary - `OUTSIDE`: stroke drawn outside the shape boundary - `CENTER`: stroke drawn centered along the shape boundary */
   strokeAlign?: StrokeAlignEnum;
-  /** A string enum with value of \"MITER\", \"BEVEL\", or \"ROUND\", describing how corners in vector paths are rendered. */
+  /**
+   * A string enum with value of "MITER", "BEVEL", or "ROUND", describing how corners in vector paths are rendered.
+   * @default 'MITER'
+   */
   strokeJoin?: StrokeJoinEnum;
   /** An array of floating point numbers describing the pattern of dash length and gap lengths that the vector stroke will use when drawn.  For example a value of [1, 2] indicates that the stroke will be drawn with a dash of length 1 followed by a gap of length 2, repeated. */
   strokeDashes?: number[];
   /** Map from ID to PaintOverride for looking up fill overrides. To see which regions are overriden, you must use the `geometry=paths` option. Each path returned may have an `overrideID` which maps to this table. */
-  fillOverrideTable?: { [key: string]: HasGeometryTraitFillOverrideTable; };
+  fillOverrideTable?: Record<string, HasGeometryTraitFillOverrideTable>;
   /** Only specified if parameter `geometry=paths` is used. An array of paths representing the object fill. */
   fillGeometry?: Path[];
   /** Only specified if parameter `geometry=paths` is used. An array of paths representing the object stroke. */
   strokeGeometry?: Path[];
-  /** A string enum describing the end caps of vector paths. */
+  /**
+   * A string enum describing the end caps of vector paths.
+   * @default 'NONE'
+   */
   strokeCap?: StrokeCapEnum;
-  /** Only valid if `strokeJoin` is \"MITER\". The corner angle, in degrees, below which `strokeJoin` will be set to \"BEVEL\" to avoid super sharp corners. By default this is 28.96 degrees. */
+  /**
+   * Only valid if `strokeJoin` is "MITER". The corner angle, in degrees, below which `strokeJoin` will be set to "BEVEL" to avoid super sharp corners. By default this is 28.96 degrees.
+   * @default 28.96
+   */
   strokeMiterAngle?: number;
   /** An array of export settings representing images to export from the node. */
   exportSettings?: ExportSetting[];
   /** An array of effects attached to this node (see effects section for more details) */
   effects: Effect[];
-  /** Does this node mask sibling nodes in front of it? */
+  /**
+   * Does this node mask sibling nodes in front of it?
+   * @default false
+   */
   isMask?: boolean;
   /** If this layer is a mask, this property describes the operation used to mask the layer's siblings. The value may be one of the following:  - ALPHA: the mask node's alpha channel will be used to determine the opacity of each pixel in the masked result. - VECTOR: if the mask node has visible fill paints, every pixel inside the node's fill regions will be fully visible in the masked result. If the mask has visible stroke paints, every pixel inside the node's stroke regions will be fully visible in the masked result. - LUMINANCE: the luminance value of each pixel of the mask node will be used to determine the opacity of that pixel in the masked result. */
   maskType?: MaskTypeEnum;
-  /** True if maskType is VECTOR. This field is deprecated; use maskType instead. */
+  /**
+   * True if maskType is VECTOR. This field is deprecated; use maskType instead.
+   * @default false
+   */
   isMaskOutline?: boolean;
   /** Node ID of node to transition to in prototyping */
   transitionNodeID?: string;
@@ -130,16 +187,64 @@ export interface BooleanOperationNode {
   booleanOperation: BooleanOperationEnum;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['BOOLEAN_OPERATION'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'BOOLEAN_OPERATION';
+/** Array of ScrollBehaviorEnum items */
+export const LIST_SCROLL_BEHAVIOR_ENUM = ['SCROLLS', 'FIXED', 'STICKY_SCROLLS'] as const;
+
+/** List of available values for ScrollBehaviorEnum */
 export type ScrollBehaviorEnum = 'SCROLLS' | 'FIXED' | 'STICKY_SCROLLS';
+/** Array of LayoutAlignEnum items */
+export const LIST_LAYOUT_ALIGN_ENUM = ['INHERIT', 'STRETCH', 'MIN', 'CENTER', 'MAX'] as const;
+
+/** List of available values for LayoutAlignEnum */
 export type LayoutAlignEnum = 'INHERIT' | 'STRETCH' | 'MIN' | 'CENTER' | 'MAX';
+/** Array of LayoutGrowEnum items */
+export const LIST_LAYOUT_GROW_ENUM = ['0', '1'] as const;
+
+/** List of available values for LayoutGrowEnum */
 export type LayoutGrowEnum = '0' | '1';
+/** Array of LayoutPositioningEnum items */
+export const LIST_LAYOUT_POSITIONING_ENUM = ['AUTO', 'ABSOLUTE'] as const;
+
+/** List of available values for LayoutPositioningEnum */
 export type LayoutPositioningEnum = 'AUTO' | 'ABSOLUTE';
+/** Array of LayoutSizingHorizontalEnum items */
+export const LIST_LAYOUT_SIZING_HORIZONTAL_ENUM = ['FIXED', 'HUG', 'FILL'] as const;
+
+/** List of available values for LayoutSizingHorizontalEnum */
 export type LayoutSizingHorizontalEnum = 'FIXED' | 'HUG' | 'FILL';
+/** Array of LayoutSizingVerticalEnum items */
+export const LIST_LAYOUT_SIZING_VERTICAL_ENUM = ['FIXED', 'HUG', 'FILL'] as const;
+
+/** List of available values for LayoutSizingVerticalEnum */
 export type LayoutSizingVerticalEnum = 'FIXED' | 'HUG' | 'FILL';
+/** Array of StrokeAlignEnum items */
+export const LIST_STROKE_ALIGN_ENUM = ['INSIDE', 'OUTSIDE', 'CENTER'] as const;
+
+/** List of available values for StrokeAlignEnum */
 export type StrokeAlignEnum = 'INSIDE' | 'OUTSIDE' | 'CENTER';
+/** Array of StrokeJoinEnum items */
+export const LIST_STROKE_JOIN_ENUM = ['MITER', 'BEVEL', 'ROUND'] as const;
+
+/** List of available values for StrokeJoinEnum */
 export type StrokeJoinEnum = 'MITER' | 'BEVEL' | 'ROUND';
+/** Array of StrokeCapEnum items */
+export const LIST_STROKE_CAP_ENUM = ['NONE', 'ROUND', 'SQUARE', 'LINE_ARROW', 'TRIANGLE_ARROW', 'DIAMOND_FILLED', 'CIRCLE_FILLED', 'TRIANGLE_FILLED', 'WASHI_TAPE_1', 'WASHI_TAPE_2', 'WASHI_TAPE_3', 'WASHI_TAPE_4', 'WASHI_TAPE_5', 'WASHI_TAPE_6'] as const;
+
+/** List of available values for StrokeCapEnum */
 export type StrokeCapEnum = 'NONE' | 'ROUND' | 'SQUARE' | 'LINE_ARROW' | 'TRIANGLE_ARROW' | 'DIAMOND_FILLED' | 'CIRCLE_FILLED' | 'TRIANGLE_FILLED' | 'WASHI_TAPE_1' | 'WASHI_TAPE_2' | 'WASHI_TAPE_3' | 'WASHI_TAPE_4' | 'WASHI_TAPE_5' | 'WASHI_TAPE_6';
+/** Array of MaskTypeEnum items */
+export const LIST_MASK_TYPE_ENUM = ['ALPHA', 'VECTOR', 'LUMINANCE'] as const;
+
+/** List of available values for MaskTypeEnum */
 export type MaskTypeEnum = 'ALPHA' | 'VECTOR' | 'LUMINANCE';
+/** Array of BooleanOperationEnum items */
+export const LIST_BOOLEAN_OPERATION_ENUM = ['UNION', 'INTERSECT', 'SUBTRACT', 'EXCLUDE'] as const;
+
+/** List of available values for BooleanOperationEnum */
 export type BooleanOperationEnum = 'UNION' | 'INTERSECT' | 'SUBTRACT' | 'EXCLUDE';
 

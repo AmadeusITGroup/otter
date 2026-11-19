@@ -12,5 +12,9 @@ export interface TriggerOneOf2 {
   type: TypeEnum;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['ON_MEDIA_END'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'ON_MEDIA_END';
 

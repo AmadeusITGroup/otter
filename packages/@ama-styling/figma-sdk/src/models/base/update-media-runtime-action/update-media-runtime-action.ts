@@ -15,6 +15,14 @@ import { UpdateMediaRuntimeActionOneOf2 } from '../update-media-runtime-action-o
  */
 export type UpdateMediaRuntimeAction = UpdateMediaRuntimeActionOneOf | UpdateMediaRuntimeActionOneOf1 | UpdateMediaRuntimeActionOneOf2;
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['UPDATE_MEDIA_RUNTIME'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'UPDATE_MEDIA_RUNTIME';
+/** Array of MediaActionEnum items */
+export const LIST_MEDIA_ACTION_ENUM = ['SKIP_TO'] as const;
+
+/** List of available values for MediaActionEnum */
 export type MediaActionEnum = 'SKIP_TO';
 

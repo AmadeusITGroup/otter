@@ -15,27 +15,46 @@ export interface IsLayerTrait {
   name: string;
   /** The type of the node */
   type: string;
-  /** Whether or not the node is visible on the canvas. */
+  /**
+   * Whether or not the node is visible on the canvas.
+   * @default true
+   */
   visible?: boolean;
-  /** If true, layer is locked and cannot be edited */
+  /**
+   * If true, layer is locked and cannot be edited
+   * @default false
+   */
   locked?: boolean;
-  /** Whether the layer is fixed while the parent is scrolling */
+  /**
+   * Whether the layer is fixed while the parent is scrolling
+   * @default false
+   */
   isFixed?: boolean;
-  /** How layer should be treated when the frame is resized */
+  /**
+   * How layer should be treated when the frame is resized
+   * @default 'SCROLLS'
+   */
   scrollBehavior: ScrollBehaviorEnum;
-  /** The rotation of the node, if not 0. */
+  /**
+   * The rotation of the node, if not 0.
+   * @default 0
+   */
   rotation?: number;
   /** A mapping of a layer's property to component property name of component properties attached to this node. The component property name can be used to look up more information on the corresponding component's or component set's componentPropertyDefinitions. */
-  componentPropertyReferences?: { [key: string]: string; };
+  componentPropertyReferences?: Record<string, string>;
   /** Data written by plugins that is visible only to the plugin that wrote it. Requires the `pluginData` to include the ID of the plugin. */
   pluginData?: any;
-  /** Data written by plugins that is visible to all plugins. Requires the `pluginData` parameter to include the string \"shared\". */
+  /** Data written by plugins that is visible to all plugins. Requires the `pluginData` parameter to include the string "shared". */
   sharedPluginData?: any;
   /** @see IsLayerTraitBoundVariables */
   boundVariables?: IsLayerTraitBoundVariables;
   /** A mapping of variable collection ID to mode ID representing the explicitly set modes for this node. */
-  explicitVariableModes?: { [key: string]: string; };
+  explicitVariableModes?: Record<string, string>;
 }
 
+/** Array of ScrollBehaviorEnum items */
+export const LIST_SCROLL_BEHAVIOR_ENUM = ['SCROLLS', 'FIXED', 'STICKY_SCROLLS'] as const;
+
+/** List of available values for ScrollBehaviorEnum */
 export type ScrollBehaviorEnum = 'SCROLLS' | 'FIXED' | 'STICKY_SCROLLS';
 

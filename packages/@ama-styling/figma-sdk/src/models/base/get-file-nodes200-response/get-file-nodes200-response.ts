@@ -22,9 +22,17 @@ export interface GetFileNodes200Response {
   /** The version number of the file. This number is incremented when a file is modified and can be used to check if the file has changed between requests. */
   version: string;
   /** A mapping from node IDs to node metadata. */
-  nodes: { [key: string]: GetFileNodes200ResponseNodesValue; };
+  nodes: Record<string, GetFileNodes200ResponseNodesValue>;
 }
 
+/** Array of RoleEnum items */
+export const LIST_ROLE_ENUM = ['owner', 'editor', 'viewer'] as const;
+
+/** List of available values for RoleEnum */
 export type RoleEnum = 'owner' | 'editor' | 'viewer';
+/** Array of EditorTypeEnum items */
+export const LIST_EDITOR_TYPE_ENUM = ['figma', 'figjam'] as const;
+
+/** List of available values for EditorTypeEnum */
 export type EditorTypeEnum = 'figma' | 'figjam';
 

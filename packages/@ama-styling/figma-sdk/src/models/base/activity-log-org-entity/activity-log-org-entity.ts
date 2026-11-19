@@ -19,5 +19,9 @@ export interface ActivityLogOrgEntity {
   name: string;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['org'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'org';
 

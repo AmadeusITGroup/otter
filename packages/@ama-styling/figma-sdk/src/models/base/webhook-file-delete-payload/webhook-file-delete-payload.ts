@@ -25,5 +25,9 @@ export interface WebhookFileDeletePayload {
   triggered_by: User;
 }
 
+/** Array of EventTypeEnum items */
+export const LIST_EVENT_TYPE_ENUM = ['FILE_DELETE'] as const;
+
+/** List of available values for EventTypeEnum */
 export type EventTypeEnum = 'FILE_DELETE';
 

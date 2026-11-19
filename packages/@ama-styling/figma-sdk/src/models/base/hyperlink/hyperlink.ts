@@ -19,5 +19,9 @@ export interface Hyperlink {
   nodeID?: string;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['URL', 'NODE'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'URL' | 'NODE';
 

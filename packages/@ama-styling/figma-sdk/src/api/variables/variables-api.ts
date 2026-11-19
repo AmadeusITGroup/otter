@@ -2,23 +2,31 @@ import { GetLocalVariables200Response } from '../../models/base/get-local-variab
 import { GetPublishedVariables200Response } from '../../models/base/get-published-variables200-response/index';
 import { PostVariables200Response } from '../../models/base/post-variables200-response/index';
 import { PostVariablesRequest } from '../../models/base/post-variables-request/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
-
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
+import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to VariablesApi's getLocalVariables function */
 export interface VariablesApiGetLocalVariablesRequestData {
-  /** File to get variables from. This can be a file key or branch key. Use `GET /v1/files/:key` with the `branch_data` query param to get the branch key. */
+  /**
+   * File to get variables from. This can be a file key or branch key. Use `GET /v1/files/:key` with the `branch_data` query param to get the branch key. 
+   */
   'file_key': string;
 }
 /** Parameters object to VariablesApi's getPublishedVariables function */
 export interface VariablesApiGetPublishedVariablesRequestData {
-  /** File to get variables from. This must be a main file key, not a branch key, as it is not possible to publish from branches. */
+  /**
+   * File to get variables from. This must be a main file key, not a branch key, as it is not possible to publish from branches. 
+   */
   'file_key': string;
 }
 /** Parameters object to VariablesApi's postVariables function */
 export interface VariablesApiPostVariablesRequestData {
-  /** File to modify variables in. This can be a file key or branch key. Use `GET /v1/files/:key` with the `branch_data` query param to get the branch key. */
+  /**
+   * File to modify variables in. This can be a file key or branch key. Use `GET /v1/files/:key` with the `branch_data` query param to get the branch key. 
+   */
   'file_key': string;
-  /**  */
+  /**
+   *  
+   */
   'PostVariablesRequest': PostVariablesRequest;
 }
 export class VariablesApi implements Api {
@@ -57,6 +65,11 @@ export class VariablesApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -67,13 +80,13 @@ export class VariablesApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/files/${serializedPathParams['file_key']}/variables/local`
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/variables/local`
+      basePath = `${serverBasePath}/v1/files/${serializedPathParams['file_key']}/variables/local`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/variables/local`;
     } else {
-      basePath = `${this.client.options.basePath}/v1/files/${data['file_key']}/variables/local`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/variables/local`;
+      basePath = `${serverBasePath}/v1/files/${data['file_key']}/variables/local`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/variables/local`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -90,7 +103,7 @@ export class VariablesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLocalVariables200Response>(url, options, ApiTypes.DEFAULT, VariablesApi.apiName, undefined, 'getLocalVariables');
     return ret;
@@ -109,6 +122,11 @@ export class VariablesApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -119,13 +137,13 @@ export class VariablesApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/files/${serializedPathParams['file_key']}/variables/published`
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/variables/published`
+      basePath = `${serverBasePath}/v1/files/${serializedPathParams['file_key']}/variables/published`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/variables/published`;
     } else {
-      basePath = `${this.client.options.basePath}/v1/files/${data['file_key']}/variables/published`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/variables/published`;
+      basePath = `${serverBasePath}/v1/files/${data['file_key']}/variables/published`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/variables/published`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -142,7 +160,7 @@ export class VariablesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetPublishedVariables200Response>(url, options, ApiTypes.DEFAULT, VariablesApi.apiName, undefined, 'getPublishedVariables');
     return ret;
@@ -150,7 +168,7 @@ export class VariablesApi implements Api {
 
   /**
    * Create/modify/delete variables
-   * **This API is available to full members of Enterprise orgs with Editor seats.**  The &#x60;POST /v1/files/:file_key/variables&#x60; endpoint lets you bulk create, update, and delete variables and variable collections.  The request body supports the following 4 top-level arrays. Changes from these arrays will be applied in the below order, and within each array, by array order.  - **variableCollections**: For creating, updating, and deleting variable collections - **variableModes**: For creating, updating, and deleting modes within variable collections   - Each collection can have a maximum of 40 modes   - Mode names cannot be longer than 40 characters - **variables**: For creating, updating, and deleting variables   - Each collection can have a maximum of 5000 variables   - Variable names must be unique within a collection and cannot contain certain special characters such as &#x60;.{}&#x60; - **variableModeValues**: For setting a variable value under a specific mode.   - When setting aliases, a variable cannot be aliased to itself or form an alias cycle  Temporary ids can be used to reference an object later in the same POST request body. They can be used at create time in the &#x60;id&#x60; property of variable collections, modes, variables, and in the &#x60;initialModeId&#x60; property of variable collections. They are scoped to a single request body, and must be unique within the body. The mapping of temporary ids to real ids is returned in the response.  This endpoint has the following key behaviors:  - The request body must be 4MB or less. - Must include an &#x60;action&#x60; property for collections, modes, and variables to tell the API whether to create, update, or delete the object. - When creating a collection, mode, or variable, you can include a temporary &#x60;id&#x60; that can be referenced in dependent objects in the same request. For example, you can create a new collection with the id &#x60;\&quot;my_new_collection\&quot;&#x60;. You can then set &#x60;variableCollectionId&#x60; to &#x60;\&quot;my_new_collection\&quot;&#x60; in new modes or variables. Temporary ids must be unique in the request body. - New collections always come with one mode. You can reference this mode by setting &#x60;initialModeId&#x60; to a temporary id in the request body. This is useful if you want to set values for variables in the mode in the &#x60;variableModeValues&#x60; array.   - The &#x60;tempIdToRealId&#x60; array returns a mapping of the temporary ids in the request, to the real ids of the newly created objects. - When adding new modes or variables, default variable values will be applied, consistent with what happens in the UI. - Everything to be created, updated, and deleted in the request body is treated as one atomic operation. If there is any validation failure, you will get a 400 status code response, and no changes will be persisted. - You will not be able to update remote variables or variable collections. You can only update variables in the file where they were originally created.
+   * **This API is available to full members of Enterprise orgs with Editor seats.**  The &#x60;POST /v1/files/:file_key/variables&#x60; endpoint lets you bulk create, update, and delete variables and variable collections.  The request body supports the following 4 top-level arrays. Changes from these arrays will be applied in the below order, and within each array, by array order.  - **variableCollections**: For creating, updating, and deleting variable collections - **variableModes**: For creating, updating, and deleting modes within variable collections   - Each collection can have a maximum of 40 modes   - Mode names cannot be longer than 40 characters - **variables**: For creating, updating, and deleting variables   - Each collection can have a maximum of 5000 variables   - Variable names must be unique within a collection and cannot contain certain special characters such as &#x60;.{}&#x60; - **variableModeValues**: For setting a variable value under a specific mode.   - When setting aliases, a variable cannot be aliased to itself or form an alias cycle  Temporary ids can be used to reference an object later in the same POST request body. They can be used at create time in the &#x60;id&#x60; property of variable collections, modes, variables, and in the &#x60;initialModeId&#x60; property of variable collections. They are scoped to a single request body, and must be unique within the body. The mapping of temporary ids to real ids is returned in the response.  This endpoint has the following key behaviors:  - The request body must be 4MB or less. - Must include an &#x60;action&#x60; property for collections, modes, and variables to tell the API whether to create, update, or delete the object. - When creating a collection, mode, or variable, you can include a temporary &#x60;id&#x60; that can be referenced in dependent objects in the same request. For example, you can create a new collection with the id &#x60;&quot;my_new_collection&quot;&#x60;. You can then set &#x60;variableCollectionId&#x60; to &#x60;&quot;my_new_collection&quot;&#x60; in new modes or variables. Temporary ids must be unique in the request body. - New collections always come with one mode. You can reference this mode by setting &#x60;initialModeId&#x60; to a temporary id in the request body. This is useful if you want to set values for variables in the mode in the &#x60;variableModeValues&#x60; array.   - The &#x60;tempIdToRealId&#x60; array returns a mapping of the temporary ids in the request, to the real ids of the newly created objects. - When adding new modes or variables, default variable values will be applied, consistent with what happens in the UI. - Everything to be created, updated, and deleted in the request body is treated as one atomic operation. If there is any validation failure, you will get a 400 status code response, and no changes will be persisted. - You will not be able to update remote variables or variable collections. You can only update variables in the file where they were originally created.
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
@@ -161,11 +179,17 @@ export class VariablesApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
+    const bodyRequestParam = 'PostVariablesRequest';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['PostVariablesRequest'] !== 'undefined' ? JSON.stringify(data['PostVariablesRequest']) : '{}';
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : '{}';
     } else {
-      body = data['PostVariablesRequest'] as any;
+      body = data[bodyRequestParam] as any;
     }
 
     let queryParams = {};
@@ -176,13 +200,13 @@ export class VariablesApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/files/${serializedPathParams['file_key']}/variables`
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/variables`
+      basePath = `${serverBasePath}/v1/files/${serializedPathParams['file_key']}/variables`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/variables`;
     } else {
-      basePath = `${this.client.options.basePath}/v1/files/${data['file_key']}/variables`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/variables`;
+      basePath = `${serverBasePath}/v1/files/${data['file_key']}/variables`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/variables`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -199,7 +223,7 @@ export class VariablesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<PostVariables200Response>(url, options, ApiTypes.DEFAULT, VariablesApi.apiName, undefined, 'postVariables');
     return ret;

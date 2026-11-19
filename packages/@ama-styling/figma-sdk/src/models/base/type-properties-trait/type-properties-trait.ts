@@ -18,12 +18,16 @@ export interface TypePropertiesTrait {
   /** Internal property, preserved for backward compatibility. Avoid using this value. */
   layoutVersion?: number;
   /** Map from ID to TypeStyle for looking up style overrides. */
-  styleOverrideTable: { [key: string]: TypeStyle; };
+  styleOverrideTable: Record<string, TypeStyle>;
   /** An array with the same number of elements as lines in the text node, where lines are delimited by newline or paragraph separator characters. Each element in the array corresponds to the list type of a specific line. List types are represented as string enums with one of these possible values:  - `NONE`: Not a list item. - `ORDERED`: Text is an ordered list (numbered). - `UNORDERED`: Text is an unordered list (bulleted). */
   lineTypes: LineTypesEnum[];
   /** An array with the same number of elements as lines in the text node, where lines are delimited by newline or paragraph separator characters. Each element in the array corresponds to the indentation level of a specific line. */
   lineIndentations: number[];
 }
 
+/** Array of LineTypesEnum items */
+export const LIST_LINE_TYPES_ENUM = ['NONE', 'ORDERED', 'UNORDERED'] as const;
+
+/** List of available values for LineTypesEnum */
 export type LineTypesEnum = 'NONE' | 'ORDERED' | 'UNORDERED';
 

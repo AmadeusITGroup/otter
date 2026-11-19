@@ -19,9 +19,16 @@ export interface Region {
   region_height: number;
   /** The width of the comment region. Must be greater than 0. */
   region_width: number;
-  /** The corner of the comment region to pin to the node's corner as a string enum. */
+  /**
+   * The corner of the comment region to pin to the node's corner as a string enum.
+   * @default 'bottom-right'
+   */
   comment_pin_corner?: CommentPinCornerEnum;
 }
 
+/** Array of CommentPinCornerEnum items */
+export const LIST_COMMENT_PIN_CORNER_ENUM = ['top-left', 'top-right', 'bottom-left', 'bottom-right'] as const;
+
+/** List of available values for CommentPinCornerEnum */
 export type CommentPinCornerEnum = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 

@@ -31,5 +31,9 @@ export interface WebhookFileVersionUpdatePayload {
   version_id: string;
 }
 
+/** Array of EventTypeEnum items */
+export const LIST_EVENT_TYPE_ENUM = ['FILE_VERSION_UPDATE'] as const;
+
+/** List of available values for EventTypeEnum */
 export type EventTypeEnum = 'FILE_VERSION_UPDATE';
 

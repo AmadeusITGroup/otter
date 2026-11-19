@@ -28,13 +28,16 @@ export interface GetFile200Response {
   /** @see DocumentNode */
   document: DocumentNode;
   /** A mapping from component IDs to component metadata. */
-  components: { [key: string]: Component; };
+  components: Record<string, Component>;
   /** A mapping from component set IDs to component set metadata. */
-  componentSets: { [key: string]: ComponentSet; };
-  /** The version of the file schema that this file uses. */
+  componentSets: Record<string, ComponentSet>;
+  /**
+   * The version of the file schema that this file uses.
+   * @default 0
+   */
   schemaVersion: number;
   /** A mapping from style IDs to style metadata. */
-  styles: { [key: string]: Style; };
+  styles: Record<string, Style>;
   /** The share permission level of the file link. */
   linkAccess?: string;
   /** The key of the main file for this file. If present, this file is a component or component set. */
@@ -43,6 +46,14 @@ export interface GetFile200Response {
   branches?: GetFile200ResponseBranchesInner[];
 }
 
+/** Array of RoleEnum items */
+export const LIST_ROLE_ENUM = ['owner', 'editor', 'viewer'] as const;
+
+/** List of available values for RoleEnum */
 export type RoleEnum = 'owner' | 'editor' | 'viewer';
+/** Array of EditorTypeEnum items */
+export const LIST_EDITOR_TYPE_ENUM = ['figma', 'figjam'] as const;
+
+/** List of available values for EditorTypeEnum */
 export type EditorTypeEnum = 'figma' | 'figjam';
 

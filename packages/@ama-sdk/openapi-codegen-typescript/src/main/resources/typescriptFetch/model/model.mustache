@@ -30,23 +30,42 @@ import { {{import}} } from '../{{#kebabCase}}{{import}}{{/kebabCase}}';
 export interface {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
       {{#vars}}
         {{#description}}
-  /** {{{description}}} */
+  /**{{#defaultValue}}
+   *{{/defaultValue}} {{{description}}}{{#defaultValue}}
+   * @default {{{defaultValue}}}
+  {{/defaultValue}} */
         {{/description}}
         {{^description}}
           {{#isArray}}
-  /** List of {{#plurialize}}{{#noArrayInType}}{{{dataType}}}{{/noArrayInType}}{{/plurialize}} */
+  /**{{#defaultValue}}
+   *{{/defaultValue}} List of {{#plurialize}}{{#noArrayInType}}{{{dataType}}}{{/noArrayInType}}{{/plurialize}}{{#defaultValue}}
+   * @default {{{defaultValue}}}
+  {{/defaultValue}} */
           {{/isArray}}
           {{^isArray}}
             {{^isPrimitiveType}}
               {{#datatypeWithEnum}}
-  /** @see {{datatypeWithEnum}} */
+  /**{{#defaultValue}}
+   *{{/defaultValue}} @see {{datatypeWithEnum}}{{#defaultValue}}
+   * @default {{{defaultValue}}}
+  {{/defaultValue}} */
               {{/datatypeWithEnum}}
             {{/isPrimitiveType}}
             {{#isEnum}}
               {{#datatypeWithEnum}}
-  /** @see {{datatypeWithEnum}} */
+  /**{{#defaultValue}}
+   *{{/defaultValue}} @see {{datatypeWithEnum}}{{#defaultValue}}
+   * @default {{{defaultValue}}}
+  {{/defaultValue}} */
               {{/datatypeWithEnum}}
             {{/isEnum}}
+            {{#isPrimitiveType}}
+              {{^isEnum}}
+                {{#defaultValue}}
+  /** @default {{{defaultValue}}} */
+                {{/defaultValue}}
+              {{/isEnum}}
+            {{/isPrimitiveType}}
           {{/isArray}}
         {{/description}}
   {{#readOnly}}  readonly {{/readOnly}}{{#propertyDeclaration}}{{baseName}}{{/propertyDeclaration}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{/isEnum}}{{^isAnyType}}{{#isNullable}} | null{{/isNullable}}{{/isAnyType}};

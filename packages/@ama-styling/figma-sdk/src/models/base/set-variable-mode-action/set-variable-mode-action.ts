@@ -17,5 +17,9 @@ export interface SetVariableModeAction {
   variableModeId?: string;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['SET_VARIABLE_MODE'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'SET_VARIABLE_MODE';
 

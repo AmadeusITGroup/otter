@@ -34,5 +34,9 @@ export interface WebhookFileCommentPayload {
   triggered_by: User;
 }
 
+/** Array of EventTypeEnum items */
+export const LIST_EVENT_TYPE_ENUM = ['FILE_COMMENT'] as const;
+
+/** List of available values for EventTypeEnum */
 export type EventTypeEnum = 'FILE_COMMENT';
 

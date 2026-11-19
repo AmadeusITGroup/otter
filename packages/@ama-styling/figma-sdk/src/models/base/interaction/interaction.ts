@@ -14,7 +14,7 @@ import { Trigger } from '../trigger';
  */
 export interface Interaction {
   /** @see Trigger */
-  trigger: Trigger;
+  trigger: Trigger | null;
   /** The actions that are performed when the trigger is activated. */
   actions?: Action[];
 }

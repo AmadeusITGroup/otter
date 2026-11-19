@@ -16,5 +16,9 @@ export interface GetTeamProjects400Response {
   message: string;
 }
 
+/** Array of StatusEnum items */
+export const LIST_STATUS_ENUM = ['400'] as const;
+
+/** List of available values for StatusEnum */
 export type StatusEnum = '400';
 

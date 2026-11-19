@@ -21,6 +21,14 @@ export interface ActivityLogWidgetEntity {
   editor_type: EditorTypeEnum;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['widget'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'widget';
+/** Array of EditorTypeEnum items */
+export const LIST_EDITOR_TYPE_ENUM = ['figma', 'figjam'] as const;
+
+/** List of available values for EditorTypeEnum */
 export type EditorTypeEnum = 'figma' | 'figjam';
 

@@ -9,9 +9,9 @@
 
 export interface GetImages200Response {
   /** For successful requests, this value is always `null`. */
-  err: string;
+  err: string | null;
   /** A map from node IDs to URLs of the rendered images. */
-  images: { [key: string]: string; };
+  images: Record<string, string>;
 }
 
 

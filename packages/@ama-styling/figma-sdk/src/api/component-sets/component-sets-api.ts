@@ -1,27 +1,40 @@
 import { GetComponentSet200Response } from '../../models/base/get-component-set200-response/index';
 import { GetFileComponentSets200Response } from '../../models/base/get-file-component-sets200-response/index';
 import { GetTeamComponentSets200Response } from '../../models/base/get-team-component-sets200-response/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
-
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
+import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to ComponentSetsApi's getComponentSet function */
 export interface ComponentSetsApiGetComponentSetRequestData {
-  /** The unique identifier of the component set. */
+  /**
+   * The unique identifier of the component set. 
+   */
   'key': string;
 }
 /** Parameters object to ComponentSetsApi's getFileComponentSets function */
 export interface ComponentSetsApiGetFileComponentSetsRequestData {
-  /** File to list component sets from. This must be a main file key, not a branch key, as it is not possible to publish from branches. */
+  /**
+   * File to list component sets from. This must be a main file key, not a branch key, as it is not possible to publish from branches. 
+   */
   'file_key': string;
 }
 /** Parameters object to ComponentSetsApi's getTeamComponentSets function */
 export interface ComponentSetsApiGetTeamComponentSetsRequestData {
-  /** Id of the team to list component sets from. */
+  /**
+   * Id of the team to list component sets from. 
+   */
   'team_id': string;
-  /** Number of items to return in a paged list of results. Defaults to 30. */
+  /**
+   * Number of items to return in a paged list of results. Defaults to 30. 
+   * @default 30
+   */
   'page_size'?: number;
-  /** Cursor indicating which id after which to start retrieving component sets for. Exclusive with before. The cursor value is an internally tracked integer that doesn't correspond to any Ids. */
+  /**
+   * Cursor indicating which id after which to start retrieving component sets for. Exclusive with before. The cursor value is an internally tracked integer that doesn't correspond to any Ids. 
+   */
   'after'?: number;
-  /** Cursor indicating which id before which to start retrieving component sets for. Exclusive with after. The cursor value is an internally tracked integer that doesn't correspond to any Ids. */
+  /**
+   * Cursor indicating which id before which to start retrieving component sets for. Exclusive with after. The cursor value is an internally tracked integer that doesn't correspond to any Ids. 
+   */
   'before'?: number;
 }
 export class ComponentSetsApi implements Api {
@@ -60,6 +73,11 @@ export class ComponentSetsApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -70,13 +88,13 @@ export class ComponentSetsApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['key']);
-      const pathParamSerialization = { key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/component_sets/${serializedPathParams['key']}`
-      tokenizedUrl = `${this.client.options.basePath}/v1/component_sets/${this.piiParamTokens['key'] || serializedPathParams['key']}`
+      basePath = `${serverBasePath}/v1/component_sets/${serializedPathParams['key']}`;
+      tokenizedUrl = `${serverBasePath}/v1/component_sets/${this.piiParamTokens['key'] || serializedPathParams['key']}`;
     } else {
-      basePath = `${this.client.options.basePath}/v1/component_sets/${data['key']}`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/component_sets/${this.piiParamTokens['key'] || data['key']}`;
+      basePath = `${serverBasePath}/v1/component_sets/${data['key']}`;
+      tokenizedUrl = `${serverBasePath}/v1/component_sets/${this.piiParamTokens['key'] || data['key']}`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -93,7 +111,7 @@ export class ComponentSetsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetComponentSet200Response>(url, options, ApiTypes.DEFAULT, ComponentSetsApi.apiName, undefined, 'getComponentSet');
     return ret;
@@ -112,6 +130,11 @@ export class ComponentSetsApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -122,13 +145,13 @@ export class ComponentSetsApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/files/${serializedPathParams['file_key']}/component_sets`
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/component_sets`
+      basePath = `${serverBasePath}/v1/files/${serializedPathParams['file_key']}/component_sets`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/component_sets`;
     } else {
-      basePath = `${this.client.options.basePath}/v1/files/${data['file_key']}/component_sets`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/component_sets`;
+      basePath = `${serverBasePath}/v1/files/${data['file_key']}/component_sets`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/component_sets`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -145,7 +168,7 @@ export class ComponentSetsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetFileComponentSets200Response>(url, options, ApiTypes.DEFAULT, ComponentSetsApi.apiName, undefined, 'getFileComponentSets');
     return ret;
@@ -158,12 +181,16 @@ export class ComponentSetsApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async getTeamComponentSets(data: ComponentSetsApiGetTeamComponentSetsRequestData, metadata?: RequestMetadata<string, 'application/json'>): Promise<GetTeamComponentSets200Response> {
-    data['page_size'] = data['page_size'] !== undefined ? data['page_size'] : 30;
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
+
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
 
     let body: RequestBody = '';
 
@@ -175,18 +202,18 @@ export class ComponentSetsApi implements Api {
     let basePath;
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { page_size: { explode: true, style: 'form' }, after: { explode: true, style: 'form' }, before: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'page_size': { explode: true, style: 'form' }, 'after': { explode: true, style: 'form' }, 'before': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['team_id']);
-      const pathParamSerialization = { team_id: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'team_id': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/teams/${serializedPathParams['team_id']}/component_sets`
-      tokenizedUrl = `${this.client.options.basePath}/v1/teams/${this.piiParamTokens['team_id'] || serializedPathParams['team_id']}/component_sets`
+      basePath = `${serverBasePath}/v1/teams/${serializedPathParams['team_id']}/component_sets`;
+      tokenizedUrl = `${serverBasePath}/v1/teams/${this.piiParamTokens['team_id'] || serializedPathParams['team_id']}/component_sets`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
-      basePath = `${this.client.options.basePath}/v1/teams/${data['team_id']}/component_sets`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/teams/${this.piiParamTokens['team_id'] || data['team_id']}/component_sets`;
+      basePath = `${serverBasePath}/v1/teams/${data['team_id']}/component_sets`;
+      tokenizedUrl = `${serverBasePath}/v1/teams/${this.piiParamTokens['team_id'] || data['team_id']}/component_sets`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -203,7 +230,7 @@ export class ComponentSetsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetTeamComponentSets200Response>(url, options, ApiTypes.DEFAULT, ComponentSetsApi.apiName, undefined, 'getTeamComponentSets');
     return ret;

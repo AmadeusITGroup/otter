@@ -15,5 +15,9 @@ export interface TriggerOneOf1 {
   deprecatedVersion?: boolean;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['MOUSE_ENTER', 'MOUSE_LEAVE', 'MOUSE_UP', 'MOUSE_DOWN'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'MOUSE_ENTER' | 'MOUSE_LEAVE' | 'MOUSE_UP' | 'MOUSE_DOWN';
 

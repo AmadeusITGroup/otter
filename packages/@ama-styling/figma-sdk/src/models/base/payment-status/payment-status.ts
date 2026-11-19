@@ -15,5 +15,9 @@ export interface PaymentStatus {
   type?: TypeEnum;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['UNPAID', 'PAID', 'TRIAL'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'UNPAID' | 'PAID' | 'TRIAL';
 

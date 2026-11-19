@@ -19,5 +19,9 @@ export interface ExportSetting {
   constraint: Constraint;
 }
 
+/** Array of FormatEnum items */
+export const LIST_FORMAT_ENUM = ['JPG', 'PNG', 'SVG', 'PDF'] as const;
+
+/** List of available values for FormatEnum */
 export type FormatEnum = 'JPG' | 'PNG' | 'SVG' | 'PDF';
 

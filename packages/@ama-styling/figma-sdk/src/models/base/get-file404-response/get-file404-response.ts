@@ -14,5 +14,9 @@ export interface GetFile404Response {
   err: string;
 }
 
+/** Array of StatusEnum items */
+export const LIST_STATUS_ENUM = ['404'] as const;
+
+/** List of available values for StatusEnum */
 export type StatusEnum = '404';
 

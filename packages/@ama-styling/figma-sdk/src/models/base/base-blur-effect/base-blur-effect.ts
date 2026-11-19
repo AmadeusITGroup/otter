@@ -22,5 +22,9 @@ export interface BaseBlurEffect {
   boundVariables?: BaseBlurEffectBoundVariables;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['LAYER_BLUR', 'BACKGROUND_BLUR'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'LAYER_BLUR' | 'BACKGROUND_BLUR';
 

@@ -24,5 +24,9 @@ export interface PaymentInformation {
   date_of_purchase?: string;
 }
 
+/** Array of ResourceTypeEnum items */
+export const LIST_RESOURCE_TYPE_ENUM = ['PLUGIN', 'WIDGET', 'COMMUNITY_FILE'] as const;
+
+/** List of available values for ResourceTypeEnum */
 export type ResourceTypeEnum = 'PLUGIN' | 'WIDGET' | 'COMMUNITY_FILE';
 

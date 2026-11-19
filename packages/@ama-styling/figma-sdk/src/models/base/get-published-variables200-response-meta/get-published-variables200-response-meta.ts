@@ -11,9 +11,9 @@ import { PublishedVariableCollection } from '../published-variable-collection';
 
 export interface GetPublishedVariables200ResponseMeta {
   /** A map of variable ids to variables */
-  variables: { [key: string]: PublishedVariable; };
+  variables: Record<string, PublishedVariable>;
   /** A map of variable collection ids to variable collections */
-  variableCollections: { [key: string]: PublishedVariableCollection; };
+  variableCollections: Record<string, PublishedVariableCollection>;
 }
 
 

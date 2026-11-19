@@ -16,5 +16,9 @@ import { Vector } from '../vector';
  */
 export type CommentClientMeta = FrameOffset | FrameOffsetRegion | Region | Vector;
 
+/** Array of CommentPinCornerEnum items */
+export const LIST_COMMENT_PIN_CORNER_ENUM = ['top-left', 'top-right', 'bottom-left', 'bottom-right'] as const;
+
+/** List of available values for CommentPinCornerEnum */
 export type CommentPinCornerEnum = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 

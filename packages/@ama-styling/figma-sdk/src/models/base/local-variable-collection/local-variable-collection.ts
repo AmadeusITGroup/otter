@@ -24,7 +24,10 @@ export interface LocalVariableCollection {
   defaultModeId: string;
   /** Whether this variable collection is remote. */
   remote: boolean;
-  /** Whether this variable collection is hidden when publishing the current file as a library. */
+  /**
+   * Whether this variable collection is hidden when publishing the current file as a library.
+   * @default false
+   */
   hiddenFromPublishing: boolean;
   /** The ids of the variables in the collection. Note that the order of these variables is roughly the same as what is shown in Figma Design, however it does not account for groups. As a result, the order of these variables may not exactly reflect the exact ordering and grouping shown in the authoring UI. */
   variableIds: string[];

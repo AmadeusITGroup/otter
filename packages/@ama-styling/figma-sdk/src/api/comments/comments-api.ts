@@ -2,27 +2,39 @@ import { Comment } from '../../models/base/comment/index';
 import { DeleteComment200Response } from '../../models/base/delete-comment200-response/index';
 import { GetComments200Response } from '../../models/base/get-comments200-response/index';
 import { PostCommentRequest } from '../../models/base/post-comment-request/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
-
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
+import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to CommentsApi's deleteComment function */
 export interface CommentsApiDeleteCommentRequestData {
-  /** File to delete comment from. This can be a file key or branch key. Use `GET /v1/files/:key` with the `branch_data` query param to get the branch key. */
+  /**
+   * File to delete comment from. This can be a file key or branch key. Use `GET /v1/files/:key` with the `branch_data` query param to get the branch key. 
+   */
   'file_key': string;
-  /** Comment id of comment to delete */
+  /**
+   * Comment id of comment to delete 
+   */
   'comment_id': string;
 }
 /** Parameters object to CommentsApi's getComments function */
 export interface CommentsApiGetCommentsRequestData {
-  /** File to get comments from. This can be a file key or branch key. Use `GET /v1/files/:key` with the `branch_data` query param to get the branch key. */
+  /**
+   * File to get comments from. This can be a file key or branch key. Use `GET /v1/files/:key` with the `branch_data` query param to get the branch key. 
+   */
   'file_key': string;
-  /** If enabled, will return comments as their markdown equivalents when applicable. */
+  /**
+   * If enabled, will return comments as their markdown equivalents when applicable. 
+   */
   'as_md'?: boolean;
 }
 /** Parameters object to CommentsApi's postComment function */
 export interface CommentsApiPostCommentRequestData {
-  /** File to add comments in. This can be a file key or branch key. Use `GET /v1/files/:key` with the `branch_data` query param to get the branch key. */
+  /**
+   * File to add comments in. This can be a file key or branch key. Use `GET /v1/files/:key` with the `branch_data` query param to get the branch key. 
+   */
   'file_key': string;
-  /** Comment to post. */
+  /**
+   * Comment to post. 
+   */
   'PostCommentRequest': PostCommentRequest;
 }
 export class CommentsApi implements Api {
@@ -61,6 +73,11 @@ export class CommentsApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -71,13 +88,13 @@ export class CommentsApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key', 'comment_id']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' }, comment_id: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' }, 'comment_id': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/files/${serializedPathParams['file_key']}/comments/${serializedPathParams['comment_id']}`
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/comments/${this.piiParamTokens['comment_id'] || serializedPathParams['comment_id']}`
+      basePath = `${serverBasePath}/v1/files/${serializedPathParams['file_key']}/comments/${serializedPathParams['comment_id']}`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/comments/${this.piiParamTokens['comment_id'] || serializedPathParams['comment_id']}`;
     } else {
-      basePath = `${this.client.options.basePath}/v1/files/${data['file_key']}/comments/${data['comment_id']}`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/comments/${this.piiParamTokens['comment_id'] || data['comment_id']}`;
+      basePath = `${serverBasePath}/v1/files/${data['file_key']}/comments/${data['comment_id']}`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/comments/${this.piiParamTokens['comment_id'] || data['comment_id']}`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -94,7 +111,7 @@ export class CommentsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<DeleteComment200Response>(url, options, ApiTypes.DEFAULT, CommentsApi.apiName, undefined, 'deleteComment');
     return ret;
@@ -113,6 +130,11 @@ export class CommentsApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -123,18 +145,18 @@ export class CommentsApi implements Api {
     let basePath;
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { as_md: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'as_md': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/files/${serializedPathParams['file_key']}/comments`
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/comments`
+      basePath = `${serverBasePath}/v1/files/${serializedPathParams['file_key']}/comments`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/comments`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
-      basePath = `${this.client.options.basePath}/v1/files/${data['file_key']}/comments`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/comments`;
+      basePath = `${serverBasePath}/v1/files/${data['file_key']}/comments`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/comments`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -151,7 +173,7 @@ export class CommentsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetComments200Response>(url, options, ApiTypes.DEFAULT, CommentsApi.apiName, undefined, 'getComments');
     return ret;
@@ -170,11 +192,17 @@ export class CommentsApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
+    const bodyRequestParam = 'PostCommentRequest';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['PostCommentRequest'] !== 'undefined' ? JSON.stringify(data['PostCommentRequest']) : '{}';
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : '{}';
     } else {
-      body = data['PostCommentRequest'] as any;
+      body = data[bodyRequestParam] as any;
     }
 
     let queryParams = {};
@@ -185,13 +213,13 @@ export class CommentsApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/files/${serializedPathParams['file_key']}/comments`
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/comments`
+      basePath = `${serverBasePath}/v1/files/${serializedPathParams['file_key']}/comments`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/comments`;
     } else {
-      basePath = `${this.client.options.basePath}/v1/files/${data['file_key']}/comments`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/comments`;
+      basePath = `${serverBasePath}/v1/files/${data['file_key']}/comments`;
+      tokenizedUrl = `${serverBasePath}/v1/files/${this.piiParamTokens['file_key'] || data['file_key']}/comments`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -208,7 +236,7 @@ export class CommentsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<Comment>(url, options, ApiTypes.DEFAULT, CommentsApi.apiName, undefined, 'postComment');
     return ret;

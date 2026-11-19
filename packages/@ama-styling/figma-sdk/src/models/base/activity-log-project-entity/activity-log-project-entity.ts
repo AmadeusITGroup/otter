@@ -19,5 +19,9 @@ export interface ActivityLogProjectEntity {
   name: string;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['project'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'project';
 

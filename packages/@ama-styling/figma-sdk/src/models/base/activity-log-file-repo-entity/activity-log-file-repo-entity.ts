@@ -21,5 +21,9 @@ export interface ActivityLogFileRepoEntity {
   main_file_key: string;
 }
 
+/** Array of TypeEnum items */
+export const LIST_TYPE_ENUM = ['file_repo'] as const;
+
+/** List of available values for TypeEnum */
 export type TypeEnum = 'file_repo';
 

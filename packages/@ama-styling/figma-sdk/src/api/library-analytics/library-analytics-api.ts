@@ -4,8 +4,8 @@ import { GetLibraryAnalyticsStyleActions200Response } from '../../models/base/ge
 import { GetLibraryAnalyticsStyleUsages200Response } from '../../models/base/get-library-analytics-style-usages200-response/index';
 import { GetLibraryAnalyticsVariableActions200Response } from '../../models/base/get-library-analytics-variable-actions200-response/index';
 import { GetLibraryAnalyticsVariableUsages200Response } from '../../models/base/get-library-analytics-variable-usages200-response/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
-
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
+import { SDK_SERVERS } from '../../constants/servers';
 /** Enum groupBy used in the LibraryAnalyticsApi's getLibraryAnalyticsComponentActions function parameter */
 export type LibraryAnalyticsApiGetLibraryAnalyticsComponentActionsGroupByEnum = 'component' | 'team';
 
@@ -26,68 +26,116 @@ export type LibraryAnalyticsApiGetLibraryAnalyticsVariableUsagesGroupByEnum = 'v
 
 /** Parameters object to LibraryAnalyticsApi's getLibraryAnalyticsComponentActions function */
 export interface LibraryAnalyticsApiGetLibraryAnalyticsComponentActionsRequestData {
-  /** File key of the library to fetch analytics data for. */
+  /**
+   * File key of the library to fetch analytics data for. 
+   */
   'file_key': string;
-  /** A dimension to group returned analytics data by. */
+  /**
+   * A dimension to group returned analytics data by. 
+   */
   'group_by': LibraryAnalyticsApiGetLibraryAnalyticsComponentActionsGroupByEnum;
-  /** Cursor indicating what page of data to fetch. Obtained from prior API call. */
+  /**
+   * Cursor indicating what page of data to fetch. Obtained from prior API call. 
+   */
   'cursor'?: string;
-  /** ISO 8601 date string (YYYY-MM-DD) of the earliest week to include. Dates are rounded back to the nearest start of a week. Defaults to one year prior. */
+  /**
+   * ISO 8601 date string (YYYY-MM-DD) of the earliest week to include. Dates are rounded back to the nearest start of a week. Defaults to one year prior. 
+   */
   'start_date'?: string;
-  /** ISO 8601 date string (YYYY-MM-DD) of the latest week to include. Dates are rounded forward to the nearest end of a week. Defaults to the latest computed week. */
+  /**
+   * ISO 8601 date string (YYYY-MM-DD) of the latest week to include. Dates are rounded forward to the nearest end of a week. Defaults to the latest computed week. 
+   */
   'end_date'?: string;
 }
 /** Parameters object to LibraryAnalyticsApi's getLibraryAnalyticsComponentUsages function */
 export interface LibraryAnalyticsApiGetLibraryAnalyticsComponentUsagesRequestData {
-  /** File key of the library to fetch analytics data for. */
+  /**
+   * File key of the library to fetch analytics data for. 
+   */
   'file_key': string;
-  /** A dimension to group returned analytics data by. */
+  /**
+   * A dimension to group returned analytics data by. 
+   */
   'group_by': LibraryAnalyticsApiGetLibraryAnalyticsComponentUsagesGroupByEnum;
-  /** Cursor indicating what page of data to fetch. Obtained from prior API call. */
+  /**
+   * Cursor indicating what page of data to fetch. Obtained from prior API call. 
+   */
   'cursor'?: string;
 }
 /** Parameters object to LibraryAnalyticsApi's getLibraryAnalyticsStyleActions function */
 export interface LibraryAnalyticsApiGetLibraryAnalyticsStyleActionsRequestData {
-  /** File key of the library to fetch analytics data for. */
+  /**
+   * File key of the library to fetch analytics data for. 
+   */
   'file_key': string;
-  /** A dimension to group returned analytics data by. */
+  /**
+   * A dimension to group returned analytics data by. 
+   */
   'group_by': LibraryAnalyticsApiGetLibraryAnalyticsStyleActionsGroupByEnum;
-  /** Cursor indicating what page of data to fetch. Obtained from prior API call. */
+  /**
+   * Cursor indicating what page of data to fetch. Obtained from prior API call. 
+   */
   'cursor'?: string;
-  /** ISO 8601 date string (YYYY-MM-DD) of the earliest week to include. Dates are rounded back to the nearest start of a week. Defaults to one year prior. */
+  /**
+   * ISO 8601 date string (YYYY-MM-DD) of the earliest week to include. Dates are rounded back to the nearest start of a week. Defaults to one year prior. 
+   */
   'start_date'?: string;
-  /** ISO 8601 date string (YYYY-MM-DD) of the latest week to include. Dates are rounded forward to the nearest end of a week. Defaults to the latest computed week. */
+  /**
+   * ISO 8601 date string (YYYY-MM-DD) of the latest week to include. Dates are rounded forward to the nearest end of a week. Defaults to the latest computed week. 
+   */
   'end_date'?: string;
 }
 /** Parameters object to LibraryAnalyticsApi's getLibraryAnalyticsStyleUsages function */
 export interface LibraryAnalyticsApiGetLibraryAnalyticsStyleUsagesRequestData {
-  /** File key of the library to fetch analytics data for. */
+  /**
+   * File key of the library to fetch analytics data for. 
+   */
   'file_key': string;
-  /** A dimension to group returned analytics data by. */
+  /**
+   * A dimension to group returned analytics data by. 
+   */
   'group_by': LibraryAnalyticsApiGetLibraryAnalyticsStyleUsagesGroupByEnum;
-  /** Cursor indicating what page of data to fetch. Obtained from prior API call. */
+  /**
+   * Cursor indicating what page of data to fetch. Obtained from prior API call. 
+   */
   'cursor'?: string;
 }
 /** Parameters object to LibraryAnalyticsApi's getLibraryAnalyticsVariableActions function */
 export interface LibraryAnalyticsApiGetLibraryAnalyticsVariableActionsRequestData {
-  /** File key of the library to fetch analytics data for. */
+  /**
+   * File key of the library to fetch analytics data for. 
+   */
   'file_key': string;
-  /** A dimension to group returned analytics data by. */
+  /**
+   * A dimension to group returned analytics data by. 
+   */
   'group_by': LibraryAnalyticsApiGetLibraryAnalyticsVariableActionsGroupByEnum;
-  /** Cursor indicating what page of data to fetch. Obtained from prior API call. */
+  /**
+   * Cursor indicating what page of data to fetch. Obtained from prior API call. 
+   */
   'cursor'?: string;
-  /** ISO 8601 date string (YYYY-MM-DD) of the earliest week to include. Dates are rounded back to the nearest start of a week. Defaults to one year prior. */
+  /**
+   * ISO 8601 date string (YYYY-MM-DD) of the earliest week to include. Dates are rounded back to the nearest start of a week. Defaults to one year prior. 
+   */
   'start_date'?: string;
-  /** ISO 8601 date string (YYYY-MM-DD) of the latest week to include. Dates are rounded forward to the nearest end of a week. Defaults to the latest computed week. */
+  /**
+   * ISO 8601 date string (YYYY-MM-DD) of the latest week to include. Dates are rounded forward to the nearest end of a week. Defaults to the latest computed week. 
+   */
   'end_date'?: string;
 }
 /** Parameters object to LibraryAnalyticsApi's getLibraryAnalyticsVariableUsages function */
 export interface LibraryAnalyticsApiGetLibraryAnalyticsVariableUsagesRequestData {
-  /** File key of the library to fetch analytics data for. */
+  /**
+   * File key of the library to fetch analytics data for. 
+   */
   'file_key': string;
-  /** A dimension to group returned analytics data by. */
+  /**
+   * A dimension to group returned analytics data by. 
+   */
   'group_by': LibraryAnalyticsApiGetLibraryAnalyticsVariableUsagesGroupByEnum;
-  /** Cursor indicating what page of data to fetch. Obtained from prior API call. */
+  /**
+   * Cursor indicating what page of data to fetch. Obtained from prior API call. 
+   */
   'cursor'?: string;
 }
 export class LibraryAnalyticsApi implements Api {
@@ -126,6 +174,11 @@ export class LibraryAnalyticsApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -136,18 +189,18 @@ export class LibraryAnalyticsApi implements Api {
     let basePath;
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { cursor: { explode: true, style: 'form' }, group_by: { explode: true, style: 'form' }, start_date: { explode: true, style: 'form' }, end_date: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'cursor': { explode: true, style: 'form' }, 'group_by': { explode: true, style: 'form' }, 'start_date': { explode: true, style: 'form' }, 'end_date': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/component/actions`
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/component/actions`
+      basePath = `${serverBasePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/component/actions`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/component/actions`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${data['file_key']}/component/actions`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/component/actions`;
+      basePath = `${serverBasePath}/v1/analytics/libraries/${data['file_key']}/component/actions`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/component/actions`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -164,7 +217,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsComponentActions200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsComponentActions');
     return ret;
@@ -183,6 +236,11 @@ export class LibraryAnalyticsApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -193,18 +251,18 @@ export class LibraryAnalyticsApi implements Api {
     let basePath;
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { cursor: { explode: true, style: 'form' }, group_by: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'cursor': { explode: true, style: 'form' }, 'group_by': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/component/usages`
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/component/usages`
+      basePath = `${serverBasePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/component/usages`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/component/usages`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${data['file_key']}/component/usages`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/component/usages`;
+      basePath = `${serverBasePath}/v1/analytics/libraries/${data['file_key']}/component/usages`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/component/usages`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -221,7 +279,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsComponentUsages200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsComponentUsages');
     return ret;
@@ -240,6 +298,11 @@ export class LibraryAnalyticsApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -250,18 +313,18 @@ export class LibraryAnalyticsApi implements Api {
     let basePath;
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { cursor: { explode: true, style: 'form' }, group_by: { explode: true, style: 'form' }, start_date: { explode: true, style: 'form' }, end_date: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'cursor': { explode: true, style: 'form' }, 'group_by': { explode: true, style: 'form' }, 'start_date': { explode: true, style: 'form' }, 'end_date': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/style/actions`
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/style/actions`
+      basePath = `${serverBasePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/style/actions`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/style/actions`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${data['file_key']}/style/actions`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/style/actions`;
+      basePath = `${serverBasePath}/v1/analytics/libraries/${data['file_key']}/style/actions`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/style/actions`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -278,7 +341,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsStyleActions200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsStyleActions');
     return ret;
@@ -297,6 +360,11 @@ export class LibraryAnalyticsApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -307,18 +375,18 @@ export class LibraryAnalyticsApi implements Api {
     let basePath;
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { cursor: { explode: true, style: 'form' }, group_by: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'cursor': { explode: true, style: 'form' }, 'group_by': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/style/usages`
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/style/usages`
+      basePath = `${serverBasePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/style/usages`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/style/usages`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${data['file_key']}/style/usages`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/style/usages`;
+      basePath = `${serverBasePath}/v1/analytics/libraries/${data['file_key']}/style/usages`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/style/usages`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -335,7 +403,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsStyleUsages200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsStyleUsages');
     return ret;
@@ -354,6 +422,11 @@ export class LibraryAnalyticsApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -364,18 +437,18 @@ export class LibraryAnalyticsApi implements Api {
     let basePath;
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { cursor: { explode: true, style: 'form' }, group_by: { explode: true, style: 'form' }, start_date: { explode: true, style: 'form' }, end_date: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'cursor': { explode: true, style: 'form' }, 'group_by': { explode: true, style: 'form' }, 'start_date': { explode: true, style: 'form' }, 'end_date': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/variable/actions`
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/variable/actions`
+      basePath = `${serverBasePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/variable/actions`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/variable/actions`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${data['file_key']}/variable/actions`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/variable/actions`;
+      basePath = `${serverBasePath}/v1/analytics/libraries/${data['file_key']}/variable/actions`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/variable/actions`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -392,7 +465,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsVariableActions200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsVariableActions');
     return ret;
@@ -411,6 +484,11 @@ export class LibraryAnalyticsApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -421,18 +499,18 @@ export class LibraryAnalyticsApi implements Api {
     let basePath;
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { cursor: { explode: true, style: 'form' }, group_by: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'cursor': { explode: true, style: 'form' }, 'group_by': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['file_key']);
-      const pathParamSerialization = { file_key: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { 'file_key': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/variable/usages`
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/variable/usages`
+      basePath = `${serverBasePath}/v1/analytics/libraries/${serializedPathParams['file_key']}/variable/usages`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || serializedPathParams['file_key']}/variable/usages`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
-      basePath = `${this.client.options.basePath}/v1/analytics/libraries/${data['file_key']}/variable/usages`;
-      tokenizedUrl = `${this.client.options.basePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/variable/usages`;
+      basePath = `${serverBasePath}/v1/analytics/libraries/${data['file_key']}/variable/usages`;
+      tokenizedUrl = `${serverBasePath}/v1/analytics/libraries/${this.piiParamTokens['file_key'] || data['file_key']}/variable/usages`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -449,7 +527,7 @@ export class LibraryAnalyticsApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetLibraryAnalyticsVariableUsages200Response>(url, options, ApiTypes.DEFAULT, LibraryAnalyticsApi.apiName, undefined, 'getLibraryAnalyticsVariableUsages');
     return ret;
