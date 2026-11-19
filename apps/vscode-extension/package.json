@@ -370,7 +370,7 @@
     "@types/eslint": "~9.6.0",
     "@types/jest": "~30.0.0",
     "@types/node": "~24.19.0",
-    "@types/vscode": "~1.144.0",
+    "@types/vscode": "~1.145.0",
     "@typescript-eslint/parser": "~8.72.0",
     "@typescript-eslint/utils": "~8.72.0",
     "@vscode/vsce": "^3.2.1",
