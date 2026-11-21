@@ -22,7 +22,7 @@
     "package-github-actions:affected": "yarn nx affected --target=package-github-action",
     "lint": "yarn lint:project-json && yarn nx run-many --target=lint",
     "lint:affected": "yarn lint:project-json && yarn nx affected --target=lint",
-    "lint:project-json": "eslint --quiet --fix $(git ls-files \":(glob)**/project.json\")",
+    "lint:project-json": "eslint --config eslint.config.mjs --quiet --fix $(git ls-files \":(glob)**/project.json\")",
     "test": "yarn nx run-many --target=test",
     "test:affected": "yarn nx affected --target=test",
     "test-e2e": "yarn nx run-many --target=test-e2e",
@@ -31,7 +31,7 @@
     "update-yarn-sdks": "node -e \"'pnp' !== '$(yarn config get nodeLinker)' || process.exit(1)\" || yarn sdks",
     "clear": "rimraf -g './{packages,tools,apps,mcps}/{@*/,}*/{dist,build,dist-*}/'",
     "set:version": "yarn o3r-set-version --placeholder 0.0.0-placeholder --include '{apps,mcps,packages,tools}/**/dist/{package,manifest}.json'",
-    "harmonize:version": "eslint --quiet --fix $(git ls-files \":(glob)**/package.json\" .yarnrc.yml)",
+    "harmonize:version": "eslint --config eslint.config.mjs --quiet --fix $(git ls-files \":(glob)**/package.json\" .yarnrc.yml)",
     "doc:packages": "yarn nx run-many --target=documentation",
     "doc:root": "yarn prepare-doc-root-menu-template && yarn update-doc-summary ./docs && yarn compodoc",
     "doc:generate": "rimraf ./generated-doc && yarn doc:root && yarn doc:packages && yarn doc-links --docs ./docs --generated-doc ./generated-doc",
@@ -51,7 +51,7 @@
   },
   "lint-staged": {
     "**/{package.json,.yarnrc.yml,*.ts,*.mts,*.cts*.js,*.mjs,*.cjs,*.html}": [
-      "eslint --quiet --fix --cache-location .cache/eslint"
+      "eslint --config eslint.config.mjs --quiet --fix --cache-location .cache/eslint"
     ],
     "{.claude-plugin,.github/plugin}/marketplace.json|tools/llm/plugins/*/{.plugin,.claude-plugin}/plugin.json": [
       "node tools/@o3r/workspace-helpers/scripts/check-plugin-marketplace-sync.mjs"
@@ -194,7 +194,7 @@
     "@design-factory/design-factory": "~22.0.0",
     "@design-factory/styles": "~22.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@eslint/compat": "~2.1.0",
+    "@eslint/compat": "~2.1.1",
     "@jsverse/transloco": "~8.4.0",
     "@jsverse/transloco-messageformat": "~8.4.0",
     "@jsverse/utils": "1.0.0-beta.5",
