@@ -6255,9 +6255,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@design-factory/design-factory@npm:~22.0.0":
-  version: 22.0.2
-  resolution: "@design-factory/design-factory@npm:22.0.2"
+"@design-factory/design-factory@npm:~22.1.0":
+  version: 22.1.0
+  resolution: "@design-factory/design-factory@npm:22.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
@@ -6267,7 +6267,7 @@ __metadata:
     "@angular/core": ^22.0.0
     "@angular/localize": ^22.0.0
     "@angular/router": ^22.0.0
-    "@design-factory/styles": 22.0.2
+    "@design-factory/styles": 22.1.0
     "@ng-bootstrap/ng-bootstrap": ~21.0.0
     "@ng-select/ng-select": ^23.0.0
     ag-grid-angular: ^35.0.0
@@ -6277,22 +6277,19 @@ __metadata:
       optional: true
     ag-grid-angular:
       optional: true
-  checksum: 10/cd49b64d4aacb55b6a0496f83455c6ce90a849cfda41df4f29ad07f25d1c44f486279d84a1e542a4c025ec9cf93c6b08ad97968cb948cd057dfa29402e03f601
+  checksum: 10/7ed1c42ec1f0bb5cff8b2364315cc18158afda4106f0d440ae95619e3ce7298fb46678251d5e511441b3b76c927de3fc2baf6809584fdb8b29ea2fc9728458ee
   languageName: node
   linkType: hard
 
-"@design-factory/styles@npm:~22.0.0":
-  version: 22.0.2
-  resolution: "@design-factory/styles@npm:22.0.2"
+"@design-factory/styles@npm:~22.1.0":
+  version: 22.1.0
+  resolution: "@design-factory/styles@npm:22.1.0"
   peerDependencies:
-    "@agnos-ui/core-bootstrap": ~0.11.0
-    "@design-factory/tokens": 22.0.2
+    "@design-factory/tokens": 22.1.0
     "@ng-select/ng-select": ^23.0.0
     ag-grid-community: ^35.0.0
     bootstrap: 5.3.8
   peerDependenciesMeta:
-    "@agnos-ui/core-bootstrap":
-      optional: true
     "@design-factory/tokens":
       optional: true
     "@ng-select/ng-select":
@@ -6301,7 +6298,7 @@ __metadata:
       optional: true
     bootstrap:
       optional: true
-  checksum: 10/00b08052990bcc5b5a7429b9c2206124aec6599ad2b8a5faf7fe94f4c54ffa367cc43f65431602b860c9c632ca8e5524b6160fff26f15a6a2c810e2a7b1bac35
+  checksum: 10/37d227d03c712bb8ac5255aff306742e0966429c0afc30df86796185238e8f38bc33034be7f078b1f41d440bcc92edb522ccdb07043274ff87a17c05aeb37fe5
   languageName: node
   linkType: hard
 
@@ -10102,8 +10099,8 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
     "@angular/router": "npm:~22.2.0"
     "@crxjs/vite-plugin": "npm:~2.7.0"
-    "@design-factory/design-factory": "npm:~22.0.0"
-    "@design-factory/styles": "npm:~22.0.0"
+    "@design-factory/design-factory": "npm:~22.1.0"
+    "@design-factory/styles": "npm:~22.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:~21.0.0"
     "@ng-select/ng-select": "npm:~23.11.0"
@@ -11150,8 +11147,8 @@ __metadata:
     "@commitlint/config-conventional": "npm:^20.2.0"
     "@commitlint/types": "npm:^20.2.0"
     "@compodoc/compodoc": "npm:^1.1.32"
-    "@design-factory/design-factory": "npm:~22.0.0"
-    "@design-factory/styles": "npm:~22.0.0"
+    "@design-factory/design-factory": "npm:~22.1.0"
+    "@design-factory/styles": "npm:~22.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@eslint/compat": "npm:~2.1.0"
     "@jsverse/transloco": "npm:~8.4.0"
@@ -12311,8 +12308,8 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~22.2.0"
     "@angular/router": "npm:~22.2.0"
     "@commitlint/types": "npm:^20.2.0"
-    "@design-factory/design-factory": "npm:~22.0.0"
-    "@design-factory/styles": "npm:~22.0.0"
+    "@design-factory/design-factory": "npm:~22.1.0"
+    "@design-factory/styles": "npm:~22.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~9.4.0"
     "@jsverse/transloco": "npm:~8.4.0"
