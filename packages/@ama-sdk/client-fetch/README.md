@@ -27,6 +27,7 @@ ng add @ama-sdk/client-fetch
 - [concurrent](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/concurrent)
 - [keepalive](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/keepalive)
 - [mock-intercept](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/mock-intercept)
+- [oauth2-pkce](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/oauth2-pkce)
 - [perf-metric](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/perf-metric)
 - [retry](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/retry)
 - [timeout](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/timeout)
