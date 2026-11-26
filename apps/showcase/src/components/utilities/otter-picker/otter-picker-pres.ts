@@ -1,15 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  forwardRef,
   input,
-  signal,
+  model,
+  output,
   ViewEncapsulation,
 } from '@angular/core';
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import type {
+  FormValueControl,
+} from '@angular/forms/signals';
 import {
   NgbDropdownModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -26,22 +25,21 @@ import {
   imports: [NgbDropdownModule],
   templateUrl: './otter-picker-pres.html',
   styleUrls: ['./otter-picker-pres.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => OtterPickerPres),
-      multi: true
-    }
-  ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OtterPickerPres implements ControlValueAccessor {
+export class OtterPickerPres implements FormValueControl<string> {
   /** ID of the html element used for selection */
   public readonly id = input.required<string>();
 
-  /** Currently selected otter */
-  public selectedOtter = signal('');
+  /** The currently selected otter value */
+  public value = model<string>('');
+
+  /** Emits when the control is touched */
+  public touch = output<void>();
+
+  /** Disabled state of the picker */
+  public disabled = input<boolean>(false);
 
   /** List of available otters */
   public otters = OTTER_ICONS;
@@ -49,49 +47,12 @@ export class OtterPickerPres implements ControlValueAccessor {
   /** Base URL where the images can be fetched */
   public baseUrl = location.href.split('/#', 1)[0];
 
-  private onChanges!: (val: string) => void;
-  private onTouched!: () => void;
-  private readonly isDisabled = signal(false);
-
   /**
    * Select an otter and notify the parent
-   * @param otter
+   * @param otter selected otter icon path
    */
   public selectOtter(otter: string) {
-    this.selectedOtter.set(otter);
-    this.onChanges(otter);
-    this.onTouched();
-  }
-
-  /**
-   * Implements ControlValueAccessor
-   * @param fn
-   */
-  public registerOnChange(fn: any): void {
-    this.onChanges = fn;
-  }
-
-  /**
-   * Implements ControlValueAccessor
-   * @param fn
-   */
-  public registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  /**
-   * Implements ControlValueAccessor
-   * @param isDisabled
-   */
-  public setDisabledState(isDisabled: boolean): void {
-    this.isDisabled.set(isDisabled);
-  }
-
-  /**
-   * Implements ControlValueAccessor
-   * @param obj
-   */
-  public writeValue(obj: any): void {
-    this.selectedOtter.set(obj);
+    this.value.set(otter);
+    this.touch.emit();
   }
 }
