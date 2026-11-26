@@ -168,38 +168,29 @@ export interface BotProtectionFingerprintRequestOptions {
  * Note that both provided retrievers do not require a Poller setup.
  * By default, no poller is configured.
  *
- * <b>Important:</b> When used in conjunction with the AmadeusGatewayTokenRequestPlugin, an instance of
- * this plug-in has to be given to the AmadeusGatewayTokenRequestPlugin as well in order to make sure that the
- * authentication calls also contain the fingerprint.
- * You can reuse the same instance that you give to the SDK, or create a simpler instance without a poller in case you
- * make sure to load this plug-in before the AmadeusGatewayTokenRequestPlugin.
- * @example Reusing the same instance
+ * <b>Important:</b> When used in conjunction with an authentication plug-in performing its own calls (such as the
+ * `OAuth2PkceRequest` token requests), this plug-in has to be applied to these calls as well in order to make sure
+ * that the authentication calls also contain the fingerprint.
+ * You can reuse the same instance that you give to the SDK.
+ * @example Reusing the same instance with the OAuth2PkceRequest plugin
  * ```typescript
- * export function apiFactory(eventTrackService: EventTrackService): ApiManager {
- *   const botProtection = new BotProtectionFingerprintRequest({
- *     destinationHeaderName: 'X-D-Token',
- *     fingerprintRetriever: impervaProtectionRetrieverFactory(200, 200)
- *   });
- *   const gateway = createAmadeusGatewayTokenRequest({
- *     gatewayUrl: 'https://my-gateway.com/v1/security/oauth2',
- *     gatewayClientId: '***',
- *     gatewayClientPrivate: '***',
- *     customApiClientOptions: {
- *       requestPlugins: [botProtection]
- *     }
- *   });
+ * const botProtection = new BotProtectionFingerprintRequest({
+ *   destinationHeaderName: 'X-D-Token',
+ *   fingerprintRetriever: impervaProtectionRetrieverFactory(200, 200)
+ * });
+ * const botProtectionRunner = botProtection.load();
+ * const oauth2 = new OAuth2PkceRequest({
+ *   // ...
+ *   requestToken: async (requestOptions) => {
+ *     const options = await botProtectionRunner.transform(requestOptions);
+ *     return fetch(options.basePath, options);
+ *   }
+ * });
  *
- *   const apiConfig: ApiClient = {
- *     basePath: 'https://my-gateway.com/v2',
- *     requestPlugins: [botProtection, gateway],
- *     fetchPlugins: [new PerformanceMetricPlugin({
- *       onMarkComplete: (m: Mark) => eventTrackService.addSDKServerCallMark(m)
- *     })]
- *   };
- *   return new ApiManager(apiConfig, {
- *     LoggingApi: {basePath: '/api'}
- *   });
- * }
+ * const apiConfig: ApiClient = {
+ *   basePath: 'https://my-gateway.com/v2',
+ *   requestPlugins: [botProtection, oauth2]
+ * };
  * ```
  * @example Using a custom FingerprintRetriever
  * ```typescript
