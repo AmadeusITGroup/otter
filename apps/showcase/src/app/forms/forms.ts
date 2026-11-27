@@ -10,7 +10,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule,
+  RouterLink,
 } from '@angular/router';
 import {
   O3rComponent,
@@ -30,7 +30,7 @@ import {
 @Component({
   selector: 'o3r-forms',
   imports: [
-    RouterModule,
+    RouterLink,
     FormsParent,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     AsyncPipe,

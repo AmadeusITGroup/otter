@@ -10,43 +10,27 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule,
+  RouterLink,
 } from '@angular/router';
 import {
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  ApplicationDevtoolsModule,
-} from '@o3r/application';
-import {
-  ComponentsDevtoolsModule,
-} from '@o3r/components';
-import {
-  ConfigOverrideStoreModule,
-  ConfigurationBaseServiceModule,
-  ConfigurationDevtoolsModule,
-} from '@o3r/configuration';
-import {
   ConfigurationRulesEngineActionHandler,
-  ConfigurationRulesEngineActionModule,
 } from '@o3r/configuration/rules-engine';
 import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  AssetPathOverrideStoreModule,
   DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
   AssetRulesEngineActionHandler,
-  AssetRulesEngineActionModule,
 } from '@o3r/dynamic-content/rules-engine';
 import {
   CurrentTimeFactsService,
   dateInNextMinutes,
   Rule,
-  RulesEngineDevtoolsModule,
-  RulesEngineRunnerModule,
   RulesEngineRunnerService,
   Ruleset,
 } from '@o3r/rules-engine';
@@ -54,7 +38,8 @@ import {
   LocalizationRulesEngineActionHandler,
 } from '@o3r/transloco/rules-engine';
 import {
-  MarkdownModule,
+  LanguagePipe,
+  MarkdownComponent,
 } from 'ngx-markdown';
 import {
   firstValueFrom,
@@ -83,21 +68,12 @@ import {
   selector: 'o3r-rules-engine',
   imports: [
     RulesEnginePres,
-    ConfigurationBaseServiceModule,
-    ConfigurationDevtoolsModule,
-    ApplicationDevtoolsModule,
-    ComponentsDevtoolsModule,
-    RulesEngineRunnerModule,
-    RulesEngineDevtoolsModule,
-    ConfigurationRulesEngineActionModule,
-    AssetRulesEngineActionModule,
-    ConfigOverrideStoreModule,
-    AssetPathOverrideStoreModule,
-    RouterModule,
+    RouterLink,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     NgbNavModule,
     AsyncPipe,
-    MarkdownModule
+    LanguagePipe,
+    MarkdownComponent
   ],
   templateUrl: './rules-engine.html',
   styleUrls: ['./rules-engine.scss'],

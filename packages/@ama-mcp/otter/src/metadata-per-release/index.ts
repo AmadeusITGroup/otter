@@ -29,12 +29,10 @@ import {
   MCPLogger,
 } from '@ama-mcp/core';
 import {
+  type CallToolResult,
   McpServer,
   ResourceTemplate,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
-import type {
-  CallToolResult,
-} from '@modelcontextprotocol/sdk/types.d.ts';
+} from '@modelcontextprotocol/server';
 import {
   tgz,
 } from 'compressing';
@@ -309,15 +307,15 @@ export async function registerMetadataPerRelease(
         readOnlyHint: true,
         openWorldHint: false
       },
-      inputSchema: {
+      inputSchema: z.object({
         packageName: z.string().describe('Package identifier. Accepted: scope | package | scope-package | @scope/package'),
         tagName: z.string().describe('Release tag (SemVer, truncated forms allowed). Accepted: vMAJOR | MAJOR | MAJOR.MINOR | MAJOR.MINOR.PATCH'),
         metadataType: z.enum(METADATA_TYPE_LIST as [MetadataType, ...MetadataType[]])
           .describe('The type of metadata to fetch')
-      },
-      outputSchema: {
+      }),
+      outputSchema: z.object({
         metadata: z.any().optional().describe('The metadata associated to the specified release')
-      }
+      })
     },
     ({ packageName, tagName, metadataType }) => {
       const responses = getKeysMatchingTagNames(packageName, tagName, cacheManager).map((key) => {

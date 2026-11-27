@@ -38,12 +38,12 @@ Once you have download the extension, you will need to enable the features you n
 To do so, you will need to import the corresponding modules in you `AppModule`:
 
 ```typescript
+import { StylingDevtoolsModule } from '@ama-styling/devkit';
 import { ApplicationDevtoolsModule } from '@o3r/application';
 import { ComponentsDevtoolsModule } from '@o3r/components';
 import { ConfigurationDevtoolsModule } from '@o3r/configuration';
 import { LocalizationDevtoolsModule } from '@o3r/localization';
 import { RulesEngineDevtoolsModule } from '@o3r/rules-engine';
-import { StylingDevtoolsModule } from '@o3r/styling';
 
 @NgModule({
   imports: [
@@ -61,12 +61,12 @@ export class AppModule {}
 Then the activation of the services can be done in the `App` as follows:
 
 ```typescript
+import { StylingDevtoolsMessageService } from '@ama-styling/devkit';
 import { ApplicationDevtoolsMessageService } from '@o3r/application';
 import { ComponentsDevtoolsMessageService } from '@o3r/components';
 import { ConfigurationDevtoolsMessageService } from '@o3r/configuration';
 import { LocalizationDevtoolsMessageService } from '@o3r/localization';
 import { RulesEngineDevtoolsMessageService } from '@o3r/rules-engine';
-import { StylingDevtoolsMessageService } from '@o3r/styling';
 
 @Component({
   selector: 'app'
@@ -101,6 +101,20 @@ export class App {
 > The services need to be injected in the application.
 >
 > `platformBrowserDynamic().bootstrapModule(AppModule).then((m) => runInInjectionContext(m.injector, () => inject(ConfigurationDevtoolsConsoleService)))`
+
+For configurable components using `configSignal`, provide the configuration override store
+alongside the configuration devtools. `provideConfigurationDevtools()` also provides the
+configuration store and `ConfigurationBaseService`:
+
+```typescript
+import { provideConfigOverrideStore, provideConfigurationDevtools } from '@o3r/configuration';
+
+// In the application providers, alongside provideStore():
+provideConfigOverrideStore(),
+provideConfigurationDevtools({ isActivatedOnBootstrap: true })
+```
+
+The configuration message service must still be injected as described above.
 
 ### How to enable more features by providing metadata files
 

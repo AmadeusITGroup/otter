@@ -8,8 +8,8 @@
     "jest.config.*.js",
     "vitest.*.ts",
     "testing/*",
+    "e2e-playwright/playwright.config.ts",
     "scripts/**/*.{m,}js",
-    ".storybook/**/*.js",
     "{apps,packages}/@*/*/{builders,schematics,src}/**/*.{m,c,}ts",
     "{apps,packages,tools}/@*/*/scripts/**/*.{m,c,}js"
   ]

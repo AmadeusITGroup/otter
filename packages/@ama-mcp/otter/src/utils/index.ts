@@ -17,7 +17,7 @@ export const NPM_PACKAGES_SCOPES = [
   'ama-mfe',
   'ama-sdk',
   'ama-mcp'
-];
+] as const;
 
 /**
  * Otter URI prefix

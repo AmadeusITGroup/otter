@@ -160,6 +160,8 @@ export function getNodeDependencyList<T extends string>(dependenciesVersions: Re
  * @param params.projectPackageJson - The path to the package json of the project where the dependencies will be installed.
  * @param params.projectType - The angular type of the project, either 'application' or 'library'.
  * @param params.rootPackageJsonPath - Path to the root of the repository where the dependency will be installed
+ * @param params.rootPackageJson - Content of the workspace root `package.json`. When provided and different from
+ * `projectPackageJson`, a dependency is only skipped if it is already satisfied in both manifests.
  * @param logger - The logger instance for logging information.
  * @param isInstallRequired - Whether the package should be installed or not. By default, return true.
  */
@@ -170,7 +172,8 @@ export function getExternalDependenciesInfo<T extends string, U extends string>(
     o3rPackageJsonPath,
     projectPackageJson,
     projectType,
-    rootPackageJsonPath
+    rootPackageJsonPath,
+    rootPackageJson
   }: {
     dependenciesToInstall: T[];
     devDependenciesToInstall: U[];
@@ -178,6 +181,7 @@ export function getExternalDependenciesInfo<T extends string, U extends string>(
     projectPackageJson: PackageJson;
     projectType?: 'application' | 'library';
     rootPackageJsonPath?: string;
+    rootPackageJson?: PackageJson;
   },
   logger?: logging.LoggerApi,
   isInstallRequired = (_: string): undefined | boolean => undefined
@@ -187,6 +191,13 @@ export function getExternalDependenciesInfo<T extends string, U extends string>(
     - Cannot install a dependency as there is no package.json in the project. ${JSON.stringify(devDependenciesToInstall)}`);
   }
   const rootPath = rootPackageJsonPath || 'package.json';
+  // A dependency added to a sub-project is also written to the workspace root manifest by `setupDependencies`.
+  // It is therefore only considered as already installed when satisfied in *both* manifests, otherwise a dependency
+  // pre-seeded in the sub-project (e.g. by the library generator) would never reach the root and would not be
+  // resolvable by the root scripts (`postinstall`, `harmonize`, ...) under a strict resolver such as Yarn PnP.
+  const isAlreadyInstalled = (name: string, inManifest: Required<DependencyInManifest>) =>
+    isDependencyAlreadyInstalled(name, projectPackageJson, inManifest)
+    && (!rootPackageJson || isDependencyAlreadyInstalled(name, rootPackageJson, inManifest));
   const peerDependenciesInfo = dependenciesToInstall.reduce((acc, name) => {
     const rootVersion = [
       name,
@@ -206,7 +217,7 @@ export function getExternalDependenciesInfo<T extends string, U extends string>(
       types: projectType === 'application' ? [NodeDependencyType.Default] : [NodeDependencyType.Peer, NodeDependencyType.Dev]
     };
 
-    if (isDependencyAlreadyInstalled(name, projectPackageJson, inManifest)) {
+    if (isAlreadyInstalled(name, inManifest)) {
       return acc;
     }
     acc[name] = {
@@ -236,7 +247,7 @@ export function getExternalDependenciesInfo<T extends string, U extends string>(
       range,
       types: [NodeDependencyType.Dev]
     };
-    if (isDependencyAlreadyInstalled(name, projectPackageJson, inManifest)) {
+    if (isAlreadyInstalled(name, inManifest)) {
       return acc;
     }
 

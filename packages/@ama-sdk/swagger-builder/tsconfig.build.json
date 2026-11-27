@@ -3,7 +3,7 @@
   "compilerOptions": {
     "types": ["node"],
     "module": "commonjs",
-    "moduleResolution": "node10",
+    "moduleResolution": "bundler",
     "outDir": "./dist",
     "noEmitHelpers": false,
     "importHelpers": false,

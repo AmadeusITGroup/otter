@@ -1,32 +1,3 @@
-const readFile = jest.fn();
-const registerGetRepositoriesUsingLibraryTool = jest.fn();
-const registerSupportedReleasesTool = jest.fn();
-const registerReleaseNotes = jest.fn();
-
-jest.mock('node:fs/promises', () => {
-  const originalFs = jest.requireActual('node:fs/promises');
-  return {
-    ...originalFs,
-    readFile
-  };
-});
-jest.mock('@octokit/rest', () => {
-  return {
-    Octokit: jest.fn()
-  };
-});
-jest.mock('@ama-mcp/github', () => {
-  const originalModule = jest.requireActual('@ama-mcp/github');
-  return {
-    ...originalModule,
-    registerGetRepositoriesUsingLibraryTool,
-    registerSupportedReleasesTool,
-    registerReleaseNotes
-  };
-});
-
-/* eslint-disable import/first -- important to be after the mock */
-
 import {
   join,
 } from 'node:path';
@@ -35,8 +6,45 @@ import {
   setUpClientAndServerForTesting,
 } from '@ama-mcp/core';
 import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
+import {
   createMcpServer,
 } from './mcp-server';
+
+const { readFile, registerGetRepositoriesUsingLibraryTool, registerSupportedReleasesTool, registerReleaseNotes } = vi.hoisted(() => ({
+  readFile: vi.fn(),
+  registerGetRepositoriesUsingLibraryTool: vi.fn(),
+  registerSupportedReleasesTool: vi.fn(),
+  registerReleaseNotes: vi.fn()
+}));
+
+vi.mock('node:fs/promises', async (importOriginal) => {
+  const originalFs = await importOriginal<typeof import('node:fs/promises')>();
+  return {
+    ...originalFs,
+    readFile
+  };
+});
+vi.mock('@octokit/rest', () => {
+  return {
+    Octokit: vi.fn()
+  };
+});
+vi.mock('@ama-mcp/github', async (importOriginal) => {
+  const originalModule = await importOriginal<typeof import('@ama-mcp/github')>();
+  return {
+    ...originalModule,
+    registerGetRepositoriesUsingLibraryTool,
+    registerSupportedReleasesTool,
+    registerReleaseNotes
+  };
+});
 
 const setUpClientAndServer = async () => {
   readFile.mockImplementation((path) => {
@@ -132,6 +140,6 @@ describe('MCP server', () => {
 
   afterEach(() => {
     delete process.env.O3R_MCP_GITHUB_TOKEN;
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 });

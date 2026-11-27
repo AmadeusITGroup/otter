@@ -7,13 +7,14 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  MarkdownModule,
+  LanguagePipe,
+  MarkdownComponent,
 } from 'ngx-markdown';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-run-app-locally',
-  imports: [MarkdownModule],
+  imports: [MarkdownComponent, LanguagePipe],
   templateUrl: './run-app-locally.html',
   styleUrls: ['./run-app-locally.scss'],
   encapsulation: ViewEncapsulation.None,

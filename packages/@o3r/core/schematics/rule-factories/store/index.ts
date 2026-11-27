@@ -80,6 +80,8 @@ export function updateStore(
     const workspaceProject = (options.projectName && workspaceConfig?.projects?.[options.projectName]) || undefined;
     const projectDirectory = workspaceProject?.root || '.';
     const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+    // The dependencies are also added to the workspace root manifest, it is provided to detect the ones missing there
+    const rootPackageJson = projectDirectory === '.' ? undefined : tree.readJson('package.json') as PackageJson;
 
     const appDeps = [ngrxEffectsDep, ngrxRouterStore, ngrxRouterStoreDevToolDep];
     const corePeerDeps = [ngrxEntityDep, ngrxStoreDep];
@@ -92,7 +94,8 @@ export function updateStore(
         devDependenciesToInstall: [],
         o3rPackageJsonPath: corePackageJsonPath,
         projectType,
-        projectPackageJson
+        projectPackageJson,
+        rootPackageJson
       }, context.logger)
     };
   };

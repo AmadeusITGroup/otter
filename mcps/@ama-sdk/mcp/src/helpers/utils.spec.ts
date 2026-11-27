@@ -1,4 +1,9 @@
 import {
+  describe,
+  expect,
+  it,
+} from 'vitest';
+import {
   isValidPackageName,
 } from './utils';
 

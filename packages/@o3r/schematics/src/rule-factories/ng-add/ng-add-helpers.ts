@@ -211,6 +211,8 @@ export function ngAddDependenciesRule(
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const projectDirectory = workspaceProject?.root || '.';
     const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+    // The dependencies are also added to the workspace root manifest, it is provided to detect the ones missing there
+    const rootPackageJson = projectDirectory === '.' ? undefined : tree.readJson('package.json') as PackageJson;
     depsInfo.o3rPeerDeps.push(...additionalNgAddToRun.filter((dep) => !depsInfo.o3rPeerDeps.includes(dep)));
     const internalDependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
@@ -228,7 +230,8 @@ export function ngAddDependenciesRule(
         dependenciesToInstall,
         o3rPackageJsonPath: packageJsonPath,
         projectType: workspaceProject?.projectType,
-        projectPackageJson
+        projectPackageJson,
+        rootPackageJson
       },
       context.logger
     );

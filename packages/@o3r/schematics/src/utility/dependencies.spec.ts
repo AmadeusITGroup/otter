@@ -248,4 +248,44 @@ describe('getExternalDependenciesInfo', () => {
       }
     });
   });
+
+  it('should re-add a dependency of the sub-project which is missing from the workspace root', () => {
+    const result = getExternalDependenciesInfo({
+      o3rPackageJsonPath: join(__dirname, '..', '..', '/testing/mocks/external-dep-test.package.json'),
+      projectPackageJson: {
+        devDependencies: {
+          alreadyInstalledPackage: '~12.3.0'
+        }
+      },
+      rootPackageJson: {
+        devDependencies: {}
+      },
+      projectType: 'library',
+      dependenciesToInstall: [],
+      devDependenciesToInstall: ['alreadyInstalledPackage']
+    });
+
+    expect(result.alreadyInstalledPackage).toBeDefined();
+  });
+
+  it('should not re-add a dependency already satisfied in both the sub-project and the workspace root', () => {
+    const result = getExternalDependenciesInfo({
+      o3rPackageJsonPath: join(__dirname, '..', '..', '/testing/mocks/external-dep-test.package.json'),
+      projectPackageJson: {
+        devDependencies: {
+          alreadyInstalledPackage: '~12.3.0'
+        }
+      },
+      rootPackageJson: {
+        devDependencies: {
+          alreadyInstalledPackage: '~12.3.0'
+        }
+      },
+      projectType: 'library',
+      dependenciesToInstall: [],
+      devDependenciesToInstall: ['alreadyInstalledPackage']
+    });
+
+    expect(result.alreadyInstalledPackage).not.toBeDefined();
+  });
 });

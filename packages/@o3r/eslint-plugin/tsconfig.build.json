@@ -8,10 +8,9 @@
     "lib": ["es5", "es6", "scripthost"],
     "sourceMap": false,
     "types": ["node"],
-    "baseUrl": ".",
     "outDir": "dist",
     "module": "CommonJS",
-    "moduleResolution": "node10"
+    "moduleResolution": "bundler"
   },
   "include": [
     "src/**/*.ts"

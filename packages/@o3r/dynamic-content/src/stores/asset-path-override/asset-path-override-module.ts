@@ -1,11 +1,14 @@
 import {
+  EnvironmentProviders,
   InjectionToken,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
+  provideState,
   StoreModule,
 } from '@ngrx/store';
 import {
@@ -24,6 +27,9 @@ export function getDefaultAssetPathOverrideReducer() {
   return assetPathOverrideReducer;
 }
 
+/**
+ * @deprecated Will be removed in v16. Use {@link provideAssetPathOverrideStore} instead.
+ */
 @NgModule({
   imports: [
     StoreModule.forFeature(ASSET_PATH_OVERRIDE_STORE_NAME, ASSET_PATH_OVERRIDE_REDUCER_TOKEN)
@@ -41,4 +47,14 @@ export class AssetPathOverrideStoreModule {
       ]
     };
   }
+}
+
+/**
+ * Provide AssetPathOverride feature store.
+ * @param reducerFactory Optional factory to override the default reducer.
+ */
+export function provideAssetPathOverrideStore(reducerFactory?: () => ActionReducer<AssetPathOverrideState, Action>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideState(ASSET_PATH_OVERRIDE_STORE_NAME, reducerFactory ? reducerFactory() : assetPathOverrideReducer)
+  ]);
 }

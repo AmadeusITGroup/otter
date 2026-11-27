@@ -1,5 +1,8 @@
 {
   "extends": "../../../tsconfig.jest",
+  "compilerOptions": {
+    "rootDir": "."
+  },
   "references": [
     {
       "path": "./tsconfig.builders.json"

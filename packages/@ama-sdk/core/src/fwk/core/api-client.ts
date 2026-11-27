@@ -74,19 +74,12 @@ export interface ApiClient {
   getRequestOptions(requestOptionsParameters: RequestOptionsParameters): Promise<RequestOptions>;
 
   /**
-   * Prepares the url to be called
-   * @param url Base url to be used
-   * @param queryParameters Key value pair with the parameters. If the value is undefined, the key is dropped
-   * @deprecated use {@link prepareUrlWithQueryParams} with query parameter serialization, will be removed in v15.
-   */
-  prepareUrl(url: string, queryParameters?: { [key: string]: string | undefined }): string;
-
-  /**
    * Prepares the url to be called with the query parameters
    * @param url Base url to be used
    * @param serializedQueryParams Key value pairs of query parameter names and their serialized values
+   * @param enableParameterSerialization Whether parameter serialization is enabled (determines how query params are joined)
    */
-  prepareUrlWithQueryParams(url: string, serializedQueryParams?: { [key: string]: string }): string;
+  prepareUrlWithQueryParams(url: string, serializedQueryParams?: { [key: string]: string }, enableParameterSerialization?: boolean): string;
 
   /**
    * Serialize query parameters based on the values of exploded and style
@@ -135,7 +128,7 @@ export function isApiClient(client: any): client is ApiClient {
     && !!apiClient.options
     && typeof apiClient.stringifyQueryParams === 'function'
     && typeof apiClient.getRequestOptions === 'function'
-    && (typeof apiClient.prepareUrl === 'function' || typeof apiClient.prepareUrlWithQueryParams === 'function')
+    && typeof apiClient.prepareUrlWithQueryParams === 'function'
     && typeof apiClient.processFormData === 'function'
     && typeof apiClient.processCall === 'function';
 }

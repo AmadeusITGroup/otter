@@ -1,11 +1,14 @@
 import {
+  EnvironmentProviders,
   InjectionToken,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
+  provideState,
   StoreModule,
 } from '@ngrx/store';
 import {
@@ -26,6 +29,7 @@ export function getDefaultLocalizationOverrideReducer() {
 
 /**
  * NgModule for localization override store.
+ * @deprecated Will be removed in v16. Use {@link provideLocalizationOverrideStore} instead.
  */
 @NgModule({
   imports: [
@@ -44,4 +48,14 @@ export class LocalizationOverrideStoreModule {
       ]
     };
   }
+}
+
+/**
+ * Provide LocalizationOverride feature store.
+ * @param reducerFactory Optional factory to override the default reducer.
+ */
+export function provideLocalizationOverrideStore(reducerFactory?: () => ActionReducer<LocalizationOverrideState, Action>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideState(LOCALIZATION_OVERRIDE_STORE_NAME, reducerFactory ? reducerFactory() : localizationOverrideReducer)
+  ]);
 }

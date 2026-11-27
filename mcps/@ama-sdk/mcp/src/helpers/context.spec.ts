@@ -1,22 +1,29 @@
-const mockExistsSync = jest.fn();
-const mockReadFileSync = jest.fn();
-
-jest.mock('node:fs', () => ({
-  existsSync: mockExistsSync,
-  readFileSync: mockReadFileSync
-}));
-
-/* eslint-disable import/first -- needed to mock modules before importing the tested module */
+import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import {
   loadSdkContexts,
 } from './context';
-/* eslint-enable import/first */
+
+const { mockExistsSync, mockReadFileSync } = vi.hoisted(() => ({
+  mockExistsSync: vi.fn(),
+  mockReadFileSync: vi.fn()
+}));
+
+vi.mock('node:fs', () => ({
+  existsSync: mockExistsSync,
+  readFileSync: mockReadFileSync
+}));
 
 describe('context', () => {
   const contextFileName = 'SDK_CONTEXT.md';
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     mockExistsSync.mockReset();
     mockReadFileSync.mockReset();
   });

@@ -51,6 +51,12 @@ npm create @o3r my-project
 
 Please read the [Contributing](./CONTRIBUTING.md) file for details on our code of conduct and the process to submit pull requests.
 
+## AI Coding Agents
+
+This repository includes an [AGENTS.md](./AGENTS.md) file that provides context for AI coding assistants (Claude Code, GitHub Copilot, Cursor, Windsurf, etc.). 
+
+The documentation is split into focused context files in [`.agents/`](./.agents/) to optimize token usage - AI agents load only what they need for their current task (testing, building, committing, etc.), reducing token consumption by 50-60% compared to a single large file.
+
 ## Versioning
 
 Please refer to [Security file](./SECURITY.md).
@@ -119,7 +125,7 @@ following products on your development machine:
   * [GitHub's Guide to Installing
     Git](https://help.github.com/articles/set-up-git) is a good source of information.
 
-* [Node.js](http://nodejs.org), (version `>=18.0.0`)
+* [Node.js](http://nodejs.org), (version `>=22.22.3`)
   * This is used to run tests and generate distributable files. We strongly encourage to use an up-to-date LTS version of Node.js to ensure the support of all the Otter packages.
     Each package comes with a minimum Node.js version range defined in the `engine` property of its package.json file.
 

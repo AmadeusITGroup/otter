@@ -28,9 +28,7 @@ describe('Service generator', () => {
       path: './'
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(9);
-    expect(tree.files.some((file) => /^[/\\]?test-service[/\\]test-base[/\\]test-service-test-base-module\.ts$/i.test(file))).toBeTruthy();
-    expect(tree.readContent('test-service/test-base/test-service-test-base-module.ts')).toContain('export class TestServiceTestBaseModule');
+    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(8);
   });
 
   it('should generate service in default folder', async () => {
@@ -42,8 +40,7 @@ describe('Service generator', () => {
       path: 'src/services'
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(9);
-    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base-module\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(8);
   });
 
   // eslint-disable-next-line jest/no-disabled-tests -- TODO enable when https://github.com/jestjs/jest/issues/9543 fixed
@@ -56,8 +53,7 @@ describe('Service generator', () => {
       path: 'src/services'
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(12);
-    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base-module\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(11);
   });
 
   it('should generate service with type', async () => {
@@ -70,8 +66,7 @@ describe('Service generator', () => {
       type: 'service'
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(9);
-    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base-module\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(8);
     expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base\.service\.ts$/i.test(file))).toBeTruthy();
     expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base\.service\.spec\.ts$/i.test(file))).toBeTruthy();
     expect(tree.readContent('src/services/test-service/test-base/test-service-test-base.service.ts')).toContain('export class TestServiceTestBaseService');
@@ -90,8 +85,7 @@ describe('Service generator', () => {
       addTypeToServiceName: false
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(9);
-    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base-module\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(8);
     expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base\.service\.ts$/i.test(file))).toBeTruthy();
     expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base\.service\.spec\.ts$/i.test(file))).toBeTruthy();
     expect(tree.readContent('src/services/test-service/test-base/test-service-test-base.service.ts')).toContain('export class TestServiceTestBase');

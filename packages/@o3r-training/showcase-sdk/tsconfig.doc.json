@@ -1,8 +1,7 @@
 {
   "extends": "./tsconfig.build",
   "compilerOptions": {
-    "rootDir": ".",
-    "baseUrl": "."
+    "rootDir": "."
   },
   "exclude": [
     "**/*.fixture.ts",

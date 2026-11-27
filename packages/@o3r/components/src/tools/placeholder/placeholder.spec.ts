@@ -37,7 +37,9 @@ import {
       <span>Loading...</span>
     </o3r-placeholder>
   `,
-  standalone: false
+  imports: [
+    PlaceholderComponent
+  ]
 })
 class TestComponent {}
 
@@ -74,14 +76,12 @@ describe('Placeholder component', () => {
     };
     await TestBed.configureTestingModule({
       imports: [
-        CommonModule
+        CommonModule,
+        PlaceholderComponent,
+        TestComponent
       ],
       providers: [
         { provide: Store, useValue: mockStore }
-      ],
-      declarations: [
-        PlaceholderComponent,
-        TestComponent
       ]
     }).compileComponents();
   });

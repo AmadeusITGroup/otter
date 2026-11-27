@@ -67,7 +67,7 @@ jobs:
         with:
           install-jdk: 'true'
       - name: Cache Jest
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
         env:
           hash: ${{ hashFiles('package.json', 'tsconfig.base.json', 'tsconfig.build.json', 'nx.json') }}
         with:
@@ -87,11 +87,6 @@ jobs:
         uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         with:
           flags: unittests
-          token: ${{ secrets.CODECOV_TOKEN }}
-      - name: Upload test results to Codecov
-        if: always()
-        uses: codecov/test-results-action@0fa95f0e1eeaafde2c782583b36b28ad0d8c77d3 # v1.2.1
-        with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Publish tests reports
         if: always()
@@ -114,7 +109,7 @@ jobs:
         uses: ./tools/github-actions/setup
         timeout-minutes: 30
       - name: Cache Eslint
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
         env:
           hash: ${{ hashFiles('yarn.lock') }}
         with:
@@ -148,9 +143,10 @@ jobs:
           nxCmd: ${{ inputs.affected && 'nx affected' || 'nx run-many'}}
         run: yarn ${{ env.nxCmd }} --target=package-github-action
 
-  prompt-registry:
+  ai-validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - uses: ./tools/github-actions/setup
-      - uses: AmadeusITGroup/prompt-registry/github-actions/validate-collections@5b162e67743981e6efdbd7661d0f2f8b9652df53 # v0.0.33
+      - uses: AmadeusITGroup/ai-primitives-hub/github-actions/validate-collections@4988081fc02e126935a301c1d548faf4685662cf # v0.0.37
+      - run: node tools/@o3r/workspace-helpers/scripts/check-plugin-marketplace-sync.mjs

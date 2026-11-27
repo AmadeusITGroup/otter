@@ -1,6 +1,6 @@
 import { adjustPath } from '@o3r/testing/tools/path-replacement';
 import { defineConfig } from '@playwright/test';
-import * as path from 'node:path';
+import path from 'node:path';
 
 adjustPath('playwright');
 

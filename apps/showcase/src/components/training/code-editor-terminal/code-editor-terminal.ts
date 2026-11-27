@@ -5,9 +5,8 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  EventEmitter,
   inject,
-  Output,
+  output,
   viewChild,
 } from '@angular/core';
 import {
@@ -42,20 +41,17 @@ export class CodeEditorTerminal implements AfterViewChecked, AfterViewInit {
    * Inform the parent that the terminal of the component has been created and is ready to use as input/output
    * of a process
    */
-  @Output()
-  public readonly terminalUpdated = new EventEmitter<Terminal>();
+  public readonly terminalUpdated = output<Terminal>();
 
   /**
    * Inform the parent that something got written in the terminal
    */
-  @Output()
-  public readonly terminalActivity = new EventEmitter<void>();
+  public readonly terminalActivity = output<void>();
 
   /**
    * Inform the parent that the terminal of the component has been disposed of
    */
-  @Output()
-  public readonly disposed = new EventEmitter<void>();
+  public readonly disposed = output<void>();
 
   constructor() {
     this.terminal.loadAddon(this.fitAddon);

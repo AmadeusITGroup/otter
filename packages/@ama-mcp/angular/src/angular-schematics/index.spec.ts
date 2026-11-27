@@ -1,33 +1,46 @@
-const existsSync = jest.fn().mockReturnValue(false); // Always pretend no yarn.lock so command path is npx and not inside a Nx workspace
-jest.mock('node:fs', () => ({
-  ...jest.requireActual('node:fs'),
-  existsSync
-}));
-
-// Simple scenario queue for successive spawn calls
-type Scenario = { stdout?: string; stderr?: string };
-let scenarios: Scenario[] = [];
-
-jest.mock('node:child_process', () => {
-  const mockExecFile = (_cmd: string, _args: string[], _opts: any, cb: (error: Error | null, output: { stdout: string; stderr: string }) => void) => {
-    const { stdout = '', stderr = '' } = scenarios.shift() || {};
-    cb(stderr ? new Error(stderr) : null, { stdout, stderr });
-  };
-  return {
-    ...jest.requireActual('node:child_process'),
-    execFile: mockExecFile
-  };
-});
-/* eslint-disable import/first -- important to be after the mock */
 import {
   setUpClientAndServerForTesting,
 } from '@ama-mcp/core';
 import {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import {
   registerAngularSchematicsTool,
 } from './index';
+
+const existsSync = vi.hoisted(() => vi.fn().mockReturnValue(false)); // Always pretend no yarn.lock so command path is npx and not inside a Nx workspace
+
+vi.mock('node:fs', async (importOriginal) => {
+  const orig = await importOriginal<typeof import('node:fs')>();
+  return {
+    ...orig,
+    existsSync
+  };
+});
+
+// Simple scenario queue for successive spawn calls
+type Scenario = { stdout?: string; stderr?: string };
+let scenarios: Scenario[] = [];
+
+vi.mock('node:child_process', async (importOriginal) => {
+  const orig = await importOriginal<typeof import('node:child_process')>();
+  const mockExecFile = (_cmd: string, _args: string[], _opts: any, cb: (error: Error | null, output: { stdout: string; stderr: string }) => void) => {
+    const { stdout = '', stderr = '' } = scenarios.shift() || {};
+    cb(stderr ? new Error(stderr) : null, { stdout, stderr });
+  };
+  return {
+    ...orig,
+    execFile: mockExecFile
+  };
+});
 
 const basicScenarios: Scenario[] = [
   // npm ls --depth=0
@@ -119,6 +132,6 @@ describe('angular_schematics tool', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 });

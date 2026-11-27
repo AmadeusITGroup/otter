@@ -10,13 +10,13 @@ import {
   O3rDynamicContentPipe,
 } from '@o3r/dynamic-content';
 import {
-  MarkdownModule,
+  MarkdownComponent,
 } from 'ngx-markdown';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-home',
-  imports: [O3rDynamicContentPipe, MarkdownModule],
+  imports: [O3rDynamicContentPipe, MarkdownComponent],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
   encapsulation: ViewEncapsulation.None,

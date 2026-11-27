@@ -98,7 +98,7 @@ export class DevResourcesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<void>(url, options, ApiTypes.DEFAULT, DevResourcesApi.apiName, undefined, 'deleteDevResource');
     return ret;
@@ -155,7 +155,7 @@ export class DevResourcesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<GetDevResources200Response>(url, options, ApiTypes.DEFAULT, DevResourcesApi.apiName, undefined, 'getDevResources');
     return ret;
@@ -202,7 +202,7 @@ export class DevResourcesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<PostDevResources200Response>(url, options, ApiTypes.DEFAULT, DevResourcesApi.apiName, undefined, 'postDevResources');
     return ret;
@@ -249,7 +249,7 @@ export class DevResourcesApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
+        const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams, this.client.options.enableParameterSerialization);
 
     const ret = this.client.processCall<PutDevResources200Response>(url, options, ApiTypes.DEFAULT, DevResourcesApi.apiName, undefined, 'putDevResources');
     return ret;

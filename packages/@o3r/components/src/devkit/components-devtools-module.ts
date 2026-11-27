@@ -1,4 +1,6 @@
 import {
+  EnvironmentProviders,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
@@ -7,6 +9,7 @@ import {
 } from '@ngrx/store';
 import {
   PlaceholderTemplateStoreModule,
+  providePlaceholderTemplateStore,
 } from '../stores/placeholder-template/placeholder-template-module';
 import type {
   ComponentsDevtoolsServiceOptions,
@@ -19,6 +22,9 @@ import {
   OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
 } from './components-devtools-token';
 
+/**
+ * @deprecated Will be removed in v16. Use {@link provideComponentsDevtools} instead.
+ */
 @NgModule({
   imports: [
     StoreModule,
@@ -43,4 +49,16 @@ export class ComponentsDevtoolsModule {
       ]
     };
   }
+}
+
+/**
+ * Provide components devtools functionality.
+ * @param options Components devtools options
+ */
+export function provideComponentsDevtools(options?: Partial<ComponentsDevtoolsServiceOptions>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    providePlaceholderTemplateStore(),
+    { provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: { ...OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS, ...options } },
+    ComponentsDevtoolsMessageService
+  ]);
 }

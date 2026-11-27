@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/AmadeusITGroup/ai-primitives-hub/refs/heads/main/packages/core/src/public/schemas/collection.schema.json
+id: ama-openapi
+name: Ama OpenAPI
+description: Collection for @ama-openapi - OpenAPI specification project creation and model management
+items:
+  - path: tools/llm/plugins/ama-openapi/skills/create-openapi-project.md
+    kind: skill
+    title: Create OpenAPI Project
+    description: Scaffold a new OpenAPI specification project with predefined structure using @ama-openapi tooling
+    tags:
+      - create
+      - scaffold
+      - openapi
+  - path: tools/llm/plugins/ama-openapi/skills/add-dependency-model.md
+    kind: skill
+    title: Add Dependency Model
+    description: Import and use external OpenAPI models from npm packages by registering them in openapi.manifest.json
+    tags:
+      - models
+      - dependencies
+      - openapi
+  - path: tools/llm/plugins/ama-openapi/skills/rename-model.md
+    kind: skill
+    title: Rename Model
+    description: Rename OpenAPI models in generated code without modifying source specifications via transforms.rename in openapi.manifest.json
+    tags:
+      - models
+      - rename
+      - openapi
+  - path: tools/llm/plugins/ama-openapi/skills/create-mask.md
+    kind: skill
+    title: Create Mask
+    description: Create field masks to expose only specific fields from OpenAPI models by configuring transforms.masks in openapi.manifest.json
+    tags:
+      - models
+      - mask
+      - openapi
+readme:
+  path: tools/llm/plugins/ama-openapi/README.md
+display:
+  ordering: manual
+  show_badge: true

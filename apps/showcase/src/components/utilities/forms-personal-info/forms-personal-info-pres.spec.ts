@@ -24,6 +24,8 @@ describe('FormsPersonalInfoPres', () => {
 
     fixture = TestBed.createComponent(FormsPersonalInfoPres);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('id', 'test-personal-info');
+    fixture.componentRef.setInput('config', { nameMaxLength: 50 });
     fixture.detectChanges();
   });
 

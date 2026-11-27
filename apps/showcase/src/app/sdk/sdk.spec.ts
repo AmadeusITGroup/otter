@@ -6,7 +6,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  RouterModule,
+  provideRouter,
 } from '@angular/router';
 import {
   NgbScrollSpyService,
@@ -41,10 +41,10 @@ describe('Sdk', () => {
     TestBed.configureTestingModule({
       imports: [
         Sdk,
-        RouterModule.forRoot([]),
         AsyncPipe
       ],
       providers: [
+        provideRouter([]),
         { provide: PetApi, useValue: petApiFixture },
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
         provideMarkdown()

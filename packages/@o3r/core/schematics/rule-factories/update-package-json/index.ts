@@ -31,6 +31,8 @@ export function updatePackageJson(
     const workspaceProject = (projectName && workspaceConfig?.projects?.[projectName]) || undefined;
     const projectDirectory = workspaceProject?.root || '.';
     const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+    // The dependencies are also added to the workspace root manifest, it is provided to detect the ones missing there
+    const rootPackageJson = projectDirectory === '.' ? undefined : tree.readJson('package.json') as PackageJson;
 
     dependenciesSetupConfig.dependencies = {
       ...dependenciesSetupConfig.dependencies,
@@ -39,7 +41,8 @@ export function updatePackageJson(
         devDependenciesToInstall,
         o3rPackageJsonPath,
         projectType: workspaceProject?.projectType,
-        projectPackageJson
+        projectPackageJson,
+        rootPackageJson
       }, context.logger)
     };
 

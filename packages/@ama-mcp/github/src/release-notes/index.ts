@@ -7,7 +7,7 @@ import {
 import {
   type McpServer,
   ResourceTemplate,
-} from '@modelcontextprotocol/sdk/server/mcp.js';
+} from '@modelcontextprotocol/server';
 import {
   Octokit,
   type RestEndpointMethodTypes,
@@ -99,10 +99,10 @@ function registerReleaseNotesTool(server: McpServer, releaseNotes: Awaited<Retur
         readOnlyHint: true,
         openWorldHint: false
       },
-      inputSchema: {
+      inputSchema: z.object({
         version: z.string().optional()
           .describe('The version of the release notes to get, if not provided all release notes will be returned. Format to use is vX.Y.0, e.g. v13.1.0')
-      }
+      })
     },
     ({ version }) => {
       const targetedReleaseNote = version && releaseNotes.get(version);

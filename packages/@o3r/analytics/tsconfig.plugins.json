@@ -6,7 +6,7 @@
     "incremental": true,
     "composite": true,
     "module": "CommonJS",
-    "moduleResolution": "node10",
+    "moduleResolution": "bundler",
     "outDir": "./dist/plugins",
     "rootDir": "plugins",
     "tsBuildInfoFile": "build/plugins/.tsbuildinfo"

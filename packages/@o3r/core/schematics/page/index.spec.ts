@@ -39,7 +39,7 @@ describe('Page', () => {
       tree = await runner.runExternalSchematic('schematics', 'page', {
         projectName: 'test-project',
         name: 'test-page',
-        appRoutingModulePath: 'app-routing-module.ts',
+        appRoutesDefinitionPath: 'app-routing-module.ts',
         path: 'src/app'
       }, getInitialTree());
     });
@@ -66,7 +66,7 @@ describe('Page', () => {
       tree = await runner.runExternalSchematic('schematics', 'page', {
         projectName: 'test-project',
         name: 'test-page',
-        appRoutingModulePath: 'app-routing-module.ts',
+        appRoutesDefinitionPath: 'app-routing-module.ts',
         path: 'src/app',
         type: 'test-type'
       }, getInitialTree());
@@ -102,7 +102,7 @@ describe('Page', () => {
       tree = await runner.runExternalSchematic('schematics', 'page', {
         projectName: 'test-project',
         name: 'test-page',
-        appRoutingModulePath: 'app-routing-module.ts',
+        appRoutesDefinitionPath: 'app-routing-module.ts',
         path: 'src/app',
         standalone: false
       }, getInitialTree());
@@ -129,7 +129,7 @@ describe('Page', () => {
         name: 'testPage',
         scope: 'testScope',
         prefix: 'custom',
-        appRoutingModulePath: 'app-routing-module.ts',
+        appRoutesDefinitionPath: 'app-routing-module.ts',
         path: './custom'
       }, getInitialTree());
     });
@@ -157,7 +157,7 @@ describe('Page', () => {
         projectName: 'test-project',
         name: 'testPage',
         prefix: 'o3r',
-        appRoutingModulePath: 'wrong.app-routing-module.ts',
+        appRoutesDefinitionPath: 'wrong.app-routing-module.ts',
         path: '.'
       }, getInitialTree());
     });
@@ -194,7 +194,7 @@ export const appConfig: ApplicationConfig = {
         projectName: 'test-project',
         name: 'testPage',
         prefix: 'o3r',
-        appRoutingModulePath: undefined,
+        appRoutesDefinitionPath: undefined,
         path: '.'
       }, initialTree);
 
@@ -235,7 +235,7 @@ export class AppModule {}
         projectName: 'test-project',
         name: 'testPage',
         prefix: 'o3r',
-        appRoutingModulePath: undefined,
+        appRoutesDefinitionPath: undefined,
         path: '.'
       }, initialTree);
 

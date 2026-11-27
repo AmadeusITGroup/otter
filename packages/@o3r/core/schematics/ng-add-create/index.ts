@@ -62,6 +62,7 @@ function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
       packageJson.devDependencies['@angular-devkit/schematics'] = angularVersion;
       packageJson.devDependencies['@angular-devkit/core'] = angularVersion;
       packageJson.devDependencies['cpy-cli'] = o3rCorePackageJson.generatorDependencies!['cpy-cli'];
+      packageJson.devDependencies['@types/node'] = o3rCorePackageJson.generatorDependencies!['@types/node'];
       packageJson.dependencies ||= {};
       packageJson.dependencies['@o3r/schematics'] = otterVersion;
 

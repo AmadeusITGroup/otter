@@ -1,11 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input,
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule,
+  RouterLink,
+  RouterLinkActive,
 } from '@angular/router';
 import {
   O3rComponent,
@@ -30,7 +31,7 @@ export interface SideNavLinksGroup {
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-sidenav-pres',
-  imports: [RouterModule],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './sidenav-pres.html',
   styleUrls: ['./sidenav-pres.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -40,10 +41,8 @@ export class SidenavPres {
   /**
    * List of links' groups
    */
-  @Input()
-  public linksGroups: SideNavLinksGroup[] = [];
+  public readonly linksGroups = input<SideNavLinksGroup[]>([]);
 
   /** Active url */
-  @Input()
-  public activeUrl?: string | null = null;
+  public readonly activeUrl = input<string | null | undefined>(null);
 }

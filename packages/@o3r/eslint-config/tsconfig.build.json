@@ -4,7 +4,7 @@
     "incremental": true,
     "composite": true,
     "module": "CommonJS",
-    "moduleResolution": "node10",
+    "moduleResolution": "bundler",
     "allowJs": true,
     "esModuleInterop": true
   },

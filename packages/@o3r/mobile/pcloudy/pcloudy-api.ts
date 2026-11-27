@@ -1,5 +1,5 @@
 import * as fs from 'node:fs';
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 import fetch from 'node-fetch';
 import {
   Logger,

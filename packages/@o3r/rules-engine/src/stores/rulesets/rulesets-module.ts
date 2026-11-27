@@ -1,14 +1,18 @@
 import {
+  EnvironmentProviders,
   InjectionToken,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
 import {
   EffectsModule,
+  provideEffects,
 } from '@ngrx/effects';
 import {
   Action,
   ActionReducer,
+  provideState,
   StoreModule,
 } from '@ngrx/store';
 import {
@@ -30,6 +34,9 @@ export function getDefaultRulesetsReducer() {
   return rulesetsReducer;
 }
 
+/**
+ * @deprecated Will be removed in v16. Use {@link provideRulesetsStore} instead.
+ */
 @NgModule({
   imports: [
     StoreModule.forFeature(RULESETS_STORE_NAME, RULESETS_REDUCER_TOKEN), EffectsModule.forFeature([RulesetsEffect])
@@ -47,4 +54,15 @@ export class RulesetsStoreModule {
       ]
     };
   }
+}
+
+/**
+ * Provide Rulesets feature store.
+ * @param reducerFactory Optional factory to override the default reducer.
+ */
+export function provideRulesetsStore(reducerFactory?: () => ActionReducer<RulesetsState, Action>): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideState(RULESETS_STORE_NAME, reducerFactory ? reducerFactory() : rulesetsReducer),
+    provideEffects(RulesetsEffect)
+  ]);
 }

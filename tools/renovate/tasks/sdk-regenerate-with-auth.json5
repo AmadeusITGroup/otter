@@ -7,13 +7,10 @@
         "/^@ama-sdk/"
       ],
       "postUpgradeTasks": {
-        // TODO: In v15, remove the {{else}}{{arg0}} install part from the conditional commands to avoid redundant execution time.
-        // The else branch should be empty (or use 'true' or ';' as no-op). Renovate bots will need to update their allowed commands configuration
-        // to include an empty/no-op command. Details to be included in v15 migration guide.
         "commands": [
-          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user registry https:{{arg1}}{{else}}{{arg0}} install{{/unless}}",
-          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user ignore-scripts true{{else}}{{arg0}} install{{/unless}}",
-          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user {{arg1}}:_auth \"${{arg2}}\"{{else}}{{arg0}} install{{/unless}}",
+          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user registry https:{{arg1}}{{else}}:{{/unless}}",
+          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user ignore-scripts true{{else}}:{{/unless}}",
+          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user {{arg1}}:_auth \"${{arg2}}\"{{else}}:{{/unless}}",
           "{{arg0}} install",
           "{{arg0}} exec schematics @ama-sdk/schematics:migrate {{#if (equals '{{arg0}}' 'npm')}}-- {{/if}}--from={{{currentVersion}}} --to={{{newVersion}}}",
           "{{arg0}} run spec:upgrade"

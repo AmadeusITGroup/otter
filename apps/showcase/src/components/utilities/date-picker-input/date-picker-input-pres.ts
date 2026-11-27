@@ -50,10 +50,10 @@ export class DatePickerInputPres implements ControlValueAccessor, DatePickerInpu
   /** Internal selected date by NgBootstrap */
   public dateControl = new FormControl<NgbDateStruct | undefined>(undefined, { nonNullable: true });
   /** @inheritDoc */
-  public id = input.required<string>();
+  public readonly id = input.required<string>();
 
   /** @inheritDoc */
-  public label = input<string | undefined>();
+  public readonly label = input<string | undefined>();
 
   constructor() {
     this.dateControl.valueChanges.pipe(
