@@ -42,5 +42,8 @@ jobs:
           environment: all
       - name: Summary
         if: success() || failure()
-        run: echo "${{ steps.audit.outputs.reportMarkdown }}" >> $GITHUB_STEP_SUMMARY
+        env:
+          # Passed through an environment variable to avoid shell interpretation of the report content (e.g. backticks)
+          REPORT_MARKDOWN: ${{ steps.audit.outputs.reportMarkdown }}
+        run: printf '%s\n' "$REPORT_MARKDOWN" >> "$GITHUB_STEP_SUMMARY"
 
