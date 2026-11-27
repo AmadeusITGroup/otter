@@ -5,7 +5,6 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
-import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   addImportToAppModule,
@@ -21,13 +20,6 @@ describe('ng add otter localization', () => {
     const { applicationPath, workspacePath, appName, isInWorkspace, isYarnTest, o3rVersion, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
-    if (isYarnTest) {
-      // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
-      const packageJsonPath = `${workspacePath}/package.json`;
-      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
-      packageJson.resolutions = { ...packageJson.resolutions, '@yarnpkg/core': '4.9.1' };
-      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-    }
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/localization@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions)).not.toThrow();
 
     const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.ts'));
@@ -79,14 +71,6 @@ describe('ng add otter localization', () => {
     const { workspacePath, isInWorkspace, untouchedProjectsPaths, o3rVersion, libraryPath, libName, applicationPath, isYarnTest } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
-    if (isYarnTest) {
-      // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
-      // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
-      const packageJsonPath = `${workspacePath}/package.json`;
-      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
-      packageJson.resolutions = { ...packageJson.resolutions, '@yarnpkg/core': '4.9.1' };
-      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-    }
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/localization@${o3rVersion}`, '--skip-confirmation', '--project-name', libName] }, execAppOptions)).not.toThrow();
 
     const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.ts'));

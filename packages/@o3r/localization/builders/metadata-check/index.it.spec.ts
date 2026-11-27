@@ -99,17 +99,9 @@ const initTest = async (
     shouldCheckUnusedMigrationData = false,
     prerelease
   } = options || {};
-  const { workspacePath, appName, applicationPath, o3rVersion, isYarnTest } = o3rEnvironment.testEnvironment;
+  const { workspacePath, appName, applicationPath, o3rVersion } = o3rEnvironment.testEnvironment;
   const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath };
   const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
-  if (isYarnTest) {
-    // TODO: remove once https://github.com/yarnpkg/berry/issues/7281 is fixed
-    // @yarnpkg/core@4.9.2 cannot be installed, and it is pulled by the direct dependency of @yarnpkg/cli on @yarnpkg/core@^4.9.1
-    const rootPackageJsonPath = join(workspacePath, 'package.json');
-    const rootPackageJson = JSON.parse(readFileSync(rootPackageJsonPath, { encoding: 'utf8' })) as { resolutions?: Record<string, string> };
-    rootPackageJson.resolutions = { ...rootPackageJson.resolutions, '@yarnpkg/core': '4.9.1' };
-    await promises.writeFile(rootPackageJsonPath, JSON.stringify(rootPackageJson, null, 2));
-  }
   packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
   packageManagerExec({ script: 'ng', args: ['add', `@o3r/localization@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
   const versions = getExternalDependenciesVersionRange(['semver'], join(__dirname, '..', '..', 'package.json'), {
